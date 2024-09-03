@@ -1,0 +1,32 @@
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "walidee@gmail.com",
+  "password": "1234"
+
+}
+
+###
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "email": "rachide@gmail.com",
+  "password": "rachidee",
+  "username": "rachide",
+  "phone": "0699187209"
+
+}
+
+
+
+
+
+###
+POST http://localhost:8080/console/users/upload
+Content-Type: multipart/form-data
+
+
+
+

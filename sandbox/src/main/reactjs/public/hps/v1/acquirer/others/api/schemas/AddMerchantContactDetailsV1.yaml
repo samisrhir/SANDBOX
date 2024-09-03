@@ -1,0 +1,147 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- addMerchantContactDetails
+  /AddMerchantContactDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant contact details API provides functionality to add a merchant contact detail during a merchant enrollment process. The merchant contacts must contain information like Contact Name & Surname, Title, legal Identification, contact address…Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantContactDetails.png" />
+                  
+      summary: Add merchant contact details API provides functionality to add a merchant...
+      tags:
+        - Add Merchant Contact Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantContactDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantContactDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>08901</td>
+                                <td>Invalid Operation type</td>
+                              </tr>	
+                              <tr> 
+                                <td>08902</td>
+                                <td>The address is mandatory</td>
+                              </tr>	
+                              <tr> 
+                                <td>08903</td>
+                                <td>Invalid merchant number</td>
+                              </tr>	
+                              <tr> 
+                                <td>08904</td>
+                                <td>Invalid representative Identification</td>
+                              </tr>	
+                              <tr> 
+                                <td>08905</td>
+                                <td>Invalid address list Identification</td>
+                              </tr>
+                              <tr> 
+                                <td>08906</td>
+                                <td>Invalid address details Identification</td>
+                              </tr>
+                              <tr> 
+                                <td>08907</td>
+                                <td>Invalid title code</td>
+                              </tr>
+                              <tr> 
+                                <td>08908</td>
+                                <td>Invalid last name</td>
+                              </tr>
+                              <tr> 
+                                <td>08909</td>
+                                <td>Invalid first name </td>
+                              </tr>
+                              <tr> 
+                                <td>08910</td>
+                                <td>Invalid document code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08911</td>
+                                <td>Invalid language code</td>
+                              </tr>
+                              <tr> 
+                                <td>08912</td>
+                                <td>Invalid country code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08913</td>
+                                <td>Invalid zip code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08914</td>
+                                <td>Invalid region code</td>
+                              </tr>
+                              <tr> 
+                                <td>08915</td>
+                                <td>Invalid city code</td>
+                              </tr>
+                              <tr> 
+                                <td>08916</td>
+                                <td>Not used</td>
+                              </tr>
+                              <tr> 
+                                <td>08917</td>
+                                <td>Invalid position code</td>
+                              </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantContactDetailsRs'                                                                                                  
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import AddMerchantContactDetails request and response
+      AddMerchantContactDetailsRq:
+               $ref: 'request.yaml#/AddMerchantContactDetailsRq'
+      AddMerchantContactDetailsRs:
+               $ref: 'response.yaml#/AddMerchantContactDetailsRs'                                                                                      
+security:
+  - bearerAuth: []
+
+
+

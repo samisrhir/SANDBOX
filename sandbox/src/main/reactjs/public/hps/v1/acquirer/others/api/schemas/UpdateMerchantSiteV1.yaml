@@ -1,0 +1,102 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantSite
+  /UpdateMerchantSite/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Each merchant must have at least one valid merchant site in the system. By using this web service, users can change information with regards to an existing merchant site. Information to be transmitted must include, but not limited to, Site Identification, address details, status, dates…</p>
+                    <p>Invalid data in the request message may cause the rejection of the message with a specific error code. For more details, please refer to the sections bellow.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantSite.png" />
+
+      summary: By using this web service, users can change information ...
+      tags:
+        - Update Merchant Site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08501</td>
+                                  <td>Site not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08502</td>
+                                  <td>The values provided in Country, region, city and postal code are not coherent</td>
+                                </tr>
+                                <tr> 
+                                  <td>08503</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08504</td>
+                                  <td>Invalid Merchant Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08505</td>
+                                  <td>Update not allowed for this site, Merchant should have one of the following statues P In progress
+                                      N Normal,S Suspended,C Closed
+                                  </td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantSiteRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateMerchantSite request and response 
+      UpdateMerchantSiteRq:
+               $ref: 'request.yaml#/UpdateMerchantSiteRq'  
+      UpdateMerchantSiteRs:
+               $ref: 'response.yaml#/UpdateMerchantSiteRs'                                                                                         
+security:
+  - bearerAuth: []
+
+
+

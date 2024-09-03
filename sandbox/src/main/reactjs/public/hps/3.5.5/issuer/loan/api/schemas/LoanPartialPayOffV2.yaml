@@ -1,0 +1,110 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #LoanPartialPayOff  
+  /LoanPartialPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service is used when the customer wishes to perform a partial payoff of an existing loan. The Partial payoff amount must match with the sum of installments for the N pargeted monthly installments.<br>
+                           The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/LoanPartialPayOff.png" />
+            summary: Perform a partial payoff of an existing loan. 
+            tags:
+              - Loan Partial PayOff
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanPartialPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanPartialPayOffV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>41201</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41202</td>
+                                        <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41203</td>
+                                        <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41204</td>
+                                        <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41205</td>
+                                        <td>Invalid Number of Terms</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41206</td>
+                                        <td>Invalid Partial Pay Off Amount</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41207</td>
+                                        <td>Invalid Partial Pay Off Amount Currency</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanPartialPayOffV35Rs'
+                  application/xml:
+                      schema:
+                         $ref: '#/components/schemas/LoanPartialPayOffV35Rs'              
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import LoanPartialPayOffV35 request and response
+      LoanPartialPayOffV35Rq:
+               $ref: 'request.yaml#/LoanPartialPayOffV35Rq'
+      LoanPartialPayOffV35Rs:
+               $ref: 'response.yaml#/LoanPartialPayOffV35Rs' 
+security:
+  - bearerAuth: []

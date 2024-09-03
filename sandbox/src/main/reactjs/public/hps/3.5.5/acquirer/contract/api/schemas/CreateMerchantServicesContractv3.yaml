@@ -1,0 +1,124 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /CreateMerchantServicesContract/V3
+  /CreateMerchantServicesContract/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service is aimed to be used whenever any user would like to create a new services contract item for specific merchant. Whenever it is requested to do, users need to provide information with regards to the linked product code, services, charging conditions, settlement conditions… so that PowerCARD can proceed and create the contract item accordingly.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/createMerchantServicesContract.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Create Merchant Services Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantServicesContractRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantServicesContractRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> <b>Merchant ID or legal ID</b></td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>61000</td><td>Only Marketable Product are allowed in Contract creation</td></tr>
+            <tr><td>61003</td><td>Billable element not found</td></tr>
+            <tr><td>61004</td><td>Service not found</td></tr>
+            <tr><td>61005</td><td>Duplicate service ID</td></tr>
+            <tr><td>61006</td><td>Duplicate billable element ID</td></tr>
+            <tr><td>61008</td><td>Characteristic value is mandatory</td></tr>
+            <tr><td>61009</td><td>Invalid account defined on RD_ACCOUNT</td></tr>
+            <tr><td>61010</td><td>Warning contract without any charging method defined</td></tr>
+            <tr><td>61011</td><td>Charging method not found</td></tr>
+            <tr><td>61012</td><td>Duplicate charging method ID</td></tr>
+            <tr><td>61013</td><td>Characteristic value not found</td></tr>
+            <tr><td>61014</td><td>Invalid attribute value, it should be greater than 0</td></tr>
+            <tr><td>61015</td><td>Invalid currency defined on TD_CURRENCY</td></tr>
+            <tr><td>61016</td><td>Invalid charging rate should be between 0 and 100</td></tr>
+            <tr><td>61017</td><td>Charging period not found</td></tr>
+            <tr><td>61018</td><td>Invalid elements on characteristics</td></tr>
+            <tr><td>61019</td><td>Tag value not matched</td></tr>
+            <tr><td>61020</td><td>Value is not alphanumeric</td></tr>
+            <tr><td>61021</td><td>Value is not numeric</td></tr>
+            <tr><td>61022</td><td>Value is not in range</td></tr>
+            <tr><td>61023</td><td>Invalid address details</td></tr>
+            <tr><td>61024</td><td>Only one Charging Condition should be checked by billableElement</td></tr>
+            <tr><td>61026</td><td>Contract external ID 1 is required</td></tr>
+            <tr><td>61027</td><td>Invalid elements on contract basic info</td></tr>
+            <tr><td>61028</td><td>Invalid elements on services</td></tr>
+            <tr><td>61029</td><td>Invalid elements on charging conditions</td></tr>
+            <tr><td>61030</td><td>Invalid elements on settlement conditions</td></tr>
+            <tr><td>61032</td><td>Acceptor Points should not be provided</td></tr>
+            <tr><td>61033</td><td>Merchant under hierarchical validation</td></tr>
+            <tr><td>61034</td><td>An error has occurred on Create characteristic</td></tr>
+            <tr><td>61035</td><td>An error has occurred on Create service error</td></tr>
+            <tr><td>61036</td><td>An error has occurred on Create charging condition</td></tr>
+            <tr><td>61037</td><td>An error has occurred on Create settlement condition</td></tr>
+            <tr><td>61040</td><td>An error has occurred on contract validation</td></tr>
+            <tr><td>61041</td><td>An error has occurred on generate mer_product</td></tr>
+            <tr><td>61044</td><td>Only one item should be selected on valueList, multiplechoice not allowed</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantServicesContractRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantServicesContractRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateMerchantServicesContract request and response
+    CreateMerchantServicesContractRq:
+      $ref: 'request.yaml#/CreateMerchantServicesContractRq'
+    CreateMerchantServicesContractRs:
+      $ref: 'response.yaml#/CreateMerchantServicesContractRs'
+security:
+  - bearerAuth: []

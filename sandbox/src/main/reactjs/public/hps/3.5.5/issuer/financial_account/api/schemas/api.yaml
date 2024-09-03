@@ -1,0 +1,2660 @@
+openapi: "3.0.3"
+info:
+  title: Financial Account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account (used to view and update data related with the financial account) , Account transactions (used to search and view the details of a specific account transaction) and Statements list (used to search and view the situation of an account at end of cycle).</p>
+                </div>
+               
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/TokenAuthenticationResponse'                  
+   #createAccountTransaction
+  /CreateAccountTransaction/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                      Users (Agents or bank customers) can use this web service to create and post a transaction to an existing account in the system.
+                    </p>
+                    <p>
+                        For every single transaction that the user would like to create, 
+                        he needs to specify at lease the following information in the request message Card Number or Account number,
+                        Transaction code, Amount, Date. Transaction is then created in the system but will wait for the End of day processing to be completely posted to the account.<br>
+                        We should note that both debit and credit transactions could be created using this web service.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/CreateAccountTransaction.png" />
+        summary:  Users (Agents or bank customers) can use this web service to create and post a transaction to an existing account in the system.
+        tags:
+          - Create Account Transaction.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountTransactionV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateAccountTransactionV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>11001</td>
+                                  <td>Invalid Account Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>11002</td>
+                                  <td>Invalid Account Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>11003</td>
+                                  <td>Invalid Transaction Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>11004</td>
+                                  <td>Invalid Transaction Amount</td>
+                                </tr>
+                                <tr> 
+                                  <td>11005</td>
+                                  <td>Invalid Transaction date</td>
+                                </tr>
+                                <tr> 
+                                  <td>11006</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>11007</td>
+                                  <td>Card number and Account number are both missing</td>
+                                </tr>
+                                <tr> 
+                                  <td>11008</td>
+                                  <td>Card account link not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>11009</td>
+                                  <td>Multiple Card account links found</td>
+                                </tr>
+                                <tr> 
+                                  <td>11010</td>
+                                  <td>Invalid Reversal Flag</td>
+                                </tr>	
+                                <tr> 
+                                  <td>11011</td>
+                                  <td>Original transaction not found</td>
+                                </tr>	
+                                <tr> 
+                                  <td>11012</td>
+                                  <td>Invalid value date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>11013</td>
+                                  <td>Invalid Reason Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>11014</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>							
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateAccountTransactionV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CreateAccountTransactionV35Rs'                   
+  #getAccountBalance
+  /GetAccountBalance/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        For an existing card or account in the system, Agent as well as customers may request to have more details regarding card account balances (Available & Pending). All these information could be made available for that purpose using this web service.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getAccountBalance.png" />
+        summary: Agent as well as customers may request to have more details regarding card account balances (Available & Pending).
+        tags:
+          - Get Account balance.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountBalanceV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetAccountBalanceV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02601</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02602</td>
+                                  <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>02603</td>
+                                  <td>Invalid Internal Account Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>02604</td>
+                                  <td>Card product not defined in the system</td>
+                                </tr>
+                                <tr> 
+                                  <td>02605</td>
+                                  <td>Invalid Credit Account profile</td>
+                                </tr>
+                                <tr> 
+                                  <td>02606</td>
+                                  <td>Invalid Account type</td>
+                                </tr>
+                                <tr> 
+                                  <td>02607</td>
+                                  <td>Limits not defined</td>
+                                </tr>
+                                <tr> 
+                                  <td>02608</td>
+                                  <td>Error getting the account available balance</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetAccountBalanceV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetAccountBalanceV35Rs'                     
+  #AccountBalance/V2
+  /AccountBalance/V2:
+      get:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        For an existing card or account in the system, Agent as well as customers may request to have more details regarding card account balances (Available & Pending). All these information could be made available for that purpose using this web service.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getAccountBalance.png" />
+        summary: Agent as well as customers may request to have more details regarding card account balances (Available & Pending).
+        tags:
+          - Get Account balance.
+        parameters:
+          - in: query
+            name: aliasPAN
+            schema:
+              type: string
+            example: "4250120656063430"
+            required: false
+            description: The AliasPAN value.
+          - in: query
+            name: clientCode 
+            schema:
+              type: string
+            required: false
+            example: "PWC-CL-WS-RCRD-0005"
+            description: The clientCode value.
+          - in: query
+            name: accountId 
+            schema:
+              type: string
+            required: false
+            description: The accountId value.
+            example: 198443230
+          - in: query
+            name: accountType 
+            schema:
+              type: string
+            required: false
+            description: The accountType value.
+            example: 90
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+            required: true
+            example: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+            required: true
+            example: "2018-12-15T00:00:00"
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+            required: false
+            description: Represents the user Id who made the request.
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02601</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02602</td>
+                                  <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>02603</td>
+                                  <td>Invalid Internal Account Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>02604</td>
+                                  <td>Card product not defined in the system</td>
+                                </tr>
+                                <tr> 
+                                  <td>02605</td>
+                                  <td>Invalid Credit Account profile</td>
+                                </tr>
+                                <tr> 
+                                  <td>02606</td>
+                                  <td>Invalid Account type</td>
+                                </tr>
+                                <tr> 
+                                  <td>02607</td>
+                                  <td>Limits not defined</td>
+                                </tr>
+                                <tr> 
+                                  <td>02608</td>
+                                  <td>Error getting the account available balance</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetAccountBalanceV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetAccountBalanceV35Rs'
+  #GetFinancialAccountDetails
+  /GetFinancialAccountDetails/V3:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The get financial Account Details web service is an API that can be used to retrieve all maintenance task associated with the account related data provided by the the system. These functions include Account information, Account indicators, Credit line, Account Balances, Direct debit accounts, Custom fields, Communication strategy, Aging, indicators... 
+                          </p>
+                          <p>
+                           The system run some controls on the input data and may reject the operation in case of any data inconsistency.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchFinancialAccount.png" />
+            summary: The get financial Account Details web service is an API that can be used to retrieve all maintenance task associated with the account related data...
+            tags:
+              - Get Financial Account Details
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetFinancialAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetFinancialAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>30613</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetFinancialAccountV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetFinancialAccountV35Rs'
+  #UpdateBankAccount  
+  /UpdateBankAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account. 
+            tags:
+              - Update Bank Account.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>02901</td>
+                                        <td>Invalid Currency Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02902</td>
+                                        <td>Invalid Action Code</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02903</td>
+                                        <td>Invalid Card Number </td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02904</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02905</td>
+                                        <td>Invalid Account number</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02906</td>
+                                        <td>Invalid card number or account id</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02907</td>
+                                        <td>Invalid account status</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02908</td>
+                                        <td>Invalid account Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02909</td>
+                                        <td>Error Adding new account</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02910</td>
+                                        <td>Error while updating account </td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02911</td>
+                                        <td>Error updating account status</td>
+                                      </tr>									
+                                      <tr> 
+                                        <td>02912</td>
+                                        <td>Invalid Account Bank Agency</td>
+                                      </tr>	
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV35Rs'                       
+  #BankAccount/V2 
+  /BankAccount/V2:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account. 
+            tags:
+              - Update Bank Account.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>02901</td>
+                                        <td>Invalid Currency Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02902</td>
+                                        <td>Invalid Action Code</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02903</td>
+                                        <td>Invalid Card Number </td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02904</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02905</td>
+                                        <td>Invalid Account number</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02906</td>
+                                        <td>Invalid card number or account id</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02907</td>
+                                        <td>Invalid account status</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02908</td>
+                                        <td>Invalid account Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>02909</td>
+                                        <td>Error Adding new account</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02910</td>
+                                        <td>Error while updating account </td>
+                                      </tr>
+                                      <tr> 
+                                        <td>02911</td>
+                                        <td>Error updating account status</td>
+                                      </tr>									
+                                      <tr> 
+                                        <td>02912</td>
+                                        <td>Invalid Account Bank Agency</td>
+                                      </tr>	
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV35Rs'                       
+  # --- TransferAccountToAccount
+  /TransferAccountToAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              Transfer Account to Account web service enables customers, agents or any third party to transfer money instantly from a given account to another account in the appropriate currency. The services can be enabled only by providing a limited but important set of details including the source account, destination account, amount, currency… 
+                          </p>
+                          <p>
+                              The operation will debit the source account and credit the destination account with the transfer amount in the right account currency.
+                          </p>
+                          <p>
+                             The system run some controls on the input data and may reject the operation in case of any data inconsistency.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/TransferAccountToAccount.png" />
+            summary:    Transfer Account to Account web service enables customers, agents or any third party to transfer money instantly from a given account to another account.
+            tags:
+              - Transfer Account To Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/TransferAccountToAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/TransferAccountToAccountV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>16801</td>
+                                  <td>Invalid Source Account Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>16802</td>
+                                  <td>Invalid destination Account Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>16803</td>
+                                  <td>Invalid Amount</td>
+                                </tr>
+                                <tr> 
+                                  <td>16804</td>
+                                  <td>Invalid Currency</td>
+                                </tr>
+                                <tr> 
+                                  <td>16805</td>
+                                  <td>Invalid Capture Reason Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>16806</td>
+                                  <td>Invalid Transaction Code, Please make sure that transaction Codes DT & CT are both defined</td>
+                                </tr>
+                                <tr> 
+                                  <td>16807</td>
+                                  <td>Invalid Reversal Flag</td>
+                                </tr>
+                                <tr> 
+                                  <td>16808</td>
+                                  <td>Invalid Source Account Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>16809</td>
+                                  <td>Invalid destination Account Staus</td>
+                                </tr>								
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/TransferAccountToAccountV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/TransferAccountToAccountV35Rs'                       
+  # --- GetStatementHistory
+  /GetStatementHistory/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods. They may optionally provide a date range to limit the number of Account Statement aggregates that are returned in the response. Note that the statement is based on the normal cutoff cycles and the date range must return statements that ended during the specified range. 
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetStatementHistory.png" />
+            summary:   A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods. 
+            tags:
+              - Get Statement History
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02801</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>02802</td>
+                                  <td>Invalid credit card number </td>
+                                </tr>
+                                <tr> 
+                                  <td>02803</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>02804</td>
+                                  <td>Invalid Account Status</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02805</td>
+                                  <td>Invalid Transaction Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02806</td>
+                                  <td>Invalid Account Id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02807</td>
+                                  <td>Shaddow Account Error</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02808</td>
+                                  <td>Invalid Account Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02809</td>
+                                  <td>Card Expired</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02810</td>
+                                  <td>Cr Profile Error</td>
+                                </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'                        
+  #GetStatementHistory/V3  
+  /GetStatementHistory/V3:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods. They may optionally provide a date range to limit the number of Account Statement aggregates that are returned in the response. Note that the statement is based on the normal cutoff cycles and the date range must return statements that ended during the specified range. 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetStatementHistory.png" />
+            summary: A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods...
+            tags:
+              - Get Statement History
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistory2V35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistory2V35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>02801</td>
+                                          <td>Invalid range date</td>
+                                      </tr>
+                                      <tr>
+                                          <td>02802</td>
+                                          <td>Invalid Account Id</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetStatementHistoryV35Rs'
+  # ------- SearchTransactions API  
+  /SearchTransactions/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>This web services is used to search for transactions of an existing customer in the system. Agent and customers may use different criteria to search and display transactions posted to the customer account. Criteria’s could include amount ranges, dates, Account id, transaction types, network…</p>                   
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchTransactions.png" />
+      summary: This web services is used to search for transactions of an existing customer in the system.
+      tags:
+        - Search Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchTransactionsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchTransactionsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>02701</td>
+                                <td>Invalid Card Number</td>
+                              </tr>
+                              <tr> 
+                                <td>02702</td>
+                                <td>Invalid Range Date </td>
+                              </tr>
+                              <tr> 
+                                <td>02703</td>
+                                <td>Invalid Amount Criteria</td>
+                              </tr>
+                              <tr> 
+                                <td>02704</td>
+                                <td>Invalid Transaction Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>02705</td>
+                                <td>Invalid Network Code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02706</td>
+                                <td>Invalid Acquirer country code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02707</td>
+                                <td>Invalid card product</td>
+                              </tr>
+                              <tr> 
+                                <td>02708</td>
+                                <td>Label Translation Error</td>
+                              </tr>
+                              <tr> 
+                                <td>02709</td>
+                                <td>Internal error - error translating the transaction type to processing code</td>
+                              </tr>
+                              <tr> 
+                                <td>02710</td>
+                                <td>Internal error - error translating the processing code to transaction type</td>
+                              </tr>
+                              <tr> 
+                                <td>02711</td>
+                                <td>Invalid client code</td>
+                              </tr>
+                              <tr> 
+                                <td>02712</td>
+                                <td>Card number and Client Code are missing in the request</td>
+                              </tr>
+                              <tr> 
+                                <td>02713</td>
+                                <td>Invalid Territoriality</td>
+                              </tr>
+                              <tr> 
+                                <td>02714</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTransactionsV35Rs'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SearchTransactionsV35Rs'                  
+  # ------- Transactions API  
+  /Transactions/V2:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This web services is used to search for transactions of an existing customer in the system. </p>                   
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchTransactions.png" />
+      summary: This web services is used to search for transactions of an existing customer in the system.
+      tags:
+        - Search Transactions
+      parameters:
+              - in: query
+                name: clientCode 
+                schema:
+                  type: string
+                example: "0374257926"
+                description: The clientCode value.
+              - in: query
+                name: aliasPAN 
+                schema:
+                  type: string
+                example: "4250120155138733"
+                description: The aliasPAN value.
+              - in: query
+                name: corporateId 
+                schema:
+                  type: string
+                description: The corporateId value.
+                example: ""
+              - in: query
+                name: network 
+                schema:
+                  type: string
+                description: The network value.
+                example: ""
+              - in: query
+                name: territoriality 
+                schema:
+                  type: string
+                description: The territoriality value.
+                example: ""
+              - in: query
+                name: acquirerCountry 
+                schema:
+                  type: string
+                description: The acquirerCountry value.
+                example: ""
+              - in: query
+                name: trnType 
+                schema:
+                  type: string
+                description: The trnType value.
+                example: ""
+              - in: query
+                name: startDt  
+                schema:
+                  type: string
+                description: The startDt value.
+                example: "2018-01-01T00:00:00"
+              - in: query
+                name: endDt 
+                schema:
+                  type: string
+                description: The endDt value.
+                example: "2019-12-31T00:00:00"
+              - in: query
+                name: pageSize 
+                schema:
+                  type: string
+                description: The pageSize value.
+                example: "10"
+              - in: query
+                name: pageIndex 
+                schema:
+                  type: string
+                description: The pageIndex value.
+                example: "1"
+              - in: query
+                name: requestUID 
+                schema:
+                  type: string
+                required: true
+                example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+                description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+              - in: query
+                name: requestDate 
+                schema:
+                  type: string
+                required: true
+                example: "2018-12-15T00:00:00"
+                description: Date when the request was submitted.
+              - in: query
+                name: userID 
+                schema:
+                  type: string
+                description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>02701</td>
+                                <td>Invalid Card Number</td>
+                              </tr>
+                              <tr> 
+                                <td>02702</td>
+                                <td>Invalid Range Date </td>
+                              </tr>
+                              <tr> 
+                                <td>02703</td>
+                                <td>Invalid Amount Criteria</td>
+                              </tr>
+                              <tr> 
+                                <td>02704</td>
+                                <td>Invalid Transaction Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>02705</td>
+                                <td>Invalid Network Code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02706</td>
+                                <td>Invalid Acquirer country code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02707</td>
+                                <td>Invalid card product</td>
+                              </tr>
+                              <tr> 
+                                <td>02708</td>
+                                <td>Label Translation Error</td>
+                              </tr>
+                              <tr> 
+                                <td>02709</td>
+                                <td>Internal error - error translating the transaction type to processing code</td>
+                              </tr>
+                              <tr> 
+                                <td>02710</td>
+                                <td>Internal error - error translating the processing code to transaction type</td>
+                              </tr>
+                              <tr> 
+                                <td>02711</td>
+                                <td>Invalid client code</td>
+                              </tr>
+                              <tr> 
+                                <td>02712</td>
+                                <td>Card number and Client Code are missing in the request</td>
+                              </tr>
+                              <tr> 
+                                <td>02713</td>
+                                <td>Invalid Territoriality</td>
+                              </tr>
+                              <tr> 
+                                <td>02714</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTransactionsV35Rs'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SearchTransactionsV35Rs'                  
+ #checkCustomFieldValue  
+  /checkCustomFieldValue/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - Check Custom Field Value
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/demoV35Rs'                        
+  #searchFinancialAccount    
+  /searchFinancialAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The search financial web service is an API that can be used to retrieve all the financial accounts provided by the the system. this service provides the ability to search for all existing accounts in the system using different criteria’s like Corporate Id, Account Id or also Parent Account Id. 
+                          </p>
+                          <p>
+                           The system run some controls on the input data and may reject the operation in case of any data inconsistency.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchFinancialAccount.png" />
+            summary: The search financial web service is an API that can be used to retrieve all the financial accounts...
+            tags:
+              - Search Financial Account 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchFinancialAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchFinancialAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>30601</td>
+                                         <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>30602</td>
+                                         <td>Invalid Card Number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>30603</td>
+                                         <td>Invalid Loan Status</td>
+                                      </tr>
+                                      <tr>
+                                         <td>30604</td>
+                                         <td>Invalid Range Date</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchFinancialAccountV35Rs'
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/SearchFinancialAccountV35Rs'                          
+  #changeAccountCreditLimit    
+  /ChangeAccountCreditLimit/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The credit limit is defined as the maximum amount of money that can be spent on a credit card. The Change credit limit web service could be used to either increase or decrease the credit limit on an existing account. The same web service could be also used to set temporary limits with a specified range of date.
+                          </p>
+                          <p>This Web Service can be called by a customer or an agent.</p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/changeAccountCreditLimit.png" />
+            summary: This Web Service can be called by a customer or an agent.
+            tags:
+              - Change Account Credit Limit 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ChangeAccountCreditLimitV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ChangeAccountCreditLimitV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>  
+                                         <td>03501</td>
+                                         <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>  
+                                         <td>03502</td>
+                                         <td>Credit limit is less than the cash limit</td>
+                                      </tr>
+                                      <tr>  
+                                         <td>03503</td>
+                                         <td>Cash limit should be equal to or less than cash limit ceiling, contact your administrator</td>
+                                      </tr>  
+                                      <tr>  
+                                         <td>03504</td>
+                                         <td>Loan limit should be equal to or less than loan limit ceiling, contact your administrator</td>
+                                      </tr> 
+                                      <tr>  
+                                         <td>03505</td>
+                                         <td>Invalid Currency Code</td>
+                                      </tr>  
+                                      <tr>  
+                                         <td>03506</td>
+                                         <td>Invalid Shadow Account profile code</td>
+                                      </tr>                                                                                                              
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ChangeAccountCreditLimitV35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/ChangeAccountCreditLimitV35Rs'                       
+  #updateAccStatementCode    
+  /UpdateAccStatementCode/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           Users may request to change their statement specification by changing for instance the type of statement being received. Meantime the financial institution may request to change some other parameters on the customer statement moving the customer from a category to another one with different statement requirements. To do that PowerCARD offers this web service that only by providing the account number as well as the statement code can adjust that in the PowerCARD database hence all the statements generated will follow the characteristics of the statement code
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/updateAccStatementCode.png" />
+            summary:  Users may request to change their statement specification by changing for instance the type of statement being received...
+            tags:
+              - Update Account Statement Code
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccStatementCodeV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccStatementCodeV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>17301</td>
+                                         <td>Invalid Account number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>17302</td>
+                                         <td>Invalid Statement Code</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAccStatementCodeV35Rs'
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateAccStatementCodeV35Rs'                         
+  #changeAccountBillingCycle    
+  /ChangeAccountbillingCycle/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               For a credit account, a billing cycle is defined as the time between the last bill and the most current one. <br>
+                               The purpose of this web service is to allow changing the account billing cycle date by providing a code identifying the cycle date in PowerCARD. Many reasons can be given to justify the billing cycle change, for instance the customer might need to simplify his payment schedule by setting a new date for his billing cycle.<br>
+                               It is important to note that the change will takes effect only starting from the next cycle. This Web Service can be called by a customer or an agent.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/changeAccountBillingCycle.png" />
+            summary:  For a credit account, a billing cycle is defined as the time between the last bill and the most current one.
+            tags:
+              - Change Account Billing Cycle
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ChangeAccountBillingCycle35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ChangeAccountBillingCycle35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>09801</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>09802</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>09803</td>
+                                        <td>Invalid Billing Cycle Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>09804</td>
+                                        <td>Change not allowed</td>
+                                      </tr>                                      
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ChangeAccountBillingCycle35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/ChangeAccountBillingCycle35Rs'   
+  #updateAccountBalance     
+  /UpdateAccountBalance/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           The purpose of the current service is to give the possibility to any allowed third party to update an existing debit account balance in PowerCARD  whenever it is required to synchronize the PowerCARD database with data coming from other systems like bank hosts. It is worth to mention that this operation is expected to update the balance information of the account with the data transmitted within the request message. Any issue noticed while trying to update the account will result in a decline of the request, that will be followed by providing an error code back in the response message. For further information, refer the following sections.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAccountBalance.png" />
+            summary:   The purpose of the current service is to give the possibility to any allowed third party to update an existing debit account balance in PowerCARD...
+            tags:
+              - Update Account Balance
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccountBalance35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccountBalance35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>15301</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>15302</td>
+                                        <td>Invalid Card Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15303</td>
+                                        <td>Invalid Request Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15304</td>
+                                        <td>Invalid Transaction Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15305</td>
+                                        <td>Invalid Transaction Amount</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15306</td>
+                                        <td>Invalid Balance Amount</td>
+                                      </tr>  
+                                                                            <tr> 
+                                        <td>15306</td>
+                                        <td>Invalid Balance Amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15307</td>
+                                        <td>Invalid Sign</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15308</td>
+                                        <td>Invalid Facilities Amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15309</td>
+                                        <td>Invalid Blocked amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15310</td>
+                                        <td>10	15310	Inconsistent field
+                                          Note that the text message will contain the field concerned.
+                                        </td>
+                                        <tr> 
+                                        <td>15311</td>
+                                        <td>Error while updating balance record</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15312</td>
+                                        <td>Operation not permitted, Expired card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15313</td>
+                                        <td>Operation not permitted, Cancelled card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15314</td>
+                                        <td>Operation not permitted, Replaced card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15315</td>
+                                        <td>Card in the stop list</td>
+                                      </tr>  
+                                       <tr> 
+                                        <td>15316</td>
+                                        <td>Operation not permitted, Suspended card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15317</td>
+                                        <td>Invalid currency code</td>
+                                      </tr>  
+                                      </tr>                                            
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+  #UpdateBankAccountStatus     
+  /UpdateBankAccountStatus/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The aim of this web service is to update the status of an existing bank account, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that account will take the new status.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccountStatus.png" />
+            summary:    The aim of this web service is to update the status of an existing bank account, this web service can be invoked by customers and agents.
+            tags:
+              - Update Bank Account Status
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountStatus35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountStatus35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>19501</td>
+                                        <td>Invalid Account Type </td>
+                                      </tr>
+                                       <tr> 
+                                        <td>19502</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19504</td>
+                                        <td>Both AccountNumber and IBAN are missing</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19505</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19506</td>
+                                        <td>Invalid IBAN</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19507</td>
+                                        <td>Invalid Swift Code</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19508</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19509</td>
+                                        <td>Invalid Status Reason Code</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19510</td>
+                                        <td>Invalid Transition Requested </td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19511</td>
+                                        <td>Invalid Account Sequence</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19512</td>
+                                        <td>
+                                        Invalid Bank Code Free Text
+                                        </td>
+                                        <tr> 
+                                        <td>19513</td>
+                                        <td>Invalid Branch Code Free Text</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19514</td>
+                                        <td>Invalid Account Currency</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19515</td>
+                                        <td>IBAN not fefined for this account</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19516</td>
+                                        <td>An error occurred while updating the Bank Account status</td>
+                                      </tr>                                           
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateAccountBalance35Rs'       
+#SetDirectDebitAccount/V2  
+  /SetDirectDebitAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is aimed to update bank account information. The direct debit account is the customer bank account (the payer), it's used during the direct debit process and sent as part of the credit order output file, allowing to the institution to collect money from third party owning the customer bank account. It's important to note that the bank and branch who owns this account are not necessarily defined in PowerCARD. The institution can define multiple direct debit accounts for the concerned financial account
+                          </p>
+                          <p>As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.</p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SetDirectDebitAccount.png" />
+            summary: This web service is aimed to update bank account information...
+            tags:
+              - Set Direct Debit Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SetDirectDebitAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SetDirectDebitAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>02901</td>
+                                          <td>Invalid Action Code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>02902</td>
+                                          <td>Invalid Account Type</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02903</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02904</td>
+                                        <td>Invalid Branch Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02905</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02906</td>
+                                        <td>Invalid Account Currency</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02907</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02908</td>
+                                        <td>Invalid Account Status Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02909</td>
+                                        <td>Invalid Account Status Reason</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02910</td>
+                                        <td>Invalid Opening Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02911</td>
+                                        <td>Invalid Closing Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02912</td>
+                                        <td>Invalid IBAN</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02913</td>
+                                        <td>Invalid Swift Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02914</td>
+                                        <td>Invalid Default Flag</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02915</td>
+                                        <td>Invalid Debit Order Payment Mode</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02916</td>
+                                        <td>Invalid Debit Order Amount Currency</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02917</td>
+                                        <td>Invalid Debit Order Percentage</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02918</td>
+                                        <td>Invalid Routing Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>02919</td>
+                                          <td>Invalid Financial Account Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02920</td>
+                                        <td>The Account Type field is required when the operation is C</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02921</td>
+                                        <td>The Account Number field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02922</td>
+                                        <td>The Account Currency field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02923</td>
+                                        <td>The Account Status field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02924</td>
+                                        <td>The Account Status Reason field is required when the action code is U and the Account Status field is populated.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02925</td>
+                                        <td>The Opening Date field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02926</td>
+                                        <td>The Default Flag field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02927</td>
+                                        <td>The Debit Order Payment Mode field becomes mandatory when the DebitOrderAmount or DebitOrderPercentage fields are provided.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02928</td>
+                                        <td>The Debit Order Percentage  field becomes mandatory when the DebitOrderPaymentMode is set to P.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02929</td>
+                                        <td>The Debit Order Amount  field becomes mandatory when the DebitOrderPaymentMode is set to F.</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SetDirectDebitAccountV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SetDirectDebitAccountV35Rs'
+#SearchObjectMemo  
+  /SearchObjectMemo/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            "The search Object Memo web service is an API that can be used to retrieve all memos linked to a given Entity Id and Entity Code.
+                            The entities supported by this API are Client, Card, Account and Corporate.
+                            As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details."
+                            </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchObjectMemo.png" />
+            summary: The search Object Memo web service is an API that can be used to retrieve all memos linked to a given Entity Id and Entity Code.
+            tags:
+              - Search Object Memo
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchObjectMemoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchObjectMemoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>12201</td>
+                                          <td>Invalid Entity Code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12202</td>
+                                          <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12203</td>
+                                          <td>Invalid Client code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12204</td>
+                                          <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12205</td>
+                                          <td>Invalid account number</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchObjectMemoV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SearchObjectMemoV35Rs'  
+  #UpdateBankAccountStatus     
+  /UpdateInterestRateIndex_V35/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          Banks or any financial institution can use this service to adjust the interest rate applmied to a given account. This opretaion may result in descresing or increasing the interest arate applied. The new interest rate will be effective starting from the effective date part of the requiest message. Before that date it is the old interest rate index that will still be used until that date. 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateInterestRateIndex.png" />
+            summary:   Banks or any financial institution can use this service to adjust the interest rate applmied to a given account.
+            tags:
+              - Update Interest Rate Index
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateInterestRateIndex35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateInterestRateIndex35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>17201</td>
+                                        <td>Invalid Interest rate index</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>17202</td>
+                                        <td>Invalid Account number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>17203</td>
+                                        <td>Invalid Effective Date</td>
+                                      </tr>                                           
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateInterestRateIndex35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateInterestRateIndex35Rs'
+  #SetInterestRateIndex
+  /SetInterestRateIndex/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          Banks or any financial institution can use this service to adjust the interest rate applied to a given account. This operation may result in decreasing or increasing the interest rate applied. The new interest rate will be effective starting from the effective date part of the request message. Before that date it is the old interest rate index that will still be used until that date.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/setInterestRateIndex.png" />
+      summary: Banks or any financial institution can use this service to adjust the interest rate applied to a given account.
+      tags:
+        - Set Interest Rate Index.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInterestRateIndexV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetInterestRateIndexV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>17201</td>
+            <td>Invalid Interest Rate Index</td>
+            </tr>
+            <tr>
+            <td>17202</td>
+            <td>Invalid Account Number</td>
+            </tr>
+            <tr>
+            <td>17203</td>
+            <td>Invalid Effective Date</td>
+            </tr>
+            <tr>
+            <td>17204</td>
+            <td>Invalid Action Code</td>
+            </tr>
+            <tr>
+            <td>17205</td>
+            <td>Required Interest Rate Index</td>
+            </tr>
+            <tr>
+            <td>17206</td>
+            <td>Required Effective Date</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetInterestRateIndexV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetInterestRateIndexV35Rs'
+  /SearchFinancialAccount/V3:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The search financial web service is an API that can be used to retrieve all the financial accounts provided by the the system. this service provides the ability to search for all existing accounts in the system using different criteria’s like Corporate Id, Account Id or also Parent Account Id. 
+                          </p>
+                          <p>
+                          The system run some controls on the input data and may reject the operation in case of any data inconsistency.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchFinancialAccount.png" />
+            summary:   The search financial web service is an API that can be used to retrieve all the financial accounts...
+            tags:
+              - Search Financial Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchFinancialAccountV335Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchFinancialAccountV335Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>30611</td>
+                                        <td>Invalid Client Code</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>30612</td>
+                                        <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>30613</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>   
+                                      <tr> 
+                                        <td>30614</td>
+                                        <td>Parent Account Id</td>
+                                      </tr>                                        
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchFinancialAccountV335Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/SearchFinancialAccountV335Rs'
+  /UpdateFinancialAccountStatus/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The aim of this web service is to update the status of an existing Financial account, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that account will take the new status.</p>
+                          <p>
+                            As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateFinancialAccountStatus.png" />
+            summary: The aim of this web service is to update the status of an existing Financial account...
+            tags:
+              - Update Financial Account Status
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>13301</td>
+                                        <td>INVALID ACCOUNT ID</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>13302</td>
+                                        <td>INVALID ACCOUNT STATUS</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>13303</td>
+                                        <td>INVALID ACCOUNT ST RS</td>
+                                      </tr>   
+                                      <tr> 
+                                        <td>13304</td>
+                                        <td>INVALID TRANSITION RQ</td>
+                                      </tr>                                        
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rs'
+        patch:
+            description:
+              <h3>API Overview</h3>
+              <p>
+              The aim of this web service is to update the status of an existing Financial account, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that account will take the new status.</p>
+              <p>
+              As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.                          </p>
+              <h3>Functional Description</h3>
+              <img  src="./docs/UpdateFinancialAccountStatus.png" />
+            summary: The aim of this web service is to update the status of an existing Financial account...
+            tags:
+              - Update Financial Account Status
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>13301</td>
+                                        <td>INVALID ACCOUNT ID</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>13302</td>
+                                        <td>INVALID ACCOUNT STATUS</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>13303</td>
+                                        <td>INVALID ACCOUNT ST RS</td>
+                                      </tr>   
+                                      <tr> 
+                                        <td>13304</td>
+                                        <td>INVALID TRANSITION RQ</td>
+                                      </tr>                                        
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateFinancialAccountStatusV35Rs'
+#AddObjectMemo  
+  /AddObjectMemo/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            "The add Object Memo web service is an API that can be used to add a memo to a given Entity Id and Entity Code. The entities supported by this API are -> Client, Card, Account and Corporate. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details."
+                            </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/AddObjectMemo.png" />
+            summary: The add Object Memo web service is an API that can be used to add a memo to a given Entity Id and Entity Code.
+            tags:
+              - Add Object Memo
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddObjectMemoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/AddObjectMemoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>12101</td>
+                                          <td>Invalid Entity Code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12102</td>
+                                          <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12103</td>
+                                          <td>Invalid Client code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12104</td>
+                                          <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>12105</td>
+                                          <td>Invalid account number</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/AddObjectMemoV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/AddObjectMemoV35Rs'
+  #GetAccountIntrest
+  /GetAccountIntrest/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          This web services is aimed to get the interests applied for each still non-cleared debit transactions at the account End-Of-Cycle process. The API provides different levels of interest details.
+        </p>
+        <p>
+          As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/getAccountInterstDetails.png" />
+      summary: Get the interests applied for each still non-cleared debit transactions at the account End-Of-Cycle process.
+      tags:
+        - Get Account Intrest Details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAccountIntrestV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetAccountIntrestV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>02701</td>
+            <td>Invalid Financial Account Id</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountIntrestV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetAccountIntrestV35Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistory2V35Rq:
+                  $ref: 'request.yaml#/GetStatementHistory2V35Rq'
+      GetStatementHistory2V35Rs:
+                  $ref: 'response.yaml#/GetStatementHistory2V35Rs'
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+      # --- Import DemoV35 request and response
+      SearchFinancialAccountV35Rq:
+               $ref: 'request.yaml#/SearchFinancialAccountV35Rq'
+      SearchFinancialAccountV35Rs:
+               $ref: 'response.yaml#/SearchFinancialAccountV35Rs'
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import ChangeAccountCreditLimitV35 request and response
+      ChangeAccountCreditLimitV35Rq:
+               $ref: 'request.yaml#/ChangeAccountCreditLimitV35Rq'
+      ChangeAccountCreditLimitV35Rs:
+               $ref: 'response.yaml#/ChangeAccountCreditLimitV35Rs'  
+    # --- Import ChangeAccountBillingCycle35 request and response
+      ChangeAccountBillingCycle35Rq:
+               $ref: 'request.yaml#/ChangeAccountBillingCycle35Rq'
+      ChangeAccountBillingCycle35Rs:
+               $ref: 'response.yaml#/ChangeAccountBillingCycle35Rs'  
+    # --- Import UpdateAccStatementCodeV35 request and response
+      UpdateAccStatementCodeV35Rq:
+               $ref: 'request.yaml#/UpdateAccStatementCodeV35Rq'
+      UpdateAccStatementCodeV35Rs:
+               $ref: 'response.yaml#/UpdateAccStatementCodeV35Rs'   
+    # --- Import UpdateAccountBalance35Rq request and response
+      UpdateAccountBalance35Rq:
+               $ref: 'request.yaml#/UpdateAccountBalance35Rq'
+      UpdateAccountBalance35Rs:
+               $ref: 'response.yaml#/UpdateAccountBalance35Rs'   
+    # --- Import UpdateBankAccountStatus35Rq request and response
+      UpdateBankAccountStatus35Rq:
+               $ref: 'request.yaml#/UpdateBankAccountStatus35Rq'  
+    # --- Import UpdateBankAccountStatus35Rq request and response
+      UpdateInterestRateIndex35Rq:
+               $ref: 'request.yaml#/UpdateInterestRateIndex35Rq'  
+      UpdateInterestRateIndex35Rs:
+               $ref: 'response.yaml#/UpdateInterestRateIndex35Rs'
+    # --- Import SearchFinancialAccountV335Rq request and response
+      SearchFinancialAccountV335Rq:
+               $ref: 'request.yaml#/SearchFinancialAccountV335Rq'
+      SearchFinancialAccountV335Rs:
+               $ref: 'response.yaml#/SearchFinancialAccountV335Rs'
+    # --- Import SearchFinancialAccountV335Rs request and response
+      GetFinancialAccountV35Rq:
+               $ref: 'request.yaml#/GetFinancialAccountV35Rq'
+      GetFinancialAccountV35Rs:
+               $ref: 'response.yaml#/GetFinancialAccountV35Rs'
+    # --- Import SetDirectDebitAccountV35 request and response
+      SetDirectDebitAccountV35Rq:
+               $ref: 'request.yaml#/SetDirectDebitAccountV35Rq'
+      SetDirectDebitAccountV35Rs:
+               $ref: 'response.yaml#/SetDirectDebitAccountV35Rs'
+    # --- Import AddObjectMemoV35 request and response
+      SearchObjectMemoV35Rq:
+               $ref: 'request.yaml#/SearchObjectMemoV35Rq'
+      SearchObjectMemoV35Rs:
+               $ref: 'response.yaml#/SearchObjectMemoV35Rs'
+    # --- Import AddObjectMemoV35 request and response
+      AddObjectMemoV35Rq:
+               $ref: 'request.yaml#/AddObjectMemoV35Rq'
+      AddObjectMemoV35Rs:
+               $ref: 'response.yaml#/AddObjectMemoV35Rs'
+    # --- Import UpdateFinancialAccountStatus request and response
+      UpdateFinancialAccountStatusV35Rq:
+               $ref: 'request.yaml#/UpdateFinancialAccountStatusV35Rq'
+      UpdateFinancialAccountStatusV35Rs:
+               $ref: 'response.yaml#/UpdateFinancialAccountStatusV35Rs'
+    # --- Import GetAccountIntrest request and response
+      GetAccountIntrestV35Rq:
+        $ref: 'request.yaml#/GetAccountIntrestV35Rq'
+      GetAccountIntrestV35Rs:
+        $ref: 'response.yaml#/GetAccountIntrestV35Rs'
+    # --- Import GetAccountIntrest request and response
+      SetInterestRateIndexV35Rq:
+        $ref: 'request.yaml#/SetInterestRateIndexV35Rq'
+      SetInterestRateIndexV35Rs:
+        $ref: 'response.yaml#/SetInterestRateIndexV35Rs'
+security:
+  - bearerAuth: []   
+  

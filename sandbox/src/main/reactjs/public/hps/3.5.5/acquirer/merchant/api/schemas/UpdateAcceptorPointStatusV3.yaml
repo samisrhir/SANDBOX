@@ -1,0 +1,98 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateAcceptorPointStatus/V3
+  /UpdateAcceptorPointStatus/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant and all the entities linked to it in the system. For instance, the present web service can help to change the status of an acceptor point of a given merchant.
+        
+        Users must specify the desired status as web as other information’s like the reason behind the change and optionally the starting/ending date of such status.
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateAcceptorPointStatuss.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update AcceptorPoint Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAcceptorPointStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateAcceptorPointStatusRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>60608</td><td>Invalid Site ID</td></tr>
+            <tr><td>60771</td><td>Invalid Acceptor Point ID</td></tr>
+            <tr><td>60772</td><td>Invalid Acceptor Point Status</td></tr>
+            <tr><td>60773</td><td>Invalid Acceptor Point Status Reason</td></tr>
+            <tr><td>60774</td><td>Invalid Acceptor Point Status Start date</td></tr>
+            <tr><td>60775</td><td>Invalid Acceptor Point Status end date</td></tr>
+            <tr><td>60776</td><td>Invalid Acceptor Point Status range date</td></tr>
+            <tr><td>60777</td><td>Normal, suspended, under surveillance are the status needed to allow updating</td></tr>
+            <tr><td>60770</td><td>Error while updating merchant acceptor point status</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAcceptorPointStatusRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateAcceptorPointStatusRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import UpdateAcceptorPointStatusRq request and response
+    UpdateAcceptorPointStatusRq:
+      $ref: 'request.yaml#/UpdateAcceptorPointStatusRq'
+    UpdateAcceptorPointStatusRs:
+      $ref: 'response.yaml#/UpdateAcceptorPointStatusRs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,3865 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                      schema:
+                        $ref: '#/components/schemas/TokenAuthenticationResponse'                                                                 
+#GetParameterList/V2  
+  /GetParameterList/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          This web service is used to search the referential lists in the system. Third-party application developers can use different criteria to find and view the desired lists as below &#8282;
+                          </p>
+                        <h3>Functional Description</h3>
+                      <img  src="./docs/GetParameterList.png" /> 
+                      <p>The API support two modes for searching &#8282; <br>
+                        - Parameter &#8282;  the query must include search filters and the column to search.<br>
+                        - Referentiel &#8282; the query must include the table name wich data must be returned .
+                      </p>
+            summary: This web service is used to search the referential lists in the system. 
+            tags:
+              - Get Parameters List
+            requestBody:
+              required: true
+              description: 
+                           <img id="select-case-img" src="./docs/exclamation.png" /> 
+                           <label id="select-case">To try this API with different scenarios please click the button 'Try it out' then select a test case &#8282; </label>
+                           <select  id="testCase1" class="content-type">
+                                 <option value="account_type_list">ACCOUNT TYPE LIST</option>
+                                 <option value="action_list">ACTION LIST</option>
+                                 <option value="action_table">ACTION TABLE</option>
+                                 <option value="address_type_list">ADDRESSES TYPE LIST</option>
+                                 <option value="bank">BANK</option>
+                                 <option value="branch">BRANCH</option>
+                                 <option value="card_batch_status">CARD BATCH STATUS</option>
+                                 <option value="card_product">CARD PRODUCT</option>
+                                 <option value="card_status">CARD STATUS</option>
+                                 <option value="card_reason">CASE REASON</option>
+                                 <option value="card_type">CASE TYPE</option>
+                                 <option value="city">CITY</option>
+                                 <option value="country">COUNTRY</option>
+                                 <option value="chain">CHAIN</option>
+                                 <option value="cr_profile">CR PROFILE</option>
+                                 <option value="currency_table">CURRENCY TABLE</option>
+                                 <option value="document_list">DOCUMENT LIST</option>
+                                 <option value="language_list">LANGUAGE LIST</option>
+                                 <option value="mcc">MCC</option>
+                                 <option value="owner_list">OWNER LIST</option>
+                                 <option value="plastic_list">PLASTIC LIST</option>
+                                 <option value="processing_list">PROCESSING LIST</option>
+                                 <option value="protocol_list">PROTOCOL LIST</option>
+                                 <option value="region">REGION</option>
+                                 <option value="status_reason_list">STATUS REASON LIST</option>
+                                 <option value="title_list">TITLE LIST</option>
+                                 <option value="transaction_status">TRANSACTION STATUS</option>
+                                 <option value="transaction_definition">TRANSACTIONS DEFINITION</option>
+                                 <option value="vip_list">VIP LIST</option>
+                                 <option value="withdrawl_reason_code">WITHDRAWAL REASON CODE</option>
+                            </select>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetParameterListV35Rq'
+                #application/xml:
+                  #schema:
+                   # $ref: '#/components/schemas/GetParameterListV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>21101</td>
+                                         <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetParameterListV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/GetParameterListV35Rs'                                                                                  
+#ChangeCardProduct
+  /ChangeCardProduct/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>PowerCARD offers a service to downgrade or upgrade a card. This operation is done by changing the card product of the card. Moving a card from product to a new one can be performed by providing a set of data including the card number, the product code as well as some other additional fields like fee amount…
+                    </p>
+                    <p>A product change lets you maintain your existing account, while enjoying the benefits and terms of a different plastic that could have different limits, services… the new card will be produced then shipped to the address specified by the customer.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/changeCardProduct.png" />
+        summary: PowerCARD offers a service to downgrade or upgrade a card.
+        tags:
+          - Change Card Product.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeCardProductV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ChangeCardProductV35Rq'
+        responses:  
+          200:
+            description:
+                    <div>
+                            <h6>Successful</h6>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>17101</td>
+                                <td>Invalid card number</td>
+                              </tr>
+                              <tr> 
+                                <td>17102</td>
+                                <td>Invalid Expiry date</td>
+                              </tr>
+                              <tr> 
+                                <td>17105</td>
+                                <td>Invalid Fee amount/Currency</td>
+                              </tr>
+                              <tr> 
+                                <td>17106</td>
+                                <td>Invalid Fee option</td>
+                              </tr>
+                              <tr> 
+                                <td>17107</td>
+                                <td>Operation is not permitted for the target product</td>
+                              </tr>
+                              <tr> 
+                                <td>17108</td>
+                                <td>An error occurred while inserting a product change request</td>
+                              </tr>
+                              <tr> 
+                                <td>17119</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>
+                               <tr> 
+                                <td>17120</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>
+                             <tr> 
+                                <td>17121</td>
+                                <td>Invalid Catalogue Account Product</td>
+                              </tr>
+                              <tr> 
+                                <td>17122</td>
+                                <td>Invalid Catalogue Account Product Version</td>
+                              </tr>							
+                            </table>
+                    </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ChangeCardProductV35Rs'
+              application/xml:
+                      schema:
+                          $ref: '#/components/schemas/ChangeCardProductV35Rs'                    
+  #Cards/v2/{aliasPAN}/CardProduct
+  /Cards/V2/{aliasPAN}/CatPIProduct:
+      patch:
+        description:
+                    <h3>API Overview</h3>
+                    <p>PowerCARD offers a service to downgrade or upgrade a card. This operation is done by changing the card product of the card. Moving a card from product to a new one can be performed by providing a set of data including the card number, the product code as well as some other additional fields like fee amount…
+                    </p>
+                    <p>A product change lets you maintain your existing account, while enjoying the benefits and terms of a different plastic that could have different limits, services… the new card will be produced then shipped to the address specified by the customer.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/changeCardProduct.png" />
+        summary: PowerCARD offers a service to downgrade or upgrade a card.
+        tags:
+          - Change Card Product.
+        parameters:
+          - in: path
+            name: aliasPAN
+            schema:
+              type: string
+            required: false
+            description: The AliasPAN value.
+          - in: query
+            name: catPIProduct
+            schema:
+              type: string
+            required: false
+            description: The catPIProduct value.
+          - in: query
+            name: catPIProductVer
+            schema:
+              type: string
+            required: false
+            description: The catPIProductVer value.
+          - in: query
+            name: catAccProductVer
+            schema:
+              type: string
+            required: false
+            description: The catAccProductVer value.
+          - in: query
+            name: expiryDate
+            schema:
+              type: string
+            required: false
+            description: The expiryDate value.
+          - in: query
+            name: deliveryBranch
+            schema:
+              type: string
+            required: false
+            description: The deliveryBranch value.
+          - in: query
+            name: feesOption
+            schema:
+              type: string
+            required: true
+            description: The feesOption value.
+          - in: query
+            name: feeAmount
+            schema:
+              type: string
+            required: false
+            description: The feeAmount value.
+          - in: query
+            name: feeAmount
+            schema:
+              type: string
+            required: false
+            description: The feeAmountCur value.
+          - in: query
+            name: requestUID
+            schema:
+              type: string
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+            description: Represents the user Id who made the request.
+        responses:  
+          200:
+            description:
+                    <div>
+                            <h6>Successful</h6>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>17101</td>
+                                <td>Invalid card number</td>
+                              </tr>
+                              <tr> 
+                                <td>17102</td>
+                                <td>Invalid Expiry date</td>
+                              </tr>
+                              <tr> 
+                                <td>17105</td>
+                                <td>Invalid Fee amount/Currency</td>
+                              </tr>
+                              <tr> 
+                                <td>17106</td>
+                                <td>Invalid Fee option</td>
+                              </tr>
+                              <tr> 
+                                <td>17107</td>
+                                <td>Operation is not permitted for the target product</td>
+                              </tr>
+                              <tr> 
+                                <td>17108</td>
+                                <td>An error occurred while inserting a product change request</td>
+                              </tr>
+                              <tr> 
+                                <td>17119</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>
+                               <tr> 
+                                <td>17120</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>
+                             <tr> 
+                                <td>17121</td>
+                                <td>Invalid Catalogue Account Product</td>
+                              </tr>
+                              <tr> 
+                                <td>17122</td>
+                                <td>Invalid Catalogue Account Product Version</td>
+                              </tr>							
+                            </table>
+                    </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ChangeCardProductV35Rs'
+              application/xml:
+                            schema:
+                              $ref: '#/components/schemas/ChangeCardProductV35Rs'                    
+  # --- DebitCards
+  /DebitCards/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+            tags:
+              - Create Debit Card
+            parameters:
+                  - in: query
+                    name: requestUID 
+                    example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+                    schema:
+                        type: string
+                    required: true
+                    description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                  - in: query
+                    name: requestDate 
+                    example: '2020-07-07T03:13:01.853Z'
+                    schema:
+                        type: string
+                    required: true
+                    description: Date when the request was submitted.
+                  - in: query
+                    name: userID 
+                    example: PwcUserJmeter
+                    schema:
+                        type: string
+                    required: false
+                    description: Represents the user Id who made the request.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>29604</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29605</td>
+                                  <td>Error while generating the Client Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29606</td>
+                                  <td>Invalid Bank Code in Customer Details segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29607</td>
+                                  <td>Invalid Branch Code in Customer Details Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>29608</td>
+                                  <td>Invalid Family Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>29610</td>
+                                  <td>Invalid Cardholder’s Gender</td>
+                                </tr>
+                                <tr> 
+                                  <td>29614</td>
+                                  <td>Invalid Cardholder’s Birth Date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29617</td>
+                                  <td>Invalid VIP Level</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29618</td>
+                                  <td>Invalid Nationality Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29619</td>
+                                  <td>Invalid Language Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29620</td>
+                                  <td>Invalid Title Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29626</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29627</td>
+                                  <td>Invalid Socio-Professional Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29628</td>
+                                  <td>Invalid Activity Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29629</td>
+                                  <td>Invalid Customer Segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29633</td>
+                                  <td>Invalid Lodging Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29634</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29635</td>
+                                  <td>Invalid Phone Type 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29637</td>
+                                  <td>Invalid Phone Type 2</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29639</td>
+                                  <td>Invalid Phone Type 3</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29641</td>
+                                  <td>Invalid Phone Type 4</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29645</td>
+                                  <td>Invalid Primary Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29646</td>
+                                  <td>Invalid Primary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29655</td>
+                                  <td>Invalid Client Primary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29657</td>
+                                  <td>Invalid Client Primary Address Region Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29659</td>
+                                  <td>Invalid Client Primary Address Country Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29667</td>
+                                  <td>City Code or City Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29668</td>
+                                  <td>Region Code or Region Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29675</td>
+                                  <td>Invalid Client Secondary Address Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>29676</td>
+                                  <td>Invalid Client Secondary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29685</td>
+                                  <td>Invalid Client Secondary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29687</td>
+                                  <td>Invalid Client Secondary Address Region Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>29689</td>
+                                  <td>Invalid Client Secondary Address Country Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29690</td>
+                                  <td>Validity Start Date must not be in the past in case Client Secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29691</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date in case Client Secondary Address </td>
+                                </tr>								
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV35Rs'                        
+  # --- CreateDebitCard
+  /CreateDebitCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+            tags:
+              - Create Debit Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>29604</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29605</td>
+                                  <td>Error while generating the Client Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29606</td>
+                                  <td>Invalid Bank Code in Customer Details segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29607</td>
+                                  <td>Invalid Branch Code in Customer Details Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>29608</td>
+                                  <td>Invalid Family Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>29610</td>
+                                  <td>Invalid Cardholder’s Gender</td>
+                                </tr>
+                                <tr> 
+                                  <td>29614</td>
+                                  <td>Invalid Cardholder’s Birth Date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29617</td>
+                                  <td>Invalid VIP Level</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29618</td>
+                                  <td>Invalid Nationality Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29619</td>
+                                  <td>Invalid Language Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29620</td>
+                                  <td>Invalid Title Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29626</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29627</td>
+                                  <td>Invalid Socio-Professional Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29628</td>
+                                  <td>Invalid Activity Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29629</td>
+                                  <td>Invalid Customer Segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29633</td>
+                                  <td>Invalid Lodging Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29634</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29635</td>
+                                  <td>Invalid Phone Type 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29637</td>
+                                  <td>Invalid Phone Type 2</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29639</td>
+                                  <td>Invalid Phone Type 3</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29641</td>
+                                  <td>Invalid Phone Type 4</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29645</td>
+                                  <td>Invalid Primary Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29646</td>
+                                  <td>Invalid Primary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29655</td>
+                                  <td>Invalid Client Primary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29657</td>
+                                  <td>Invalid Client Primary Address Region Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29659</td>
+                                  <td>Invalid Client Primary Address Country Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29667</td>
+                                  <td>City Code or City Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29668</td>
+                                  <td>Region Code or Region Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29675</td>
+                                  <td>Invalid Client Secondary Address Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>29676</td>
+                                  <td>Invalid Client Secondary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29685</td>
+                                  <td>Invalid Client Secondary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29687</td>
+                                  <td>Invalid Client Secondary Address Region Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>29689</td>
+                                  <td>Invalid Client Secondary Address Country Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29690</td>
+                                  <td>Validity Start Date must not be in the past in case Client Secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29691</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date in case Client Secondary Address </td>
+                                </tr>								
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV35Rs'                       
+  # --- CreateDebitCard
+  /SecuredInOut/CreateDebitCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+            tags:
+              - Create Debit Card
+            requestBody:
+              required: true
+              description: <div><Button style="width:300px">Encrypt Request</Button></div>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/EncryptedCreateDebitCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/EncryptedCreateDebitCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div><div><Button style="width:300px">Decrypt Response</Button></div></div>
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>29604</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29605</td>
+                                  <td>Error while generating the Client Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29606</td>
+                                  <td>Invalid Bank Code in Customer Details segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29607</td>
+                                  <td>Invalid Branch Code in Customer Details Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>29608</td>
+                                  <td>Invalid Family Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>29610</td>
+                                  <td>Invalid Cardholder’s Gender</td>
+                                </tr>
+                                <tr> 
+                                  <td>29614</td>
+                                  <td>Invalid Cardholder’s Birth Date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29617</td>
+                                  <td>Invalid VIP Level</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29618</td>
+                                  <td>Invalid Nationality Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29619</td>
+                                  <td>Invalid Language Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29620</td>
+                                  <td>Invalid Title Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29626</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29627</td>
+                                  <td>Invalid Socio-Professional Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29628</td>
+                                  <td>Invalid Activity Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29629</td>
+                                  <td>Invalid Customer Segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29633</td>
+                                  <td>Invalid Lodging Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29634</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29635</td>
+                                  <td>Invalid Phone Type 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29637</td>
+                                  <td>Invalid Phone Type 2</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29639</td>
+                                  <td>Invalid Phone Type 3</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29641</td>
+                                  <td>Invalid Phone Type 4</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29645</td>
+                                  <td>Invalid Primary Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29646</td>
+                                  <td>Invalid Primary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29655</td>
+                                  <td>Invalid Client Primary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29657</td>
+                                  <td>Invalid Client Primary Address Region Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29659</td>
+                                  <td>Invalid Client Primary Address Country Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29667</td>
+                                  <td>City Code or City Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29668</td>
+                                  <td>Region Code or Region Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29675</td>
+                                  <td>Invalid Client Secondary Address Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>29676</td>
+                                  <td>Invalid Client Secondary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29685</td>
+                                  <td>Invalid Client Secondary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29687</td>
+                                  <td>Invalid Client Secondary Address Region Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>29689</td>
+                                  <td>Invalid Client Secondary Address Country Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29690</td>
+                                  <td>Validity Start Date must not be in the past in case Client Secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29691</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date in case Client Secondary Address </td>
+                                </tr>		
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV35Rs'                          
+# ------- FeeInQuiry API  
+  /FeeInQuiry/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>This API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations, fees on transactions as well as detail of a statement fees previously defined in the system…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/FeeInQuiry.png" />
+      summary: API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations.
+      tags:
+        - Fee Inquiry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeeInQuiryV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FeeInQuiryV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>20201</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeeInQuiryV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/FeeInQuiryV35Rs'                     
+  # ------- Cards/V2/Fees
+  /Cards/V2/Fees:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations, fees on transactions as well as detail of a statement fees previously defined in the system…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/FeeInQuiry.png" />
+      summary: API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations.
+      tags:
+        - Fee Inquiry
+      parameters:
+        - in: query
+          name: aliasPAN
+          schema:
+            type: string
+          required: false
+          description: The aliasPAN value.
+        - in: query
+          name: operationEvent
+          schema:
+            type: string
+          required: false
+          description: The operationEvent value.
+        - in: query
+          name: replaceReason
+          schema:
+            type: string
+          required: false
+          description: The replaceReason value.
+        - in: query
+          name: catPIProduct
+          schema:
+            type: string
+          required: false
+          description: The catPIProduct value.
+        - in: query
+          name: catPIProductVer
+          schema:
+            type: string
+          required: false
+          description: The catPIProductVer value. 
+        - in: query
+          name: requestUID 
+          schema:
+            type: string
+          required: true
+          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+        - in: query
+          name: requestDate 
+          schema:
+            type: string
+          required: true
+          description: Date when the request was submitted.
+        - in: query
+          name: userID 
+          schema:
+            type: string
+          required: true
+          description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>20201</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeeInQuiryV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/FeeInQuiryV35Rs'                  
+  # ------- Transactions/V2/Fees
+  /Transactions/V2/Fees:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations, fees on transactions as well as detail of a statement fees previously defined in the system…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/FeeInQuiry.png" />
+      summary: API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations.
+      tags:
+        - Fee Inquiry
+      parameters:
+        - in: query
+          name: aliasPAN
+          schema:
+            type: string
+          required: false
+          description: The aliasPAN value.
+        - in: query
+          name: catAccProduct
+          schema:
+            type: string
+          required: false
+          description: The catAccProduct value.
+        - in: query
+          name: catAccProductVer
+          schema:
+            type: string
+          required: false
+          description: The catAccProductVer value.
+        - in: query
+          name: transactionCode
+          schema:
+            type: string
+          required: false
+          description: The transactionCode value.
+        - in: query
+          name: reverFlag
+          schema:
+            type: string
+          required: false
+          description: The reverFlag value.
+        - in: query
+          name: catPIProduct
+          schema:
+            type: string
+          required: false
+          description: The catPIProduct value. 
+        - in: query
+          name: catPIProductVer
+          schema:
+            type: string
+          required: false
+          description: The catPIProductVer value. 
+        - in: query
+          name: transAmount
+          schema:
+            type: string
+          required: true
+          description: The transAmount value.
+        - in: query
+          name: transCurCode
+          schema:
+            type: string
+          required: false
+          description: The transCurCode value. 
+        - in: query
+          name: requestUID 
+          schema:
+            type: string
+          required: true
+          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+        - in: query
+          name: requestDate 
+          schema:
+            type: string
+          required: true
+          description: Date when the request was submitted.
+        - in: query
+          name: userID 
+          schema:
+            type: string
+          required: true
+          description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>20201</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeeInQuiryV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/FeeInQuiryV35Rs'                  
+  # ------- /Statements/V2/Fees
+  /Statements/V2/Fees:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations, fees on transactions as well as detail of a statement fees previously defined in the system…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/FeeInQuiry.png" />
+      summary: API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations.
+      tags:
+        - Fee Inquiry
+      parameters:
+        - in: query
+          name: aliasPAN
+          schema:
+            type: string
+          required: false
+          description: The aliasPAN value.
+        - in: query
+          name: accountNumber
+          schema:
+            type: string
+          required: false
+          description: The accountNumber value.
+        - in: query
+          name: catAccProduct
+          schema:
+            type: string
+          required: false
+          description: The catAccProduct value.
+        - in: query
+          name: catAccProductVer
+          schema:
+            type: string
+          required: false
+          description: The catAccProductVer value.
+        - in: query
+          name: catPIProductVer
+          schema:
+            type: string
+          required: false
+          description: The catPIProductVer value.
+        - in: query
+          name: requestUID 
+          schema:
+            type: string
+          required: true
+          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+        - in: query
+          name: requestDate 
+          schema:
+            type: string
+          required: true
+          description: Date when the request was submitted.
+        - in: query
+          name: userID 
+          schema:
+            type: string
+          required: true
+          description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>20201</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeeInQuiryV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/FeeInQuiryV35Rs'                  
+  # ------- GetCardDetails API
+  /GetCardDetails/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a selection of web services with regards to cards maintenance, the get card details web services is one of those services that can be used by both agents and customers in order to retrieve more details regarding the concerned card being sent in the request message.</p>
+                    <p>Card details can include the cardholder’s full name, mailing address, phone number, date of birth, the card type, card number, expiration date.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCardDetails.png" />
+      summary: Retrieve more details regarding the concerned card being sent in the request message.
+      tags:
+        - Get Card details.
+      requestBody:
+        description: Retrieve more details regarding the concerned card being sent in the request message.	
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV35Rq'
+      responses:  
+         200:
+          description: 
+                   <div>
+                          <h6>Successful</h6>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                            <tr>
+                               <th>Error code</th>
+                               <th>Error Description</th>
+                            </tr>
+                            <tr> 
+                               <td>21301</td>
+                                <td>Invalid Card Number/Token Id</td>
+                            </tr>
+                           </table>
+                    </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetCardDetailsV35Rs'                  
+    # -------  Cards/v2/{aliasPAN} API  
+  /Cards/v2/{aliasPAN}:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a selection of web services with regards to cards maintenance, the get card details web services is one of those services that can be used by both agents and customers in order to retrieve more details regarding the concerned card being sent in the request message.</p>
+                    <p>Card details can include the cardholder’s full name, mailing address, phone number, date of birth, the card type, card number, expiration date.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCardDetails.png" />
+      summary: Retrieve more details regarding the concerned card being sent in the request message.
+      tags:
+        - Get Card details.
+      parameters:
+          - in: path
+            name: aliasPAN
+            example: 4250A38B18906430
+            schema:
+              type: string
+            required: true
+            description: The AliasPAN value.
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+              example : 6948DF80-14BD-4E04-8842-7668D9C001F5
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+              example: '2020-02-05T00:00:00'
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+              example: user001
+            description: Represents the user Id who made the request.
+      responses:
+         200:
+          description:
+                  <div>
+                          <h6>Successful</h6>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                            <tr>
+                               <th>Error code</th>
+                               <th>Error Description</th>
+                            </tr>
+                            <tr> 
+                               <td>21301</td>
+                                <td>Invalid Card Number/Token Id</td>
+                            </tr>
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetCardDetailsV35Rs'                    
+  # --- GetStockCardsOverview
+  /GetStockCardsOverview/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               The current service may be used by any third party application to retrieve all the pre-paid batches with different set of criteria’s including Bank, Branch, Batch Number… the answer must contain the list of batches along with a set of details that could help the end used during its analysis or decision making  .
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetStockCardsOverview.png" />
+            summary:   The current service may be used by any third party application to retrieve all the pre-paid batches with different set of criteria’s including Bank, Branch, Batch Number…
+            tags:
+              - Get Stock Cards Overview
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStockCardsOverviewV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStockCardsOverviewV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>17701</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>
+                              <tr> 
+                                <td>17702</td>
+                                <td>Invalid Branch Code</td>
+                              </tr>
+                              <tr> 
+                                <td>17703</td>
+                                <td>Batch Number Not Found</td>
+                              </tr>
+                              <tr> 
+                                <td>17704</td>
+                                <td>Invalid range dates</td>
+                              </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStockCardsOverviewV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetStockCardsOverviewV35Rs'                          
+  # --- LostStolenDeclaration
+  /LostStolenDeclaration/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                              <p>
+                                This web services is used to initiate and update a lost stolen case. The lost and stolen cases can be initiated in two states. Confirmed or Waiting for confirmation. Unconfirmed cases can be subsequently confirmed or canceled. Based on the lost and stolen case reason authorizations can be rejected and transaction posting can be suspended for the concerned PAN. 
+                              </p>
+                              <p>
+                                Note that updating the declaration is only authorized if the declaration is awaiting confirmation.
+                              </p>
+                              <p>
+                                In case of replacement the new PAN and expiry date will be returned on the response.
+                              </p>
+                              <p>
+                                As output the web service returns the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                              </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/LostStolenDeclaration.png" />
+            summary:   This web services is used to initiate and update a lost stolen case. The lost and stolen cases can be initiated in two states.
+            tags:
+              -  Lost Stolen Declaration
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LostStolenDeclarationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LostStolenDeclarationV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>22001</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>22102</td>
+                                  <td>Card Expired</td>
+                                </tr>
+                                <tr> 
+                                  <td>22103</td>
+                                  <td>Invalid Declaration Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>22104</td>
+                                  <td>Declaration update not allowed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22105</td>
+                                  <td>Invalid Range Date</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22106</td>
+                                  <td>Invalid City Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22107</td>
+                                  <td>Invalid Country Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22108</td>
+                                  <td>Invalid Police declaration Indicator</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22109</td>
+                                  <td>Invalid Replace Pan Flag</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22110</td>
+                                  <td>Invalid Action Type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22111</td>
+                                  <td>Invalid Declaration Status</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22112</td>
+                                  <td>When Action Is U, a lost and stolen Case With Status W Must Be Existing For The Pan</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22113</td>
+                                  <td>Card Account Link Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22114</td>
+                                  <td>Multi Cards Account Link Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22115</td>
+                                  <td>Invalid Card Status Reason</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22116</td>
+                                  <td>Police Declaration Date Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22117</td>
+                                  <td>Location Police Declaration Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22118</td>
+                                  <td>Invalid Bank Code Customer</td>
+                                </tr>											
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LostStolenDeclarationV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/LostStolenDeclarationV35Rs'                          
+  # ------- OrderStockCards API  
+  /OrderStockCards/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Branches that have an prepaid card inventory and sell cards usually have what is called a stock. A stock order business function simply means the act of ordering of new stock to refill the inventory.</p>
+                    <p>Each time the agent in the branch capture a new order, the system will make sure that cards with the appropriate product and plastic will be produced. Then shipped to increase the inventory level of the branch that made the requiest</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/OrderStockCards.png" />
+      summary: Branches that have an prepaid card inventory and sell cards usually have what is called a stock.
+      tags:
+        - Order Stock Cards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStockCardsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/OrderStockCardsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>17601</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17602</td>
+                                  <td>Invalid Branch Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17603</td>
+                                  <td>Invalid Card product Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17604</td>
+                                  <td>Invalid Credit profile code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>17605</td>
+                                  <td>Invalid Plastic Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>17606</td>
+                                  <td>Invalid Pre-loaded Amount</td>
+                                </tr>		
+                                <tr> 
+                                  <td>17607</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>											
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStockCardsV35Rs' 
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/OrderStockCardsV35Rs'                   
+  # --- RenewCard
+  /RenewCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               Usually a card is automatically renewed within the month it expires. However, for some reasons, as if when the customer is going to be out of the town during the renewal process, he may request to renew his card before its expiration date. For that, PowerCARD offers the possibility to use this web service. The service is mainly used to store the request that will be processed during the end of the day. 
+                          </p>
+                          <p>
+                              It is important to mention here that PowerCARD makes multiple controls on the card before proceeding to perform the renewal action. Those controls are all defined in the system and can be activated or deactivated by the financial institution using the PowerCARD setup screens.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/RenewCard.png" />
+            summary:    A customer can request to renew his card before its expiration date.
+            tags:
+              - Renew Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>12701</td>
+                                        <td>Invalid Card number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12702</td>
+                                        <td>Invalid Card product</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12703</td>
+                                        <td>Operation not allowed</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12704</td>
+                                        <td>Operation not allowed for Cancelled card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12705</td>
+                                        <td>Operation not allowed for Replaced card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12706</td>
+                                        <td>Card blocked for renewal</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12707</td>
+                                        <td>Invalid Expiration date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12708</td>
+                                        <td>The card is in production process, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12709</td>
+                                        <td>Card is in the stop list, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12710</td>
+                                        <td>The card is in Pin request process, Contact your administrator</td>
+                                      </tr>							
+                                      <tr> 
+                                        <td>12711</td>
+                                        <td>The card is in Replacement process</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12712</td>
+                                        <td>The card is in Renewal process</td>
+                                      </tr>							
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/RenewCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RenewCardV35Rs'                          
+    # --- Cards/v2/{aliasPAN}/Renew
+  /Cards/v2/{aliasPAN}/Renew:
+        get:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               Usually a card is automatically renewed within the month it expires. However, for some reasons, as if when the customer is going to be out of the town during the renewal process, he may request to renew his card before its expiration date. For that, PowerCARD offers the possibility to use this web service. The service is mainly used to store the request that will be processed during the end of the day. 
+                          </p>
+                          <p>
+                              It is important to mention here that PowerCARD makes multiple controls on the card before proceeding to perform the renewal action. Those controls are all defined in the system and can be activated or deactivated by the financial institution using the PowerCARD setup screens.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/RenewCard.png" />
+            summary:    A customer can request to renew his card before its expiration date.
+            tags:
+              - Renew Card
+            parameters:
+              - in: path
+                name: aliasPAN
+                schema:
+                  type: string
+                required: true
+                example: "4250120656063430"
+                description: The AliasPAN value.
+              - in: query
+                name: cardNumber
+                schema:
+                  type: string
+                description: The cardNumber value.
+                example: "4250120656063430"
+              - in: query
+                name: requestUID
+                schema:
+                  type: string
+                example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+                description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+              - in: query
+                name: requestDate 
+                schema:
+                  type: string
+                example: "2020-02-05T00:00:00"
+                description: Date when the request was submitted.
+              - in: query
+                name: userID 
+                schema:
+                  type: string
+                example: "001"
+                description: Represents the user Id who made the request.
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>12701</td>
+                                        <td>Invalid Card number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12702</td>
+                                        <td>Invalid Card product</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12703</td>
+                                        <td>Operation not allowed</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12704</td>
+                                        <td>Operation not allowed for Cancelled card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12705</td>
+                                        <td>Operation not allowed for Replaced card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12706</td>
+                                        <td>Card blocked for renewal</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12707</td>
+                                        <td>Invalid Expiration date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12708</td>
+                                        <td>The card is in production process, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12709</td>
+                                        <td>Card is in the stop list, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12710</td>
+                                        <td>The card is in Pin request process, Contact your administrator</td>
+                                      </tr>							
+                                      <tr> 
+                                        <td>12711</td>
+                                        <td>The card is in Replacement process</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12712</td>
+                                        <td>The card is in Renewal process</td>
+                                      </tr>							
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/RenewCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RenewCardV35Rs'                        
+ # --- ReplaceCard
+  /ReplaceCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             In PowerCARD, lost or damaged cards card be replaced in the system using this web service. Agents as well as customers can ask for the replacement of an existing card by specifying the reason. Based on that reason, the system can either replace the card by keeping the same card number or generating a new card number for the cardholder. 
+                          </p>
+                          <p>
+                              The service allows also applying or not some fees amount while replacing a card. Fees are then charged to the account with a specific transaction code.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/ReplaceCard.png" />
+            summary:     Lost or damaged cards card be replaced in the system using this web service.
+            tags:
+              - Replace Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00530</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>00531</td>
+                                  <td>Invalid replacement reason code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00533</td>
+                                  <td>Invalid fee option</td>
+                                </tr>
+                                <tr> 
+                                  <td>00534</td>
+                                  <td>Invalid fee amount</td>
+                                </tr>
+                                <tr> 
+                                  <td>00535</td>
+                                  <td>Invalid delivery branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>00536</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>00537</td>
+                                  <td>Invalid Priority Indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>00538</td>
+                                  <td>Invalid Priority Indicator</td>
+                                </tr>							
+                                <tr> 
+                                  <td>00539</td>
+                                  <td>Invalid Plastic Delivery Method</td>
+                                </tr>							
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ReplaceCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/ReplaceCardV35Rs'                         
+  #requestPIN
+  /RequestPin/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        The PIN request API allows the bank cardholders to request for the PIN .A PIN request is usually called when the cardholder request from the bank to send him the PIN associated with his card. The cardholder has the ability to choose the appropriate mode of PIN re-sending.
+                    </p>
+                    <p>
+                         Note that the cardholder PIN is never logged, not even in an encrypted form; the system will generate it again based on some data.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/requestPIN.png" />
+        summary:  The PIN request API allows the bank cardholders to request for the PIN .
+        tags:
+          - Request PIN
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestPinV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/RequestPinV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02201</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02202</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>02203</td>
+                                  <td>Invalid Fees option</td>
+                                </tr>
+                                <tr> 
+                                  <td>02204</td>
+                                  <td>Invalid Product</td>
+                                </tr>
+                                <tr> 
+                                  <td>02205</td>
+                                  <td>Replace without fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02206</td>
+                                  <td>Replace with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02207</td>
+                                  <td>Renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02208</td>
+                                  <td>Manual renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02209</td>
+                                  <td>Pin calculate with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02210</td>
+                                  <td>Pin calculate ex</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02211</td>
+                                  <td>Pin not managed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02212</td>
+                                  <td>Card in process</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RequestPinV35Rs'
+              application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RequestPinV35Rs'                    
+  #Cards/V2/{aliasPAN}/RequestPIN/SendingMode/{sendingMode}/FeesOption/{feesOption}/FeeAmount/{feeAmount}/CurCode/{curCode}
+  /Cards/V2/{aliasPAN}/RequestPIN/SendingMode/{sendingMode}/FeesOption/{feesOption}/FeeAmount/{feeAmount}/CurCode/{curCode}:
+      get:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        The PIN request API allows the bank cardholders to request for the PIN .A PIN request is usually called when the cardholder request from the bank to send him the PIN associated with his card. The cardholder has the ability to choose the appropriate mode of PIN re-sending.
+                    </p>
+                    <p>
+                         Note that the cardholder PIN is never logged, not even in an encrypted form; the system will generate it again based on some data.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/requestPIN.png" />
+        summary:  The PIN request API allows the bank cardholders to request for the PIN .
+        tags:
+          - Request PIN
+        parameters:
+          - in: path
+            name: aliasPAN
+            schema:
+              type: string
+              example: "4250120656063430"
+            required: true
+            description: The AliasPAN value.
+          - in: path
+            name: sendingMode
+            schema:
+              type: string
+              example: "SMS"
+            required: true
+            description: The sendingMode value.
+          - in: path
+            name: feesOption
+            schema:
+              type: string
+              example: "Y"
+            required: true
+            description: The feesOption value.
+          - in: path
+            name: feeAmount
+            schema:
+              type: string
+              example: "126986666"
+            required: false
+            description: The feeAmount value.
+          - in: path
+            name: curCode
+            schema:
+              type: string
+              example: "928"
+            required: false
+            description: The curCode value.
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+              example: "user0016-lgkj-7777-7777-123456789aze"
+            required: true
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+              example: "2020-02-05T00:00:00"
+            required: true
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+              example: "user001"
+            required: true
+            description: Represents the user Id who made the request.
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02201</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02202</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>02203</td>
+                                  <td>Invalid Fees option</td>
+                                </tr>
+                                <tr> 
+                                  <td>02204</td>
+                                  <td>Invalid Product</td>
+                                </tr>
+                                <tr> 
+                                  <td>02205</td>
+                                  <td>Replace without fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02206</td>
+                                  <td>Replace with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02207</td>
+                                  <td>Renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02208</td>
+                                  <td>Manual renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02209</td>
+                                  <td>Pin calculate with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02210</td>
+                                  <td>Pin calculate ex</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02211</td>
+                                  <td>Pin not managed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02212</td>
+                                  <td>Card in process</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RequestPinV35Rs'
+              application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RequestPinV35Rs'                     
+  # ------- SearchCard API  
+  /SearchCard/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <P>When a search card web service is used, agents and customers can include several options in the query message. PowerCARD is then responsible of looking for all the cards in the cardholder database that meets the combination of the input criteria being sent within the request.</P>
+                    <p>Input criteria can include for instance card number, customer identification, card status, card product code, cardholder name…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchCard.png" />
+      summary: The search card web service is used, agents and customers can include several options in the query message.
+      tags:
+        - Search Card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCardV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchCardV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20501</td>
+                                <td>Invalid Card Number/Token Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20502</td>
+                                <td>One of the three fields (CardNumber, ClientCode, CorporateId) must be completed</td>
+                              </tr>	
+                              <tr> 
+                                <td>20503</td>
+                                <td>Invalid Customer Id  M20503_INVALID_CUSTOMER_ID</td>
+                              </tr>	
+                              <tr> 
+                                <td>20504</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>	
+                              <tr> 
+                                <td>20505</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>	
+                              <tr> 
+                                <td>20506</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20507</td>
+                                <td>Invalid Card Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>20508</td>
+                                <td>No data found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCardV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SearchCardV35Rs'                 
+  # ------- SearchCard API  
+  /SearchCard/V3:
+    post:
+      description:  <h3>API Overview</h3>
+                    <P>When a search card web service is used, agents and customers can include several options in the query message. PowerCARD is then responsible of looking for all the cards in the cardholder database that meets the combination of the input criteria being sent within the request.</P>
+                    <p>Input criteria can include for instance card number, customer identification, card status, card product code, cardholder name…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchCard.png" />
+      summary: The search card web service is used, agents and customers can include several options in the query message.
+      tags:
+        - Search Card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchCardV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchCardV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20501</td>
+                                <td>Invalid Card Number/Token Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20502</td>
+                                <td>One of the three fields (CardNumber, ClientCode, CorporateId) must be completed</td>
+                              </tr>	
+                              <tr> 
+                                <td>20503</td>
+                                <td>Invalid Customer Id  M20503_INVALID_CUSTOMER_ID</td>
+                              </tr>	
+                              <tr> 
+                                <td>20504</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>	
+                              <tr> 
+                                <td>20505</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>	
+                              <tr> 
+                                <td>20506</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20507</td>
+                                <td>Invalid Card Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>20508</td>
+                                <td>No data found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCard2V35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SearchCard2V35Rs'    
+  # Cards/v2
+  /Cards/v2:
+    get:
+      description:  <h3>API Overview</h3>
+                    <P>When a search card web service is used, agents and customers can include several options in the query message. PowerCARD is then responsible of looking for all the cards in the cardholder database that meets the combination of the input criteria being sent within the request.</P>
+                    <p>Input criteria can include for instance card number, customer identification, card status, card product code, cardholder name…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchCard.png" />
+      summary: The search card web service is used, agents and customers can include several options in the query message.
+      tags:
+        - Search Card
+      parameters:
+                  - in: query
+                    name: clientCode
+                    schema:
+                      type: string
+                    required: false
+                    description: The clientCode value.
+                  - in: query
+                    name: aliasPAN 
+                    example: '4250A38B18906430'
+                    schema:
+                      type: string
+                    required: false
+                    description: The aliasPAN value.
+                  - in: query
+                    name: corporateId 
+                    schema:
+                      type: string
+                    required: false
+                    description: The corporateId value.
+                  - in: query
+                    name: catPIProduct 
+                    example: null
+                    schema:
+                      type: string
+                    required: false
+                    description: The catPIProduct value.
+                  - in: query
+                    name: catPIProductVer
+                    schema:
+                      type: string
+                    required: false
+                    description: The catPIProductVer value.
+                  - in: query
+                    name: cardStatus 
+                    schema:
+                      type: string
+                    required: false
+                    description: The cardStatus value.
+                  - in: query
+                    name: firstName 
+                    schema:
+                      type: string
+                    required: false
+                    description: The firstName value.
+                  - in: query
+                    name: lastName 
+                    schema:
+                      type: string
+                    required: false
+                    description: The lastName value.
+                  - in: query
+                    name: lastName2 
+                    schema:
+                      type: string
+                    required: false
+                    description: The lastName2 value.
+                  - in: query
+                    name: pageSize 
+                    example: 10
+                    schema:
+                      type: string
+                    required: false
+                    description: The pageSize value.
+                  - in: query
+                    name: pageIndex 
+                    example: 1
+                    schema:
+                      type: string
+                    required: false
+                    description: The pageIndex value.
+                  - in: query
+                    name: requestUID 
+                    example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+                    schema:
+                      type: string
+                    required: true
+                    description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                  - in: query
+                    name: requestDate 
+                    example: '2020-02-05T00:00:00'
+                    schema:
+                      type: string
+                    required: true
+                    description: Date when the request was submitted.
+                  - in: query
+                    name: userID 
+                    example: user001
+                    schema:
+                      type: string
+                    required: false
+                    description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20501</td>
+                                <td>Invalid Card Number/Token Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20502</td>
+                                <td>One of the three fields (CardNumber, ClientCode, CorporateId) must be completed</td>
+                              </tr>	
+                              <tr> 
+                                <td>20503</td>
+                                <td>Invalid Customer Id  M20503_INVALID_CUSTOMER_ID</td>
+                              </tr>	
+                              <tr> 
+                                <td>20504</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>	
+                              <tr> 
+                                <td>20505</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>	
+                              <tr> 
+                                <td>20506</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20507</td>
+                                <td>Invalid Card Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>20508</td>
+                                <td>No data found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCardV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SearchCardV35Rs'                   
+  # ------- SetCardDetails API  
+  /SetCardDetails/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                      <p>The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card being sent in the request message.</p>
+                      <p>The setCardDetails web service includes the cardholder’s full name, embossed name, phones,  …
+                      As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                      </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SetCardDetails.png" />
+      summary: The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card.
+      tags:
+        - Set Card Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>22001</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>22002</td>
+                                  <td>Invalid Card Branch Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22003</td>
+                                  <td>Invalid Card Priority Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22004</td>
+                                  <td>Invalid Card Gender</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22005</td>
+                                  <td>Invalid Card Birth Date</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22006</td>
+                                  <td>Invalid Card VIP Level</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22007</td>
+                                  <td>Invalid Card Nationality Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22008</td>
+                                  <td>Invalid Card Language Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22009</td>
+                                  <td>Invalid Card Title Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22010</td>
+                                  <td>Invalid Card Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22011</td>
+                                  <td>Invalid Card Socio Professional Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22012</td>
+                                  <td>Invalid Card Activity Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22013</td>
+                                  <td>Invalid Card Customer Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>22014</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22015</td>
+                                  <td>Invalid Card Status Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22016</td>
+                                  <td>Invalid Card Status Reason</td>
+                                </tr>
+                                <tr> 
+                                  <td>22017</td>
+                                  <td>Invalid Card Phone Type 1</td>
+                                </tr>
+                                <tr> 
+                                  <td>22018</td>
+                                  <td>Invalid Card Phone Type 2</td>
+                                </tr>
+                                <tr> 
+                                  <td>22019</td>
+                                  <td>Invalid Card Phone Type 3</td>
+                                </tr>
+                                <tr> 
+                                  <td>22020</td>
+                                  <td>Invalid Card Phone Type 4</td>
+                                </tr>
+                                <tr> 
+                                  <td>22021</td>
+                                  <td>Invalid Card Plastic Delivery Method</td>
+                                </tr>
+                                <tr> 
+                                  <td>22022</td>
+                                  <td>Invalid Card Pin Delivery Method</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22023</td>
+                                  <td>Invalid Card Promotion Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22024</td>
+                                  <td>Invalid Card Field Name</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22025</td>
+                                  <td>Invalid Card Field Value</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SetCardDetailsV35Rs'                   
+   # ------- Cards/V2/{aliasPAN} 
+  /Cards/V2/{aliasPAN}:
+    put:
+      description:  <h3>API Overview</h3>
+                      <p>The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card being sent in the request message.</p>
+                      <p>The setCardDetails web service includes the cardholder’s full name, embossed name, phones,  …
+                      As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                      </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SetCardDetails.png" />
+      summary: The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card.
+      tags:
+        - Set Card Details
+      parameters:
+        - in: path
+          name: aliasPAN
+          example: 4250A38B18906430
+          schema:
+            type: string
+          required: true
+          description: AliasPAN String to get card details.
+        - in: query
+          name: requestUID 
+          example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+          schema:
+              type: string
+          required: true
+          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+        - in: query
+          name: requestDate 
+          example: '2020-07-07T03:13:01.853Z'
+          schema:
+              type: string
+          required: true
+          description: Date when the request was submitted.
+        - in: query
+          name: userID 
+          example: PwcUserJmeter
+          schema:
+              type: string
+          required: false
+          description: Represents the user Id who made the request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>22001</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>22002</td>
+                                  <td>Invalid Card Branch Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22003</td>
+                                  <td>Invalid Card Priority Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22004</td>
+                                  <td>Invalid Card Gender</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22005</td>
+                                  <td>Invalid Card Birth Date</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22006</td>
+                                  <td>Invalid Card VIP Level</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22007</td>
+                                  <td>Invalid Card Nationality Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22008</td>
+                                  <td>Invalid Card Language Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22009</td>
+                                  <td>Invalid Card Title Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22010</td>
+                                  <td>Invalid Card Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22011</td>
+                                  <td>Invalid Card Socio Professional Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22012</td>
+                                  <td>Invalid Card Activity Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22013</td>
+                                  <td>Invalid Card Customer Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>22014</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22015</td>
+                                  <td>Invalid Card Status Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22016</td>
+                                  <td>Invalid Card Status Reason</td>
+                                </tr>
+                                <tr> 
+                                  <td>22017</td>
+                                  <td>Invalid Card Phone Type 1</td>
+                                </tr>
+                                <tr> 
+                                  <td>22018</td>
+                                  <td>Invalid Card Phone Type 2</td>
+                                </tr>
+                                <tr> 
+                                  <td>22019</td>
+                                  <td>Invalid Card Phone Type 3</td>
+                                </tr>
+                                <tr> 
+                                  <td>22020</td>
+                                  <td>Invalid Card Phone Type 4</td>
+                                </tr>
+                                <tr> 
+                                  <td>22021</td>
+                                  <td>Invalid Card Plastic Delivery Method</td>
+                                </tr>
+                                <tr> 
+                                  <td>22022</td>
+                                  <td>Invalid Card Pin Delivery Method</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22023</td>
+                                  <td>Invalid Card Promotion Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22024</td>
+                                  <td>Invalid Card Field Name</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22025</td>
+                                  <td>Invalid Card Field Value</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SetCardDetailsV35Rs'                 
+ # --- UpdateCardStatus
+  /UpdateCardStatus/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service allow changing the status of an existing card in the system.
+            tags:
+              - Update Card status
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>03601</td>
+                                    <td>Invalid Customer Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19201</td>
+                                    <td>Invalid Card Number / Card Token ID</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>19202</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19203</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19204</td>
+                                    <td>Invalid Combination Status Code - Status Reason Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19205</td>
+                                    <td>Invalid Transition Requested </td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19206</td>
+                                    <td>Operation Not Permitted</td>
+                                  </tr>									
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV35Rs'                                
+  # --- Cards/v2/{aliasPAN}/Status
+  /Cards/v2/{aliasPAN}/Status:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service allow changing the status of an existing card in the system.
+            tags:
+              - Update Card status
+            parameters:
+            - in: path
+              name: aliasPAN
+              schema:
+                type: string
+              required: true
+              description: aliasPAN String value.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>03601</td>
+                                    <td>Invalid Customer Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19201</td>
+                                    <td>Invalid Card Number / Card Token ID</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>19202</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19203</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19204</td>
+                                    <td>Invalid Combination Status Code - Status Reason Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19205</td>
+                                    <td>Invalid Transition Requested </td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19206</td>
+                                    <td>Operation Not Permitted</td>
+                                  </tr>									
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV35Rs'                        
+ # --- UpdateCardStatusReason
+  /UpdateCardStatusReason/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires as input the Card Number or the Card Token ID.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatusReason.png" />
+            summary:    This web services was introduced to allow changing the status of an existing card by selection a reason.
+            tags:
+              - Update Card status Reason
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusReasonV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusReasonV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>03601</td>
+                                    <td>Invalid Customer Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19201</td>
+                                    <td>Invalid Card Number / Card Token ID</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>19202</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19203</td>
+                                    <td>Invalid Status Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19204</td>
+                                    <td>Invalid Combination Status Code - Status Reason Code</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19205</td>
+                                    <td>Invalid Transition Requested </td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>19206</td>
+                                    <td>Operation Not Permitted</td>
+                                  </tr>									
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusReasonV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusReasonV35Rs'                           
+#CreateCreditCard
+  /CreateCreditCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The current web service is used to allow users creating a credit card in the system. When the card is created, the customer can then start using his card to make purchase, ATM withdrawal….
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card product, credit limits, fees, insurances and others. All are then checked by the system before it will proceed by the creation of the credit card.
+                              This Web Service can be called by a Customer or an Agent.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/CreateCreditCard.png" />
+            summary:    Users (Agents or bank customers) can use this web service to create and post a transaction to an existing account in the system.
+            tags:
+              - Create credit card.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>19601</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateCreditCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CreateCreditCardV35Rs'                         
+  #CreditCards
+  /CreditCards/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The current web service is used to allow users creating a credit card in the system. When the card is created, the customer can then start using his card to make purchase, ATM withdrawal….
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card product, credit limits, fees, insurances and others. All are then checked by the system before it will proceed by the creation of the credit card.
+                              This Web Service can be called by a Customer or an Agent.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/CreateCreditCard.png" />
+            summary:    Users (Agents or bank customers) can use this web service to create and post a transaction to an existing account in the system.
+            tags:
+              - Create credit card.
+            parameters:
+                  - in: query
+                    name: requestUID 
+                    example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+                    schema:
+                        type: string
+                    required: true
+                    description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                  - in: query
+                    name: requestDate 
+                    example: '2020-07-07T03:13:01.853Z'
+                    schema:
+                        type: string
+                    required: true
+                    description: Date when the request was submitted.
+                  - in: query
+                    name: userID 
+                    example: PwcUserJmeter
+                    schema:
+                        type: string
+                    required: false
+                    description: Represents the user Id who made the request.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>19601</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateCreditCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CreateCreditCardV35Rs'                                                               
+ #checkCustomFieldValue  
+  /checkCustomFieldValue/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service is used to check the existance of custom field value for specific entity, when the entity is card, token value can be provided instead of card number. PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/checkCustomFieldValue.png" />
+            summary: This web service is used to check the existance of custom field value for specific entity ...
+            tags:
+              - Check Custom Field Value
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>21401</td>
+                                        <td>Invalid Entity Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21402</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21403</td>
+                                        <td>Invalid Client code</td>
+                                      </tr>
+                                       <tr>
+                                        <td>21406</td>
+                                        <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21404</td>
+                                        <td>Invalid Shadow account number</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21405</td>
+                                        <td>Invalid Field Name (refers to the scenario where a valid Field Name is referenced but for the wrong entity (f.i. a valid Card Custom Fields but the Entity Code passed is “CL – Client”))</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCustomFieldValueV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CheckCustomFieldValueV35Rs'                         
+
+  #getStatmentHistory  
+  /GetStatementHistory/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods. They may optionally provide a date range to limit the number of Account Statement aggregates that are returned in the response. Note that the statement is based on the normal cutoff cycles and the date range must return statements that ended during the specified range. 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetStatementHistory.png" />
+            summary:  A client or agent may use this web service to retrieve account information for a statement period ...
+            tags:
+              - Get Statement History
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>02801</td>
+                                        <td>Invalid range date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02802</td>
+                                        <td>Invalid credit card number </td>
+                                      </tr>
+                                      <tr>
+                                        <td>02803</td>
+                                        <td>Invalid Currency Code</td>
+                                      </tr>
+                                       <tr>
+                                        <td>02804</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02805</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02806</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>
+                                       <tr>
+                                        <td>02807</td>
+                                        <td>Shaddow Account Error</td>
+                                      </tr>
+                                       <tr>
+                                        <td>02808</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02809</td>
+                                        <td>Card Expired</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02810</td>
+                                        <td>Cr Profile Error</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetStatementHistoryV35Rs'                                              
+ #addSupplementaryCard  
+  /AddSupplementaryCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          This web service is intended to be used by both agents and customers to set up an additional cardholder like a family member on an existing card. 
+                          </p>
+                          <p>
+                          Any new supplementary card created in the system is issued under the same account as the primary cardholder. They will together share the same account balance.
+                          </p>
+                          <p>
+                           Supplementary cardholders have no legal liability to pay the charges that they incur when they use their cards. However, the primary account holder is responsible for paying all the charges posted to his account.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/addSupplementaryCard.png" />
+            summary: Any new supplementary card created in the system is issued under the same account as the primary cardholder.
+            tags:
+              - Add Supplementary Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddSupplementaryCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/AddSupplementaryCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>19101</td>	
+                                        <td>Invalid Card Number / Card Token ID</td>
+                                      </tr>
+                                      <tr>
+                                        <td>19102</td>	
+                                        <td>Operation Not Permitted</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/AddSupplementaryCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/AddSupplementaryCardV35Rs'                          
+ #Set Card Domain  
+  /SetCardDomain/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow users to restrict the scope of use of the card according to criteria defined by the bank such as Merchant, MCC, Acquiring country, Processing code, Currency.
+                          </p>
+                          <p>
+                             Agent and customers can ask to change the Domain control by specifying the operation from a list and whether the service will be allowed or not.
+                          </p>
+                          <p>
+                             It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SetCardDomain.png" />
+            summary:  This web services was introduced to allow users to restrict the scope of use of the card according to criteria defined by the bank such as Merchant...
+            tags:
+              - Set Card Domain 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SetCardDomainV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SetCardDomainV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>16601</td>	
+                                        <td>Invalid card number/Token</td>
+                                      </tr>
+                                      <tr>
+                                        <td>16602</td>	
+                                        <td>Invalid Control Type</td>
+                                      </tr>
+                                       <tr>
+                                         <td>16603</td>	
+                                         <td>Invalid Control Operator</td>
+                                      </tr>
+                                      <tr>
+                                         <td>16604</td>	
+                                         <td>Invalid Country Code</td>
+                                      </tr>
+                                      <tr>
+                                         <td>16605</td>	
+                                         <td>Invalid Currency Code</td>
+                                      </tr>
+                                      <tr>
+                                         <td>16606</td>	
+                                         <td>Invalid Processing Code</td>
+                                      </tr>
+                                       <tr>
+                                         <td>16607</td>	
+                                         <td>Invalid Merchant Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>16608</td>	
+                                         <td>Invalid MCC Code</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SetCardDomainV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SetCardDomainV35Rs'    
+ # Get Product Details
+  /GetProductDetails/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          PowerCARD offers a selection of web services with regards to products maintenance, the get product’s list of services that can be displayed/invoked from a corporate or a customer portal or mobile app
+                          </p>
+                          <p>
+                           As output the requester could get information that can include details regarding product details Limits, Services, Country domain control, MCC domain control, …
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetProductDetails.png" />
+            summary:    PowerCARD offers a selection of web services with regards to products maintenance, the get product’s list of services that can be displayed/invoked from a corporate or a customer portal or mobile app ...
+            tags:
+              - Get Product Details 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetProductDetailsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetProductDetailsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>31101</td>	
+                                        <td>Invalid Catalog Product Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>31102</td>	
+                                        <td>Invalid Catalog Product version</td>
+                                      </tr>
+                                       <tr>
+                                         <td>31103</td>	
+                                         <td>Catalog Product Pack Code</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetProductDetailsV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetProductDetailsV35Rs'                      
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      EncryptedCreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/EncryptedCreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+    # --- Import SearchCard2V35 response
+      SearchCard2V35Rs:
+               $ref: 'response.yaml#/SearchCard2V35Rs'
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import AddSupplementaryCard request and response
+      AddSupplementaryCardV35Rq:
+               $ref: 'request.yaml#/AddSupplementaryCardV35Rq'
+      AddSupplementaryCardV35Rs:
+               $ref: 'response.yaml#/AddsupplementaryCardV35Rs'  
+    # --- Import DemoV35 request and response
+      UpdateCardCharacteristicsV35Rq:
+               $ref: 'request.yaml#/UpdateCardCharacteristicsV35Rq'
+      UpdateCardCharacteristicsV35Rs:
+               $ref: 'response.yaml#/UpdateCardCharacteristicsV35Rs'
+    # --- Import DemoV35 request and response
+      GetCardCharacteristicsV35Rq:
+               $ref: 'request.yaml#/GetCardCharacteristicsV35Rq'
+      GetCardCharacteristicsV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'
+    # --- Import DemoV35 request and response
+      CheckCustomFieldValueV35Rq:
+               $ref: 'request.yaml#/CheckCustomFieldValueV35Rq'
+      CheckCustomFieldValueV35Rs:
+               $ref: 'response.yaml#/CheckCustomFieldValueV35Rs'
+    # --- Import GetProductDetailsV35Rq request and response
+      GetProductDetailsV35Rq:
+               $ref: 'request.yaml#/GetProductDetailsV35Rq'
+      GetProductDetailsV35Rs:
+                $ref: 'response.yaml#/GetProductDetailsV35Rs'
+
+               
+security:
+  - bearerAuth: []

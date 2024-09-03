@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:                         
+#CreateCreditCard
+  /CreateCreditCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The current web service is used to allow users creating a credit card in the system. When the card is created, the customer can then start using his card to make purchase, ATM withdrawal….
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card product, credit limits, fees, insurances and others. All are then checked by the system before it will proceed by the creation of the credit card.
+                              This Web Service can be called by a Customer or an Agent.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/CreateCreditCard.png" />
+            summary:    This web service can used to create and post a transaction to an existing account in the system.
+            tags:
+              - Create credit card.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateCreditCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>19601</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateCreditCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CreateCreditCardV35Rs'                                      
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+security:
+  - bearerAuth: []

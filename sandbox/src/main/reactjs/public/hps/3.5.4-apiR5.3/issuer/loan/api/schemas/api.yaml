@@ -1,0 +1,1397 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation ,Loan Early Payoff (Total & Partial) and Loan Early Closure.</p>
+               <p></p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: 	Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                schema:
+                  $ref: '#/components/schemas/TokenAuthenticationResponse'                     
+  #convertTransactionToLoan  
+  /ConvertTransactionToloan/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The main purpose of this web service is to convert normal transactions to loans. Loan program, reason and transaction Identifier are one of required fields.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/convertTransactionToLoan.png" />
+            summary: The main purpose of this web service is to convert normal transactions to loans. Loan program, reason and transaction Identifier are one of required fields.
+            tags:
+              - Convert Transaction To Loan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ConvertTransactionToLoanV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ConvertTransactionToLoanV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>18901</td>
+                                        <td>Invalid Loan Program Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18902</td>
+                                        <td>Invalid Reason Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18903</td>
+                                        <td>Invalid Transaction Flag</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18904</td>
+                                        <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18905</td>
+                                        <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18906</td>
+                                        <td>Reserved for future use</td>
+                                      </tr>
+                                       <tr>
+                                        <td>18907</td>
+                                        <td>Reserved for future use</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18908</td>
+                                        <td>Reserved for future use</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18909</td>
+                                        <td>Reserved for future use</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18910</td>
+                                        <td>Reserved for future use</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18911</td>
+                                        <td>Transaction cannot be converted</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18912</td>
+                                        <td>Program Code not allowed</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18913</td>
+                                        <td>Internal Error while performing the conversion request</td>
+                                      </tr>
+                                      <tr>
+                                        <td>18914</td>
+                                        <td>Loan limit exceeded</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ConvertTransactionToLoanV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/ConvertTransactionToLoanV35Rs'                       
+  #createLoanApplication  
+  /CreateLoanApplication/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               The main purpose of this web service is to convert normal transactions to loans. <br> Loan program, reason and transaction Identifier are one of required fields.
+                               At the end of day processing, manual conversions are treated by PowerCARD using the chosen loan program.
+                               During the conversion process, the loan limit will be checked.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/createLoanApplication.png" />
+            summary: The main purpose of this web service is to convert normal transactions to loans. 
+            tags:
+              - Create Loan Application.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoanApplicationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoanApplicationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>18801</td>
+                                         <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18802</td>
+                                         <td>Invalid Loan Amount</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18803</td>
+                                         <td>Invalid Loan Currency</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18804</td>
+                                         <td>Invalid Catalog Loan Product</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18805</td>
+                                         <td>Invalid Catalog Loan Product Version</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18806</td>
+                                         <td>Error to generate the application number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18807</td>
+                                         <td>Error available check</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateLoanApplicationV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/CreateLoanApplicationV35Rs'                         
+  #getInstallmentPlan  
+  /GetInstallmentplan/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The get installment plan web service is an API that can be used to get the installment plan of a given loan transaction provided by the loan company to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to search for a specific loan in the system using the transaction reference Number and sequence, two fields used internally by PowerCARD to identify uniquely a transaction in the system.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getInstallmentPlan.png" />
+            summary:  The get installment plan web service is an API that can be used to get the installment plan of a given loan transaction... 
+            tags:
+              - Get Installment Plan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetInstallmentPlanV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetInstallmentPlanV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>18101</td>
+                                          <td>Installment plan / Loan not found in the system</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetInstallmentPlanV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetInstallmentPlanV35Rs'                       
+  #searchLoan  
+  /searchLoan/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The search loan web service is an API that can be used to retrieve all the loans provided by the issuer to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to search for all existing loans in the system using different criteria’s like Transaction Id, Account Id or also transaction date. For the last criteria, users must specify a range of dates values to get the list of loans submitted between those two dates, for instance search for the list of loans submitted today, last week, last months… 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchLoan.png" />
+            summary: The search loan web service is an API that can be used to retrieve all the loans provided by the issuer to the customer. 
+            tags:
+              - Search Loan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoanV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoanV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchLoanV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SearchLoanV35Rs'                        
+  #searchLoan  
+  /SearchLoan/V3:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The search loan web service is an API that can be used to retrieve all the loans provided by the issuer to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to search for all existing loans in the system using different criteria’s like Transaction Id, Account Id or also transaction date. For the last criteria, users must specify a range of dates values to get the list of loans submitted between those two dates, for instance search for the list of loans submitted today, last week, last months… 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchLoan.png" />
+            summary: The search loan web service is an API that can be used to retrieve all the loans provided by the issuer to the customer...
+            tags:
+              - Search Loan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoan2V35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoan2V35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>30501</td>
+                                          <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30502</td>
+                                          <td>Invalid Card Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30503</td>
+                                          <td>Invalid Loan Status</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30504</td>
+                                          <td>Invalid Financing Type</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30505</td>
+                                          <td>Invalid Loan Ref Number</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchLoan2V35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SearchLoan2V35Rs'                        
+  
+  #getLoanDetails  
+  /GetLoanDetails/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The get loan web service is an API that can be used to retrieve the loan provided by the loan company to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to get details for the existing loan in the system.<br>
+                              As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getLoanDetails.png" />
+            summary: The get loan web service is an API that can be used to retrieve the loan provided by the loan company to the customer 
+            tags:
+              - Get Loan Details.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetLoanDetailsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetLoanDetailsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>30201</td>
+                                          <td>Invalid Loan Reference Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30202</td>
+                                          <td>Invalid Loan Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoanDetailsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoanDetailsV35Rs'                       
+  #SimulateLoanPayOff  
+  /SimulateLoanPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service can be invoked before performing a Loan pay off operation for a particular account. Its purpose is to provide payment amount simulation + penalty fees. The agent and the customer can both review the pay off simulation before performing the actual PayOff
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SimulateLoanPayOff.png" />
+            summary:  This web service can be invoked before performing a Loan pay off operation for a particular account. 
+            tags:
+              - Simulate Loan PayOff.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPayOffV35Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>41701</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41702</td>
+                                         <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41703</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41704</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SimulateLoanPayOffV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SimulateLoanPayOffV35Rs'                       
+  #SimulateLoan  
+  /SimulateLoan/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service can be invoked before a loan booking. It returns a loan simulation that can be verified by the agent and agreed with the customer before booking a loan.. <br>
+                           The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SimulateLoan.png" />
+            summary:   This web service can be invoked before a loan booking. It returns a loan simulation that can be verified by the agent...
+            tags:
+              - Simulate Loan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>41601</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41602</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41603</td>
+                                        <td>Invalid Transaction Id</td>
+                                      </tr>
+                                       <tr>
+                                        <td>41604</td>
+                                        <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                       <tr>
+                                        <td>41605</td>
+                                        <td>Invalid Catalog Loan Product</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41606</td>
+                                        <td>Invalid Catalog Loan Product</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SimulateLoanV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SimulateLoanV35Rs'                       
+  #SimulateLoanPartialPayOff  
+  /SimulateLoanPartialPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service can be invoked before performing a partial Loan pay off operation for a particular account. Its purpose is to provide payment amount simulation + penalty fees. The agent and the customer can both review the pay off simulation before performing the actual partial PayOff. The simulation payment amount will be in function of the number of installments to be paid off. <br>    
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SimulateLoanPartialPayOff.png" />
+            summary:  This web service can be invoked before performing a partial Loan pay off operation for a particular account.
+            tags:
+              - Simulate Loan Partial PayOff.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPartialPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPartialPayOffV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                         <td>41801</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr> 
+                                         <td>41802</td>
+                                         <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr> 
+                                         <td>41803</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr>  
+                                      <tr> 
+                                         <td>41804</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>                                      
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SimulateLoanPartialPayOffV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SimulateLoanPartialPayOffV35Rs'                        
+  #loanReschedule  
+  /LoanReschedule/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             This web service is used to restructuring the terms of an existing loan. The loan can be rescheduled to reduce payment amounts by extending the payment period and increasing the number of payments. <br> The rescheduling is achieved by changing the product of a particular loan.
+                             The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/loanReschedule.png" />
+            summary:  This web service is used to restructuring the terms of an existing loan. 
+            tags:
+              - Loan Reschedule.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanRescheduleV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanRescheduleV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>41101</td>
+                                         <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41102</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41103</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr> 
+                                      <tr>
+                                         <td>41104</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41105</td>
+                                         <td>Invalid Catalog Loan Product</td>
+                                      </tr> 
+                                      <tr>
+                                         <td>41106</td>
+                                         <td>Invalid Catalog Loan Product Version</td>
+                                      </tr>                                                                                                                                                              
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanRescheduleV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/LoanRescheduleV35Rs'                        
+  #LoanPartialPayOff  
+  /LoanPartialPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service is used when the customer wishes to perform a partial payoff of an existing loan. The Partial payoff amount must match with the sum of installments for the N pargeted monthly installments.<br>
+                           The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/LoanPartialPayOff.png" />
+            summary: This web service is used when the customer wishes to perform a partial payoff of an existing loan. 
+            tags:
+              - Loan Partial PayOff
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanPartialPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanPartialPayOffV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>41201</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41202</td>
+                                        <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41203</td>
+                                        <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41204</td>
+                                        <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41205</td>
+                                        <td>Invalid Number of Terms</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41206</td>
+                                        <td>Invalid Partial Pay Off Amount</td>
+                                      </tr>
+                                      <tr>
+                                        <td>41207</td>
+                                        <td>Invalid Partial Pay Off Amount Currency</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanPartialPayOffV35Rs'
+                  application/xml:
+                      schema:
+                         $ref: '#/components/schemas/LoanPartialPayOffV35Rs'                        
+#LoanEarlyPayOff  
+  /LoanEarlyPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is used when the customer wishes to perform a full payoff of one or more existing loans.<br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/LoanEarlyPayOff.png" />
+            summary: This web service is used when the customer wishes to perform a full payoff of one or more existing loans.
+            tags:
+              - Loan Early PayOff
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanEarlyPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanEarlyPayOffV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>41301</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41302</td>
+                                         <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41303</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41304</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanEarlyPayOffV35Rs'
+                  application/xml:
+                      schema:
+                         $ref: '#/components/schemas/LoanEarlyPayOffV35Rs'                         
+#LoanConsolidate  
+  /LoanConsolidate/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service allows you to consolidate (combine) multiple loans into one loan. The result is a single monthly payment instead of multiple payments. <br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/LoanConsolidate.png" />
+            summary: This web service allows you to consolidate (combine) multiple loans into one loan. 
+            tags:
+              - Loan Consolidate
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanConsolidateV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanConsolidateV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>41401</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41402</td>
+                                         <td>Invalid Catalog Loan Product</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41403</td>
+                                         <td>Invalid Catalog Loan Product Version</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41404</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41405</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanConsolidateV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/LoanConsolidateV35Rs'                        
+#loanCancellation  
+  /loanCancellation/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The loan cancellation web service is an API that can be used to force closure of a loan. The loan is identified  by account number / card number , ARN number and sequence . <br>
+                              All billed installment/interest/fees will be cancelled however the unbilled installments will be deactivated and moved to the history and the Loan booking fee will be cancelled. <br>
+                              The following sections are intended to highlight the process as well as the technical specification of the request and response messages. <br>
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/loanCancellation.png" />
+            summary: The loan cancellation web service is an API that can be used to force closure of a loan.
+            tags:
+              - Loan Cancellation
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LoanCancellationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LoanCancellationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>41501</td>
+                                          <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>41502</td>
+                                          <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>41503</td>
+                                          <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                      <tr>
+                                          <td>41504</td>
+                                          <td>Invalid Reason Code</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LoanCancellationV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/LoanCancellationV35Rs'                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import UpdateCustomerCategoryV35 request and response
+      ConvertTransactionToLoanV35Rq:
+               $ref: 'request.yaml#/ConvertTransactionToLoanV35Rq'
+      ConvertTransactionToLoanV35Rs:
+               $ref: 'response.yaml#/ConvertTransactionToLoanV35Rs'     
+    # --- Import CreateLoanApplicationV35Rq request and response
+      CreateLoanApplicationV35Rq:
+               $ref: 'request.yaml#/CreateLoanApplicationV35Rq'
+      CreateLoanApplicationV35Rs:
+               $ref: 'response.yaml#/CreateLoanApplicationV35Rs' 
+    # --- Import GetInstallmentPlanV35 request and response
+      GetInstallmentPlanV35Rq:
+               $ref: 'request.yaml#/GetInstallmentPlanV35Rq'
+      GetInstallmentPlanV35Rs:
+               $ref: 'response.yaml#/GetInstallmentPlanV35Rs'
+    # --- Import SearchLoanV35 request and response
+      SearchLoanV35Rq:
+               $ref: 'request.yaml#/SearchLoanV35Rq'
+      SearchLoanV35Rs:
+               $ref: 'response.yaml#/SearchLoanV35Rs' 
+    # --- Import SearchLoan2V35 request and response
+      SearchLoan2V35Rq:
+               $ref: 'request.yaml#/SearchLoan2V35Rq'
+      SearchLoan2V35Rs:
+               $ref: 'response.yaml#/SearchLoan2V35Rs' 
+    # --- Import GetLoanDetailsV35 request and response
+      GetLoanDetailsV35Rq:
+               $ref: 'request.yaml#/GetLoanDetailsV35Rq'
+      GetLoanDetailsV35Rs:
+               $ref: 'response.yaml#/GetLoanDetailsV35Rs' 
+    # --- Import SimulateLoanPayOffV35Rq request and response
+      SimulateLoanPayOffV35Rq:
+               $ref: 'request.yaml#/SimulateLoanPayOffV35Rq'
+      SimulateLoanPayOffV35Rs:
+               $ref: 'response.yaml#/SimulateLoanPayOffV35Rs'   
+    # --- Import SimulateLoanV35 request and response
+      SimulateLoanV35Rq:
+               $ref: 'request.yaml#/SimulateLoanV35Rq'
+      SimulateLoanV35Rs:
+               $ref: 'response.yaml#/SimulateLoanV35Rs'      
+    # --- Import SimulateLoanPartialPayOffV35 request and response
+      SimulateLoanPartialPayOffV35Rq:
+               $ref: 'request.yaml#/SimulateLoanPartialPayOffV35Rq'
+      SimulateLoanPartialPayOffV35Rs:
+               $ref: 'response.yaml#/SimulateLoanPartialPayOffV35Rs'
+    # --- Import LoanRescheduleV35 request and response
+      LoanRescheduleV35Rq:
+               $ref: 'request.yaml#/LoanRescheduleV35Rq'
+      LoanRescheduleV35Rs:
+               $ref: 'response.yaml#/LoanRescheduleV35Rs'     
+    # --- Import LoanPartialPayOffV35 request and response
+      LoanPartialPayOffV35Rq:
+               $ref: 'request.yaml#/LoanPartialPayOffV35Rq'
+      LoanPartialPayOffV35Rs:
+               $ref: 'response.yaml#/LoanPartialPayOffV35Rs'  
+    # --- Import LoanEarlyPayOffV35 request and response
+      LoanEarlyPayOffV35Rq:
+               $ref: 'request.yaml#/LoanEarlyPayOffV35Rq'
+      LoanEarlyPayOffV35Rs:
+               $ref: 'response.yaml#/LoanEarlyPayOffV35Rs'  
+    # --- Import LoanConsolidateV35 request and response
+      LoanConsolidateV35Rq:
+               $ref: 'request.yaml#/LoanConsolidateV35Rq'
+      LoanConsolidateV35Rs:
+               $ref: 'response.yaml#/LoanConsolidateV35Rs' 
+    # --- Import LoanCancellationV35 request and response
+      LoanCancellationV35Rq:
+               $ref: 'request.yaml#/LoanCancellationV35Rq'
+      LoanCancellationV35Rs:
+               $ref: 'response.yaml#/LoanCancellationV35Rs'                    
+security:
+  - bearerAuth: []
+  
+  

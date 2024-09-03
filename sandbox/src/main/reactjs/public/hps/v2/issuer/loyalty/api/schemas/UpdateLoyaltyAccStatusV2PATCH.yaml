@@ -1,0 +1,114 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- LoyaltyAccountStatus API  
+  /LoyaltyAccountStatus/V2:
+    patch:
+      description:  <h3>API Overview</h3>
+                    <p>The loyalty account can be cancelled in the system for any reason. For that, PowerCARD offers this web service that requires the loyalty account as input in the request message as well as the cancellation reason. PowerCARD will then process to the cancellation of the loyalty account only if that account has no outstanding balance. If this is the case, the system will inform the requester who may need to make a manual adjustment on the account before proceeding to the account cancellation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/UpdateLoyaltyAccountStatus.png" />
+      summary: This web service that requires the loyalty account as input in the request message...
+      tags:
+        - Update Loyalty Account Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>12901</td>
+                                <td>Invalid reason code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12902</td>
+                                <td>Account already cancelled.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12903</td>
+                                <td>Account with outstanding balance. Need to adjust the balance before proceeding to cancellation.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12904</td>
+                                <td>Invalid loyalty Account number</td>
+                              </tr>	
+                              <tr> 
+                                <td>12905</td>
+                                <td>Invalid Loyalty Program Identification</td>
+                              </tr>	
+                              <tr> 
+                                <td>12906</td>
+                                <td>Invalid Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12907</td>
+                                <td>Invalid Account Owner Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>12908</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>
+                              <tr> 
+                                <td>12909</td>
+                                <td>Loyalty Account Not Founded</td>
+                              </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'
+            application/xml:
+                      schema:
+                        $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'         
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+security:
+  - bearerAuth: []

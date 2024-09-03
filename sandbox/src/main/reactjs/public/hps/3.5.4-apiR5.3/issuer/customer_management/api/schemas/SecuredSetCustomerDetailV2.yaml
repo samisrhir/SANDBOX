@@ -1,0 +1,173 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #setCustomerDetails 
+  /SecuredIn/SetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary:  This web service can be used by agents and customers to Update customer details.
+        tags:
+          - Set Customer Detail
+        requestBody:
+          description: <div><Button style="width:300px">Encrypt Request</Button></div>
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuredInSetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SecuredInSetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10101</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10102</td>
+                                  <td>Invalid Customer details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10103</td>
+                                  <td>Invalid Corporate details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10104</td>
+                                  <td>Customer does not exists</td>
+                                </tr>
+                                <tr> 
+                                  <td>10105</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10106</td>
+                                  <td>Error while cancelling the customer</td>
+                                </tr>
+                                <tr> 
+                                  <td>10107</td>
+                                  <td>Error while updating the Customer branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>10108</td>
+                                  <td>Invalid Socio-professional code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10109</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10110</td>
+                                  <td>PError while inserting a customer record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10111</td>
+                                  <td>Error while inserting a customer address record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10112</td>
+                                  <td>Error inserting the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10113</td>
+                                  <td>Error while updating a customer record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10114</td>
+                                  <td>Error while updating customer address record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10115</td>
+                                  <td>Error updating the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10116</td>
+                                  <td>Error updating the corporate status</td>
+                                </tr>
+                                <tr> 
+                                  <td>10117</td>
+                                  <td>Error inserting a new corporate</td>
+                                </tr>
+                                <tr> 
+                                  <td>10118</td>
+                                  <td>Error updating a corporate record in the database</td>
+                                </tr>
+                                <tr> 
+                                  <td>10119</td>
+                                  <td>Empty Set of contact Information</td>
+                                </tr>
+                                <tr> 
+                                  <td>10120</td>
+                                  <td>Customer/Organisation operation are mutually exclusive</td>
+                                </tr>
+                                <tr> 
+                                  <td>10121</td>
+                                  <td>Corporate already exists in the system with the same ID  </td>
+                                </tr>								
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV35Rs'                                              
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SetCustomerDetailV35 request and response definition
+      SecuredInSetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SecuredInSetCustomerDetailV35Rq'  
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+security:
+  - bearerAuth: []

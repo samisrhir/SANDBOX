@@ -1,0 +1,262 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+#UpdateCardCharacteristics  
+  /UpdateCardCharacteristics/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The purpose of the current service is to give the possibility to update the card characteristics that have been already negotiated for a card.<br>
+                            Several services to manage are offered (service's domain controls, NFC feature, request deferment of the contributions, Corporate solidarity, ..) and informations are requested depending on the desired service.<br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                          <img  src="./docs/UpdateCardCharacteristics.png" />
+            summary: Gives the possibility to update the card characteristics that have been already...
+            tags:
+              - Update Card Characteristics
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardCharacteristicsV35Rq'
+                application/xml:
+                  schema:
+                     $ref: '#/components/schemas/UpdateCardCharacteristicsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>33201</td>
+                                        <td>Invalid Catalog Product</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33202</td>
+                                        <td>Invalid Catalog Product Version</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33203</td>
+                                        <td>Invalid Pack Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33204</td>
+                                        <td>Invalid Product Currency</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33205</td>
+                                        <td>Invalid Cycle Cutoff</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33206</td>
+                                        <td>Invalid Service Code</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33207</td>
+                                        <td>Invalid Service Status</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33208</td>
+                                        <td>Invalid Service Mandatory Indicator</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33209</td>
+                                        <td>Invalid Channel Type</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33210</td>
+                                        <td>Invalid ServiceTo BeExposed In Channel</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33211</td>
+                                        <td>Invalid Deffered Days Number</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33212</td>
+                                        <td>Invalid Deferment Start Date</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33213</td>
+                                        <td>Invalid Deferment End Date</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>33214</td>
+                                        <td>Invalid Control Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33215</td>
+                                        <td>Invalid Control Operator</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33216</td>
+                                        <td>Invalid Control ValueList</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33217</td>
+                                        <td>Invalid Control Value</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33218</td>
+                                        <td>Invalid Card Limit SRV Addendum</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33219</td>
+                                        <td>Invalid Limit ID</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33220</td>
+                                        <td>Invalid Limit Description</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33221</td>
+                                        <td>Invalid Limit Abrv Wording</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33222</td>
+                                        <td>Invalid Validity Range Date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33223</td>
+                                        <td>Invalid Start Date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33224</td>
+                                        <td>Invalid End Date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33225</td>
+                                        <td>Invalid Period Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33226</td>
+                                        <td>Invalid Period Day Off</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33227</td>
+                                        <td>Invalid Periodicity Flag</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33228</td>
+                                        <td>Invalid Territoriality Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33229</td>
+                                        <td>Invalid Transaction Amount</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33230</td>
+                                        <td>Invalid Transaction Amount</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33231</td>
+                                        <td>Invalid Number Of Transactions</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33232</td>
+                                        <td>Invalid Number Of Transactions </td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33233</td>
+                                        <td>Invalid Territoriality Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33234</td>
+                                        <td>Invalid Total Transaction Amount Online</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33235</td>
+                                        <td>Invalid Total Number Of Transactions Online</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33236</td>
+                                        <td>Invalid Total Transaction Amount Offline</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33237</td>
+                                        <td>Invalid Total Number Of Transactions Offline</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33238</td>
+                                        <td>Invalid Sequence Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33239</td>
+                                        <td>Invalid Processing Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33240</td>
+                                        <td>Invalid Country Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33241</td>
+                                        <td>Invalid MCC</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33242</td>
+                                        <td>Invalid Payment Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33243</td>
+                                        <td>Invalid Currency Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33244</td>
+                                        <td>Invalid Max Amount Per Trx</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>33245</td>
+                                        <td>Invalid Card Entry Mode</td>
+                                      </tr>  
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardCharacteristicsV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardCharacteristicsV35Rs' 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      UpdateCardCharacteristicsV35Rq:
+               $ref: 'request.yaml#/UpdateCardCharacteristicsV35Rq'
+      UpdateCardCharacteristicsV35Rs:
+               $ref: 'response.yaml#/UpdateCardCharacteristicsV35Rs'
+  security:
+  - bearerAuth: []

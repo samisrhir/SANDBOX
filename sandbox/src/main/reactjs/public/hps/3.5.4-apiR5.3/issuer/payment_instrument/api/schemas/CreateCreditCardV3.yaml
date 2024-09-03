@@ -1,0 +1,542 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:                         
+  #CreateCreditCard/V3
+  /CreateCreditCard/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The current web service is used to allow users creating a credit card in the system. When the card is created, the customer can then start using his card to make purchase, ATM withdrawal….
+        </p>
+        <p>
+        Many details with regards to the card are shared within the request. Those data includes information related to the card product, credit limits, fees, insurances and others. All are then checked by the system before it will proceed by the creation of the credit card.
+        This Web Service can be called by a Customer or an Agent.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/CreateCreditCard.png" />
+      summary: This web service can be used to create and post a transaction to an existing account in the system.
+      tags:
+        - Create credit card.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCreditCardV3V35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateCreditCardV3V35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>19601</td>
+            <td>reserved for future use </td>
+            <tr/>
+            <tr>
+            <td>19602</td>
+            <td>Reserved for future use </td>
+            <tr/>
+            <tr>
+            <td>19603</td>
+            <td>Card is already registered to another Client </td>
+            <tr/>
+            <tr>
+            <td>19604</td>
+            <td>Invalid Client Code </td>
+            <tr/>
+            <tr>
+            <td>19605</td>
+            <td>Error while generating the Client Code </td>
+            <tr/>
+            <tr>
+            <td>19606</td>
+            <td>Invalid Bank Code in Customer Details segment </td>
+            <tr/>
+            <tr>
+            <td>19607</td>
+            <td>Invalid Branch Code in Customer Details Segment </td>
+            <tr/>
+            <tr>
+            <td>19608</td>
+            <td>Invalid Family Status </td>
+            <tr/>
+            <tr>
+            <td>19609</td>
+            <td>Invalid Client Nubmer Dependents </td>
+            <tr/>
+            <tr>
+            <td>19610</td>
+            <td>Invalid Cardholder’s Gender </td>
+            <tr/>
+            <tr>
+            <td>19611</td>
+            <td>Invalid Card MemberShip Date </td>
+            <tr/>
+            <tr>
+            <td>19612</td>
+            <td>Invalid Auxliary Prodduct Status Code </td>
+            <tr/>
+            <tr>
+            <td>19613</td>
+            <td>Invalid Card Address Line1 </td>
+            <tr/>
+            <tr>
+            <td>19614</td>
+            <td>Invalid Cardholder’s Birth Date </td>
+            <tr/>
+            <tr>
+            <td>19615</td>
+            <td>Invalid Card Zip Code </td>
+            <tr/>
+            <tr>
+            <td>19617</td>
+            <td>Invalid VIP Level </td>
+            <tr/>
+            <tr>
+            <td>19618</td>
+            <td>Invalid Nationality Code </td>
+            <tr/>
+            <tr>
+            <td>19619</td>
+            <td>Invalid Language Code </td>
+            <tr/>
+            <tr>
+            <td>19620</td>
+            <td>Invalid Title Code </td>
+            <tr/>
+            <tr>
+            <td>19626</td>
+            <td>Invalid Owner Code </td>
+            <tr/>
+            <tr>
+            <td>19627</td>
+            <td>Invalid Socio-Professional Code </td>
+            <tr/>
+            <tr>
+            <td>19628</td>
+            <td>Invalid Activity Code </td>
+            <tr/>
+            <tr>
+            <td>19629</td>
+            <td>Invalid Customer Segment </td>
+            <tr/>
+            <tr>
+            <td>19633</td>
+            <td>Invalid Lodging Mode </td>
+            <tr/>
+            <tr>
+            <td>19634</td>
+            <td>Invalid Channel Number </td>
+            <tr/>
+            <tr>
+            <td>19635</td>
+            <td>Invalid Phone Type 1 </td>
+            <tr/>
+            <tr>
+            <td>19637</td>
+            <td>Invalid Phone Type 2 </td>
+            <tr/>
+            <tr>
+            <td>19639</td>
+            <td>Invalid Phone Type 3 </td>
+            <tr/>
+            <tr>
+            <td>19641</td>
+            <td>Invalid Phone Type 4 </td>
+            <tr/>
+            <tr>
+            <td>19645</td>
+            <td>Invalid Primary Address Type </td>
+            <tr/>
+            <tr>
+            <td>19646</td>
+            <td>Invalid Primary Address Sending Mode </td>
+            <tr/>
+            <tr>
+            <td>19655</td>
+            <td>Invalid Client Primary Address City Code </td>
+            <tr/>
+            <tr>
+            <td>19657</td>
+            <td>Invalid Client Primary Address Region Code </td>
+            <tr/>
+            <tr>
+            <td>19659</td>
+            <td>Invalid Client Primary Address Country Code </td>
+            <tr/>
+            <tr>
+            <td>19667</td>
+            <td>City Code or City Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19668</td>
+            <td>Region Code or Region Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19675</td>
+            <td>Invalid Client Secondary Address Type </td>
+            <tr/>
+            <tr>
+            <td>19676</td>
+            <td>Invalid Client Secondary Address Sending Mode </td>
+            <tr/>
+            <tr>
+            <td>19685</td>
+            <td>Invalid Client Secondary Address City Code </td>
+            <tr/>
+            <tr>
+            <td>19687</td>
+            <td>Invalid Client Secondary Address Region Code </td>
+            <tr/>
+            <tr>
+            <td>19689</td>
+            <td>Invalid Client Secondary Address Country Code </td>
+            <tr/>
+            <tr>
+            <td>19690</td>
+            <td>Validity Start Date must not be in the past in case Client Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19691</td>
+            <td>Validity Start Date cannot be greater than Validity End Date in case Client Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19692</td>
+            <td>Validity End Date must not be in the past in case Client Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19695</td>
+            <td>City Code or City Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19696</td>
+            <td>Region Code or Region Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19703</td>
+            <td>Invalid Client Document Code </td>
+            <tr/>
+            <tr>
+            <td>19711</td>
+            <td>Invalid Card Branch Code </td>
+            <tr/>
+            <tr>
+            <td>19712</td>
+            <td>Invalid Card Priority Code </td>
+            <tr/>
+            <tr>
+            <td>19713</td>
+            <td>Invalid Card Gender </td>
+            <tr/>
+            <tr>
+            <td>19715</td>
+            <td>Invalid Card Birth Date </td>
+            <tr/>
+            <tr>
+            <td>19717</td>
+            <td>Invalid Card VIP Level </td>
+            <tr/>
+            <tr>
+            <td>19718</td>
+            <td>Invalid Card Nationality Code </td>
+            <tr/>
+            <tr>
+            <td>19719</td>
+            <td>Invalid Card Language Code </td>
+            <tr/>
+            <tr>
+            <td>19720</td>
+            <td>Invalid Card Title Code </td>
+            <tr/>
+            <tr>
+            <td>19726</td>
+            <td>Invalid Card Owner Code </td>
+            <tr/>
+            <tr>
+            <td>19727</td>
+            <td>Invalid Card Socio Professional Code </td>
+            <tr/>
+            <tr>
+            <td>19728</td>
+            <td>Invalid Card Activity Code </td>
+            <tr/>
+            <tr>
+            <td>19729</td>
+            <td>Invalid Card Customer Segment </td>
+            <tr/>
+            <tr>
+            <td>19733</td>
+            <td>Invalid Card Status Code </td>
+            <tr/>
+            <tr>
+            <td>19734</td>
+            <td>Invalid Card Status Reason </td>
+            <tr/>
+            <tr>
+            <td>19736</td>
+            <td>Invalid Card Card Fees Code </td>
+            <tr/>
+            <tr>
+            <td>19737</td>
+            <td>Invalid Card Velocity Limit Index </td>
+            <tr/>
+            <tr>
+            <td>19741</td>
+            <td>Invalid Card Corporate Id </td>
+            <tr/>
+            <tr>
+            <td>19742</td>
+            <td>Invalid Card Phone Type 1 </td>
+            <tr/>
+            <tr>
+            <td>19744</td>
+            <td>Invalid Card Phone Type 2 </td>
+            <tr/>
+            <tr>
+            <td>19746</td>
+            <td>Invalid Card Phone Type 3 </td>
+            <tr/>
+            <tr>
+            <td>19748</td>
+            <td>Invalid Card Phone Type 4 </td>
+            <tr/>
+            <tr>
+            <td>19752</td>
+            <td>Invalid Card Plastic Delivery Method </td>
+            <tr/>
+            <tr>
+            <td>19753</td>
+            <td>Invalid Card Pin Delivery Method </td>
+            <tr/>
+            <tr>
+            <td>19754</td>
+            <td>Invalid Card Promotion Code </td>
+            <tr/>
+            <tr>
+            <td>19759</td>
+            <td>Invalid Card Primary Address Type </td>
+            <tr/>
+            <tr>
+            <td>19760</td>
+            <td>Invalid Card Primary Address Sending Mode </td>
+            <tr/>
+            <tr>
+            <td>19761</td>
+            <td>Invalid Card Primary Address Purpose ID </td>
+            <tr/>
+            <tr>
+            <td>19769</td>
+            <td>Invalid Card Primary Address City Code </td>
+            <tr/>
+            <tr>
+            <td>19771</td>
+            <td>Invalid Card Primary Address Region Code </td>
+            <tr/>
+            <tr>
+            <td>19773</td>
+            <td>Invalid Card Primary Address Country Code </td>
+            <tr/>
+            <tr>
+            <td>19781</td>
+            <td>City Code or City Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19782</td>
+            <td>Region Code or Region Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19789</td>
+            <td>Invalid Card Secondary Address Type </td>
+            <tr/>
+            <tr>
+            <td>19790</td>
+            <td>Invalid Card Secondary Address Sending Mode </td>
+            <tr/>
+            <tr>
+            <td>19791</td>
+            <td>Invalid Card Secondary Address Purpose ID </td>
+            <tr/>
+            <tr>
+            <td>19799</td>
+            <td>Invalid Card Secondary Address City Code </td>
+            <tr/>
+            <tr>
+            <td>19801</td>
+            <td>Invalid Card Secondary Address Region Code </td>
+            <tr/>
+            <tr>
+            <td>19803</td>
+            <td>Invalid Card Secondary Address Country Code </td>
+            <tr/>
+            <tr>
+            <td>19804</td>
+            <td>Validity Start Date must not be in the past in case Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19805</td>
+            <td>Validity Start Date cannot be greater than Validity End Date in case Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19806</td>
+            <td>Validity End Date must not be in the past in case Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19809</td>
+            <td>City Code or City Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>09810</td>
+            <td>Region Code or Region Free Text is required for Card Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19815</td>
+            <td>Region Free Text is required in case of Region not valued for Client Secondary Address </td>
+            <tr/>
+            <tr>
+            <td>19832</td>
+            <td>Invalid Insurance Branch Code </td>
+            <tr/>
+            <tr>
+            <td>19836</td>
+            <td>Invalid Account Type </td>
+            <tr/>
+            <tr>
+            <td>19838</td>
+            <td>Invalid Bank Code in Bank Account Segment </td>
+            <tr/>
+            <tr>
+            <td>19840</td>
+            <td>Invalid Branch Code in Bank Account Segment </td>
+            <tr/>
+            <tr>
+            <td>19844</td>
+            <td>BranchCode is missing when AccountNumber is a valued field </td>
+            <tr/>
+            <tr>
+            <td>19845</td>
+            <td>AccountNumber is missing when BranchCode is a valued field </td>
+            <tr/>
+            <tr>
+            <td>19846</td>
+            <td>IBAN is missing when SwiftCode is a valued field </td>
+            <tr/>
+            <tr>
+            <td>19848</td>
+            <td>Invalid Account Number </td>
+            <tr/>
+            <tr>
+            <td>19849</td>
+            <td>Invalid Account Currency </td>
+            <tr/>
+            <tr>
+            <td>19852</td>
+            <td>Invalid Card Field Name </td>
+            <tr/>
+            <tr>
+            <td>19854</td>
+            <td>Duplicate AddressType, more Address with the same AddressType </td>
+            <tr/>
+            <tr>
+            <td>19855</td>
+            <td>Duplicate AddressPurpose, more AddressPurposeID with the same purpose </td>
+            <tr/>
+            <tr>
+            <td>19856</td>
+            <td>An error occurred while inserting or updating a Bank Account </td>
+            <tr/>
+            <tr>
+            <td>19858</td>
+            <td>Client Demog is Mandatory when Existing Client is not provided </td>
+            <tr/>
+            <tr>
+            <td>19859</td>
+            <td>Primary Address is mandatory when Existing Client is not provided </td>
+            <tr/>
+            <tr>
+            <td>19860</td>
+            <td>Invalid Link Flag </td>
+            <tr/>
+            <tr>
+            <td>19861</td>
+            <td>Invalid Link Entiy Code </td>
+            <tr/>
+            <tr>
+            <td>19862</td>
+            <td>Invalid Link Address Type </td>
+            <tr/>
+            <tr>
+            <td>19863</td>
+            <td>Invalid Purpose Address Type </td>
+            <tr/>
+            <tr>
+            <td>19864</td>
+            <td>Invalid Purpose Address Type Sending Mode </td>
+            <tr/>
+            <tr>
+            <td>19865</td>
+            <td>Document Expiry Date must not be in the past </td>
+            <tr/>
+            <tr>
+            <td>19866</td>
+            <td>Document Expiry Date cannot be lesser than document issue date </td>
+            <tr/>
+            <tr>
+            <td>19867</td>
+            <td>Document Issue Date can not be in the future </td>
+            <tr/>
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCreditCardV3V35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateCreditCardV3V35Rs'  
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetParameterList request and response
+      CreateCreditCardV3V35Rq:
+               $ref: 'request.yaml#/CreateCreditCardV3V35Rq'
+      CreateCreditCardV3V35Rs:
+                $ref: 'response.yaml#/CreateCreditCardV3V35Rs'
+security:
+  - bearerAuth: []

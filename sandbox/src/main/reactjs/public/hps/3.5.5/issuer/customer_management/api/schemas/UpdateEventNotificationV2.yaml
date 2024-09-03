@@ -1,0 +1,156 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- UpdateEventNotification 
+  /UpdateEventNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                         <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateEventNotification/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              This web service is used activate/deactivate a communication event/channel as well as set communication event channel preferences.
+                          </p>
+                          <p>
+                              The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/updateEventNotification.png" />
+            summary: Activate/Deactivate a communication event/channel as well as seting it's preferences.. 
+            tags:
+              - Update Event Notification.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateEventNotificationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateEventNotificationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>31401</td>
+                                        <td>Invalid Communication strategy</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31402</td>
+                                        <td>Invalid Event Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31403</td>
+                                        <td>Invalid Event Activation Status</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31404</td>
+                                        <td>Invalid Channel Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31405</td>
+                                        <td>Invalid Channel Activation Status</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31406</td>
+                                        <td>Invalid Channel PhoneType</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31407</td>
+                                        <td>Invalid Channel Address From Entity</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31409</td>
+                                        <td>Invalid Channel Address Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31409</td>
+                                        <td>Invalid Channel Email Address</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31410</td>
+                                        <td>Invalid TMP Preference Start Date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31411</td>
+                                        <td>Invalid TMP Prefernce End Date</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31412</td>
+                                        <td>Invalid TMP Phone Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31413</td>
+                                        <td>Invalid TMP Address From Entity</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31414</td>
+                                        <td>Invalid TMP Address Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31415</td>
+                                        <td>Invalid TMP Email Address</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31416</td>
+                                        <td>Invalid Entity Code</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31417</td>
+                                        <td>Invalid Entity ID</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31418</td>
+                                        <td>Invalid Action Type</td>
+                                      </tr>																		
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'                                  
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      UpdateEventNotificationV35Rq:
+            $ref: 'request.yaml#/UpdateEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+            $ref: 'response.yaml#/GetEventNotificationV35Rs'    
+security:
+  - bearerAuth: []

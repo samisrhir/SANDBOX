@@ -1,0 +1,392 @@
+# ---- TokenAuthentication definition
+TokenAuthentication:
+  type: object
+  properties:
+    providerLogin:
+      type: string
+      example: 'firstUser'
+    providerPassword:
+      type: string
+      example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+    userLanguage:
+      type: string
+      example: 'en_US'
+    requestInfo:
+      type: object
+      $ref: 'aggregate.yaml#/RequestInfo'
+
+
+
+GetMerchantDeatailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+
+CreateMerchantRq:
+  required:
+    - requestInfo
+    - merchantInfoBasic
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    disableAutomaticValidation:
+      type: string
+      example: ''
+      description: <p>Specify if we want to only init merchant creation without auto validation (if applied)
+        Possible values :<b> (Y,N)
+        If not indicated ,default value will be 'N'
+        </p>
+    merchantInfoBasic:
+      $ref: aggregate.yaml#/CreateMerchantMerchantInfoBasic
+    merchantAddressList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantAddress
+    merchantActivityList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantMerchantActivity
+    merchantAccountList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantMerchantAccount
+    merchantSiteList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantMerchantSite
+    merchantContactList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantMerchantContact
+
+
+
+
+CheckMerchantExistRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+AddMerchantAdressRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - address
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    address:
+      $ref: aggregate.yaml#/AddMerchantAddressAddress
+
+
+AddMerchantBankAccountRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantAccount
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantAccount:
+      $ref: aggregate.yaml#/AddMerchantBankAccountMerchantAccount
+
+
+
+AddMerchantContactRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantContact
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantContact:
+      $ref: aggregate.yaml#/AddMerchantContactMerchantContact
+
+
+
+UpdateMerchantDescriptionRq:
+  required:
+    - requestInfo
+    - merchantInfoBasic
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantInfoBasic:
+      $ref: aggregate.yaml#/UpdateMerchantDescriptionMerchantInfoBasic
+
+
+
+DeleteMerchantContactRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/DeleteMerchantContactMerchantIdInfo
+
+
+
+AddMerchantSiteRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantSite
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantSite:
+      $ref: aggregate.yaml#/AddMerchantSiteMerchantSite
+
+
+
+UpdateMerchantContactDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantContact
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantContact:
+      $ref: aggregate.yaml#/UpdateMerchantContactDetailsMerchantContact
+
+
+UpdateMerchantSiteRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantSite
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantSite:
+      $ref: aggregate.yaml#/UpdateMerchantSiteMerchantSite
+
+
+
+UpdateMerchantAddressDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - address
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    address:
+      $ref: aggregate.yaml#/UpdateMerchantAddressDetailsAddress
+
+
+
+
+
+AddMerchantActivityRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantActivity
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantActivity:
+      $ref: aggregate.yaml#/AddMerchantActivityMerchantActivity
+
+
+
+
+GetProductListRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    productType:
+      type: string
+      example: ''
+      description: <p>This is the product type. Possible
+        values are:<b>
+        A:<b> Acceptance,
+        E:<b> Equipment,
+        M:<b> Management/Service.
+        </p>
+
+
+
+UpdateMerchantStatustRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - statusCode
+    - statusReasonCode
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    statusCode:
+      type: string
+      example: ''
+      description: <p>The merchant status, this field is used to indicate the status of the merchant.
+        Possible values are:<b>
+        N:<b> Normal
+        M:<b> Monitored
+        S:<b> Suspended
+        C:<b> Closed
+        </p>
+    statusReasonCode:
+      type: string
+      example: ''
+      description: <p>The reason used to change the status of the merchant. Status reason code as defined in PowerCARD STATUS_REASON_LIST table.</p>
+    statusRangeDate:
+      $ref: aggregate.yaml#/UpdateMerchantStatusStatusRangeDate
+
+
+
+
+
+UpdateMerchantActivityRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantActivity:
+      $ref: aggregate.yaml#/updatemerchantactivityMerchantActivity
+
+
+
+
+GetProductDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - productCode
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    productCode:
+      type: string
+      example: ''
+      description: <p>Should contain the Product code.
+        This value must be present in PRODUCT table.
+        </p>
+    viewAllMode:
+      type: string
+      example: ''
+      description: <p>indicates if view all mode is enabled to get all product details even those not editable
+        Possible values:<b> Y/N
+        default value is 'N'
+        </p>
+
+
+
+
+
+CreateAcceptorPointRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantAcceptorPoint:
+      $ref: aggregate.yaml#/creatacceptorpointMerchantAcceptorPoint
+
+
+
+
+
+
+ValidateMercchantRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+
+UpdateMerchantBankAccountRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantAccount:
+      $ref: aggregate.yaml#/UpdatemerchantBankaccountMerchantAccount
+
+
+
+
+
+

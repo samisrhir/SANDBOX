@@ -1,0 +1,164 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /AddMerchantBankAccount/V3
+  /AddMerchantBankAccount/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The add merchant bank Account API provides functionality to add a merchant bank account during a merchant enrollment process. The merchant bank account must contain information like Bank Name, Account Type, A valid Bank Account Number…
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/AddMerchantBankAccount.PNG" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Add Merchant Bank Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <td>60100</td>
+            <td>Invalid Merchant Bank Code</td>
+            </tr>
+            <tr>
+            <td>60136</td>
+            <td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td>
+            </tr>
+            <tr>
+            <td>60200</td>
+            <td>Merchant not found</td>
+            </tr>
+            <tr>
+            <td>60501</td>
+            <td>Invalid Account Type</td>
+            </tr>
+            <tr>
+            <td>60502</td>
+            <td>Invalid Account category</td>
+            </tr>
+            <tr>
+            <td>60503</td>
+            <td>Invalid Account Bank code</td>
+            </tr>
+            <tr>
+            <td>60504</td>
+            <td>Invalid Account Branch code</td>
+            </tr>
+            <tr>
+            <td>60505</td>
+            <td>Invalid Account chain bank code</td>
+            </tr>
+            <tr>
+            <td>60506</td>
+            <td>Invalid Account chain code</td>
+            </tr>
+            <tr>
+            <td>60507</td>
+            <td>Invalid Account Number</td>
+            </tr>
+            <tr>
+            <td>60508</td>
+            <td>Invalid Account Currency</td>
+            </tr>
+            <tr>
+            <td>60510</td>
+            <td>Invalid Account Remittance Grouping</td>
+            </tr>
+            <tr>
+            <td>60511</td>
+            <td>Invalid Account Fees Grouping</td>
+            </tr>
+            <tr>
+            <td>60512</td>
+            <td>Invalid Account Chargeback Grouping</td>
+            </tr>
+            <tr>
+            <td>60513</td>
+            <td>Invalid Account Billable Element Grouping</td>
+            </tr>
+            <tr>
+            <td>60514</td>
+            <td>Error while inserting account informations</td>
+            </tr>
+            <tr>
+            <td>60516</td>
+            <td>Error while generating iban</td>
+            </tr>
+            <tr>
+            <td>60517</td>
+            <td>The merchant must have a principal account</td>
+            </tr>
+            <tr>
+            <td>60518</td>
+            <td>The merchant already has a primary account</td>
+            </tr>
+            <tr>
+            <td>60519</td>
+            <td>Account number already exist</td>
+            </tr>
+            
+            
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantBankAccountRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AddMerchantBankAccountRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    AddMerchantBankAccountRq:
+      $ref: 'request.yaml#/AddMerchantBankAccountRq'
+    AddMerchantBankAccountRs:
+      $ref: 'response.yaml#/AddMerchantBankAccountRs'
+security:
+  - bearerAuth: []

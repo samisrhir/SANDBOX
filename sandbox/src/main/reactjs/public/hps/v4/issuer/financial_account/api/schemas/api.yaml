@@ -1,0 +1,1038 @@
+openapi: "3.0.3"
+info:
+  title: Financial Account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account (used to view and update data related with the financial account) ,Account transactions.</p>
+                </div>
+               
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://connect-api-f421ce7420d03b16.elb.eu-north-1.amazonaws.com
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /compliance/v4.0/tokens/authentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>	
+                               <tr>
+                                     <td>00000</td>
+                                     <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00001</td>
+                                      <td>Bad Credentials Invalid login and/or password</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00003</td>
+                                      <td>User Blocked</td>
+                                  <tr>
+                                       <td>00005</td>
+                                       <td>Invalid Password configuration</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00006</td>
+                                      <td>User Password expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System Error</td>
+                                  </tr>						
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                      schema:
+                          $ref: '#/components/schemas/TokenAuthenticationResponse'
+  # --- Card from token
+  /payment-instrument/v4.0/tokenization/card_from_token:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        When used in credit, debit or prepaid card transactions, tokens, sometimes referred to as surrogate value are created to replace the card number. A token, rather than the actual credit/debit card number, would be used to complete the purchases a customer is making with its card. In this context, this web service is mainly used to retrieve the clear card number when providing a token value. PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value.                          </p>
+        <p>
+        <p>
+        Users are also required to pass the card expiry date in the list of input data to process the de-tokenization process and return back the clear card number.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/getCardNumberFromToken.png" />
+      summary:     Get the card number using an alias pan token .
+      tags:
+        - Get Card From Token
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCardFromTokenV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetCardFromTokenV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            <table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>021301</td>
+            <td>Invalid CardNumber / TokenID</td>
+            </tr>
+            <tr>
+            <td>021302</td>
+            <td>Invalid bankCode</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardFromTokenV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetCardFromTokenV4Rs'
+  #cards/create_bank_account
+  /payment-instrument/v4.0/accounts/create_bank_account:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Create bank account information. 
+            tags:
+              - Bank Account management
+            requestBody:
+              description: 
+                      <img id="select-case-img" src="./docs/exclamation.png" /> 
+                      <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                      <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                      <code id="key-value-token"> 
+                          {
+                                ...
+                                "keyValues" &#58; [{
+                                    "key" &#58; "token",
+                                    "data" &#58; "y"
+                                }],
+                                ...
+                          }
+                      </code>              
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddBankAccountV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/AddBankAccountV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                <p>Technical Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                <td>00000</td>
+                                <td>Success</td>
+                                </tr>
+                                <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                                </tr>
+                                <tr>
+                                <td>90009</td>
+                                <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                                </tr>
+                                <table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>	
+                                    <tr>
+                                        <td>000159</td>
+                                        <td>Bank Account Already Exist</td>
+                                    </tr>		
+                                    <tr>
+                                        <td>001155</td>
+                                        <td>Default Account Is Mandatory</td>
+                                    </tr>		
+                                    <tr>
+                                        <td>001157</td>
+                                        <td>More Than One Default Account Provided</td>
+                                    </tr>
+                                    <tr>
+                                    <td>021301</td>
+                                    <td>Invalid CardNumber / TokenID</td>
+                                    </tr>
+                                    <tr>
+                                    <td>021302</td>
+                                    <td>Invalid bankCode</td>
+                                    </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+
+  #cards/update_bank_account
+  /payment-instrument/v4.0/accounts/update_bank_account:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information. 
+            tags:
+              - Bank Account management
+            requestBody:
+              description: 
+                      <img id="select-case-img" src="./docs/exclamation.png" /> 
+                      <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                      <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                      <code id="key-value-token"> 
+                          {
+                                ...
+                                "keyValues" &#58; [{
+                                    "key" &#58; "token",
+                                    "data" &#58; "y"
+                                }],
+                                ...
+                          }
+                      </code>              
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountV4Rq'
+            responses:  
+              200:
+                description:
+                      <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <table>
+                                      <p>Business Error Codes &#58;</p>
+                                      <table>
+                                          <tr>
+                                            <th>Error code</th>
+                                            <th>Error Description</th>
+                                          </tr>                                      
+                                          <tr>
+                                              <td>000167</td>
+                                              <td>Bank Account Does Not Exist</td>
+                                          </tr>
+                                          <tr>
+                                              <td>001155</td>
+                                              <td>Default Account Is Mandatory</td>
+                                          </tr>
+                                          <tr>
+                                              <td>001157</td>
+                                              <td>More Than One Default Account Provided</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021301</td>
+                                          <td>Invalid CardNumber / TokenID</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021302</td>
+                                          <td>Invalid bankCode</td>
+                                          </tr>
+                                    </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'                                            
+
+  #cards/delete_bank_account
+  /payment-instrument/v4.0/accounts/delete_bank_account:
+        delete:
+            deprecated: true
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information. 
+            tags:
+              - Bank Account management
+            requestBody:
+              description: 
+                      <img id="select-case-img" src="./docs/exclamation.png" /> 
+                      <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                      <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                      <code id="key-value-token"> 
+                          {
+                                ...
+                                "keyValues" &#58; [{
+                                    "key" &#58; "token",
+                                    "data" &#58; "y"
+                                }],
+                                ...
+                          }
+                      </code>              
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <table>
+                                      <p>Business Error Codes &#58;</p>
+                                      <table>
+                                          <tr>
+                                            <th>Error code</th>
+                                            <th>Error Description</th>
+                                          </tr>
+                                          <tr>
+                                              <td>001154</td>
+                                              <td>Account Status Code Is Invalid</td>
+                                          </tr>	 
+                                          <tr>
+                                              <td>000152</td>
+                                              <td>Account Status Reason Is Invalid</td>
+                                          </tr>
+                                          <tr>
+                                              <td>000167</td>
+                                              <td>Bank Account Does Not Exist</td>
+                                          </tr>	 
+                                          <tr>
+                                              <td>001158</td>
+                                              <td>Error Delete A Default Account</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021301</td>
+                                          <td>Invalid CardNumber / TokenID</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021302</td>
+                                          <td>Invalid bankCode</td>
+                                          </tr>
+                                    </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+        patch:
+            description:
+              <h3>API Overview</h3>
+              <p>
+              This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+              </p>
+              <h3>Functional Description</h3>
+              <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information.
+            tags:
+              - Bank Account management
+            requestBody:
+              description:
+                <img id="select-case-img" src="./docs/exclamation.png" />
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token">
+                {
+                ...
+                "keyValues" &#58; [{
+                "key" &#58; "token",
+                "data" &#58; "y"
+                }],
+                ...
+                }
+                </code>
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+            responses:
+              200:
+                description:
+                  <div>
+                  <p>Technical Error Codes &#58;</p>
+                  <table>
+                  <tr>
+                  <th>Error code</th>
+                  <th>Error Description</th>
+                  </tr>
+                  <tr>
+                  <td>00000</td>
+                  <td>Success</td>
+                  </tr>
+                  <tr>
+                  <td>99999</td>
+                  <td>System error</td>
+                  </tr>
+                  <tr>
+                  <td>90009</td>
+                  <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                  </tr>
+                  <tr>
+                  <td>00002</td>
+                  <td> Forbidden you don't have permission to access for this api</td>
+                  </tr>
+                  <tr>
+                  <td>00007</td>
+                  <td>Authorization header is empty</td>
+                  </tr>
+                  <tr>
+                  <td>00008</td>
+                  <td>Authorization header is missing</td>
+                  </tr>
+                  <tr>
+                  <td>00009</td>
+                  <td>Malformat Authorization content</td>
+                  </tr>
+                  <tr>
+                  <td>00010</td>
+                  <td>Bearer is required in the token</td>
+                  </tr>
+                  <tr>
+                  <td>00011</td>
+                  <td>Token expired</td>
+                  </tr>
+                  <tr>
+                  <td>00012</td>
+                  <td>Invalid token</td>
+                  </tr>
+                  <table>
+                  <p>Business Error Codes &#58;</p>
+                  <table>
+                  <tr>
+                  <th>Error code</th>
+                  <th>Error Description</th>
+                  </tr>
+                  <tr>
+                  <td>001154</td>
+                  <td>Account Status Code Is Invalid</td>
+                  </tr>
+                  <tr>
+                  <td>000152</td>
+                  <td>Account Status Reason Is Invalid</td>
+                  </tr>
+                  <tr>
+                  <td>000167</td>
+                  <td>Bank Account Does Not Exist</td>
+                  </tr>
+                  <tr>
+                  <td>001158</td>
+                  <td>Error Delete A Default Account</td>
+                  </tr>
+                  <tr>
+                  <td>021301</td>
+                  <td>Invalid CardNumber / TokenID</td>
+                  </tr>
+                  <tr>
+                  <td>021302</td>
+                  <td>Invalid bankCode</td>
+                  </tr>
+                  </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                    
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+      # --- Import UpdateBankAccount request and response definition
+      AddBankAccountV4Rq:
+          $ref: 'request.yaml#/AddBankAccountV4Rq'
+      UpdateBankAccountV4Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV4Rq'
+      UpdateBankAccountV4Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV4Rs'
+
+      # --- Import DeleteBankAccount request 
+      DeleteBankAccountV4Rq:
+          $ref: 'request.yaml#/DeleteBankAccountV4Rq'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+      # --- Import DemoV35 request and response
+      SearchFinancialAccountV35Rq:
+               $ref: 'request.yaml#/SearchFinancialAccountV35Rq'
+      SearchFinancialAccountV35Rs:
+               $ref: 'response.yaml#/SearchFinancialAccountV35Rs'
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import ChangeAccountCreditLimitV35 request and response
+      ChangeAccountCreditLimitV35Rq:
+               $ref: 'request.yaml#/ChangeAccountCreditLimitV35Rq'
+      ChangeAccountCreditLimitV35Rs:
+               $ref: 'response.yaml#/ChangeAccountCreditLimitV35Rs'  
+    # --- Import ChangeAccountBillingCycle35 request and response
+      ChangeAccountBillingCycle35Rq:
+               $ref: 'request.yaml#/ChangeAccountBillingCycle35Rq'
+      ChangeAccountBillingCycle35Rs:
+               $ref: 'response.yaml#/ChangeAccountBillingCycle35Rs'  
+    # --- Import UpdateAccStatementCodeV35 request and response
+      UpdateAccStatementCodeV35Rq:
+               $ref: 'request.yaml#/UpdateAccStatementCodeV35Rq'
+      UpdateAccStatementCodeV35Rs:
+               $ref: 'response.yaml#/UpdateAccStatementCodeV35Rs'   
+    # --- Import UpdateAccountBalance35Rq request and response
+      UpdateAccountBalance35Rq:
+               $ref: 'request.yaml#/UpdateAccountBalance35Rq'
+      UpdateAccountBalance35Rs:
+               $ref: 'response.yaml#/UpdateAccountBalance35Rs'   
+    # --- Import UpdateBankAccountStatus35Rq request and response
+      UpdateBankAccountStatus35Rq:
+               $ref: 'request.yaml#/UpdateBankAccountStatus35Rq'  
+    # --- Import UpdateBankAccountStatus35Rq request and response
+      UpdateInterestRateIndex35Rq:
+               $ref: 'request.yaml#/UpdateInterestRateIndex35Rq'  
+      UpdateInterestRateIndex35Rs:
+               $ref: 'response.yaml#/UpdateInterestRateIndex35Rs'
+    # --- Import GetCardFromTokenV4Rq request and response
+      GetCardFromTokenV4Rq:
+        $ref: 'request.yaml#/GetCardFromTokenV4Rq'
+      GetCardFromTokenV4Rs:
+        $ref: 'response.yaml#/GetCardFromTokenV4Rs'
+security:
+  - bearerAuth: []   

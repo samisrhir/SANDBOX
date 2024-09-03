@@ -1,0 +1,147 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- AddMerchantBankAccountRq
+  /AddMerchantBankAccount/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant bank Account API provides functionality to add a merchant bank account during a merchant enrollment process. The merchant bank account must contain information like Bank Name, Account Type, A valid Bank Account Number…This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantBankAccount.png" />
+                  
+      summary: The add merchant bank Account API provides functionality to add a merchant...
+      tags:
+        - Add Merchant Bank Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08801</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08802</td>
+                                  <td>Invalid Account indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08803</td>
+                                  <td>Invalid Merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08804</td>
+                                  <td>Invalid Bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08805</td>
+                                  <td>Invalid Branch code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08806</td>
+                                  <td>Invalid Account type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08807</td>
+                                  <td>Invalid Account number</td>
+                                </tr>
+                                <tr> 
+                                  <td>08808</td>
+                                  <td>Invalid Account Currency code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08809</td>
+                                  <td>Merchant Account’s link not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08810</td>
+                                  <td>The merchant already has a primary account</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08811</td>
+                                  <td>The merchant must have a primary account</td>
+                                </tr>
+                                <tr> 
+                                  <td>08812</td>
+                                  <td>Account number already exist</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08813</td>
+                                  <td>Invalid batch Grouping indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08814</td>
+                                  <td>Invalid fees grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08815</td>
+                                  <td>Invalid chargeback grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08816</td>
+                                  <td>Invalid Billing element grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08817</td>
+                                  <td>Invalid Account length</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantBankAccountRs'                                                                                                   
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import AddMerchantBankAccount request and response
+      AddMerchantBankAccountRq:
+               $ref: 'request.yaml#/AddMerchantBankAccountRq'
+      AddMerchantBankAccountRs:
+               $ref: 'response.yaml#/AddMerchantBankAccountRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

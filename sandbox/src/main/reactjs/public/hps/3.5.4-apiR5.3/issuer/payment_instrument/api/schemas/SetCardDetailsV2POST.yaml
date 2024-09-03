@@ -1,0 +1,182 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- SetCardDetails API  
+  /SetCardDetails/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                      <p>The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card being sent in the request message.</p>
+                      <p>The setCardDetails web service includes the cardholder’s full name, embossed name, phones,  …
+                      As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                      </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SetCardDetails.png" />
+      summary: This web service can be used to update details regarding the concerned card.
+      tags:
+        - Set Card Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>22001</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>22002</td>
+                                  <td>Invalid Card Branch Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22003</td>
+                                  <td>Invalid Card Priority Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22004</td>
+                                  <td>Invalid Card Gender</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22005</td>
+                                  <td>Invalid Card Birth Date</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22006</td>
+                                  <td>Invalid Card VIP Level</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22007</td>
+                                  <td>Invalid Card Nationality Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22008</td>
+                                  <td>Invalid Card Language Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22009</td>
+                                  <td>Invalid Card Title Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22010</td>
+                                  <td>Invalid Card Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22011</td>
+                                  <td>Invalid Card Socio Professional Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22012</td>
+                                  <td>Invalid Card Activity Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22013</td>
+                                  <td>Invalid Card Customer Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>22014</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22015</td>
+                                  <td>Invalid Card Status Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>22016</td>
+                                  <td>Invalid Card Status Reason</td>
+                                </tr>
+                                <tr> 
+                                  <td>22017</td>
+                                  <td>Invalid Card Phone Type 1</td>
+                                </tr>
+                                <tr> 
+                                  <td>22018</td>
+                                  <td>Invalid Card Phone Type 2</td>
+                                </tr>
+                                <tr> 
+                                  <td>22019</td>
+                                  <td>Invalid Card Phone Type 3</td>
+                                </tr>
+                                <tr> 
+                                  <td>22020</td>
+                                  <td>Invalid Card Phone Type 4</td>
+                                </tr>
+                                <tr> 
+                                  <td>22021</td>
+                                  <td>Invalid Card Plastic Delivery Method</td>
+                                </tr>
+                                <tr> 
+                                  <td>22022</td>
+                                  <td>Invalid Card Pin Delivery Method</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22023</td>
+                                  <td>Invalid Card Promotion Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22024</td>
+                                  <td>Invalid Card Field Name</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22025</td>
+                                  <td>Invalid Card Field Value</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SetCardDetailsV35Rs'                         
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs'          
+security:
+  - bearerAuth: []

@@ -1,0 +1,289 @@
+{
+    "parameterList": [
+        {
+            "parameterName": "PROCESSING_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		 {
+            "parameterName": "CR_PROFILE",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "TRANSACTION_STATUS",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "BRANCH",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "DOCUMENT_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "MCC",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "PLASTIC_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "STATUS_REASON_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CARD_BATCH_STATUS",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "WITHDRAWAL_REASON_CODE",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CHAIN",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CASE_REASON",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CARD_STATUS",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CITY",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "BANK",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "LANGUAGE_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CURRENCY_TABLE",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "TITLE_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CARD_PRODUCT",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "COUNTRY",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "ACTION_TABLE",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "ACCOUNT_TYPE_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "ACTION_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "ADDRESSES_TYPE_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "TRANSACTIONS_DEFINITION",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "VIP_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CASE_TYPE",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "CUSTOMER_SEGMENT",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "OWNER_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "PROTOCOL_LIST",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        },
+		{
+            "parameterName": "REGION",
+            "parameterMode": "P",
+            "parameterColumnList": [
+                "Code", "Label"
+               
+            ],
+            "parameterConditionList": []
+        }
+		
+    ],
+    "requestInfo": {
+        "requestUID": "6948DF80-14BD-4E04-8842-7668D9C001F5",
+        "requestDate": "2020-02-05T00:00:00",
+        "userID": "user001"
+    }
+}

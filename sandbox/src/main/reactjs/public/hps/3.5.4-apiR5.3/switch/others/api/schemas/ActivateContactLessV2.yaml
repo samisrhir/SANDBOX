@@ -1,0 +1,108 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths: 
+  # ActivateContactLess/V2 
+  /ActivateContactLess/V2:
+    post:
+      description:
+                    <h3>API Overview</h3>
+                    <p>This web service serves to activate the contactless feature on the card. It is important to note that the web service requires as input the Card Number or the Card Token ID.
+                    As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/activateContactless.png" />
+      summary: Activate the contactless feature on the card. Requires as input the Card Number...
+      tags:
+        - Activate Contactless.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateContactLessV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateContactLessV35Rq'
+      responses:  
+         200:
+          description:
+                    <div>
+                            <h6>Successful</h6>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>19101</td>
+                                <td>Invalid Card Number / Card Token ID</td>
+                              </tr>
+                              <tr> 
+                                <td>19102</td>
+                                <td>Operation Not Permitted</td>
+                              </tr>
+                              <tr> 
+                                <td>19103</td>
+                                <td>Contactless Card Feature is already Activated</td>
+                              </tr>
+                              <tr> 
+                                <td>19104</td>
+                                <td>Contactless  Card Feature is already Deactivated</td>
+                              </tr>
+                              <tr> 
+                                <td>19105</td>
+                                <td>Card Is Cancelled</td>
+                              </tr>
+                              <tr> 
+                                <td>19106</td>
+                                <td>Card Is suspended</td>
+                              </tr>
+                              <tr> 
+                                <td>19107</td>
+                                <td>Card Is Replaced</td>
+                              </tr>	
+                            </table>
+                    </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivateContactLessV35Rs'
+            application/xml:
+                  schema:
+                      $ref: '#/components/schemas/ActivateContactLessV35Rs'     
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+  security:
+  - bearerAuth: []

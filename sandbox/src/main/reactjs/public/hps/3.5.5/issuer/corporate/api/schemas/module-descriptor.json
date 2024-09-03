@@ -1,0 +1,95 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Corporate",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Update Collaborator Authentication Code",
+          "file": "UpdateCollaboratorAuthenticationCode.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCollaboratorAuthenticationCode.yaml",
+              "name": "Update Collaborator Authentication Code V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Search Corporate Transactions ",
+          "file": "SearchCorporateTransactionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchCorporateTransactionsV2.yaml",
+              "name": "Search Corporate Transactions V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Get Summary Card Transactions ",
+          "file": "GetSummaryCardTransactionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetSummaryCardTransactionsV2.yaml",
+              "name": "Get Summary Card Transactions V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Get Card Characteristics  ",
+          "file": "GetCardCharacteristicsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardCharacteristicsV2.yaml",
+              "name": "Get Card Characteristics V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        }
+
+      ]
+    }
+  ]
+}

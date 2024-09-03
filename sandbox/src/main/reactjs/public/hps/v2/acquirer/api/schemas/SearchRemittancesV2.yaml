@@ -1,0 +1,96 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel vestibulum lacus. Morbi lacinia odio ac risus vestibulum tincidunt id sed lacus. Nam ullamcorper et mi at malesuada.Morbi lacinia odio ac risus vestibulum tincidunt id sed lacus 
+  version: PowerCARD 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- searchRemittances
+  /searchRemittances/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Search Remittances
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'     
+security:
+  - bearerAuth: []

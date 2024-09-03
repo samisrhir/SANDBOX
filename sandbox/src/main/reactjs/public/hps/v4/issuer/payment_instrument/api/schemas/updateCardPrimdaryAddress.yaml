@@ -1,0 +1,181 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+    
+  /payment-instrument/v4.0/cards/update_primary_address:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the primary address of an existing card.
+            tags:
+              - Update Card Primary Address
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>   
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardPrimaryAddressV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardPrimaryAddressV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                               <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              <tr>
+                              <td>00014</td>
+                              <td>Invalid business date</td>
+                              </tr>
+                              </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                  <td>021301</td>
+                                  <td>Invalid CardNumber / TokenID</td>
+                                  </tr>
+                                  <tr>
+                                  <td>021302</td>
+                                  <td>Invalid bankCode</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000131</td>
+                                    <td>Missing address type in the address</td>
+                                  </tr>                                    				
+                                  <tr>
+                                    <td>000129</td>
+                                    <td>Missing sending mode in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000127</td>
+                                    <td>Missing first line in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000135</td>
+                                    <td>Missing country code in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000130</td>
+                                    <td>Invalid address type</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000128</td>
+                                    <td>Invalid sending mode</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000136</td>
+                                    <td>Invalid country code</td>
+                                  </tr>      
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardAddressV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardAddressV4Rs' 
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>                                 
+  schemas:
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateCardPrimaryAddressV4Rq:
+           $ref: 'request.yaml#/UpdateCardPrimaryAddressV4Rq'
+      UpdateCardAddressV4Rs:
+           $ref: 'response.yaml#/UpdateCardAddressV4Rs'     
+security:
+  - bearerAuth: []

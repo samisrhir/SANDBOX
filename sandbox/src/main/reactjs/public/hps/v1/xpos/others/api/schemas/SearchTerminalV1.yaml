@@ -1,0 +1,121 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-xPos API documentation
+  description: <p>HPS’ PowerCARD-xPOS solution can help payments providers, retailers and banks overcome these challenges, and rapidly roll out new services and simply global device deployment, while keeping maintenance and administration costs to a minimum. </p>
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: http://196.12.238.134:12080/PowerCardConnectApi/rest
+    description: Development server
+paths:
+   # ------- searchTerminal
+  /searchTerminal/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a rich merchant database structure to its customers. This structure includes a variety of components that allow users to map their existing business easily and within a limited time in PowerCARD. For example, PowerCARD allows storing and maintaining the point of sales terminals in the database and link them to the appropriate point of sale, merchant then to their corresponding chain if managed.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchTerminal.png" />
+                  
+      summary: This structure includes a variety of components that allow users to map their existing business ...
+      tags:
+        - Search Terminal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchTerminalRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchTerminalRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>07801</td>
+                                <td>Missing information in the request message. Need to fill at least one of the following fields ( Chain, Merchant or Pos Identification Numbers)</td>
+                              </tr>
+                              <tr> 
+                                <td>07802</td>
+                                <td>Invalid Merchant Identification Number</td>
+                              </tr>
+                              <tr> 
+                                <td>07803</td>
+                                <td>Invalid Point of sale Identification Number</td>
+                              </tr>
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+    # --- Import SearchTerminal request and response
+      SearchTerminalRq:
+               $ref: 'request.yaml#/SearchTerminalRq'
+      SearchTerminalRs:
+               $ref: 'response.yaml#/SearchTerminalRs'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'
+security:
+  - bearerAuth: []
+  

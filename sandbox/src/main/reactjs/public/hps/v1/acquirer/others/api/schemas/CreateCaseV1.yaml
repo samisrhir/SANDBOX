@@ -1,0 +1,109 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- createCase
+  /CreateCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD Case Management module offers a comprehensive tool for users to organize their daily operations that can be grouped as follow:</p>
+                    <P>Automation case allocation and re allocation, Follow up of each case, History of processed cases, Statistics and Performances. </P>
+                    <p>Using the present web service, a case can be created automatically in the system with an open status, therefore, its status can be created to Referred, Closed or Queued. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createCase.png" />
+                  
+      summary: PowerCARD Case Management module offers a comprehensive tool for users...
+      tags:
+        - Create Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCaseRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateCaseRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00401</td>
+                                  <td>Case type is required</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00402</td>
+                                  <td>Invalid case type Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00403</td>
+                                  <td>Invalid case entity code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00404</td>
+                                  <td>Case reason is required</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00405</td>
+                                  <td>Invalid case reason code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00406</td>
+                                  <td>Queue code not defined</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00407</td>
+                                  <td>Invalid Action code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCaseRs'                                                                                                 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import createCase request and response 
+      CreateCaseRq:
+               $ref: 'request.yaml#/CreateCaseRq'
+      CreateCaseRs:
+               $ref: 'response.yaml#/CreateCaseRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,192 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Loan",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Convert Transaction To loan",
+          "file": "ConvertTransactionToloanV2.yaml",
+          "subApiList": [
+            {
+              "file": "ConvertTransactionToloanV2.yaml",
+              "name": "Convert Transaction To loan V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Loan Application",
+          "file": "CreateLoanApplicationV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateLoanApplicationV2.yaml",
+              "name": "Create Loan Application V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Installment plan",
+          "file": "GetInstallmentplanV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetInstallmentplanV2.yaml",
+              "name": "Get Installment plan V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },{
+          "name":"Search Loan",
+          "file": "SearchLoanV3.yaml",
+          "subApiList": [
+            {
+              "file": "SearchLoanV2.yaml",
+              "name": "Search Loan V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SearchLoanV3.yaml",
+              "name": "Search Loan V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {"name":"Get Loan Details",
+          "file": "GetLoanDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoanDetailsV2.yaml",
+              "name": "Get Loan Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Simulate Loan PayOff",
+          "file": "SimulateLoanPayOffV2.yaml",
+          "subApiList": [
+            {
+              "file": "SimulateLoanPayOffV2.yaml",
+              "name": "Simulate Loan PayOff V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Simulate Loan",
+          "file": "SimulateLoanV2.yaml",
+          "subApiList": [
+            {
+              "file": "SimulateLoanV2.yaml",
+              "name": "Simulate Loan V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Simulate Loan Partial PayOff",
+          "file": "SimulateLoanPartialPayOffV2.yaml",
+          "subApiList": [
+            {
+              "file": "SimulateLoanPartialPayOffV2.yaml",
+              "name": "Simulate Loan Partial PayOff V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Loan Reschedule",
+          "file": "LoanRescheduleV2.yaml",
+          "subApiList": [
+            {
+              "file": "LoanRescheduleV2.yaml",
+              "name": "Loan Reschedule V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Loan Partial PayOff",
+          "file": "LoanPartialPayOffV2.yaml",
+          "subApiList": [
+            {
+              "file": "LoanPartialPayOffV2.yaml",
+              "name": "Loan Partial PayOff",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Loan Early PayOff",
+          "file": "LoanEarlyPayOffV2.yaml",
+          "subApiList": [
+            {
+              "file": "LoanEarlyPayOffV2.yaml",
+              "name": "Loan Early PayOff V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Loan Consolidate ",
+          "file": "LoanConsolidateV2.yaml",
+          "subApiList": [
+            {
+              "file": "LoanConsolidateV2.yaml",
+              "name": "Loan Consolidate V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"loan Cancellation",
+          "file": "loanCancellationV2.yaml",
+          "subApiList": [
+            {
+              "file": "loanCancellationV2.yaml",
+              "name": "loan Cancellation V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+openapi: "3.0.3"
+
+info:
+  title: Customer management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+
+paths:
+  # ------- OAuth2Authentication API
+  /compliance/v4.0/oauth2/authorization:
+    post:
+      description: <h3>API Overview</h3>
+        <p>The PowerCard Connect'API employs OAuth 2.0 authentication to secure its exposed REST APIs for external users. To consume API endpoints with OAuth authentication, users must possess a valid accessToken obtained from the corresponding authorization server in the request header as a bearer token.</p>
+        <p>By default, the APIs OAuth protocol is deactivated. It can be activated as per specific requirements.</p>
+        <p>Connect API authenticates all requests using the token provided in the request itself. In case of authentication failure, Connect'API responds with an HTTP status code 401 (Unauthorized).</p>
+        <h3>Functional Description</h3>
+        #<img  src="./docs/oauth2Authentication.png" />
+      summary: OAuth 2.0 Authorization using the accessToken.
+      tags:
+        - OAuth 2.0 Authorization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuth2AuthenticationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/OAuth2AuthenticationRequest'
+      responses:
+        200:
+          description:
+            <div>
+              Successful
+              <p>Business Error Codes &#58;</p>
+              <table>
+                <tr>
+                  <th>Error code</th>
+                  <th>Error Description</th>
+                </tr>
+                <tr>
+                  <td>00000</td>
+                  <td>Success</td>
+                </tr>
+                <tr>
+                  <td>00110</td>
+                  <td>Invalid OAuth Authentication</td>
+                </tr>
+                <tr>
+                  <td>00111</td>
+                  <td>Expired OAuth accessToken</td>
+                </tr>
+                <tr>
+                  <td>00112</td>
+                  <td>Bad JWT Signature</td>
+                </tr>
+                <tr>
+                  <td>00109</td>
+                  <td>Unable to decode the JWT</td>
+                </tr>
+                <tr>
+                  <td>99999</td>
+                  <td>System Error</td>
+                </tr>
+              </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth2AuthenticationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/OAuth2AuthenticationResponse'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {accessToken}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    OAuth2AuthenticationRequest:
+      $ref: 'request.yaml#/OAuth2AuthenticationRequest'
+    OAuth2AuthenticationResponse:
+      $ref: 'response.yaml#/OAuth2AuthenticationResponse'
+security:
+  - bearerAuth: [ ]

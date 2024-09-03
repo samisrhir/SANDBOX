@@ -1,0 +1,151 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/verifyActivationCode:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The verifyActivationCode is used by the TPL to request the issuer to verify the activation code provided by the user or the bank application.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/verifyActivationCode.png" />
+            summary: Crequest the issuer to verify the activation code.
+            tags:
+              - Verify Activation Code
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/VerifyActivationCodeV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/VerifyActivationCodeV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1401</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1402</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1403</td>
+                                        <td>Invalid Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1404</td>
+                                        <td>Invalid Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1405</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1406</td>
+                                        <td>Invalid Device ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1407</td>
+                                        <td>Invalid Activation Code Value </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1408</td>
+                                        <td>Invalid verification result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1409</td>
+                                        <td>Missing Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1410</td>
+                                        <td>Missing Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1411</td>
+                                        <td>Missing Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1412</td>
+                                        <td>Missing Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1413</td>
+                                        <td>Missing Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1414</td>
+                                        <td>Missing Device ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1415</td>
+                                        <td>Missing Activation Code Value </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1416</td>
+                                        <td>Missing verification result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1417</td>
+                                        <td>Invalid method ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1418</td>
+                                        <td>Missing method ID </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/VerifyActivationCodeV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/VerifyActivationCodeV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        VerifyActivationCodeV35Rq:
+               $ref: 'request.yaml#/VerifyActivationCodeV35Rq'
+        VerifyActivationCodeV35Rs:
+               $ref: 'response.yaml#/VerifyActivationCodeV35Rs'
+security:
+  - bearerAuth: []

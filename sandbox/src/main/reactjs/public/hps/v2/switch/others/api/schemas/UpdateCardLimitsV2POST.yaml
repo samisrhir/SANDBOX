@@ -1,0 +1,137 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #updateCardLimits  
+  /UpdateCardLimits/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               The purpose of the current service is to give the possibility to any allowed third party to update the velocity limits of a given card in PowerCARD the services requires as input the card number, the periodicity ( daily, monthly…) the transaction type and then the amount that need to be set on the card level. Any transaction exceeding that velocity limits should be suspended later by the system if the velocity limits control is activated for that card.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateCardLimits.png" />
+            summary: Gives the possibility to any allowed third party to update the velocity limits of a given card.
+            tags:
+              - Update Card limit.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardLimitsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardLimitsV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>12001</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>12002</td>
+                                  <td>Invalid Start Date</td>
+                                </tr>
+                                <tr> 
+                                  <td>12003</td>
+                                  <td>Invalid End Date</td>
+                                </tr>
+                                <tr> 
+                                  <td>12004</td>
+                                  <td>Invalid Period Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>12005</td>
+                                  <td>Invalid Periodicity Flag</td>
+                                </tr>
+                                <tr> 
+                                  <td>12006</td>
+                                  <td>Invalid Territoriality Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>12007</td>
+                                  <td>Invalid Processing Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>12008</td>
+                                  <td>Invalid Country Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>12009</td>
+                                  <td>Invalid MCC</td>
+                                </tr>
+                                <tr> 
+                                  <td>12010</td>
+                                  <td>Invalid Payment Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>12011</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>12012</td>
+                                  <td>Invalid Card Entry Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>12013</td>
+                                  <td>Size of period must be less than 4</td>
+                                </tr>
+                                <tr> 
+                                  <td>12014</td>
+                                  <td>Size of Territoriality must be less than 3</td>
+                                </tr>								
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardLimitsV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/UpdateCardLimitsV35Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+  security:
+  - bearerAuth: []

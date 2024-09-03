@@ -1,0 +1,109 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateMerchantSite/V3
+  /UpdateMerchantSite/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Each merchant must have at least one valid merchant site in the system. By using this web service, users can change information with regards to an existing merchant site. Information to be transmitted must include, but not limited to, Site Identification, address details, status, dates…
+        Invalid data in the request message may cause the rejection of the message with a specific error code. For more details, please refer to the sections bellow.
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateMerchantSite.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update Merchant Site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>40100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>40136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td></tr>
+            <tr><td>40200</td><td>Merchant not found</td></tr>
+            <tr><td>40307</td><td>Invalid Address Country Code</td></tr>
+            <tr><td>40308</td><td>Invalid Address Zip Code</td></tr>
+            <tr><td>40309</td><td>Invalid Address Region Code</td></tr>
+            <tr><td>40310</td><td>Invalid Address City Code</td></tr>
+            <tr><td>40311</td><td>Invalid Address Phone Type</td></tr>
+            <tr><td>40314</td><td>Invalid Address URL</td></tr>
+            <tr><td>40320</td><td>Force ZIPCode not allowed on bank addendum params</td></tr>
+            <tr><td>40322</td><td>Invalid address city name</td></tr>
+            <tr><td>40410</td><td>Bank addendum not found</td></tr>
+            <tr><td>40600</td><td>Invalid Site Type</td></tr>
+            <tr><td>40601</td><td>Invalid Site Opening date</td></tr>
+            <tr><td>40605</td><td>Invalid Site Status Start date</td></tr>
+            <tr><td>40606</td><td>Invalid Site Status End date</td></tr>
+            <tr><td>40608</td><td>Invalid Site ID</td></tr>
+            <tr><td>40609</td><td>Error while update merchant site</td></tr>
+            <tr><td>40610</td><td>The merchant already has a primary site</td></tr>
+            <tr><td>40611</td><td>The merchant must have a main site</td></tr>
+            <tr><td>40138</td><td>Normal, suspended, under surveillance are the status needed to allow updating</td></tr>
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantSiteRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantSiteRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    UpdateMerchantSiteRq:
+      $ref: 'request.yaml#/UpdateMerchantSiteRq'
+    UpdateMerchantSiteRs:
+      $ref: 'response.yaml#/UpdateMerchantSiteRs'
+security:
+  - bearerAuth: []

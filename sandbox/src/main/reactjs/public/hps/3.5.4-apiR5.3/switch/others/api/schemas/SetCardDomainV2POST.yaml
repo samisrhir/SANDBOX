@@ -1,0 +1,112 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- SetCardDomain API  
+  /SetCardDomain/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>This web services was introduced to allow users to restrict the scope of use of the card according to criteria defined by the bank such as Merchant, MCC, Acquiring country, Processing code, Currency.</p>
+                    <p>Agent and customers can ask to change the Domain control by specifying the operation from a list and whether the service will be allowed or not.</p>
+                    <p>It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SetCardDomain.png" />
+      summary: Allow users to restrict the scope of use of the card according to criteria defined by the bank.
+      tags:
+        - Set Card domain
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCardDomainV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCardDomainV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>16601</td>
+                                <td>Invalid card number/Token</td>
+                              </tr>	
+                              <tr> 
+                                <td>16602</td>
+                                <td>Invalid Control Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>16603</td>
+                                <td>Invalid Control Operator</td>
+                              </tr>	
+                              <tr> 
+                                <td>16604</td>
+                                <td>Invalid Country Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>16605</td>
+                                <td>Invalid Currency Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>16606</td>
+                                <td>Invalid Processing Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>16607</td>
+                                <td>Invalid Merchant Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>16608</td>
+                                <td>Invalid MCC Code</td>
+                              </tr>										
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCardDomainV35Rs'
+            application/xml:
+                      schema:
+                          $ref: '#/components/schemas/SetCardDomainV35Rs'      
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+  security:
+  - bearerAuth: []

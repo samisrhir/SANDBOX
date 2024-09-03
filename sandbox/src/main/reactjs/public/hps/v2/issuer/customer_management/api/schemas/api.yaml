@@ -1,0 +1,2468 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.These functions include &#8282; Client demographic and management information , Financial management ,	Address information  ,	Status operation , Additional fields setup  and Multi-documents setup. </p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/TokenAuthenticationResponse'                
+  #setCustomerDetails 
+  /SetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary:  The setCustomerDetails web service can be used by both agents and customers in order to update customer details.
+        tags:
+          - Set Customer Detail
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10101</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10102</td>
+                                  <td>Invalid Customer details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10103</td>
+                                  <td>Invalid Corporate details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10104</td>
+                                  <td>Customer does not exists</td>
+                                </tr>
+                                <tr> 
+                                  <td>10105</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10106</td>
+                                  <td>Error while cancelling the customer</td>
+                                </tr>
+                                <tr> 
+                                  <td>10107</td>
+                                  <td>Error while updating the Customer branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>10108</td>
+                                  <td>Invalid Socio-professional code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10109</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10110</td>
+                                  <td>PError while inserting a customer record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10111</td>
+                                  <td>Error while inserting a customer address record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10112</td>
+                                  <td>Error inserting the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10113</td>
+                                  <td>Error while updating a customer record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10114</td>
+                                  <td>Error while updating customer address record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10115</td>
+                                  <td>Error updating the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10116</td>
+                                  <td>Error updating the corporate status</td>
+                                </tr>
+                                <tr> 
+                                  <td>10117</td>
+                                  <td>Error inserting a new corporate</td>
+                                </tr>
+                                <tr> 
+                                  <td>10118</td>
+                                  <td>Error updating a corporate record in the database</td>
+                                </tr>
+                                <tr> 
+                                  <td>10119</td>
+                                  <td>Empty Set of contact Information</td>
+                                </tr>
+                                <tr> 
+                                  <td>10120</td>
+                                  <td>Customer/Organisation operation are mutually exclusive</td>
+                                </tr>
+                                <tr> 
+                                  <td>10121</td>
+                                  <td>Corporate already exists in the system with the same ID  </td>
+                                </tr>								
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV35Rs'                    
+  #setCustomerDetails 
+  /SecuredIn/SetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary:  The setCustomerDetails web service can be used by both agents and customers in order to update customer details.
+        tags:
+          - Set Customer Detail
+        requestBody:
+          description: <div><Button style="width:300px">Encrypt Request</Button></div>
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecuredInSetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SecuredInSetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10101</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10102</td>
+                                  <td>Invalid Customer details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10103</td>
+                                  <td>Invalid Corporate details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10104</td>
+                                  <td>Customer does not exists</td>
+                                </tr>
+                                <tr> 
+                                  <td>10105</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10106</td>
+                                  <td>Error while cancelling the customer</td>
+                                </tr>
+                                <tr> 
+                                  <td>10107</td>
+                                  <td>Error while updating the Customer branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>10108</td>
+                                  <td>Invalid Socio-professional code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10109</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10110</td>
+                                  <td>PError while inserting a customer record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10111</td>
+                                  <td>Error while inserting a customer address record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10112</td>
+                                  <td>Error inserting the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10113</td>
+                                  <td>Error while updating a customer record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10114</td>
+                                  <td>Error while updating customer address record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10115</td>
+                                  <td>Error updating the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10116</td>
+                                  <td>Error updating the corporate status</td>
+                                </tr>
+                                <tr> 
+                                  <td>10117</td>
+                                  <td>Error inserting a new corporate</td>
+                                </tr>
+                                <tr> 
+                                  <td>10118</td>
+                                  <td>Error updating a corporate record in the database</td>
+                                </tr>
+                                <tr> 
+                                  <td>10119</td>
+                                  <td>Empty Set of contact Information</td>
+                                </tr>
+                                <tr> 
+                                  <td>10120</td>
+                                  <td>Customer/Organisation operation are mutually exclusive</td>
+                                </tr>
+                                <tr> 
+                                  <td>10121</td>
+                                  <td>Corporate already exists in the system with the same ID  </td>
+                                </tr>								
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV35Rs'                   
+ #Customers/V2 
+  /Customers/V2:
+      put:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary:  The setCustomerDetails web service can be used by both agents and customers in order to update customer details.
+        tags:
+          - Set Customer Detail
+        parameters:
+            - in: query
+              name: requestUID 
+              example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+              schema:
+                  type: string
+              required: true
+              description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+            - in: query
+              name: requestDate 
+              example: '2020-07-07T03:13:01.853Z'
+              schema:
+                  type: string
+              required: true
+              description: Date when the request was submitted.
+            - in: query
+              name: userID 
+              example: PwcUserJmeter
+              schema:
+                  type: string
+              required: false
+              description: Represents the user Id who made the request.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10101</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10102</td>
+                                  <td>Invalid Customer details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10103</td>
+                                  <td>Invalid Corporate details</td>
+                                </tr>
+                                <tr> 
+                                  <td>10104</td>
+                                  <td>Customer does not exists</td>
+                                </tr>
+                                <tr> 
+                                  <td>10105</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10106</td>
+                                  <td>Error while cancelling the customer</td>
+                                </tr>
+                                <tr> 
+                                  <td>10107</td>
+                                  <td>Error while updating the Customer branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>10108</td>
+                                  <td>Invalid Socio-professional code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10109</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>10110</td>
+                                  <td>PError while inserting a customer record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10111</td>
+                                  <td>Error while inserting a customer address record</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10112</td>
+                                  <td>Error inserting the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10113</td>
+                                  <td>Error while updating a customer record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10114</td>
+                                  <td>Error while updating customer address record</td>
+                                </tr>
+                                <tr> 
+                                  <td>10115</td>
+                                  <td>Error updating the customer secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>10116</td>
+                                  <td>Error updating the corporate status</td>
+                                </tr>
+                                <tr> 
+                                  <td>10117</td>
+                                  <td>Error inserting a new corporate</td>
+                                </tr>
+                                <tr> 
+                                  <td>10118</td>
+                                  <td>Error updating a corporate record in the database</td>
+                                </tr>
+                                <tr> 
+                                  <td>10119</td>
+                                  <td>Empty Set of contact Information</td>
+                                </tr>
+                                <tr> 
+                                  <td>10120</td>
+                                  <td>Customer/Organisation operation are mutually exclusive</td>
+                                </tr>
+                                <tr> 
+                                  <td>10121</td>
+                                  <td>Corporate already exists in the system with the same ID  </td>
+                                </tr>								
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV35Rs'                  
+#GetCustomerDetails 
+  /GetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:   Get or find contact information is a web service that might be used by both customers and agents to get information details of an existing contact
+        tags:
+          - Get Customer Details.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                   <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20301</td>
+                                <td>Invalid Client Code</td>
+                              </tr>							
+                           </table>
+                    </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV35Rs'                   
+  /SecuredOut/GetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:  'Get or find contact information is a web service that might be used by both customers and agents to get information details of an existing contact'
+        tags:
+          - Get Customer Details.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                   <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20301</td>
+                                <td>Invalid Client Code</td>
+                              </tr>							
+                           </table>
+                    </div> 
+                    <div><div><Button style="width:300px">Decrypt Response</Button></div></div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV35Rs'                   
+                  
+#Clients/V2/{clientCode}
+  /Clients/V2/{clientCode}:
+      get:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:   Get or find contact information is a web service that might be used by both customers and agents to get information details of an existing contact
+        tags:
+          - Get Customer Details.
+        parameters:
+          - in: path
+            name: clientCode
+            example: PWC-CL-WS-0101-0001
+            schema:
+              type: string
+              example: 00097032
+            required: true
+            description: This field can be used when the issuers want to use their own client code, and the client code will not be generated by PowerCARD.
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+              example : 6948DF80-14BD-4E04-8842-7668D9C001F5
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+              example: '2020-02-05T00:00:00'
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+              example: user001
+            description: Represents the user Id who made the request.
+        responses:  
+          200:
+            description:
+                   <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20301</td>
+                                <td>Invalid Client Code</td>
+                              </tr>							
+                           </table>
+                    </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV35Rs'                  
+  #UpdateAddressWebService  
+  /UpdateAddressWebService/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the address of an existing customer or card, this web service can be invoked by customers and agents.
+            tags:
+              - Update Address
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>19401</td>
+                                  <td>Invalid Entity Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>19402</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19403</td>
+                                  <td>Invalid Card Number/Token ID </td>
+                                </tr>	
+                                <tr> 
+                                  <td>19404</td>
+                                  <td>Invalid Address Indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>19405</td>
+                                  <td>Invalid corporate ID</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19406</td>
+                                  <td>Invalid Address Line 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19408</td>
+                                  <td>Invalid Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>19411</td>
+                                  <td>Invalid ZipCode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19412</td>
+                                  <td>Invalid CareOf</td>
+                                </tr>
+                                <tr> 
+                                  <td>19413</td>
+                                  <td>Invalid City Code </td>
+                                </tr>
+                                <tr> 
+                                  <td>19415</td>
+                                  <td>Invalid Country Code</td>
+                                </tr>									
+                                <tr> 
+                                  <td>19416</td>
+                                  <td>Invalid Address Purpose ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>19417</td>
+                                  <td>Invalid Purpose Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19418</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19419</td>
+                                  <td>Validity Start Date is accepted only in case of Secondary Address</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19420</td>
+                                  <td>Validity Start Date must not be in the past</td>
+                                </tr>
+                                <tr> 
+                                  <td>19421</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date</td>
+                                </tr>
+                                <tr> 
+                                  <td>19422</td>
+                                  <td>Validity End Date is accepted only in case of Secondary Address</td>
+                                </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV35Rs'
+                  application/xml:
+                        schema:
+                          $ref: '#/components/schemas/UpdateAddressV35Rs'                         
+#Client/V2/{clientCode}/Addresses  
+  /Client/V2/{clientCode}/Addresses:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the address of an existing customer or card, this web service can be invoked by customers and agents.
+            tags:
+              - Update Address
+            parameters:
+            - in: path
+              name: clientCode
+              schema:
+                type: string
+              required: true
+              description: clientCode String to get client address.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>19401</td>
+                                  <td>Invalid Entity Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>19402</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19403</td>
+                                  <td>Invalid Card Number/Token ID </td>
+                                </tr>	
+                                <tr> 
+                                  <td>19404</td>
+                                  <td>Invalid Address Indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>19405</td>
+                                  <td>Invalid corporate ID</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19406</td>
+                                  <td>Invalid Address Line 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19408</td>
+                                  <td>Invalid Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>19411</td>
+                                  <td>Invalid ZipCode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19412</td>
+                                  <td>Invalid CareOf</td>
+                                </tr>
+                                <tr> 
+                                  <td>19413</td>
+                                  <td>Invalid City Code </td>
+                                </tr>
+                                <tr> 
+                                  <td>19415</td>
+                                  <td>Invalid Country Code</td>
+                                </tr>									
+                                <tr> 
+                                  <td>19416</td>
+                                  <td>Invalid Address Purpose ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>19417</td>
+                                  <td>Invalid Purpose Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19418</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19419</td>
+                                  <td>Validity Start Date is accepted only in case of Secondary Address</td>
+                                </tr>	
+                                <tr> 
+                                  <td>19420</td>
+                                  <td>Validity Start Date must not be in the past</td>
+                                </tr>
+                                <tr> 
+                                  <td>19421</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date</td>
+                                </tr>
+                                <tr> 
+                                  <td>19422</td>
+                                  <td>Validity End Date is accepted only in case of Secondary Address</td>
+                                </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV35Rs' 
+  # --- UpdateEventNotification 
+  /UpdateEventNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                         <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateEventNotification/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              This web service is used activate/deactivate a communication event/channel as well as set communication event channel preferences.
+                          </p>
+                          <p>
+                              The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/updateEventNotification.png" />
+            summary:     This web service is used activate/deactivate a communication event/channel as well as set communication event channel preferences.. 
+            tags:
+              - Update Event Notification.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateEventNotificationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateEventNotificationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>31401</td>
+                                        <td>Invalid Communication strategy</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31402</td>
+                                        <td>Invalid Event Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31403</td>
+                                        <td>Invalid Event Activation Status</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31404</td>
+                                        <td>Invalid Channel Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31405</td>
+                                        <td>Invalid Channel Activation Status</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31406</td>
+                                        <td>Invalid Channel PhoneType</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31407</td>
+                                        <td>Invalid Channel Address From Entity</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31409</td>
+                                        <td>Invalid Channel Address Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31409</td>
+                                        <td>Invalid Channel Email Address</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31410</td>
+                                        <td>Invalid TMP Preference Start Date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31411</td>
+                                        <td>Invalid TMP Prefernce End Date</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31412</td>
+                                        <td>Invalid TMP Phone Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31413</td>
+                                        <td>Invalid TMP Address From Entity</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31414</td>
+                                        <td>Invalid TMP Address Type</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31415</td>
+                                        <td>Invalid TMP Email Address</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31416</td>
+                                        <td>Invalid Entity Code</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31417</td>
+                                        <td>Invalid Entity ID</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31418</td>
+                                        <td>Invalid Action Type</td>
+                                      </tr>																		
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'                      
+                                  
+  # --- GetEventNotificationList
+  /GetEventNotificationList/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                         <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetEventNotificationList/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                               This web service is used to get the list of notification events, and their channels alongs with the activation status for each event and channel preferences. An event might be active or inactive. An event might have multiple channels (Email, SMS, …). Channel might have permanent and temporary preferences.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetEventNotificationList.png" />
+            summary:     This web service is used to get the list of notification events, and their channels alongs with the activation status for each event and channel preferences. 
+            tags:
+              - Get Event Notification List.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetEventNotificationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetEventNotificationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>31301</td>
+                                        <td>Invalid Entity Code</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>31302</td>
+                                        <td>Invalid Client Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31303</td>
+                                        <td>Invalid Card Number/ Token Ide</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>31304</td>
+                                        <td>Invalid Account Id</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetEventNotificationV35Rs'                        
+  # --- UpdateCustomerCategory
+  /UpdateCustomerCategory/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerCategory/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The current web service could be used as a way to change some characteristics of an existing customer in PowerCARD system. It is mainly used by the agent in the bank desiring to apply a change a customer characteristic like its customer category.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerCategory.png" />
+            summary:    This web service could be used as a way to change some characteristics of an existing customer.
+            tags:
+              - Update Customer Category.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerCategoryV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerCategoryV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>03601</td>
+                                      <td>Invalid Customer Id</td>
+                                    </tr>	
+                                    <tr> 
+                                      <td>03602</td>
+                                      <td>Invalid Customer Segment</td>
+                                    </tr>								
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerCategoryV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerCategoryV35Rs'                        
+  # --- UpdateCustomerName
+  /UpdateCustomerName/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerName/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              Connect’API offers a selection of web services with regards to customer detail maintenance, the update person name web services is one of those services that can be used by both agents and customers in order to change the person name of an existing customer in the system.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerName.png" />
+            summary:    This web service could be used as a way to change person name of an existing customer.
+            tags:
+              - Update Customer Name.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerNameV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerNameV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>02301</td>
+                                      <td>Invalid Customer Id</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerNameV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerNameV35Rs'                        
+  # --- UpdateCustomerEmail
+  /UpdateCustomerEmail/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerEmail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                             The aim of this web service is to set or update the customer email address part of the principal address. The email address supplied by the agent of the customer himself must be a valid address. It must include both the alias (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...). <br>
+                             The request could be rejected if the provided email address fails to comply with what was explained before.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerEmail.png" />
+            summary:    The aim of this web service is to set or update the customer email address part of the principal address.
+            tags:
+              - Update Customer Email.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>02501</td>
+                                      <td>Invalid Customer Id</td>
+                                    </tr>	
+                                    <tr> 
+                                      <td>02502</td>
+                                      <td>Invalid Email Address</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'                       
+  # --- Clients/V2/{customerId}/Email
+  /Clients/V2/{customerId}/Email:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerEmail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>          
+                          <p>
+                             The aim of this web service is to set or update the customer email address part of the principal address. The email address supplied by the agent of the customer himself must be a valid address. It must include both the alias (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...). <br>
+                             The request could be rejected if the provided email address fails to comply with what was explained before.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerEmail.png" />
+            summary:    The aim of this web service is to set or update the customer email address part of the principal address.
+            tags:
+              - Update Customer Email.
+            parameters:
+              - in: path
+                name: customerId
+                example: PWC-CL-WS-0101-0001
+                schema:
+                  type: string
+                required: true
+                description: customerId String value.
+              - in: query
+                name: requestUID 
+                example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+                schema:
+                    type: string
+                required: true
+                description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+              - in: query
+                name: requestDate 
+                example: '2020-07-07T03:13:01.853Z'
+                schema:
+                    type: string
+                required: true
+                description: Date when the request was submitted.
+              - in: query
+                name: userID 
+                example: PwcUserJmeter
+                schema:
+                    type: string
+                required: false
+                description: Represents the user Id who made the request.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>02501</td>
+                                      <td>Invalid Customer Id</td>
+                                    </tr>	
+                                    <tr> 
+                                      <td>02502</td>
+                                      <td>Invalid Email Address</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'                       
+  # --- UpdateCustomerPhoneNumber
+  /UpdateCustomerPhoneNumber/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerPhoneNumber/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                                This web service serves to update the phone number of an existing principal customer. The phone numbers entered by the agent or the customer must be formatted properly and could be entered in international format. More details are given in the request specification section.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerPhoneNumber.png" />
+            summary:    This web service serves to update the phone number of an existing principal customer.
+            tags:
+              - Update Customer Phone Number.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>00801</td>
+                                        <td>Invalid Customer Id</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>00802</td>
+                                        <td>Invalid Phone Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>00803</td>
+                                        <td>Invalid Phone type</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'                       
+  # --- UpdateCollaboratorSubscriptionStatus
+  /UpdateCollaboratorSubscriptionStatus/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCollaboratorSubscriptionStatus/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              This web service is used to update the status of already initiated subscription requests
+                              The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCollaboratorSubscriptionStatus.png" />
+            summary:   This web service is used to update the status of already initiated subscription requests.
+            tags:
+              - Update Collaborator Subscription Status.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCollaboratorSubscriptionStatusV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCollaboratorSubscriptionStatusV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>31501</td>
+                                    <td>Invalid Corporate Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>31502</td>
+                                    <td>Invalid Employee Id</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>31503</td>
+                                    <td>Invalid Subscription Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>31504</td>
+                                    <td>Invalid Request Status</td>
+                                  </tr>								
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCollaboratorSubscriptionStatusV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCollaboratorSubscriptionStatusV35Rs'                       
+  # --- GetCollaboratorInitiatedSubscription
+  /GetCollaboratorInitiatedSubscription/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCollaboratorInitiatedSubscription/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                             This web service is used to initiate an employee subscription from the corporate portal.
+                          </p>
+                          <p>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetCollaboratorInitiatedSubscription.png" />
+            summary:   This web service is used to initiate an employee subscription from the corporate portal.
+            tags:
+              - Get Collaborator Initiated Subscription.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCollaboratorInitiatedSubscriptionV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCollaboratorInitiatedSubscriptionV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>31201</td>
+                                      <td>Invalid Corporate ID</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>31202</td>
+                                      <td>Invalid Employee ID</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>31203</td>
+                                      <td>Invalid Subscription ID</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCollaboratorInitiatedSubscriptionV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCollaboratorInitiatedSubscriptionV35Rs'                         
+  # ------- UpdateCustomerDemog API  
+  /UpdateCustomerDemog/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerDemog/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>PowerCARD offers a selection of web services with regards to customer detail maintenance, the update customer demographic data web service is one of those web services that can be used by both agents and customers in order to change the customer information’s.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/UpdateCustomerDemog.png" />
+      summary: the update customer demographic data web service is one of those web services that can be used by both agents and customers in order to change the customer information’s
+      tags:
+        - Update Customer Demog.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDemogV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDemogV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>19301</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19302</td>
+                                <td>Invalid Client Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19303</td>
+                                <td>Invalid Branch Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19304</td>
+                                <td>Invalid Family Status</td>
+                              </tr>	
+                              <tr> 
+                                <td>19306</td>
+                                <td>Invalid Gender Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19310</td>
+                                <td>Invalid Birth Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19311</td>
+                                <td>Invalid Birth Country Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19312</td>
+                                <td>Invalid Birth City Code</td>
+                              </tr>
+                              <tr> 
+                                <td>19313</td>
+                                <td>Invalid VIP Level</td>
+                              </tr>	
+                              <tr> 
+                                <td>19314</td>
+                                <td>Invalid Nationality Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19315</td>
+                                <td>Invalid Language Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19316</td>
+                                <td>Invalid Title Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19322</td>
+                                <td>Invalid Owner Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19323</td>
+                                <td>Invalid Socio-professional Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19324</td>
+                                <td>Invalid Activity Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19325</td>
+                                <td>Invalid Customer Segment</td>
+                              </tr>	
+                              <tr> 
+                                <td>19329</td>
+                                <td>Invalid Lodging Mode</td>
+                              </tr>	
+                              <tr> 
+                                <td>19330</td>
+                                <td>Invalid Channel Number</td>
+                              </tr>	
+                              <tr> 
+                                <td>19331</td>
+                                <td>Invalid Phone Type 1</td>
+                              </tr>
+                              <tr> 
+                                <td>19333</td>
+                                <td>Invalid Phone Type 2</td>
+                              </tr>	
+                              <tr> 
+                                <td>19335</td>
+                                <td>Invalid Phone Type 3</td>
+                              </tr>	
+                              <tr> 
+                                <td>19337</td>
+                                <td>Invalid Phone Type 4</td>
+                              </tr>	
+                              <tr> 
+                                <td>19342</td>
+                                <td>Invalid Document Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19344</td>
+                                <td>Invalid Document Issue Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19345</td>
+                                <td>Invalid Document Expiry Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19349</td>
+                                <td>Invalid Client Custom Field name</td>
+                              </tr>
+                              <tr> 
+                                <td>19305</td>
+                                <td>Invalid Client Demog</td>
+                              </tr>
+                              <tr> 
+                                <td>19350</td>
+                                <td>Invalid Number Of Dependents</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCustomerDemogV35Rs'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerDemogV35Rs'                  
+  #updateAlertService  
+  /updateAlertService/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The aim of this API is to switch-off an alert service or updated the minimum threshold amount. <br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/updateAlertService.png" />
+                      
+            summary: The aim of this API is to switch-off an alert service or updated the minimum threshold amount.
+            tags:
+              - Update Alert Service.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAlertServiceV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAlertServiceV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>03601</td>
+                                  <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>19201</td>
+                                  <td>Invalid Card Number / Card Token ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>19202</td>
+                                  <td>Invalid Status Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19203</td>
+                                  <td>Invalid Reason Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19204</td>
+                                  <td>Invalid Combination Status Code - Status Reason Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19205</td>
+                                  <td>Invalid Transition Requested</td>
+                                </tr>
+                                <tr> 
+                                  <td>19206</td>
+                                  <td>Operation Not Permitted</td>
+                                </tr>     				
+                           </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAlertServiceV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAlertServiceV35Rs'                        
+  #checkCorporateContactInformation   
+  /checkCorporateContactInformation/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web service can be used to check of the corporate administrator is valid and logged within the corporate database.
+                              As output the web service returns the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/checkCorporateContactInformation.png" />
+            summary:  This web service can be used to check of the corporate administrator is valid and logged within the corporate database.
+            tags:
+              - Check Corporate Contact Information 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCorporateContactInformationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCorporateContactInformationV35Rq'
+            responses:  
+              200:
+                description:
+                      <div>
+                              Successful
+                              <p>Business Error Codes &#58;</p>
+                              <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>30101</td>
+                                      <td>Invalid Corporate Id</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30102</td>
+                                      <td>Invalid Employee Id</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30103</td>
+                                      <td>Invalid Employee Email</td>
+                                    </tr> 
+                                    <tr> 
+                                      <td>30104</td>
+                                      <td>Invalid First Name</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30105</td>
+                                      <td>Invalid Last Name</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30106</td>
+                                      <td>Invalid Title Code</td>
+                                    </tr>    				
+                              </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCorporateContactInformationV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CheckCorporateContactInformationV35Rs'                      
+  #getCorporateHierarchy   
+  /GetCorporateHierarchy/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service can be used to get the list of the sub corporates under a particular corporate ID.<br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getCorporateHierarchy.png" />
+            summary:  This web service can be used to get the list of the sub corporates under a particular corporate ID.
+            tags:
+              - Get Corporate Hierarchy
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCorporateHierarchyV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCorporateHierarchyV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>30901</td>
+                                  <td>Invalid Corporate Id</td>
+                                </tr>			
+                           </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCorporateHierarchyV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCorporateHierarchyV35Rs'                         
+  #getCorporateSelectedProducts   
+  /getCorporateSelectedProducts/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                                 This web service can be used to get the list of products and packs that have been selected by a corporate for its employees. <br>
+                                 The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/getCorporateSelectedProducts.png" />
+            summary: This web service can be used to get the list of products and packs that have been selected by a corporate for its employees.
+            tags:
+              - Get Corporate Selected Products
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCorporateSelectedProductsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCorporateSelectedProductsV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>30801</td>
+                                    <td>Invalid Corporate Id</td>
+                                  </tr>				
+                            </table>
+                    </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCorporateSelectedProductsV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCorporateSelectedProductsV35Rs'                       
+  #ImportCollaborators   
+  /ImportCollaborators/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This API is used to import the list of the employees for a particular corporate.<br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/ImportCollaborators.png" />
+                      This API is used to import the list of the employees for a particular corporate. 
+            summary: This API is used to import the list of the employees for a particular corporate . 
+            tags:
+              - Import Collaborators
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ImportCollaboratorsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ImportCollaboratorsV35Rs'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>30401</td>
+                                        <td>Invalid Employee ID</td>
+                                      </tr>
+                                      <tr>
+                                        <td>30402</td>
+                                        <td>Invalid First Name</td>
+                                      </tr>
+                                      <tr>
+                                        <td>30403</td>
+                                        <td>Invalid Last Name</td>
+                                      </tr>
+                                      <tr>
+                                        <td>30404</td>
+                                        <td>Invalid Title code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>30405</td>
+                                        <td>Invalid Email</td>
+                                      </tr>
+                                      <tr>
+                                        <td>30406</td>
+                                        <td>Invalid Language</td>
+                                      </tr> 
+                                      <tr>
+                                        <td>30407</td>
+                                        <td>Invalid Vip Level</td>
+                                      </tr> 
+                                      <tr>
+                                        <td>30408</td>
+                                        <td>Invalid Parent Corporate Id</td>
+                                      </tr> 
+                                       <tr>
+                                          <td>30409</td>
+                                          <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30410</td>
+                                          <td>Employee already exists</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>30411</td>
+                                          <td>Inavlid Employee Status</td>
+                                      </tr>                                         
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'                      
+                      
+  #initCardSubscription    
+  /initCardSubscription/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - Init Card Subscription 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'                          
+  #SearchCollaborators    
+  /SearchCollaborators/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This API is used to get the list of non client employees for a particular corporate.<br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SearchCollaborators.png" />
+            summary:  This API is used to get the list of non client employees for a particular corporate.
+            tags:
+              - Search Collaborators
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchCollaboratorsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchCollaboratorsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>30701</td>
+                                        <td>Invalid Corporate ID</td>
+                                      </tr>
+                                       <tr>
+                                        <td>30702</td>
+                                        <td>Invalid Employee ID</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchCollaboratorsV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SearchCollaboratorsV35Rs'                                 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+    # --- Import SetCustomerDetailV35 request and response definition
+      SecuredInSetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SecuredInSetCustomerDetailV35Rq'  
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'
+    # --- Import ImportCollaborators request and response
+      ImportCollaboratorsV35Rq:
+               $ref: 'request.yaml#/ImportCollaboratorsV35Rq'
+      ImportCollaboratorsV35Rs:
+               $ref: 'response.yaml#/ImportCollaboratorsV35Rs'  
+    # --- Import SearchCollaborators request and response
+      SearchCollaboratorsV35Rq:
+               $ref: 'request.yaml#/SearchCollaboratorsV35Rq'
+      SearchCollaboratorsV35Rs:
+               $ref: 'response.yaml#/SearchCollaboratorsV35Rs'
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'  
+    # --- Import UpdateAlertServiceV35 request and response
+      UpdateAlertServiceV35Rq:
+               $ref: 'request.yaml#/UpdateAlertServiceV35Rq' 
+      UpdateAlertServiceV35Rs:
+               $ref: 'response.yaml#/UpdateAlertServiceV35Rs'                        
+    # --- Import CheckCorporateContactInformationV35Rq request and response
+      CheckCorporateContactInformationV35Rq:
+               $ref: 'request.yaml#/CheckCorporateContactInformationV35Rq' 
+      CheckCorporateContactInformationV35Rs:
+               $ref: 'response.yaml#/CheckCorporateContactInformationV35Rs'    
+    # --- Import GetCorporateHierarchyV35Rq request and response
+      GetCorporateHierarchyV35Rq:
+               $ref: 'request.yaml#/GetCorporateHierarchyV35Rq' 
+      GetCorporateHierarchyV35Rs:
+               $ref: 'response.yaml#/GetCorporateHierarchyV35Rs'  
+    # --- Import getCorporateSelectedProductsV35Rq request and response
+      GetCorporateSelectedProductsV35Rq:
+               $ref: 'request.yaml#/getCorporateSelectedProductsV35Rq'  
+      GetCorporateSelectedProductsV35Rs:
+               $ref: 'response.yaml#/GetCorporateSelectedProductsV35Rs'
+
+    # --- Import UpdateEventNotificationV35Rq request and response
+      UpdateEventNotificationV35Rq:
+               $ref: 'request.yaml#/UpdateEventNotificationV35Rq'  
+      UpdateEventNotificationV35Rs:
+               $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+security:
+  - bearerAuth: []

@@ -1,0 +1,104 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantContractStatus
+  /UpdateMerchantContractStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. </p>
+                    <p>The present web service aims to update the status of a merchant contract element. The change in status of a Contract Element has no effect on the status of the merchant. However, change of an ELC status has an effect on all the attached services. Thus, the closing action of an ELC is reflected by deactivation on the attached services, and the actions of activation/deactivation of ELC are reflected by activation/deactivation on the attached services.</p>
+                    <p>Acceptance optional services are not affected by the status change of the ELC to which they are attached. An acceptance optional service may be in normal status and active independently of the ELC to which it is attached.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantContractStatus.png" />
+                  
+      tags:
+        - Update Merchant Contract Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10701</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>10702</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>10703</td>
+                                  <td>Invalid contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10704</td>
+                                  <td>Update not allowed for this contract, it's closed </td>
+                                </tr>	
+                                <tr> 
+                                  <td>10705</td>
+                                  <td>Error while updating contract status </td>
+                                </tr>	
+                                <tr> 
+                                  <td>10706</td>
+                                  <td>Invalid status code and reason code </td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantContractStatusRs'                                                                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateMerchantContractStatus request and response 
+      UpdateMerchantContractStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantContractStatusRq'
+      UpdateMerchantContractStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantContractStatusRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,94 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /SearchMerchantBatches/V3
+  /SearchMerchantBatches/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service is intended to allow the end user to look for a set of transaction remittances in the system. For instance, a merchant or an acceptor point can use the service to search for the submitted transaction remittances in a period of time.
+
+        The output of the service may include the list of remittances submitted by the merchant/acceptor point along with some details regarding each remittance. Those details should include the status of the remittance, the number of submitted transactions, the processing date, the remittance type…
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/searchMerchantBatches.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Search Merchant Batches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantBatchInfoRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/MerchantBatchInfoRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:b> Merchant ID or legal ID</td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>60950</td><td>Invalid Acceptor Point ID</td></tr>
+            <tr><td>60951</td><td>Invalid LinkUp code</td></tr>
+            <tr><td>60952</td><td>Invalid Batch date</td></tr>
+            <tr><td>60953</td><td>Invalid Loading date</td></tr>
+            <tr><td>60954</td><td>Invalid Batch Status</td></tr>
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MerchantBatchInfoRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MerchantBatchInfoRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import MerTransSettlementRq request and response
+    MerchantBatchInfoRq:
+      $ref: 'request.yaml#/MerchantBatchInfoRq'
+    MerchantBatchInfoRs:
+      $ref: 'response.yaml#/MerchantBatchInfoRs'
+security:
+  - bearerAuth: []

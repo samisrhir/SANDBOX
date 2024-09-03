@@ -1,0 +1,115 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- createAcceptorPoint
+  /CreateAcceptorPoint/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The create acceptor point API provides functionality to add or update an acceptor point application record during a merchant enrollment process. The details that must be submitted must contain information about that acceptor point like its acronym, legal identification, annual turnover, Tax Id …</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createAcceptorPoint.png" />
+                  
+      summary: The create acceptor point API provides functionality to add or update an acceptor...
+      tags:
+        - Create Acceptor Point
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAcceptorPointRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateAcceptorPointRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05101</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05102</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05103</td>
+                                  <td>Invalid bank code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05104</td>
+                                  <td>Invalid acceptor point</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05105</td>
+                                  <td>Invalid merchant activity</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05106</td>
+                                  <td>Invalid site</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05107</td>
+                                  <td>Invalid contract element</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05108</td>
+                                  <td>Invalid acronym</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05109</td>
+                                  <td>Invalid location</td>
+                                </tr>										
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAcceptorPointRs'                                                                                                 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CreateAcceptorPoint request and response 
+      CreateAcceptorPointRq:
+               $ref: 'request.yaml#/CreateAcceptorPointRq'
+      CreateAcceptorPointRs:
+               $ref: 'response.yaml#/CreateAcceptorPointRs'                                                                                     
+security:
+  - bearerAuth: []
+
+
+

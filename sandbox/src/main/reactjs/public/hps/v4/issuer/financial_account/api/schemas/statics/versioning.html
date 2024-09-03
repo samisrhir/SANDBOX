@@ -1,0 +1,47 @@
+<style>
+    .static-page-title{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        margin-bottom: 28px;
+        left: 15px;
+    }
+    .static-page-p{
+        font-family: "Open Sans", sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 25px;
+        border-radius: 10px;
+        color: rgb(162, 252, 162);
+    }
+    .padding{
+        padding: 10px;
+    }
+</style>
+<div>
+    <h2 class="static-page-title">Versioning in Connect'API</h2>
+    <ul>
+        <li class="static-page-p">The ConnectAPI version is indicated in each endpoint resource path. </li>
+        <li class="static-page-p">For example,
+            <b class="static-page-b">https://connectapi.sandbox.com/compliance/v4.0/tokens/authentication</b> indicates the API is at version 4.0.</li>
+        </li>
+    </ul>
+    <p class="static-page-p padding">    ConnectApi increments the version number when it releases a new version containing backwards-incompatible changes. Minor updates and bug fixes are typically released without incrementing the version number. Ensure that your application gracefully handles API revisions by allowing for additional, unspecified resource fields in the response and for variable response sizes. </p>
+</div>
+

@@ -1,0 +1,103 @@
+<style>
+    .static-page-title{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        text-align: left;
+        margin-bottom: 28px;
+    }
+    .static-page-header{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        margin-bottom: 28px;
+    }
+    .static-page-p{
+        font-family: "Open Sans", sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 5px;
+        border-radius: 5px;
+        color: rgb(162, 252, 162);
+        height: 15px;
+        text-align: left;
+        padding: 23px;
+        position: relative;
+        bottom: 21px;
+    }
+    table{
+        display: table;
+        box-sizing: border-box;
+        text-indent: initial;
+        border-color: #4e5d69;
+        border: 1px solid;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    thead{
+        background: #F3F6F9;
+    }
+    td,th{
+        border: 1px solid;
+        border-collapse: collapse;
+        padding: 4px;
+        text-align: center;
+        color: #00041e;
+        font-family: "Open Sans", sans-serif;
+        font-size: 10pt;
+        line-height: 24px;
+    }
+    .static-page-a{
+        color: blue;
+    }
+    .static-page-b{
+        font-weight: bold;
+    }
+</style>
+<h2 class="static-page-title">Headers in Connect'API</h2>
+<p class="static-page-p">To communicate with the ConnectAPI of the PowerCard platform, you must include the proper headers in your API requests.</p>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Request Type</th>
+        <th>Required value</th>
+    </thead>
+    <tbody>
+      <tr>
+          <td>authorization</td>
+          <td>Credentials to authenticate your request.
+          </td>
+          <td class="static-page-b">POST,GET,DELETE,PUT,PATCH</td>
+          <td>bearer JWT token</td>
+      </tr>
+      <tr>
+          <td>content-type</td>
+          <td>The media type of the requested resource.
+          </td>
+          <td class="static-page-b">POST,DELETE,PUT,PATCH</td>
+          <td class="static-page-a">application/json</td>
+      </tr>
+    </tbody>
+</table>
+<h3 class="static-page-header">Sample request headers</h3>
+<pre class="static-page-code">Headers: Content-Type: application/json, Authorization: bearer {_your_encoded_credentials_}</pre>

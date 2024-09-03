@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /GetProductList/V3
+  /GetProductList/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        PowerCARD offers a rich product database structure to its customers. This structure includes a variety of components that allow users to map their existing business easily and within a limited time in PowerCARD. For example, PowerCARD allows storing and maintaining the product in the database.
+        The current web service is intended to send a result that shares the list of products that belong to a pre-defined bank and compatible with a pre-defined merchant. At least one input parameter should be sent in the request message, otherwise the request will be rejected.
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/getProductList.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Get Product List
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetProductListRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetProductListRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>40100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>40200</td><td>Merchant not found</td></tr>
+            <tr><td>40780</td><td>Invalid product type</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductListRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetProductListRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    GetProductListRq:
+      $ref: 'request.yaml#/GetProductListRq'
+    GetProductListRs:
+      $ref: 'response.yaml#/GetProductListRs'
+security:
+  - bearerAuth: []

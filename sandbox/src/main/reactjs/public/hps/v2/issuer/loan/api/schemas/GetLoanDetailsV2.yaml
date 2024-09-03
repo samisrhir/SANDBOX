@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #getLoanDetails  
+  /GetLoanDetails/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              The get loan web service is an API that can be used to retrieve the loan provided by the loan company to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to get details for the existing loan in the system.<br>
+                              As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getLoanDetails.png" />
+            summary: Retrieve the loan provided by the loan company to the customer 
+            tags:
+              - Get Loan Details.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetLoanDetailsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetLoanDetailsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>30201</td>
+                                          <td>Invalid Loan Reference Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>30202</td>
+                                          <td>Invalid Loan Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoanDetailsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoanDetailsV35Rs'     
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetLoanDetailsV35 request and response
+      GetLoanDetailsV35Rq:
+               $ref: 'request.yaml#/GetLoanDetailsV35Rq'
+      GetLoanDetailsV35Rs:
+               $ref: 'response.yaml#/GetLoanDetailsV35Rs' 
+security:
+  - bearerAuth: []

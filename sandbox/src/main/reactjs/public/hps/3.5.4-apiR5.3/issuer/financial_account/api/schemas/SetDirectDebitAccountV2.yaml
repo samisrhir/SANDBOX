@@ -1,0 +1,198 @@
+openapi: "3.0.3"
+info:
+  title: Financial account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account, Account transactions and Statements list.</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+#SetDirectDebitAccount/V2  
+  /SetDirectDebitAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is aimed to update bank account information. The direct debit account is the customer bank account (the payer), it's used during the direct debit process and sent as part of the credit order output file, allowing to the institution to collect money from third party owning the customer bank account. It's important to note that the bank and branch who owns this account are not necessarily defined in PowerCARD. The institution can define multiple direct debit accounts for the concerned financial account
+                          </p>
+                          <p>As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.</p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SetDirectDebitAccount.png" />
+            summary: This web service is aimed to update bank account information...
+            tags:
+              - Set Direct Debit Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SetDirectDebitAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SetDirectDebitAccountV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>02901</td>
+                                          <td>Invalid Action Code</td>
+                                      </tr>
+                                      <tr>
+                                          <td>02902</td>
+                                          <td>Invalid Account Type</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02903</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02904</td>
+                                        <td>Invalid Branch Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02905</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02906</td>
+                                        <td>Invalid Account Currency</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02907</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02908</td>
+                                        <td>Invalid Account Status Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02909</td>
+                                        <td>Invalid Account Status Reason</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02910</td>
+                                        <td>Invalid Opening Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02911</td>
+                                        <td>Invalid Closing Date</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02912</td>
+                                        <td>Invalid IBAN</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02913</td>
+                                        <td>Invalid Swift Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02914</td>
+                                        <td>Invalid Default Flag</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02915</td>
+                                        <td>Invalid Debit Order Payment Mode</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02916</td>
+                                        <td>Invalid Debit Order Amount Currency</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02917</td>
+                                        <td>Invalid Debit Order Percentage</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02918</td>
+                                        <td>Invalid Routing Number</td>
+                                      </tr>
+                                      <tr>
+                                          <td>02919</td>
+                                          <td>Invalid Financial Account Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02920</td>
+                                        <td>The Account Type field is required when the operation is C</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02921</td>
+                                        <td>The Account Number field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02922</td>
+                                        <td>The Account Currency field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02923</td>
+                                        <td>The Account Status field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02924</td>
+                                        <td>The Account Status Reason field is required when the action code is U and the Account Status field is populated.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02925</td>
+                                        <td>The Opening Date field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02926</td>
+                                        <td>The Default Flag field is required when the operation is C.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02927</td>
+                                        <td>The Debit Order Payment Mode field becomes mandatory when the DebitOrderAmount or DebitOrderPercentage fields are provided.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02928</td>
+                                        <td>The Debit Order Percentage  field becomes mandatory when the DebitOrderPaymentMode is set to P.</td>
+                                      </tr>
+                                      <tr>
+                                        <td>02929</td>
+                                        <td>The Debit Order Amount  field becomes mandatory when the DebitOrderPaymentMode is set to F.</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SetDirectDebitAccountV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SetDirectDebitAccountV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SetDirectDebitAccountV35 request and response
+      SetDirectDebitAccountV35Rq:
+               $ref: 'request.yaml#/SetDirectDebitAccountV35Rq'
+      SetDirectDebitAccountV35Rs:
+               $ref: 'response.yaml#/SetDirectDebitAccountV35Rs'
+security:
+  - bearerAuth: []

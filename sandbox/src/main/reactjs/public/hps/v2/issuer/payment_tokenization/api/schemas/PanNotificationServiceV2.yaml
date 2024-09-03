@@ -1,0 +1,195 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #/v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/panNotificationService
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/panNotificationService:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            PowerCARD-Tokenization panNotificationService API enables the issuer to update PAN and PAN expiration date.
+                          </p>
+                          <p>
+                            As output the API send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/panNotificationService.png" />
+            summary: Enables the issuer to update PAN and PAN expiration date.
+            tags:
+              - Pan Notification Service
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/PanNotificationServiceV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/PanNotificationServiceV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr>
+                                        <td>T0401</td>
+                                        <td>Invalid bank code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0402</td>
+                                        <td>Invalid Operation Type </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0403</td>
+                                        <td>Invalid Current PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0404</td>
+                                        <td>Invalid Expiry Date Of Current PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0405</td>
+                                        <td>Invalid Month Of Current PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0406</td>
+                                        <td>Invalid Year Of Current PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0407</td>
+                                        <td>Invalid PAN Of New PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0408</td>
+                                        <td>Invalid Expiry Date Of New PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0409</td>
+                                        <td>Invalid Month Of New PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0410</td>
+                                        <td>Invalid Year Of New PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0411</td>
+                                        <td>Invalid Replacement Reason </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0412</td>
+                                        <td>Invalid title code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0413</td>
+                                        <td>Invalid Family Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0414</td>
+                                        <td>Invalid Second Family Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0415</td>
+                                        <td>Invalid First Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0416</td>
+                                        <td>Invalid Second First Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0417</td>
+                                        <td>Invalid Maiden Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0418</td>
+                                        <td>Invalid phone type. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0419</td>
+                                        <td>Invalid phone number. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0420</td>
+                                        <td>Invalid Email 1 </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0421</td>
+                                        <td>Invalid Email 2 </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0422</td>
+                                        <td>Invalid Billing Address </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0423</td>
+                                        <td>Invalid address line 1. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0424</td>
+                                        <td>Invalid adress line 2. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0425</td>
+                                        <td>Invalid address line 3. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0426</td>
+                                        <td>Invalid address line 4. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0427</td>
+                                        <td>Invalid Address Country </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0428</td>
+                                        <td>Invalid Address Region </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PanNotificationServiceV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/PanNotificationServiceV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import TokenNotificationServiceV35 request and response
+      PanNotificationServiceV35Rq:
+               $ref: 'request.yaml#/PanNotificationServiceV35Rq'
+      PanNotificationServiceV35Rs:
+               $ref: 'response.yaml#/PanNotificationServiceV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,132 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- RenewCard
+  /RenewCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               Usually a card is automatically renewed within the month it expires. However, for some reasons, as if when the customer is going to be out of the town during the renewal process, he may request to renew his card before its expiration date. For that, PowerCARD offers the possibility to use this web service. The service is mainly used to store the request that will be processed during the end of the day. 
+                          </p>
+                          <p>
+                              It is important to mention here that PowerCARD makes multiple controls on the card before proceeding to perform the renewal action. Those controls are all defined in the system and can be activated or deactivated by the financial institution using the PowerCARD setup screens.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/RenewCard.png" />
+            summary:    A customer can request to renew his card before its expiration date.
+            tags:
+              - Renew Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>12701</td>
+                                        <td>Invalid Card number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12702</td>
+                                        <td>Invalid Card product</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12703</td>
+                                        <td>Operation not allowed</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12704</td>
+                                        <td>Operation not allowed for Cancelled card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12705</td>
+                                        <td>Operation not allowed for Replaced card</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12706</td>
+                                        <td>Card blocked for renewal</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12707</td>
+                                        <td>Invalid Expiration date</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12708</td>
+                                        <td>The card is in production process, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12709</td>
+                                        <td>Card is in the stop list, Contact your administrator</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>12710</td>
+                                        <td>The card is in Pin request process, Contact your administrator</td>
+                                      </tr>							
+                                      <tr> 
+                                        <td>12711</td>
+                                        <td>The card is in Replacement process</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>12712</td>
+                                        <td>The card is in Renewal process</td>
+                                      </tr>							
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/RenewCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RenewCardV35Rs'    
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+      RenewCardV35Rq:
+                     $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+                     $ref: 'response.yaml#/RenewCardV35Rs'         
+security:
+  - bearerAuth: []

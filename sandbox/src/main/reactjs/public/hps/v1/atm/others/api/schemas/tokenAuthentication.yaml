@@ -1,0 +1,9 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel vestibulum lacus. Morbi lacinia odio ac risus vestibulum tincidunt id sed lacus. Nam ullamcorper et mi at malesuada.Morbi lacinia odio ac risus vestibulum tincidunt id sed lacus
+  version: PowerCARD 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:

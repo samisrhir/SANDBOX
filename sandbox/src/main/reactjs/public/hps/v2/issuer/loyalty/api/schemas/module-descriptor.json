@@ -1,0 +1,105 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Loyalty",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Create Loyalty Account",
+          "file": "CreateLoyaltyAccount2V2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateLoyaltyAccount1V2.yaml",
+              "name": "Loyalty Account V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "CreateLoyaltyAccount2V2.yaml",
+              "name": "Create Loyalty Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Loyalty Accounts",
+          "file": "GetLoyaltyAccountsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoyaltyAccountsV2GET.yaml",
+              "name": "Get Loyalty Accounts V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetLoyaltyAccountsV2POST.yaml",
+              "name": "Get Loyalty Accounts V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Loyalty Account Transactions",
+          "file": "GetLoyaltyAccountTransactionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoyaltyAccountTransactionsV2.yaml",
+              "name": "Get Loyalty Account Transactions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Loyalty Accounts Status",
+          "file": "UpdateLoyaltyAccStatusV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateLoyaltyAccStatusV2PATCH.yaml",
+              "name": "Update Loyalty Accounts Status V2",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "UpdateLoyaltyAccStatusV2POST.yaml",
+              "name": "Update Loyalty Accounts Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

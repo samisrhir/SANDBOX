@@ -1,0 +1,755 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-xPos API documentation
+  description: <p>HPS’ PowerCARD-xPOS solution can help payments providers, retailers and banks overcome these challenges, and rapidly roll out new services and simply global device deployment, while keeping maintenance and administration costs to a minimum. </p>
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><u>SOAP WSDL</u></a>                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: 	Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+        500:
+          description: Error 500 Internal Server
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+        401:
+          description: Error 401 Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+        400:
+          description: Error 400 Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+  # ------- allocateDevice
+  /allocateDevice/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Allocate Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'    
+  # ------- createDevice
+  /createDevice/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+  # ------- getDevice
+  /getDevice/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+   # ------- replaceDevice
+  /replaceDevice/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Replace Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+   # ------- returnDevice
+  /returnDevice/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Return Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+   # ------- createTerminal
+  /createTerminal/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Terminal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+   # ------- searchTerminal
+  /searchTerminal/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Search Terminal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'             
+         
+security:
+  - bearerAuth: []

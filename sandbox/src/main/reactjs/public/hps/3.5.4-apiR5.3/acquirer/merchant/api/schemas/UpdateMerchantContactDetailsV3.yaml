@@ -1,0 +1,115 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateMerchantContactDetails/V3
+  /UpdateMerchantContactDetails/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service is aimed to be used whenever any user would like to change a detail of a merchant contact details in the system. Whenever it is requested to do, users need to provide information with regards to the merchant contact details so that PowerCARD can proceed and change accordingly.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateMerchantContactDetails.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update Merchant Contact Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContactDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContactDetailsRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td>40100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>40136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td></tr>
+            <tr><td>40200</td><td>Merchant not found</td></tr>
+            <tr><td>40307</td><td>Invalid Address Country Code</td></tr>
+            <tr><td>40308</td><td>Invalid Address Zip Code</td></tr>
+            <tr><td>40309</td><td>Invalid Address Region Code</td></tr>
+            <tr><td>40310</td><td>Invalid Address City Code</td></tr>
+            <tr><td>40311</td><td>Invalid Address Phone Type</td></tr>
+            <tr><td>40314</td><td>Invalid Address URL</td></tr>
+            <tr><td>40315</td><td>Invalid address email</td></tr>
+            <tr><td>40316</td><td>The address list does not exist with given ID</td></tr>
+            <tr><td>40317</td><td>The address details does not exist with given ID</td></tr>
+            <tr><td>40320</td><td>Force ZIPCode not allowed on bank addendum params</td></tr>
+            <tr><td>40322</td><td>Invalid address city name</td></tr>
+            <tr><td>40410</td><td>Bank addendum not found</td></tr>
+            <tr><td>40700</td><td>Invalid Contact Title Code</td></tr>
+            <tr><td>40701</td><td>Invalid Contact Gender Code</td></tr>
+            <tr><td>40702</td><td>Invalid Contact Document Code</td></tr>
+            <tr><td>40703</td><td>Invalid Contact Language Code</td></tr>
+            <tr><td>40704</td><td>Invalid Contact Fonction</td></tr>
+            <tr><td>40705</td><td>Invalid Contact Ownership type</td></tr>
+            <tr><td>40706</td><td>Invalid Contact Citizenship</td></tr>
+            <tr><td>40707</td><td>Invalid Contact Guarantee</td></tr>
+            <tr><td>40708</td><td>Invalid Authorized Signatory Flag</td></tr>
+            <tr><td>40709</td><td>Error while update merchant contact</td></tr>
+            <tr><td>40321</td><td>Error while update address informations</td></tr>
+            <tr><td>40711</td><td>The contact does not exist with given ID</td></tr>
+            <tr><td>40138</td><td>Normal, suspended, under surveillance are the status needed to allow updating</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantContactDetailsRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantContactDetailsRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    UpdateMerchantContactDetailsRq:
+      $ref: 'request.yaml#/UpdateMerchantContactDetailsRq'
+    UpdateMerchantContactDetailsRs:
+      $ref: 'response.yaml#/UpdateMerchantContactDetailsRs'
+security:
+  - bearerAuth: []

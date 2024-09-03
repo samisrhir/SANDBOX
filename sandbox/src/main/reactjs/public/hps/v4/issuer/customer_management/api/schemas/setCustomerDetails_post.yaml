@@ -1,0 +1,262 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  #SetCustomerDetails 
+  /customer-management/v4.0/customers:
+    post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary: Create new customer
+        tags:
+          - Set Customer Details
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerDetailV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerDetailV4Rq'
+        responses:
+          200:
+            description:
+                  <div>
+                          <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00014</td>
+                                  <td>Invalid business date</td>
+                                  </tr>
+                        </table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                 <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                  </tr>	  
+                                <tr>
+                                    <td>000223</td>
+                                    <td>Bank Code is not valid</td>
+                                </tr> 
+                                <tr>
+                                    <td>000083</td>
+                                    <td>Invalid branch code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000068</td>
+                                    <td>Invalid VIP level</td>
+                                </tr>   
+                                <tr>
+                                    <td>000069</td>
+                                    <td>Invalid language code</td>
+                                </tr>   
+                                <tr>
+                                    <td>000070</td>
+                                    <td>Invalid title code</td>
+                                </tr>  
+                                <tr>
+                                    <td>000079</td>
+                                    <td>Invalid owner code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000080</td>
+                                    <td>Invalid socio prof code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000081</td>
+                                    <td>Invalid activity code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000050</td>
+                                    <td>Invalid customer segement</td>
+                                </tr>   
+                                <tr> 
+                                    <td>000082 <b>[deprecated]</b></td>
+                                    <td>Invalid lodging mode</td>
+                                </tr>
+                                <tr>
+                                    <td>000332</td>
+                                    <td>Invalid client code</td>
+                                </tr>
+                                <tr>
+                                  <td>000037</td>
+                                  <td>Client already exist</td>
+                                </tr>
+                                <tr>
+                                    <td>000218</td>
+                                    <td>Invalid Field Name In Custom Fields</td>
+                                </tr>
+                                <tr>
+                                    <td>000230</td>
+                                    <td>Invalid Phone Type</td>
+                                </tr>
+                                <tr>
+                                  <td>000223</td>
+                                  <td>Invalid bank code</td>    
+                                </tr>
+                                <tr>
+                                  <td>000219</td>
+                                  <td>Invalid nationality code</td>
+                                </tr>
+                                <tr>
+                                  <td>000053</td>
+                                  <td>Invalid document code</td>
+                                </tr>
+                                <tr>
+                                  <td>000130</td>
+                                  <td>Invalid address type</td>
+                                </tr>
+                                <tr>
+                                  <td>000128</td>
+                                  <td>Invalid sending mode</td>
+                                </tr>
+                                <tr>
+                                  <td>000147</td>
+                                  <td>Invalid zip code</td>
+                                </tr>
+                                <tr>
+                                  <td>000141</td>
+                                  <td>Invalid city code</td>
+                                </tr>
+                                <tr>
+                                  <td>000149</td>
+                                  <td>Invalid region code</td>
+                                </tr>
+                                <tr>
+                                  <td>000136</td>
+                                  <td>Invalid country code</td>
+                                </tr>
+                                <tr>
+                                  <td>000210</td>
+                                  <td>document ExpiryDate should be greater than business date</td>
+                                </tr>
+                                <tr>
+                                  <td>000211</td>
+                                  <td>document Issue date should be less than business date</td>
+                                </tr>
+                                <tr>
+                                    <td>003009</td>
+                                    <td>Free city text not allowed</td>
+                                </tr>
+                                <tr>
+                                    <td>003010</td>
+                                    <td>Free region text not allowed</td>
+                                </tr>
+                                <tr>
+                                    <td>000227</td>
+                                    <td>Duplicated address provided</td>
+                                </tr>
+                                <tr>
+                                    <td>000238</td>
+                                    <td>Address startDate greater than endDate</td>
+                                </tr>
+                                <tr>
+                                   <td>000240</td>
+                                   <td>Invalid birthCountry</td>
+                                </tr>
+                         </table>
+                     </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CreateCustomerDetailV4Rs'
+ 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      CreateCustomerDetailV4Rq:
+            $ref: 'request.yaml#/CreateCustomerDetailV4Rq'
+      CreateCustomerDetailV4Rs:
+            $ref: 'response.yaml#/CreateCustomerDetailV4Rs'
+security:
+  - bearerAuth: []

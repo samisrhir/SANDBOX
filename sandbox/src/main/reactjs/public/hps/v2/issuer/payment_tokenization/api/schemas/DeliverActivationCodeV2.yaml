@@ -1,0 +1,139 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #/v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/deliverActivationCode
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/deliverActivationCode:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The deliverActivationCode is used to request an Activation Code be sent to authenticate the PAN holder.
+                          </p>
+                          <p>
+                            The Issuer generate an activation code and deliver it to the PAN holder with the chosen Step Up Method such as SMS or email address, the PAN holder will then enter the activation code into the device payment application.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/deliverActivationCode.png" />
+            summary: Authenticate the PAN holder.
+            tags:
+              - Deliver Activation Code
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/DeliverActivationCodeV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/DeliverActivationCodeV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr>
+                                        <td>T0501</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0502</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0503</td>
+                                        <td>Invalid Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0504</td>
+                                        <td>Invalid Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0505</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0506</td>
+                                        <td>Invalid Device ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0507</td>
+                                        <td>Invalid StepUp Method ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0510</td>
+                                        <td>Invalid StepUp Method Expiration Time </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0522</td>
+                                        <td>MISSING_PAN </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0523</td>
+                                        <td>MISSING_CORRELATION_ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0524</td>
+                                        <td>MISSING_WALLET_ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0525</td>
+                                        <td>MISSING_REQUESTOR_ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0526</td>
+                                        <td>MISSING_TOKEN_REFERENCE_ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0527</td>
+                                        <td>Invalid activation code length </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/DeliverActivationCodeV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/DeliverActivationCodeV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import TokenNotificationServiceV35 request and response
+        DeliverActivationCodeV35Rq:
+               $ref: 'request.yaml#/DeliverActivationCodeV35Rq'
+        DeliverActivationCodeV35Rs:
+               $ref: 'response.yaml#/DeliverActivationCodeV35Rs'
+security:
+  - bearerAuth: []

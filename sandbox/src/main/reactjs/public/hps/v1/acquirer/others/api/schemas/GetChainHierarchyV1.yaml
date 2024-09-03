@@ -1,0 +1,108 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- getChainHierarchy
+  /GetChainHierarchy/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>For display purpose, this current service might be used whenever a merchant or a financial institution representative would like to display the architecture of all the components linked to a given node. A node in PowerCARD could represent an ISO, a Sub ISO, a chain, a sub chain, a Payment Facilitator, a merchant or also a point of sale.</p>
+                    <P>PowerCARD offers a rich database structure for its customers allowing them to easily map their existing business in the PowerCARD database. Here after the architecture highlighting the various components that shapes the PowerCARD database. The levels included in this figure are not all mandatory. In fact, depending on the customer architecture, PowerCARD can offer the appropriate internal architecture that answers the customer needs in a best way </P>
+                    <img  src="./docs/getChainHierarchy1.png" />
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getChainHierarchy2.png" />
+                  
+      summary: For display purpose, this current service might be used whenever a merchant or...
+      tags:
+        - Get Chain Hierarchy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06501</td>
+                                  <td>Invalid Merchant </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06502</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06503</td>
+                                  <td>Invalid Merchant Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>06504</td>
+                                  <td>Invalid ISO code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06505</td>
+                                  <td>Invalid Sub ISO code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06506</td>
+                                  <td>Invalid VAR code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs' 
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs'                                                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+   # --- Import GetChainHierarchy request and response 
+      GetChainHierarchyRq:
+               $ref: 'request.yaml#/GetChainHierarchyRq'
+      GetChainHierarchyRs:
+               $ref: 'response.yaml#/GetChainHierarchyRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

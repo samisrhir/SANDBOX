@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /SecuredOut/GetCustomerDetail/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:  'Get information details of an existing contact'
+        tags:
+          - Get Customer Details.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetCustomerDetailV35Rq'
+        responses:  
+          200:
+            description:
+                   <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20301</td>
+                                <td>Invalid Client Code</td>
+                              </tr>							
+                           </table>
+                    </div> 
+                    <div><div><Button style="width:300px">Decrypt Response</Button></div></div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV35Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV35Rs'                                         
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs'    
+security:
+  - bearerAuth: []

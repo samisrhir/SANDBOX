@@ -1,0 +1,101 @@
+TokenAuthenticationResponse:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        $ref: aggregate.yaml#/KeyValueDataV35
+    responseInfo:
+      type: object
+      $ref: aggregate.yaml#/ResponseInfo
+UpdateCollaboratorAuthenticationCodeRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    contractElementId:
+      type: string
+      description: <p>Contract element's internal identification number. Required.</p>
+      example: ''
+
+#--------------------------SearchCorporateTransactionsRs
+SearchCorporateTransactionsRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    corporateTransactions:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CorporateTransaction
+    transactionSign:
+      type: string
+      example: ''
+#---------------------
+GetSummaryCardTransactionsRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    cycleCode:
+      type: string
+      description: <p>The cycle code referring to the new billing cycle. Values retrieved
+        from PowerCARD CYCLE_CUTOFF_PARAMETERS table.</p>
+      example: ''
+    summaryCardTransactions:
+      type: array
+      items:
+        $ref: aggregate.yaml#/SummaryCardTransaction
+#---------------------------
+GetCardCharacteristicsRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    employeeInformation:
+      $ref: aggregate.yaml#/EmployeeInformation
+    productDetails:
+      $ref: aggregate.yaml#/ProductDetails
+
+
+RegisterWebhook35Rs:
+          type: object
+          properties:
+            responseInfo:
+              type: object
+              $ref: 'aggregate.yaml#/ResponseInfo'
+            webHookId:
+              type: string
+              description: 'The Identifier of the registered webhook'
+UpdateWebhook35Rs:
+          type: object
+          properties:
+            responseInfo:
+              type: object
+              $ref: 'aggregate.yaml#/ResponseInfo'
+GetWebhook35Rs:
+          type: object
+          properties:
+            responseInfo:
+              type: object
+              $ref: 'aggregate.yaml#/ResponseInfo'
+            webhooks:
+              type: array
+              items:
+                $ref: 'aggregate.yaml#/webhookV35'
+deleteWebhook35Rs:
+          type: object
+          properties:
+            responseInfo:
+              type: object
+              $ref: 'aggregate.yaml#/ResponseInfo'
+
+

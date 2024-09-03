@@ -1,0 +1,105 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+ #checkCorporateContactInformation   
+  /checkCorporateContactInformation/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web service can be used to check of the corporate administrator is valid and logged within the corporate database.
+                              As output the web service returns the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/checkCorporateContactInformation.png" />
+            summary: Check of the corporate administrator is valid and logged within the database.
+            tags:
+              - Check Corporate Contact Information 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCorporateContactInformationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCorporateContactInformationV35Rq'
+            responses:  
+              200:
+                description:
+                      <div>
+                              Successful
+                              <p>Business Error Codes &#58;</p>
+                              <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>30101</td>
+                                      <td>Invalid Corporate Id</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30102</td>
+                                      <td>Invalid Employee Id</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30103</td>
+                                      <td>Invalid Employee Email</td>
+                                    </tr> 
+                                    <tr> 
+                                      <td>30104</td>
+                                      <td>Invalid First Name</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30105</td>
+                                      <td>Invalid Last Name</td>
+                                    </tr>
+                                    <tr> 
+                                      <td>30106</td>
+                                      <td>Invalid Title Code</td>
+                                    </tr>    				
+                              </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCorporateContactInformationV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CheckCorporateContactInformationV35Rs'                                  
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      CheckCorporateContactInformationV35Rq:
+            $ref: 'request.yaml#/CheckCorporateContactInformationV35Rq'
+      CheckCorporateContactInformationV35Rs:
+            $ref: 'response.yaml#/CheckCorporateContactInformationV35Rs'    
+security:
+  - bearerAuth: []

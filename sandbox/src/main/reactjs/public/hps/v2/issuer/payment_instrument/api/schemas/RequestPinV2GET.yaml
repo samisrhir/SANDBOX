@@ -1,0 +1,176 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #Cards/V2/{aliasPAN}/RequestPIN/SendingMode/{sendingMode}/FeesOption/{feesOption}/FeeAmount/{feeAmount}/CurCode/{curCode}
+  /Cards/V2/{aliasPAN}/RequestPIN/SendingMode/{sendingMode}/FeesOption/{feesOption}/FeeAmount/{feeAmount}/CurCode/{curCode}:
+      get:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        The PIN request API allows the bank cardholders to request for the PIN .A PIN request is usually called when the cardholder request from the bank to send him the PIN associated with his card. The cardholder has the ability to choose the appropriate mode of PIN re-sending.
+                    </p>
+                    <p>
+                         Note that the cardholder PIN is never logged, not even in an encrypted form; the system will generate it again based on some data.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/requestPIN.png" />
+        tags:
+          - Request PIN
+        parameters:
+          - in: path
+            name: aliasPAN
+            schema:
+              type: string
+              example: "4250120656063430"
+            required: true
+            description: The AliasPAN value.
+          - in: path
+            name: sendingMode
+            schema:
+              type: string
+              example: "SMS"
+            required: true
+            description: The sendingMode value.
+          - in: path
+            name: feesOption
+            schema:
+              type: string
+              example: "Y"
+            required: true
+            description: The feesOption value.
+          - in: path
+            name: feeAmount
+            schema:
+              type: string
+              example: "126986666"
+            required: false
+            description: The feeAmount value.
+          - in: path
+            name: curCode
+            schema:
+              type: string
+              example: "928"
+            required: false
+            description: The curCode value.
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+              example: "user0016-lgkj-7777-7777-123456789aze"
+            required: true
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+              example: "2020-02-05T00:00:00"
+            required: true
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+              example: "user001"
+            required: true
+            description: Represents the user Id who made the request.
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02201</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02202</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>02203</td>
+                                  <td>Invalid Fees option</td>
+                                </tr>
+                                <tr> 
+                                  <td>02204</td>
+                                  <td>Invalid Product</td>
+                                </tr>
+                                <tr> 
+                                  <td>02205</td>
+                                  <td>Replace without fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02206</td>
+                                  <td>Replace with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02207</td>
+                                  <td>Renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02208</td>
+                                  <td>Manual renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02209</td>
+                                  <td>Pin calculate with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02210</td>
+                                  <td>Pin calculate ex</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02211</td>
+                                  <td>Pin not managed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02212</td>
+                                  <td>Card in process</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RequestPinV35Rs'
+              application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RequestPinV35Rs'         
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      RequestPinV35Rs:
+                     $ref: 'response.yaml#/RequestPinV35Rs'         
+security:
+  - bearerAuth: []

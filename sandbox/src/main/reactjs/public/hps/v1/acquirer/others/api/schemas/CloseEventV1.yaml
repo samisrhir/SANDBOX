@@ -1,0 +1,91 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- closeEvent
+  /CloseEvent/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Using this web services, users can change the status of an existing event inside a case from any value to Closed. Users need to provide a valid event reference identification in the request message, otherwise the request will be rejected with a specific error code and users need then to correct and resubmit the request.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/closeEvent.png" />
+                  
+      summary: Using this web services, users can change the status of an existing event inside a case...
+      tags:
+        - Close Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseEventRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CloseEventRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00601</td>
+                                  <td>Event reference not provided in the request message</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00602</td>
+                                  <td>Event reference not found</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00603</td>
+                                  <td>Event already closed</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseEventRs'                                                                                               
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CloseEvent request and response 
+      CloseEventRq:
+               $ref: 'request.yaml#/CloseEventRq'
+      CloseEventRs:
+               $ref: 'response.yaml#/CloseEventRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

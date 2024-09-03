@@ -1,0 +1,108 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- OrderStockCards API  
+  /OrderStockCards/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Branches that have an prepaid card inventory and sell cards usually have what is called a stock. A stock order business function simply means the act of ordering of new stock to refill the inventory.</p>
+                    <p>Each time the agent in the branch capture a new order, the system will make sure that cards with the appropriate product and plastic will be produced. Then shipped to increase the inventory level of the branch that made the requiest</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/OrderStockCards.png" />
+      summary: Branches that have an prepaid card inventory and sell cards usually have what is called a stock.
+      tags:
+        - Order Stock Cards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStockCardsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/OrderStockCardsV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>17601</td>
+                                  <td>Invalid Bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17602</td>
+                                  <td>Invalid Branch Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17603</td>
+                                  <td>Invalid Card product Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>17604</td>
+                                  <td>Invalid Credit profile code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>17605</td>
+                                  <td>Invalid Plastic Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>17606</td>
+                                  <td>Invalid Pre-loaded Amount</td>
+                                </tr>		
+                                <tr> 
+                                  <td>17607</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>											
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStockCardsV35Rs' 
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/OrderStockCardsV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                     $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                     $ref: 'response.yaml#/OrderStockCardsV35Rs'         
+security:
+  - bearerAuth: []

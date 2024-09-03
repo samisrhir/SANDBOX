@@ -1,0 +1,86 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #ChangeCardProduct
+  /VerifyPINWebService/V2	:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>The verify PIN web service is used to verify if the Personal Identification Number (PIN) introduced is valid or not. Users must transmit different details in the request that are used internally by PowerCARD to communicate with the HSM to validate the PIN captured by the customer. Depending on the validation processes, the response message that will be returned will either contain a Yes or No. Yes to specify that the PIN captured is valid, and No in the opposite case.</p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/VerifyPINWebService.png" />
+      summary: verifyPIN process.
+      tags:
+        - verifyPIN process
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPINWebServiceV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/VerifyPINWebServiceV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <h6>Successful</h6>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr><td>18001</td><td>Invalid card number.</td></tr>
+            <tr><td>18002</td><td>Invalid PIN block.</td></tr>
+            <tr><td>18003</td><td>Invalid PIN method.</td></tr>
+            <tr><td>18004</td><td>Card do not belong to any range in the system.</td></tr>
+            <tr><td>18005</td><td>Error while getting PVK Keys.</td></tr>
+            <tr><td>18006</td><td>Error while Verifying Visa PIN.</td></tr>
+            <tr><td>18007</td><td>Error while Verifying IBM PIN.</td></tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPINWebServiceV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/VerifyPINWebServiceV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import ChangeCardProduct request and response
+    VerifyPINWebServiceV35Rq:
+      $ref: 'request.yaml#/VerifyPINWebServiceV35Rq'
+    VerifyPINWebServiceV35Rs:
+      $ref: 'response.yaml#/VerifyPINWebServiceV35Rs'
+security:
+  - bearerAuth: []

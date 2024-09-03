@@ -1,0 +1,21 @@
+      # ---- TokenAuthenticationResponse response definition  
+        TokenAuthenticationResponse:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- SearchAtmRs
+        SearchAtmRs:
+                type: object
+                properties:   
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                                 
+                        terminalAtmList:
+                                type: array
+                                items:
+                                   type: object
+                                   $ref: 'aggregate.yaml#/TerminalAtm'                                  
+                                
+                                

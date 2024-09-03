@@ -1,0 +1,111 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #updateAlertService  
+  /updateAlertService/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The aim of this API is to switch-off an alert service or updated the minimum threshold amount. <br>
+                            The following sections are intended to highlight the process as well as the technical specification of the request and response messages.  
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/updateAlertService.png" />
+                      
+            summary: The aim of this API is to switch-off an alert service or updated the minimum threshold amount.
+            tags:
+              - Update Alert Service.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAlertServiceV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAlertServiceV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>03601</td>
+                                  <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr> 
+                                  <td>19201</td>
+                                  <td>Invalid Card Number / Card Token ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>19202</td>
+                                  <td>Invalid Status Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19203</td>
+                                  <td>Invalid Reason Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19204</td>
+                                  <td>Invalid Combination Status Code - Status Reason Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>19205</td>
+                                  <td>Invalid Transition Requested</td>
+                                </tr>
+                                <tr> 
+                                  <td>19206</td>
+                                  <td>Operation Not Permitted</td>
+                                </tr>     				
+                           </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAlertServiceV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAlertServiceV35Rs'                          
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SetCustomerDetailV35 request and response definition
+      UpdateAlertServiceV35Rq:
+            $ref: 'request.yaml#/UpdateAlertServiceV35Rq'
+      UpdateAlertServiceV35Rs:
+            $ref: 'response.yaml#/UpdateAlertServiceV35Rs'    
+security:
+  - bearerAuth: []

@@ -1,0 +1,287 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Customer-management",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Set Customer Details",
+          "file": "SetCustomerDetailV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "SetCustomerDetailV2PUT.yaml",
+              "name": "Set Customer Details V2",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "SetCustomerDetailV2POST.yaml",
+              "name": "Set Customer Details V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SecuredSetCustomerDetailV2.yaml",
+              "name": "Secured Set Customer Details V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Get Customer Details",
+          "file": "GetCustomerDetailV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetCustomerDetailV2GET.yaml",
+              "name": "Get Customer Details V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetCustomerDetailV2POST.yaml",
+              "name": "Get Customer Details V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SecuredOutGetCustomerDetailV2.yaml",
+              "name": "Secured Get Customer Details V2",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Update Address",
+          "file": "UpdateAddressV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAddressV2PATCH.yaml",
+              "name": "Update Address V2",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "UpdateAddressV2POST.yaml",
+              "name": "Update Address V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Event Notification",
+          "file": "UpdateEventNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateEventNotificationV2.yaml",
+              "name": "Update Event Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Event Notification List",
+          "file": "GetEventNotificationListV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetEventNotificationListV2.yaml",
+              "name": "Get Event Notification List V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Customer Category",
+          "file": "UpdateCustomerCategoryV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCustomerCategoryV2.yaml",
+              "name": "Update Customer Category V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Customer Name",
+          "file": "UpdateCustomerNameV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCustomerNameV2.yaml",
+              "name": "Update Customer Name V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Customer Email",
+          "file": "UpdateCustomerEmailV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCustomerEmailV2POST.yaml",
+              "name": "Update Customer Email V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "UpdateCustomerEmailV2PATCH.yaml",
+              "name": "Update Customer Email V2",
+              "HttpVerb": "PATCH"
+            }
+          ]
+        },
+        {
+          "name":"Update Phone Number",
+          "file": "UpdateCustomerPhoneNumberV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCustomerPhoneNumberV2.yaml",
+              "name": "Update Phone Number V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Subscription Status",
+          "file": "UpdateCollaboratorSubscriptionStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCollaboratorSubscriptionStatusV2.yaml",
+              "name": "Update Subscription Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Initiated Subscription",
+          "file": "GetCollaboratorInitiatedSubscriptionV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCollaboratorInitiatedSubscriptionV2.yaml",
+              "name": "Get Initiated Subscription V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Customer Demog",
+          "file": "UpdateCustomerDemogV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCustomerDemogV2.yaml",
+              "name": "Update Customer Demog V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Alert Service",
+          "file": "UpdateAlertServiceV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAlertServiceV2.yaml",
+              "name": "Update Alert Service V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Contact Information",
+          "file": "CheckCorporateContactInformationV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckCorporateContactInformationV2.yaml",
+              "name": "Check Contact Information V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Corporate Hierarchy",
+          "file": "GetCorporateHierarchyV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCorporateHierarchyV2.yaml",
+              "name": "Get Corporate Hierarchy V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Selected Products",
+          "file": "GetCorporateSelectedProductsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCorporateSelectedProductsV2.yaml",
+              "name": "Get Selected Products V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Import Collaborators",
+          "file": "ImportCollaboratorsV2.yaml",
+          "subApiList": [
+            {
+              "file": "ImportCollaboratorsV2.yaml",
+              "name": "Import Collaborators V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Init Card Subscription",
+          "file": "InitCardSubscriptionV2.yaml",
+          "subApiList": [
+            {
+              "file": "InitCardSubscriptionV2.yaml",
+              "name": "Init Card Subscription V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Collaborators",
+          "file": "SearchCollaboratorsV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchCollaboratorsV2.yaml",
+              "name": "Search Collaborators V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

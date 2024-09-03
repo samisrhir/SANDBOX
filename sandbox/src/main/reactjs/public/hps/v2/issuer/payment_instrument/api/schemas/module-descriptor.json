@@ -1,0 +1,351 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Payment-instrument",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Create Debit Card",
+          "file": "createDebitCardV2.yaml",
+          "subApiList": [
+            {
+              "file": "debitCardV2.yaml",
+              "name": "Debit Card V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "CreateDebitCardV2.yaml",
+              "name": "Create Debit Card V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SecuredInOutCreateDebitCardV2.yaml",
+              "name": "Secured Create Debit Card V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Set Card Details",
+          "file": "SetCardDetailsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "SetCardDetailsV2PUT.yaml",
+              "name": "Set Card Details V2",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "SetCardDetailsV2POST.yaml",
+              "name": "Set Card Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Credit Card",
+          "file": "CreateCreditCardV3.yaml",
+          "subApiList": [
+            {
+              "file": "CreditCardsV2.yaml",
+              "name": "Credit Cards V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "CreateCreditCardV2.yaml",
+              "name": "Create Credit Card V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "CreateCreditCardV3.yaml",
+              "name": "Create Credit Card V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card Details",
+          "file": "GetCarddetailsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetCarddetailsV2GET.yaml",
+              "name": "Get Card Details V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetCarddetailsV2POST.yaml",
+              "name": "Get Card Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Product Details",
+          "file": "GetProductDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetProductDetailsV2.yaml",
+              "name": "Get Product Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Parameter List",
+          "file": "GetParameterListV2.yaml",
+          "subApiList": [
+            {
+              "name":"Get Parameter List V2",
+              "file": "GetParameterListV2.yaml",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Change Card Product",
+          "file": "ChangeCardProductV2POST.yaml",
+          "subApiList": [
+            {
+              "name":"Change Card Product",
+              "file": "ChangeCardProductV2PATCH.yaml",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "name":"Change Card Product",
+              "file": "ChangeCardProductV2POST.yaml",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Fee In Quiry",
+          "file": "FeeInQuiryV2POST.yaml",
+          "subApiList": [
+            {
+              "name":"Fee In Quiry V2",
+              "file": "FeeInQuiryV2POST.yaml",
+              "HttpVerb": "POST"
+            },
+            {
+              "name":"Fee In Quiry V2",
+              "file": "FeeInQuiryV2GET.yaml",
+              "HttpVerb": "GET"
+            },
+            {
+              "name":"Statements Fees V2",
+              "file": "StatementsFeesV2.yaml",
+              "HttpVerb": "GET"
+            },            {
+              "name":"Transactions Fees V2",
+              "file": "TransactionsFeesV2.yaml",
+              "HttpVerb": "GET"
+            }
+          ]
+        },
+        {
+          "name":"Get Stock Cards Overview",
+          "file": "GetStockCardsOverviewV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetStockCardsOverviewV2.yaml",
+              "name": "Get Stock Cards Overview V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Lost Stolen Declaration",
+          "file": "LostStolenDeclarationV2.yaml",
+          "subApiList": [
+            {
+              "file": "LostStolenDeclarationV2.yaml",
+              "name": "Lost Stolen Declaration V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Order Stock Cards",
+          "file": "OrderStockCardsV2.yaml",
+          "subApiList": [
+            {
+              "file": "OrderStockCardsV2.yaml",
+              "name": "Order Stock Cards V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Renew Card",
+          "file": "RenewCardV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "RenewCardV2POST.yaml",
+              "name": "Renew Card V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "RenewCardV2GET.yaml",
+              "name": "Renew Card V2",
+              "HttpVerb": "GET"
+            }
+          ]
+        },
+        {
+          "name":"Replace Card",
+          "file": "ReplaceCardV2.yaml",
+          "subApiList": [
+            {
+              "file": "ReplaceCardV2.yaml",
+              "name": "Replace Card V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Request Pin",
+          "file": "RequestPinV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "RequestPinV2GET.yaml",
+              "name": "Request Pin V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "RequestPinV2POST.yaml",
+              "name": "Request Pin V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Card",
+          "file": "SearchCardV3.yaml",
+          "subApiList": [
+            {
+              "file": "SearchCardV2GET.yaml",
+              "name": "Search Card V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "SearchCardV2POST.yaml",
+              "name": "Search Card V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SearchCardV3.yaml",
+              "name": "Search Card V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Card Status",
+          "file": "UpdateCardStatusV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCardStatusV2PATCH.yaml",
+              "name": "Update Card Status V2",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "UpdateCardStatusV2POST.yaml",
+              "name": "Update Card Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Card Status Reason",
+          "file": "UpdateCardStatusReasonV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCardStatusReasonV2.yaml",
+              "name": "Update Card Status Reason V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Custom Field Value",
+          "file": "CheckCustomFieldValueV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckCustomFieldValueV2.yaml",
+              "name": "Check Custom Field Value V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Statement History",
+          "file": "GetStatementHistoryV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetStatementHistoryV2.yaml",
+              "name": "Get Statement History V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Supplementary Card",
+          "file": "AddSupplementaryCardV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddSupplementaryCardV2.yaml",
+              "name": "Add Supplementary Card V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Set Card Domain",
+          "file": "SetCardDomainV2.yaml",
+          "subApiList": [
+            {
+              "file": "SetCardDomainV2.yaml",
+              "name": "Set Card Domain V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

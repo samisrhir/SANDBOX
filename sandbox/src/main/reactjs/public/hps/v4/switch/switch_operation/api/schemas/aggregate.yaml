@@ -1,0 +1,4105 @@
+# ---- KeyValue
+KeyValue:
+  type: object
+  properties:
+    key:
+      type: string
+    data:
+      type: string
+    type:
+      type: string
+# ---- SearchAuthCurAmtV35
+SearchAuthFromCurAmtV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      example: '10'
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      example: '504'
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+# ---- SearchAuthToCurAmtV35
+SearchAuthToCurAmtV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      example: '300000'
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      example: '504'
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+# ---- CurAmtV35
+CurAmtV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+# ---- SearchAuthValidityRangeDateV35 definition
+SearchAuthValidityRangeDateV35:
+  type: object
+  properties:
+    startDate:
+      description: The Validity Start date according to transmissionTime (Format  <b>yyyy-MM-dd HH:mm:ss.SSS</b>)
+      example: ''
+      type: string
+    endDate:
+      description: The Validity End date according to transmissionTime (Format  <b>yyyy-MM-dd HH:mm:ss.SSS</b>)
+      example: ''
+      type: string
+# ---- RequestInfo definition
+RequestInfo:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValue'
+    requestUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p id="field-description">Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.</p>
+      type: string
+      example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+    requestDate:
+      description:
+        <p id="field-description">Date when the request was submitted.</p>
+      type: string
+      example: '2020-02-05T00:00:00'
+    userID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(15)</p>
+        <p id="field-description">Represents the user Id who made the request.</p>
+      type: string
+      example: user001
+  required:  [userID,requestUID,requestDate]
+# ---- ResponseInfo definition
+ResponseInfo:
+  type: object
+  properties:
+    responseUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p id="field-description">Response Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.</p>
+      type: string
+    resultID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">ClosedEnum</p>
+        <p id="field-description">Refers to the result of processing in PowerCARD.</p>
+      type: string
+    errorCode:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(5)</p>
+        <p id="field-description">Indicate the error code used by the PowerCARD to tell you that program was experiencing a particular problem during the processing of the request.</p>
+      type: string
+    errorDescription:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(250)</p>
+        <p id="field-description">If present, this field must contain the description of the error encountered</p>
+      type: string
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValue'
+  required:  [responseUID,resultID,errorCode]
+
+ValidityRangeDateLimitV4:
+  type: object
+  description: <p> to indicate start and end date for the temporary limit,becomes mandatory when temporaryLimit field =Y </p>
+  properties:
+    startDate:
+      description:
+        <p>The Start date of temporary limit</p>
+      type: string
+      example: "2023-02-01 00:00:00.000"
+    endDate:
+      description:
+        <p>The End date of temporary limit</p>
+      type: string
+      example: "2023-02-28 00:00:00.000"
+  required:  [startDate,endDate]
+#AddressPurposeV35
+AddressPurpose2V35:
+  type: object
+  properties:
+    addressPurposeID:
+      type: string
+      description:
+        <p>
+        To specify the purpose (card delivery, pin delivery, statement….) of the provided addresses either the primary one or the secondary ones
+        This aggregate can be set only in case of Secondary Address for <b>EntityType “CH”</b> - Card
+        </p>
+    addressType:
+      type: string
+      enum: [S,C,P,L,G]
+      description:
+        <p>
+        Specifies the possible address usage values, namely<br>
+        <b>S</b>  Statement address<br>
+        <b>C</b>  Card address<br>
+        <b>P</b> Pin address<br>
+        <b>L</b> Litigation address.<br>
+        <b>G</b> Gift address
+        </p>
+    sendingMode:
+      type: string
+      enum: [‘01’,'02','03','04']
+      description:
+        <p>
+        Default Sending mode describes what each entity’s address type will be used for
+        <b>‘01’</b> - Mail.
+        <b>'02'</b> - Loyalty.
+        <b>'03'</b> - Dispute.
+        <b>'04'</b> - Statement.
+        </p>
+#BankAcctRecV35
+BankAcctRecV35:
+  type: object
+  properties:
+    accountNumber:
+      type: string
+      description: <p>It refers to the bank account number part of the <b>IBAN</b>.</p>
+    iban:
+      type: string
+      description:
+        <p>
+        International bank identification number as defined by <b>ISO</b>.
+        An <b>IBAN</b> is used to uniquely identify a customer’s bank account. The <b>IBAN</b> consists of an alphabetical country code, followed by two digits, and then up to thirty five characters for the bank account number.
+        </p>
+    acctCcy:
+      type: string
+      description:
+        <p>
+        Currency code as defined by <b>ISO-4217</b>
+        Possible values must be downloaded from the PowerCARD <b>CURRENCY_TABLE</b> table
+        </p>
+    acctStatus:
+      type: string
+      enum: [N,C,S,W,V,R]
+      description:
+        <p>
+        Account Status refers to the status of the bank Account. Valid values are <br>
+        <b>N</b> = Normal<br>
+        <b>C</b> = Cancelled<br>
+        <b>S</b> = Suspended<br>
+        <b>W</b> = Waiting for validation<br>
+        <b>V</b> = To be sent for validation<br>
+        <b>R</b> = Rejected.<br>
+        </p>
+    acctAutRangeDt:
+      type: object
+      $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+    acctBankCode:
+      type: string
+      description:
+        <p>
+        Code identifying the bank where the account is opened.
+        It is a 6 digit code must be stored in the PowerCARD <b>BANK</b> table under the general parameter section.
+        </p>
+    acctBankAgency:
+      type: string
+      description:
+        <p>Code of the branch where the account is opened.
+        This code must be stored in the PowerCARD <b>BRANCH</b> table under the general parameter section.
+        </p>
+    acctType:
+      type: string
+      description :
+        <p>
+        Account type refers to the type of the account.
+        Possible values can be downloaded from the PowerCARD <b>ACCOUNT_TYPE_LIST</b>
+        </p>
+#TerritorialityV4
+TerritorialityV4:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: "ONS"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        To indicate territoriality type,possible values are:<br>
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer.<br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country.<br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country.
+        </p>
+    transactionAmount:
+      type: string
+      example: "500"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">
+        total amount limit not to be exceeded for the concerned transaction type.
+        </p>
+    numberOfTransactions:
+      type: string
+      example: "3"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description"> total number limit not to be exceeded for the concerned transaction type.</p>
+  required: [territorialityType,transactionAmount,numberOfTransactions]
+#TerritorialitySearchV4
+TerritorialitySearchV4:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: "ONS"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        To indicate territoriality type,possible values are:<br>
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer.<br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country.<br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country.
+        </p>
+    transactionAmount:
+      type: string
+      example: "500"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">
+        total amount limit not to be exceeded for the concerned transaction type.
+        </p>
+    numberOfTransactions:
+      type: string
+      example: "3"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description"> total number limit not to be exceeded for the concerned transaction type.</p>
+    maxTotalTransactionAmount:
+      type: string
+      example: "1000"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">the max of transaction amount of the product setting.</p>
+    maxTotalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">the max number of transaction of the product setting.</p>
+  required: [territorialityType,transactionAmount,numberOfTransactions]
+#PeriodLimitV4
+PeriodLimitV4:
+  type: object
+  properties:
+    periodType:
+      type: string
+      description:
+        <p>
+        Must contain one of the following values
+        <b>D</b> - Fixed period
+        <b>W</b> - Rolling period
+        </p>
+      example: "D"
+    periodDayOff:
+      type: string
+      description: <p>Period day off</p>
+      example: null
+    periodicityFlag:
+      type: string
+      description :
+        <p>
+        Must contain one of the following values <br>
+        <b>D</b> for daily<br>
+        <b>W</b> for Weekly<br>
+        <b>M</b> for Monthly<br>
+        <b>Y</b> for Yearly
+        </p>
+      example: "D"
+    territoriality:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TerritorialityV4'
+        example:
+          - territorialityType: "ONS"
+            transactionAmount: "200"
+            numberOfTransactions: "10"
+    totalTransactionAmount:
+      type: string
+      description:
+        <p>
+        Must contain total of the target amount of the limit that should be set on the card.
+        </p>
+      example: 800
+    totalNumberOfTransactions:
+      type: string
+      description:
+        <p>
+        Must contain total of the target the number of transactions of the limit.
+        </p>
+      example: 5
+  required: [periodType,periodicityFlag]
+
+#TransactionCriteriaV35
+TransactionCriteriaUpdCardCaracteristicsV35:
+  type: object
+  properties:
+    limitID:
+      type: string
+      example: "2"
+    sequenceNumber:
+      type: string
+      example: "1"
+      description: <p>Should contain Sequence Number </p>
+    processingCode:
+      type: string
+      example: '00'
+      description:
+        <p>
+        Must contains a code that identifies the cardholder transaction type
+        Any value in this field must be previously defined in the PowerCARD <b>PROCESSING_LIST</b> table under the general parameter section.
+        </p>
+    countryCode:
+      type:  string
+      example: '826'
+      description:
+        <p>
+        Country Code the country code is a numerical code identifying nations over the globe.
+        This code should be present in the PowerCARD <b>COUNTRY</b> table under the general parameter section
+        </p>
+    mcc:
+      type: string
+      example: '5733'
+      description:
+        <p>
+        The Merchant Category Code distinct number used to classify the merchant business based on the type of services or products it provides.
+        The valid <b>MCC’s</b> are stored in the PowerCARD MCC table
+        </p>
+    paymentType:
+      type: string
+      example: 'CH'
+      description: <p>Should contain the payment type</p>
+    currencyCode:
+      type: string
+      example: "978"
+      description:
+        <p>
+        ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.
+        </p>
+    maxAmountPerTrx:
+      type: string
+      example: "333"
+      description:
+        <p>
+        Used to set the maximum amount per transaction.
+        </p>
+    cardEntryMode:
+      type: number
+      example: 0
+      description:
+        <p>
+        Field indicating the method by which a point-of-transaction terminal obtains and transmits the cardholder information necessary to complete a transaction
+        Valid values are <br>
+        <b>0<b>  - Unknown or terminal not used<br>
+        <b>1<b>  - Manual (key entry)<br>
+        <b>2<b>  - Magnetic stripe read<br>
+        <b>3</b> - Integrated circuit card read<br>
+        <b>4</b> - Contactless device-read
+        </p>
+#TransactionCriteriaV4
+TransactionCriteriaV4:
+  type: object
+  properties:
+    sequenceNumber:
+      type: string
+      example: "1"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(9)</p>
+        <p id="field-description">Code used to identify the limit that will be assigned to the card.</p>
+        <p id="field-description">It is mandatory only when productFlag=Y</p>
+    limitID:
+      type: string
+      example: "1"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">Code used to identify the limit that will be assigned to the card.</p>
+    wording:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(32)</p>
+        <p id="field-description">A brief description of the limit.</p>
+      example: "purchase"
+    processingCode:
+      type: string
+      example: "00"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(2)</p>
+        <p id="field-description">
+        Transaction type related Processing Code applicable to this Transaction limit.
+        Values are defined in the PowerCARD <b>PROCESSING_LIST</b> table.
+        </p>
+    functionCode:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        Transaction type related Function Code applicable to this Transaction limit.
+        Values are defined in the PowerCARD <b>FUNCTION_LIST</b> table.
+        </p>
+    countryCode:
+      type:  string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        The Country code is a numerical code identifying a country.
+        Values are defined in the PowerCARD <b>COUNTRY</b> table .
+        </p>
+    mcc:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">
+        The Merchant Category Code distinct number used to classify the merchant business based on the type of services or products it provides.
+        Values are defined in the PowerCARD <b>MCC</b> table
+        </p>
+      example: ""
+    mccGroup:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">
+        ISO currency code of the transaction amount as defined in the PowerCARD <b>MCC_RANGE</b> table under the general parameters section.
+        </p>
+    currencyCode:
+      type: string
+      example: "840"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description"> Currency code of the limit as defined in the PowerCARD <b>CURRENCY_TABLE table</b>.</p>
+    paymentType:
+      type: object
+      $ref: 'aggregate.yaml#/PaymentTypeV4'
+    minAmountPerTransaction:
+      type: string
+      example: "10"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(18,3)</p>
+        <p id="field-description">
+        Used to set the minimum amount per transaction.
+        </p>
+    maxAmountPerTransaction:
+      type: string
+      example: "400"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(18,3)</p>
+        <p id="field-description">
+        Used to set the maximum amount per transaction.
+        </p>
+    cardEntryMode:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Field indicating the method by which a point-of-transaction terminal obtains and transmits the cardholder information necessary to complete a transaction
+        Valid values are <br>
+        <b>0</b>  - Unknown or terminal not used<br>
+        <b>1</b>   - Manual (key entry)<br>
+        <b>2</b>   - Magnetic stripe read<br>
+        <b>3</b> - Integrated circuit card read<br>
+        <b>4</b> - Contactless device-read
+        </p>
+    cardPresent:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Flag indicating whether the Card is present during the transaction or not,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    authorizationType:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Indicat the type of transaction,Possible values are:<br>
+        <b>D</b> - Debit<br>
+        <b>C</b> - Credit</p>
+    financialAuthorization:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating the financial Authorization,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    mit:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating the initiated Merchant,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    productFlag:
+      type: string
+      example: "Y"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating if is a product limit or not,Possible values are:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product</p>
+  required: [currencyCode,productFlag,wording]
+PaymentTypeV4:
+  type: object
+  properties:
+    operator:
+      type: string
+      example: "IN"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">ClosedEnum</p>
+        <p id="field-description">Flag that you use to check or combine values. <br>
+        <b>IN</b>  Allows users to specify one or multiple values in ValueList <br>
+        <b>NOT IN</b> To exclude a list of values from the ValueList<br>
+        <b>it becomes mandatory when proccessingCode=payment</b>
+    values:
+      type: array
+      items:
+        type: string
+        example: "PP"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(2)</p>
+  required: [operator,values]
+#UpdateCardLimitV4
+UpdateCardLimitV4:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(64)</p>
+        <p id="field-description">Description of the limit.</p>
+    limitAbrvWording:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(32)</p>
+        <p id="field-description">A brief description of the limit.</p>
+      example: "Cash"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    productFlag:
+      type: string
+      example: "N"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    currencyCode:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+      example: "840"
+    hostScenarioProcessing:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+    validityRangeDate:
+      type: object
+      description: <p> to indicate start and end date for the temporary limit,becomes mandatory when temporaryLimit field =Y </p>
+      $ref: 'aggregate.yaml#/ValidityRangeDateLimitV4'
+    periods:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/PeriodV4'
+  required: [limitID,limitAbrvWording,currencyCode,hostScenarioProcessing,productFlag,temporaryLimit,periods]
+#CreditCardDemogV35
+CreditCardDemogV35:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValueV35'
+    branchCode:
+      description: This is the 6 digits code that identifies the cardholder's branch.
+      example: '010900'
+      type: string
+    priorityCode:
+      description: This field indicates the priority level of Card embossing.
+      example: '003'
+      type: string
+    gender:
+      description: This field specifies the cardholder’s gender code.
+      type: string
+      enum: [M, F, N]
+      example: F
+    legalId:
+      description: This field represents the Legal ID number provided by the card applicant at application time.
+      type: string
+      example: 'TEST_0123456789_TEST'
+    birthDate:
+      description: This field specifies the cardholder's birth date in the format YYYYMMDD
+      type: string
+      example: '19800131'
+    birthCity:
+      description: Cardholder’s birth city. It will be inherited from the Client if not provided at card level.
+      type: string
+      example: 'TESTBirthCity'
+    vipLevel:
+      description: This code represents the level of importance associated with the cardholder’s professional or social status.
+      type: string
+      example: 2
+    nationalityCode:
+      description: This is the Country code of the cardholder’s citizenship according to the ISO-3166 specification.
+      type: string
+      example: 170
+    languageCode:
+      description: This is the cardholder’s language code according to the ISO 639-1 specification.
+      type: string
+      example: FRE
+    titleCode:
+      description: Title code represents a prefix added to the customer’s name. It may refer to social honorifics, professional designations, or academic ranks.
+      type: string
+      example: '01'
+    familyName:
+      description: Indicates the Cardholder’s last name. It will be inherited from the Client if not provided at card level.
+      type: string
+      example: TESTFamilyName
+    secondFamilyName:
+      description: This is Cardholder’s second family name if compound names are in use. It will be inherited from the Client if not provided at card level.
+      type: string
+      example: TESTSecondFamilyName
+    firstName:
+      description: This is the Cardholder’s given name. It will be inherited from the Client if not provided at card level.
+      type: string
+      example: TESTFirstName
+    secondFirstName:
+      description: This is the Cardholder’s second first name if compound names are in use. It will be inherited from the Client if not provided at card level.
+      type: string
+      example: TESTSecondFirstName
+    maidenName:
+      description: This is the Mother’s maiden name.This field will be inherited from the Client if not provided at card level.
+      type: string
+      example: TESTMaidenName
+    ownerCode:
+      description: This field is typically used to distinguish between staff, corporate, and individual cardholders.
+      type: string
+      example: '01'
+    socioProfessionalCode:
+      description: Used for the segmentation of cardholders based on such criteria as job industry, and professional qualification.
+      type: string
+      example: '0086'
+    activityCode:
+      description: This code categorizes the cardholders based on their professional occupation.
+      type: string
+      example: '0000'
+    customerSegment:
+      description: This field specifies the Cardholder's customer segment.
+      type: string
+      example: '001'
+    employerName:
+      description: This is the name of the cardholder’s employer.
+      type: string
+      example: TESTEmployerName
+    staffID:
+      description: Specifies the cardholder’s ID number within the employing organization.
+      type: string
+      example: TESTQA001
+    channelNumber:
+      description: This is a distinct number of the sales channel used to attract the customer. This code should be previously defined in PowerCARD CHANNEL table under the cardholder section.
+      type: string
+      example: 9123456789
+    statusCode:
+      description: This field indicates the initial card status. The status code should be previously defined in PowerCARD STATUS LIST table under the general parameters section.
+      type: string
+      example: N
+    statusReason:
+      description: This field indicates the initial card status reason. This code should be previously defined in PowerCARD STATUS REASON LIST table under the general parameters section.
+      type: string
+      example: 58
+    catPIProduct:
+      description : It is a 6 digit code identifying the payment instrument product code to ne assigned to the card.
+      type: string
+      example: PANCV1
+    catPIProductVersion:
+      description: It is a 10 caracter fields identifying the payment instrument version.
+      type: string
+      example: 1
+    embossedName:
+      description: Primary name that the cardholder wishes to emboss on the card plastic.
+      type: string
+      example: TEST-EMB-NAME
+    secondEmbossedName:
+      description: This is a secondary name that the cardholder wishes to emboss on the card plastic underneath the primary name.
+      type: string
+      example: TESTEMBSECONDNAME
+    corporateId:
+      description: Indicates the corporate to which the card belongs. This field is mandatory if the value transmitted in the owner code field is related to a corporate (that is set to “BUSINESS”).
+      type: string
+      example: ''
+    phone1:
+      description: The phone number 1 at which the cardholder can be reached.
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone2:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone3:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone4:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    email1:
+      description: Indicates the Cardholder's first email address.
+      type: string
+    email2:
+      description: Indicates the Cardholder's first email address.
+      type: string
+    plasticDeliveryMethod:
+      description: This field identifies the kind of mailing method used to deliver the card plastic (For example  Assured mail, Ordinary mail, Airmail…).
+      type: string
+      example: '002'
+    pinDeliveryMethod:
+      description: This field identifies the kind of mailing method used to deliver the card PIN (For example  Assured mail, Ordinary mail, Airmail…). When provided, it will be validated against the list defined at bank and product level.
+      type: string
+      example: '003'
+    promotionCode:
+      description: This field identifies the promotion or the campaign to which the card belongs.
+      type: string
+      example: '0000000003'
+#CardDemogSetCardV35
+CardDemogSetCardV35:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValueV35'
+    branchCode:
+      description: This is the 6 digits code that identifies the cardholder's branch.
+      type: string
+    priorityCode:
+      description: This field indicates the priority level of Card embossing.
+      type: string
+    gender:
+      description: This field specifies the cardholder’s gender code.
+      type: string
+      enum: [M, F, N]
+    legalId:
+      description: This field represents the Legal ID number provided by the card applicant at application time.
+      type: string
+    birthDate:
+      description: This field specifies the cardholder's birth date in the format YYYYMMDD
+      type: string
+    birthCity:
+      description: Cardholder’s birth city. It will be inherited from the Client if not provided at card level.
+      type: string
+    vipLevel:
+      description: This code represents the level of importance associated with the cardholder’s professional or social status.
+      type: string
+    nationalityCode:
+      description: This is the Country code of the cardholder’s citizenship according to the ISO-3166 specification.
+      type: string
+    languageCode:
+      description: This is the cardholder’s language code according to the ISO 639-1 specification.
+      type: string
+    titleCode:
+      description: Title code represents a prefix added to the customer’s name. It may refer to social honorifics, professional designations, or academic ranks.
+      type: string
+    familyName:
+      description: Indicates the Cardholder’s last name. It will be inherited from the Client if not provided at card level.
+      type: string
+    secondFamilyName:
+      description: This is Cardholder’s second family name if compound names are in use. It will be inherited from the Client if not provided at card level.
+      type: string
+    firstName:
+      description: This is the Cardholder’s given name. It will be inherited from the Client if not provided at card level.
+      type: string
+    secondFirstName:
+      description: This is the Cardholder’s second first name if compound names are in use. It will be inherited from the Client if not provided at card level.
+      type: string
+    maidenName:
+      description: This is the Mother’s maiden name.This field will be inherited from the Client if not provided at card level.
+      type: string
+    ownerCode:
+      description: This field is typically used to distinguish between staff, corporate, and individual cardholders.
+      type: string
+    socioProfessionalCode:
+      description: Used for the segmentation of cardholders based on such criteria as job industry, and professional qualification.
+      type: string
+    activityCode:
+      description: This code categorizes the cardholders based on their professional occupation.
+      type: string
+    customerSegment:
+      description: This field specifies the Cardholder's customer segment.
+      type: string
+    employerName:
+      description: This is the name of the cardholder’s employer.
+      type: string
+    staffID:
+      description: Specifies the cardholder’s ID number within the employing organization.
+      type: string
+    channelNumber:
+      description: This is a distinct number of the sales channel used to attract the customer. This code should be previously defined in PowerCARD CHANNEL table under the cardholder section.
+      type: string
+    embossedName:
+      description: Primary name that the cardholder wishes to emboss on the card plastic.
+      type: string
+    secondEmbossedName:
+      description: This is a secondary name that the cardholder wishes to emboss on the card plastic underneath the primary name.
+      type: string
+    phone1:
+      description: The phone number 1 at which the cardholder can be reached.
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone2:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone3:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    phone4:
+      type: object
+      $ref: 'aggregate.yaml#/PhoneV35'
+    email1:
+      description: Indicates the Cardholder's first email address.
+      type: string
+    email2:
+      description: Indicates the Cardholder's first email address.
+      type: string
+    plasticDeliveryMethod:
+      description: This field identifies the kind of mailing method used to deliver the card plastic (For example  Assured mail, Ordinary mail, Airmail…).
+      type: string
+    pinDeliveryMethod:
+      description: This field identifies the kind of mailing method used to deliver the card PIN (For example  Assured mail, Ordinary mail, Airmail…). When provided, it will be validated against the list defined at bank and product level.
+      type: string
+    promotionCode:
+      description: This field identifies the promotion or the campaign to which the card belongs.
+      type: string
+#CommunicationChannelV35
+CommunicationChannelV35:
+  type: object
+  properties:
+    channelType:
+      type: string
+      description:
+        <p>
+        This field indicates the channel type that is defined for the a particular event.<br>
+        <b>Value 1</b> - SMS channel<br>
+        <b>Value 2</b> - Email channel<br>
+        <b>Value 3</b> - Physical file channel<br>
+        <b>Value 4</b> - Push channel
+        </p>
+    channelActivationStatus:
+      type: string
+      description:
+        <p>
+        This field indicate if the communication channel is enabled or disabled.<br>
+        <b>Y</b> channel active.<br>
+        <b>N</b> channel disabled
+        </p>
+    channelPhoneType:
+      type: string
+      description: <p>The channel phone type</p>
+    channelAddressFromEntity:
+      type: string
+      description: <p>The channel address from entity</p>
+    channelAddressType:
+      type: string
+      description: <p>The channel address type</p>
+    channelEmailAddress:
+      type: string
+      description: <p>The channel email number</p>
+    tMPPreferenceStartDate:
+      type: date
+      description: <p>TMP Preference Start Date</p>
+    tMPPrefernceEndDate:
+      type: date
+      description: <p>TMP Preference End Date</p>
+    tmpphoneType:
+      type: string
+      description: <p>TMP Phone Type</p>
+    tmpaddressFromEntity:
+      type: string
+      description: <p>TMP Address From Entity</p>
+    tmpaddressType:
+      type: string
+      description: <p>TMP Address Type</p>
+    tmpemailAddress:
+      type: string
+      description: <p>TMP Email Number</p>
+
+
+#CommunicationEventV35
+CommunicationEventV35:
+  type: object
+  properties:
+    #action:
+    #type: string
+    #description: <p></p>
+    communicationStrategy:
+      type: string
+      description: <p></p>
+    eventCode:
+      type: string
+      description:
+        <p>
+        This is the event code that can be triggered by the system.
+        The list of event codes is defined in the fllowing table
+        <b>EVENT_TABLE</b>
+        </p>
+    eventActivationStatus:
+      type: string
+      description:
+        <p>
+        This field defines if the event is enabled or disable.<br>
+        <b>Y</b> - Event active<br>
+        <b>N</b> - Event disabled
+        </p>
+    communicationChannels:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/CommunicationChannelV35'
+#----- CreditCardAuxiliaryProductV35 definition
+CreditCardAuxiliaryProductV35:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValueV35'
+    productIdentifier:
+      description: ID of the auxiliary product linked to the card.This code must be defined in the PowerCARD LINKED PRODUCT 1DESC table under the cardholder parameters section.
+      type: string
+      example: ''
+    panAuxProduct:
+      description: It is a 6 digit code identifying the PAN auxiliary product code to ne assigned to the card.
+      type: string
+      example: ''
+    panAuxProductVersion:
+      description: It is a 10 caracter fields identifying the PAN auxiliary version.Valid values must be retrieved from PowerCARD CATALOGUE_PRODUCT table with product type = I
+      type: string
+      example: ''
+    contractNumber:
+      description: Unique reference of the contractual agreement binding the cardholder to the provider of the auxiliary product.
+      type: string
+      example: ''
+    membershipDate:
+      description: Date when the cardholder’s membership becomes effective for the 1st auxiliary product.Format YYYYMMDD
+      type: string
+      example: ''
+    beneficiaryAge:
+      description: Age of the product’s beneficiary.Only positive value will be accepted.
+      type: string
+      example: ''
+    beneficiaryName:
+      description: Full name of the product’s beneficiary
+      type: string
+      example: ''
+    statusCode:
+      description: Specifies the validity status of the auxiliary product
+      type: string
+      example: ''
+      enum: [N,C]
+    statusDate:
+      description: Date at which the product status was last updated.
+      type: string
+      example: ''
+    insuranceBranchCode:
+      description: Applies to insurance products solely.Specifies the branch code of the insurance company.Must be defined in the PowerCARD BRANCH table under the general parameters section.
+      type: 'string'
+      example: ''
+    insuranceAge:
+      description: Specifies in number of years the amount of time that has elapsed since the membership date.Only positive value will be accepted.
+      type: string
+      example: ''
+    auxiliaryFeeAmount:
+      description: Fees amount charged to the cardholder as remuneration for the auxiliary product.
+      type: number
+      example: ''
+    policyNumber:
+      description: Distinct number that uniquely identifies the customer and their dependents to the insurance company.
+      type: string
+      example: ''
+# ---- BankAccountCreditCardV35 definition
+BankAccountCreditCardV35:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/KeyValueV35'
+    acctType:
+      description: Refers to the type of the account (Billing, saving …)The provided value must already be defined in PowerCARD ACCOUNT_TYPE_LIST table under the general parameter section.
+      type: string
+    acctSequence:
+      description: A static and defined reference to indicate the posting level of the debit account.
+      type: string
+    bankCode:
+      description: Code of the bank holding the cardholder’s debit account.This code must be defined in the PowerCARD BANK table under the general parameters section.
+      type: string
+    bankCodeFreetext:
+      description: The Bank Code free text.Required if “Direct Debit Validation” set to NO at Bank level.
+      type: string
+    branchCode:
+      description: Code of the bank branch holding the cardholder’s debit account.This code must be defined in the PowerCARD BANK table under the general parameters section.
+      type: string
+    branchCodeFreetext:
+      description: The Branch Code free text.
+      type: string
+    accountNumber:
+      description: Specifies the cardholder’s debit account number.This field is used in conjunction with debit cards.
+      type: string
+    accountCurrency:
+      description: Specifies the currency code of the cardholder’s direct debit account (ISO 4217). It should be the ISO alphanumeric value (e.g. EUR for euro, USD for dollar).
+      type: string
+    iban:
+      description: International bank identification number as defined by ISO. An IBAN
+      type: string
+    swiftCode:
+      description: It's used to uniquely identify banks and financial institutions globally.
+      type: string
+#CreditCardDetailsV35
+CreditCardDetailsV35:
+  type: object
+  properties:
+    cardDemog:
+      type: object
+      $ref: 'aggregate.yaml#/CreditCardDemogV35'
+    primaryAddress:
+      type: object
+      $ref: 'aggregate.yaml#/CardPrimaryAddressV35'
+    secondaryAddress:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/SecondaryAddressV35'
+    communicationEvents:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/CommunicationEventV35'
+    auxiliaryProduct:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/CreditCardAuxiliaryProductV35'
+    cardCustomFields:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/CustomFieldsV35'
+    bankAccount:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/BankAccountCreditCardV35'
+#GetCardLimitV4
+GetCardLimitV4:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description: "<p>Description of the limit.</p>"
+      example: "Purchase"
+    limitAbrvWording:
+      type: string
+      description: <p>A brief description of the limit.</p>
+      example: "Purchase"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description: <p> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    validityRangeDate:
+      type: object
+      $ref: 'aggregate.yaml#/ValidityRangeDateLimitV4'
+    productFlag:
+      type: string
+      example: "Y"
+      description: <p> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    CurrencyCode:
+      type: string
+      example: "840"
+      description: <p> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+    hostscenarioprocessing:
+      type: string
+      example: "R"
+      description: <p>This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+
+    period:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/PeriodV4'
+  required: [limitID,limitAbrvWording,CurrencyCode,hostscenarioprocessing]
+GetCardLimitSearchV4:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description: "<p>Description of the limit.</p>"
+      example: "Purchase"
+    limitAbrvWording:
+      type: string
+      description: <p>A brief description of the limit.</p>
+      example: "Purchase"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description: <p> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    validityRangeDate:
+      type: object
+      $ref: 'aggregate.yaml#/ValidityRangeDateLimitV4'
+    productFlag:
+      type: string
+      example: "Y"
+      description: <p> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    CurrencyCode:
+      type: string
+      example: "840"
+      description: <p> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+    hostscenarioprocessing:
+      type: string
+      example: "R"
+      description: <p>This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+
+    period:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/PeriodSearchV4'
+  required: [limitID,limitAbrvWording,CurrencyCode,hostscenarioprocessing]
+#OriginalTransV35
+OriginalTransV35:
+  type: object
+  properties:
+    code:
+      type: string
+      description:
+        <p> Must contain the code of the parameter being shared. </p>
+    label:
+      type: string
+      description: <p> The label of the parameter being shared. </p>
+#ParamConditionV35
+ParamConditionV4:
+  type: object
+  properties:
+    conditionCode:
+      type: string
+      description:
+        <p> Represents the name of the column to filter with. </p>
+    conditionValue:
+      type: string
+      description: <p> Represents the value of the column to filter with. </p>
+    conditionType:
+      type: string
+      description: <p></p>
+#ParameterV35
+ParameterV4:
+  type: object
+  properties:
+    parameterName:
+      type: string
+      description:
+        <p>
+        The name of the parameter
+        This is the name of the table to return which must be defined in the PowerCARD table <b>WS_REF_PARAMETER_V35</b>
+        </p>
+    parameterMode:
+      type: string
+      description:
+        <p>
+        Refers to the parameter Mode, possible values are <br>
+        <b>R</b> -  Referentiel <br>
+        <b>P</b> Parameter <br>
+        Defaulted to 'R' when not provided.
+        </p>
+    parameterColumnList:
+      type: array
+      items:
+        type: string
+        description: <p></p>
+    parameterConditionList:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ParamConditionV4'
+#ColumnResultV35
+ColumnResultV4:
+  type: object
+  properties:
+    columnName:
+      type: string
+      description:
+        <p>
+        The name of the parameterThis is the name of the table to return which must be defined in the PowerCARD table <b>WS_REF_PARAMETER_V35</b>
+        </p>
+    columnValue:
+      type: string
+      description:
+        <p>
+        Represents the value of the column.
+        </p>
+    columnType:
+      type: string
+      description: <p></p>
+    columnFormat:
+      type: string
+      description: <p></p>
+#ParamRecordV35
+ParamRecordV4:
+  type: object
+  properties:
+    columnResultList:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ColumnResultV4'
+#ParameterResultV35
+ParameterResultV4:
+  type: object
+  properties:
+    parameterName:
+      type: string
+      description:
+        <p>
+        The name of the parameter
+        This is the name of the table to return which must be defined in the PowerCARD table <b>WS_REF_PARAMETER_V35</b>
+        </p>
+    parameterRecordList:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ParamRecordV4'
+#SearchAuthDataSourceV35
+SearchAuthDataSourceV35:
+  type: object
+  properties:
+    sourceIndicator:
+      type: array
+      items:
+        type: string
+        example: ''
+        description:
+          <p id="field-size">size</p>
+          <p id="field-size-value">C(3)</p>
+          <p id="field-description">
+          Refers to the source indicator, possible values are <br>
+          <b>ADM</b> - Dual Message authorization movements.<br>
+          <b>TMP</b> - Temporary authorization movement used for batch processing.<br>
+          <b>PRE</b> - Pre-authorizations waiting completion<br>
+          <b>MTH</b> - Dual Message authorization movements waiting for matching with transaction.<br>
+          <b>MSC</b> - Miscellaneous authorization movements.<br>
+          <b>INC</b> - Incremental authorization movements.<br>
+          <b>FEE</b> - Authorization fees.<br>
+          <b>ATM</b> - ATM financial transaction movements.<br>
+          <b>ASM</b> - Single Message - Financial transaction movements.<br>
+          <b>SAF</b> - Authorization movements that cannot be inserted in any of other Auto-activity tables.<br>
+          <b>TRN</b> - Transactions extracted from ATM and ASM tables<br>
+          <b>HST</b> - Authorization activity history data.<br>
+          </p>
+#DataSourceV35
+DataSourceV35:
+  type: object
+  properties:
+    sourceIndicator:
+      type: array
+      items:
+        type: string
+        description:
+          <p>
+          Refers to the source indicator, possible values are <br>
+          <b>ADM</b> - Dual Message authorization movements.<br>
+          <b>TMP</b> - Temporary authorization movement used for batch processing.<br>
+          <b>PRE</b> - Pre-authorizations waiting completion<br>
+          <b>MTH</b> - Dual Message authorization movements waiting for matching with transaction.<br>
+          <b>MSC</b> - Miscellaneous authorization movements.<br>
+          <b>INC</b> - Incremental authorization movements.<br>
+          <b>FEE</b> - Authorization fees.<br>
+          <b>ATM</b> - ATM financial transaction movements.<br>
+          <b>ASM</b> - Single Message - Financial transaction movements.<br>
+          <b>SAF</b> - Authorization movements that cannot be inserted in any of other Auto-activity tables.<br>
+          <b>TRN</b> - Transactions extracted from ATM and ASM tables<br>
+          <b>HST</b> - Authorization activity history data.<br>
+          </p>
+#BasicAuthorizationV35
+BasicAuthorizationV35:
+  type: object
+  properties:
+    processingCode:
+      type: string
+      description:
+        <p>
+        Must contains a code that identifies the cardholder transaction type
+        Any value in this field must be previously defined in the PowerCARD <b>PROCESSING_LIST</b> table under the general parameter section.
+        </p>
+    referenceNumber:
+      type: string
+      description:
+        <p>
+        Contains the reference number as defined in <b>ISO-8583 norm
+        (Field 37)</b>
+        </p>
+    internalStan:
+      type: string
+      description: <p>Internal <b>STAN (System Trace Audit Number)</b>.</p>
+    externalStan:
+      type: string
+      description:
+        <p>
+        External STAN (System Trace Audit Number). This number is generated by the sender. It is a unique identification of the transaction. This number should remain unchanged in all the messages related to this transaction.
+        </p>
+    sourceAccountId:
+      type: string
+      description: <p>Source institution identification code</p>
+    destinationAccountId:
+      type: string
+      description : <p>Destination institution identification code</p>
+    messageType:
+      type: string
+      description:
+        <p>
+        Message type as defined in the ISO8583 protocol.
+        This code must be previously defined in the PowerCARD <b>MESSAGE_LIST</b> table under the general parameter section.
+        </p>
+    cardnumber:
+      type: string
+      description:
+        <p>
+        Represents the Card Number or the Card Token Id.
+        It should contain a valid value.
+        </p>
+    cardAcceptorId:
+      type: string
+      description: <p>Identification code of the card acceptor</p>
+    transmissionTime:
+      type: string
+      description:
+        <p>
+        Transmission date sent by the initiator
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+        The value will be in GMT.
+        </p>
+    localeDate:
+      type: string
+      description:
+        <p>
+        Local transaction date and time
+        Format<br>
+        yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        The value will be in GMT.
+        </p>
+    transactionAmount:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    actionCode:
+      type: string
+      description: <p>Indicates the action taken or to take and the reason</p>
+    authorizationCode:
+      type: string
+      description: <p>Authorization code (Code assigned by the authorization body and indicating the agreement)</p>
+    captureCode:
+      type: string
+      description: <p>Forwarding institution identification code</p>
+    routingCode:
+      type: string
+      description: <p>Acquiring institution identification code</p>
+    sourceIndicator:
+      type: string
+      description: <p>Source Indicator</p>
+    billingAmount:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    conversionRate:
+      type: string
+      description: <p>Conversion Rate</p>
+    eventCode:
+      type: string
+      description: <p>Event Code</p>
+    issuerBankCode:
+      type: string
+      description: <p>Issuer Bank Code</p>
+    replacementAmount:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    acquirerCountryCode:
+      type: string
+      description: <p>Acquirer Country Code</p>
+    functionCode:
+      type: string
+      description: <p>Function Code</p>
+    reasonCode:
+      type: string
+      description: <p>Reason Code</p>
+    transactionTime:
+      type: string
+      description:
+        <p>
+        Local transaction date and time
+        Format<br>
+        yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+        The value will be in GMT.
+        </p>
+    mcc:
+      type: string
+      description: <p>The Card acceptor activity</p>
+    cardAcceptorNameAddress:
+      type: string
+      description: <p>The Card acceptor name and address</p>
+    tokenInformation:
+      type: string
+      description: <p>The token information</p>
+    ecommerceInformation:
+      type: string
+      description: <p>The ecommerce information</p>
+    posEntryMode:
+      type: string
+      description: <p>The pos entry mode</p>
+    sourceAccountType:
+      type: string
+      description: The source account type
+    destinationAccountType:
+      type: string
+      description: The destination account type
+    sourceAccountNumber:
+      type: string
+      description: The source account number
+    destinationAccountNumber:
+      type: string
+      description: The destination account number
+
+#ControlValueV4
+ControlValueV4:
+  type: object
+  properties:
+    controlValue:
+      type: string
+      example: "250"
+      description:
+        <p>
+        Users must
+        ensure that this code is a valid value defined in the PowerCARD under the general parameter section <br>
+        <b>COUNTRY</b> table for ControlType = <b>‘CTR’</b>.<br>
+        <b>MCC</b> table for ControlType = <b>‘MCC’</b>.<br>
+        <b>PROCESSING_LIST</b> table for ControlType = <b>‘PRC’</b>.<br>
+        <b>MERCHANT</b> table for ControlType = <b>‘MER’</b>.<br>
+        <b>CURRENCY_TABLE</b> table for ControlType = <b>‘CUR’</b>.<br>
+        <b>STATIC_LIST</b> table for ControlType = <b>‘ENT’</b>.<br>
+        </p>
+#DomainControlV4
+DomainControlV4:
+  type: object
+  properties:
+    controlType:
+      type: string
+      example: "CUR"
+      description:
+        <p>
+        The ControlType defines the type of control that is to be used throughout the Domain control. Valid Control Types are <br>
+        -<b>CTR</b>&#58;  Country <br>
+        -<b>MCC</b>&#58; MCC <br>
+        -<b>PRS</b>&#58; Processing code <br>
+        -<b>MER</b>&#58; Merchant <br>
+        -<b>CUR</b>&#58; Currency <br>
+        -<b>ENT</b>&#58; Entry mode , Possible value are &#58;<br>
+        &#8197;&#8197;&#8197;&#8197;&#8197;&#8197;-<b>C</b> Card not present<br>
+        &#8197;&#8197;&#8197;&#8197;&#8197;&#8197;-<b>D</b> Contacltess magstrip<br>
+        &#8197;&#8197;&#8197;&#8197;&#8197;&#8197;-<b>E</b> Contact magnetic<br>
+        &#8197;&#8197;&#8197;&#8197;&#8197;&#8197;-<b>F</b> Non-authenticated_e-com<br>
+        </p>
+    controlOperator:
+      type: string
+      example: "IN"
+      description:
+        <p>
+        Symbol that you use to check or combine values. <br>
+        <b>IN</b>  Allows users to specify one or multiple values in ControlValueList <br>
+        <b>NOT IN</b> To exclude a list of values from the ControlValueList
+        </p>
+    controlValueList:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ControlValueV4'
+#PeriodV4
+PeriodV4:
+  properties:
+    periodType:
+      type: string
+      example: "C"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">To indicate period type,possible values are:<br>
+        <b>C</b> - Fixed period<br>
+        <b>S</b> - Sliding period
+        </p>
+    periodDayOff:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(2)</p>
+        <p id="field-description">Period 'day-of' indicates the start day (Or month) in the period (1 to 7 for Weekly period, 1 to 31 for Monthly period and 1 to 12 for Yearly period).</p>
+    periodicityFlag:
+      type: string
+      example: "D"
+      description :
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Must contain one of the following values:<br>
+        <b>D</b> - for daily<br>
+        <b>W</b> - for Weekly<br>
+        <b>M</b> - for Monthly<br>
+        <b>Y</b> - for Yearly
+        </p>
+    periodicityNumber:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Number of periodicityFlag in the period (Example:periodicityFlag :Weekly and periodicityNumber field=2, indicates a period of 2 weeks)</p>
+      example: "1"
+    totalTransactionAmount:
+      type: string
+      example: "600.000"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">The total amount's limit not to be exceeded for the concerned transaction type</p>
+    totalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">total number of transaction's limit not to be exceeded for the concerned transaction type</p>
+    territoriality:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TerritorialityV4'
+  required: [periodType,periodDayOff,periodicityFlag,periodicityNumber]
+PeriodSearchV4:
+  properties:
+    periodType:
+      type: string
+      example: "C"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">To indicate period type,possible values are:<br>
+        <b>C</b> - Fixed period<br>
+        <b>S</b> - Sliding period
+        </p>
+    periodDayOff:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(2)</p>
+        <p id="field-description">Period 'day-of' indicates the start day (Or month) in the period (1 to 7 for Weekly period, 1 to 31 for Monthly period and 1 to 12 for Yearly period).</p>
+    periodicityFlag:
+      type: string
+      example: "D"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Must contain one of the following values:<br>
+        <b>D</b> - for daily<br>
+        <b>W</b> - for Weekly<br>
+        <b>M</b> - for Monthly<br>
+        <b>Y</b> - for Yearly
+        </p>
+    periodicityNumber:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Number of periodicityFlag in the period (Example:periodicityFlag :Weekly and periodicityNumber field=2, indicates a period of 2 weeks)</p>
+      example: "1"
+    totalTransactionAmount:
+      type: string
+      example: "600.000"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">The total amount's limit not to be exceeded for the concerned transaction type</p>
+    totalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">total number of transaction's limit not to be exceeded for the concerned transaction type</p>
+    maxTotalTransactionAmount:
+      type: string
+      example: "1000"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Decimal(18,3)</p>
+        <p id="field-description">the max of transaction amount of the product setting.</p>
+    maxTotalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">the max number of transaction of the product setting.</p>
+    territoriality:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TerritorialitySearchV4'
+  required: [ periodType,periodDayOff,periodicityFlag,periodicityNumber ]
+
+#PeriodV35
+UpdtCardCaracteresticsPeriodV35:
+  properties:
+    periodType:
+      type: string
+      example: 'D'
+      description:
+        <p>
+        Must contain one of the following values
+        <b>D</b> - Fixed period
+        <b>W</b> - Rolling period
+        </p>
+    periodDayOff:
+      type: string
+      example: '1'
+      description: <p>Period day off</p>
+    periodicityFlag:
+      type: string
+      example: 'A'
+      description :
+        <p>
+        Must contain one of the following values <br>
+        <b>D</b> for daily<br>
+        <b>W</b> for Weekly<br>
+        <b>M</b> for Monthly<br>
+        <b>Y</b> for Yearly
+        </p>
+    territorialityOnline:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TerritorialityOnlineV35'
+    territorialityOffline:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TerritorialityOnlineV35'
+    totalTransactionAmountOnline:
+      type: number
+      example: 8000
+      description: <p>The totalTransactionAmountOnline value</p>
+    totalNumberOfTransactionsOnline:
+      type: string
+      example: '8'
+      description: <p>The totalNumberOfTransactionsOnline value</p>
+    totalTransactionAmounOffline:
+      type: string
+      example: '600'
+      description: <p>The totalTransactionAmounOffline value</p>
+    totalNumberOfTransactionsOffline:
+      type: string
+      example: '2'
+      description: <p>The totalNumberOfTransactionsOffline value</p>
+#EmployeeInformationV35
+EmployeeInformationV35:
+  type: object
+  properties:
+    corporateId:
+      type: string
+      example: '1000000018'
+      description: <p></p>
+    employeeId:
+      type: string
+      example: '123'
+      description: <p></p>
+    firstname:
+      type: string
+      example: 'test'
+      description: <p></p>
+    lastname:
+      type: string
+      example: 'test'
+      description: <p></p>
+    titleCode:
+      type: string
+      example: '01'
+      description: <p></p>
+    email:
+      type: string
+      example: 'crad@email.com'
+      description: <p></p>
+    languageCode:
+      type: string
+      example: 'ENG'
+      description: <p></p>
+    vipLevel:
+      type: string
+      example: '1'
+      description: <p></p>
+    employeeStatus:
+      type: string
+      example: ""
+      description: <p></p>
+#CardLimitSRVAddendumV35
+CardLimitSRVAddendumV35:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>The limitID value</p>
+    limitDescription:
+      type: string
+      description: <p>The limitDescription value</p>
+    limitAbrvWording:
+      type: string
+      description: <p>The limitAbrvWording value</p>
+    validityRangeDate:
+      type: object
+      $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+    period:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/PeriodV35'
+    transactionCriteria:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TransactionCriteriaV35'
+
+#DelinqAgingV35
+DelinqAgingV35:
+  type: object
+  properties:
+    deduplicateComment:
+      type: string
+      description: <p>A description field that contains the result of the deduplication process execution.</p>
+    deduplicateResult:
+      type: string
+      description:
+        <p>
+        It refers to the result of the execution of the rule. Possible values are <br>
+        <b>N</b> - No deduplication found<br>
+        <b>D</b> - Deduplication found<br>
+        </p>
+#CodeLabelV35
+CodeLabelV35:
+  type: object
+  properties:
+    code:
+      type: string
+      description: <p>Must contain the code of the parameter being shared</p>
+    label:
+      type: string
+      description: <p>The label of the parameter being shared</p>
+    defaultSelected:
+      type: string
+      description: <p>The defaultSelected value</p>
+    comments:
+      type: string
+      description: <p>The comments value</p>
+#AuthorizationV35
+AuthorizationV35:
+  type: object
+  properties:
+    authCode:
+      type: string
+      description:
+        <p>
+        Authorization code (approval code of the transaction), <b>(Field 38)</b>
+        It refers to a code that an issuer, its authorizing processor, or Stand-In Processing (STIP) provides to indicate approval of a transaction. The code is returned in the authorization Response and is usually recorded on the Transaction Receipt.
+        The field must contain a six-position Authorization Code. Allowed entries are <br>
+        -	<b>Spaces</b><br>
+        -	<b>A through Z</b><br>
+        0 through 9
+        </p>
+    authDate:
+      type: string
+      description:
+        <p>
+        Authorization date
+        The actual date that the request for the authorization was made.
+        Format<br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT.
+        </p>
+    referenceNumber:
+      type: string
+      description: <p>The card number used during the transaction.</p>
+    posData:
+      type: string
+      description: <p>The posData value</p>
+#CountryV35
+CountryV35:
+  type: object
+  properties:
+    countryCode:
+      type: string
+      description: <p>Identify the country code <b>ISO-3166 1-numeric</b></p>
+    countryName:
+      type: string
+      description:
+        <p>
+        Identify the country name
+        Both the country code and the country name are downloaded from the PowerCARD <b>COUNTRY</b> table present under the general parameter section.
+        </p>
+#TransactionCommonV35
+TransactionCommonV35:
+  type: object
+  properties:
+    transId:
+      type: string
+      description:
+        <p>
+        The transaction ID
+        A 23-digit identification number assigned by the system to each transaction.
+        The TransId is unique by transaction.
+        </p>
+    refSeq:
+      type: string
+      description:
+        <p>
+        Refers to the transaction sequence Number.
+        </p>
+    trnType:
+      type: object
+      $ref: 'aggregate.yaml#/CodeLabelV35'
+    transSign:
+      type: string
+      description:
+        <p>
+        Transaction sign
+        Contains a code that indicates the sign of the transaction.
+        Possible values are <br>
+        <b>D</b> - Debit <br>
+        <b>C</b> - Credit <br>
+        </p>
+    transDate:
+      type: string
+      description:
+        <p>
+        The date when the transaction was made.
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT.
+        </p>
+    transPostDate:
+      type: string
+      description:
+        <p>
+        Refers to the date when the concerned transaction was posted to the cardholder account
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT.
+        </p>
+    transDateEvent:
+      type: string
+      description:
+        <p>
+        The date when the transaction was proceed by the card management system.
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b> <br>
+        The value will be in GMT.
+        </p>
+    transAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    cashBack:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    authCode:
+      type: object
+      $ref: 'aggregate.yaml#/AuthorizationV35'
+    interchangeAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    conversionRate:
+      type: string
+      description: <p>The conversion rate</p>
+    cardNumber:
+      type: string
+      description: <p>The cardNumber</p>
+    country:
+      type: string
+      $ref: 'aggregate.yaml#/CountryV35'
+#MccV35
+MccV35:
+  type: object
+  properties:
+    mccCode:
+      type: string
+      description:
+        <p>
+        MCC code or Merchant category code.
+        This code must be previously defined in the PowerCARD <b>MCC</b> table under the general parameter section.
+        </p>
+    mccLabel:
+      type: string
+      description:
+        <p>
+        MCC description as stored in PowerCARD.
+        </p>
+
+#TransactionAcquiringV35
+TransactionAcquiringV35:
+  type: object
+  properties:
+    network:
+      type: string
+      description:
+        <p>
+        The network field allows you to specify the network where transactions are made.
+        It is to mention that this code should be previously defined in the NETWORK table under the general parameter section. To populate the valid values from PowerCARD.
+        </p>
+    mcc:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionCommonV35'
+    trnStatus:
+      type: object
+      $ref: 'aggregate.yaml#/CodeLabelV35'
+    tipsAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    discountAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    taxesAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    linkupCode:
+      type: string
+      description: <p>The linkupCode value</p>
+    batchNumber:
+      type: string
+      description: <p>The batchNumber value </p>
+    remittanceSequence:
+      type: string
+      description: <p>The remittanceSequence value</p>
+    posEntryMode:
+      type: string
+      description:
+        <p>
+        Field indicating the method by which a point-of-transaction terminal obtains and transmits the cardholder information necessary to complete a transaction
+        Valid values are <br>
+        <b>00</b> -  Unknown or terminal not used<br>
+        <b>01</b> Manual (key entry)<br>
+        <b>02</b> Magnetic stripe read<br>
+        <b>03</b> Integrated circuit card read<br>
+        <b>04</b> Contactless device-read<br>
+        </p>
+    transRejectCode:
+      type: array
+      items:
+        type: string
+        description: <p>The transRejectCode value</p>
+    reversalInd:
+      type: string
+      description: <p>The reversalInd value</p>
+    merchantAcronym:
+      type: string
+      description:
+        <p>
+        The Merchant Acronym
+        Acronym of the merchant in the original transaction. It could be the name imprinted on the transaction receipt by the merchant’s or member’s imprinter plate.
+        </p>
+    indicatorStatus:
+      type: string
+      description: <p>The indicatorStatus value</p>
+    settlementDate:
+      type: string
+      description: <p>The settlementDate value</p>
+
+#TransactionIssuingV35
+TransactionIssuingV35:
+  type: object
+  properties:
+    description:
+      type: string
+      description: <p>The description value.</p>
+    territoriality:
+      type: string
+      description: <p>The territoriality value.</p>
+    billCurAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    transAccountId:
+      type: string
+      description: <p>The Account Number where the transaction is posted.</p>
+    clearingTrxAmt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+
+#TransactionV35
+TransactionV35:
+  type: object
+  properties:
+    transactionCommon :
+      type: object
+      $ref: 'aggregate.yaml#/TransactionCommonV35'
+    transactionAcquiring:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionAcquiringV35'
+    transactionIssuing:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionIssuingV35'
+
+#TransactionTotalV35
+TransactionTotalV35:
+  type: object
+  properties:
+    nbTransactions:
+      type: string
+      description: <p>The nbTransactions value</p>
+    totalCredit:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    totalDebit:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+#StatementV35
+StatementV35:
+  type: object
+  properties:
+    statementId:
+      type: string
+      description:
+        <p>
+        Statement identifier
+        A unique statement id within the search result.
+        </p>
+    statementDt:
+      type: string
+      description:
+        <p>
+        Statement date
+        Date when the account was cutoff/ended
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT.
+        </p>
+    accountBalance:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/AccountBalanceV35'
+    dueDt:
+      type: string
+      description:
+        <p>
+        Payment Due Date
+        It indicates the date when the payment is due. Valid only in case of credit card account.
+        </p>
+    minAmtDue:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    delinqAging:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/DelinqAgingV35'
+    startDt:
+      type: string
+      description:
+        <p>
+        Selection Start Date time provided in the request message to allow client to use these dates to define the cycle start date.<br>
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT
+        </p>
+    endDt:
+      type: string
+      descrption:
+        <p>
+        End Date time. Provided to allow client to use these dates to define the cycle end date
+        Format<br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+        The value will be in GMT.
+        </p>
+    statTrans:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/TransactionV35'
+    statTransTotal:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionTotalV35'
+#BatchStockRecordV35
+BatchStockRecordV35:
+  type: object
+  properties:
+    batchNumber:
+      type: string
+      description:
+        <p>
+        Refer to a unique identification number generated internally by PowerCARD and assigned to the order being submitted by the agent.
+        A batch number is a identifying a set of cards requested in the same order.
+        </p>
+    batchStatus:
+      type: string
+      description:
+        <p>
+        Status of the batch. Possible values are <br>
+        <b>P</b> - Order Pending <br>
+        <b>B</b> - Order Processed <br>
+        <b>R</b>- Order Rejected <br>
+        <b>A</b> - Order Received <br>
+        <b>C</b> - Order Cancelled <br>
+        </p>
+    batchStatusDate:
+      type: string
+      description:
+        <p>
+        Status date
+        Last update date of the batch
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+        The value will be in GMT.
+        </p>
+    batchOrderDate:
+      type: string
+      description:
+        <p>
+        Date when the order took place
+        Format <br>
+        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+        The value will be in GMT.
+        </p>
+    batchRequester:
+      type: string
+      description: <p>Refers to the Id of the user who made the order</p>
+    bankCode:
+      type: string
+      description:
+        <p>
+        The bank code.
+        This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section. It should be retrieved  from PowerCARD
+        </p>
+    branchCode:
+      type: string
+      description:
+        <p>
+        Branch code.
+        6 digits code of the branch to which the card belongs
+        Valid values must be downloaded from PowerCARD <b>BRANCH</b> table.
+        </p>
+    catPIProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the payment instrument product code being requested in the application.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+        </p>
+    catPIProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the payment instrument version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+        </p>
+    catAccountProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the account product code being requested in the application.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>
+        </p>
+    catAccountProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the account product version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>
+        </p>
+    plasticCode:
+      type: string
+      description:
+        <p>
+        It refers to the plastic of the card to be personalized.
+        Valid values must be previously defined in the PowerCARD <b>PLASTIC_LIST</b> table
+        </p>
+    nbrOfCardsOrdered:
+      type: string
+      description:
+        <p>
+        This field indicates the number of cards to be personalized.
+        </p>
+    nbrOfSoldCards:
+      type: string
+      description:
+        <p>
+        This field indicates the number of cards being sold to consumers
+        </p>
+    nbrOfRejectedCards:
+      type: string
+      description:
+        <p>
+        This field indicates the number of cards being rejected for invalidity.
+        </p>
+    nbrOfAvailableCards:
+      type: string
+      description:
+        <p>
+        This field indicates the number of cards not yet sold.
+        </p>
+    preLoadedAmnt:
+      type: object
+      $ref: 'aggregate.yaml#/CurAmtV35'
+
+#PoliceDeclarationV35
+PoliceDeclarationV35:
+  type: object
+  properties:
+    policeDeclarationId:
+      type: string
+      description: <p>The policeDeclarationId value.</p>
+    policeDeclarationDate:
+      type: string
+      description: <p>The policeDeclarationDate value.</p>
+    location:
+      type: string
+      description: <p>The location value.</p>
+
+#CardFeesV35
+CardFeesV35:
+  type: object
+  properties:
+    operationEvent:
+      type: string
+      description:
+        <p>
+        This field indicates the type of event that the agent would like to . Possible values are the following <br>
+        <b>GS</b> -  General card fee Settings<br>
+        <b>FI</b> - Card issuing Fees.<br>
+        <b>RF</b> - Renewal Fees<br>
+        <b>RP</b> - Replacement Fees<br>
+        <b>PI</b> - Pin Fees<br>
+        </p>
+    replacementReason:
+      type: string
+      description:
+        <p>
+        Must indicate the reason of the replacement of the card.
+        Possible values are <br>
+        <b>L</b> - Lost the card <br>
+        <b>D</b> - Damaged the card <br>
+        <b>E </b>- Emergency replacement of the card <br>
+        <b>S </b>-  Stolen card <br>
+        <b>R </b>- Erroneous card <br>
+        <b>C </b>- Counterfeit card <br>
+        <b>O </b>- Other. <br>
+        This field is mandatory when OperationEvent is set to RP
+        </p>
+    cardNumber:
+      type: string
+      description:
+        <p>
+        The card number.
+        Must contain the primary card number of the customer. The number should be valid and previously present in the PowerCARD <b>CARD</b> table under the cardholder section.
+        This field becomes mandatory when the card product code and Fee code is not provided.
+        </p>
+    catPIProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the payment instrument product code.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+        </p>
+    catPIProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the payment instrument version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+        </p>
+
+#TransactionFeesV35
+TransactionFeesV35:
+  type: object
+  properties:
+    cardNumber:
+      type: string
+      description:
+        <p>
+        The card number.
+        Must contain the primary card number of the customer. The number should be valid and previously present in the PowerCARD <b>CARD</b> table under the cardholder section.
+        This field becomes mandatory when the card product code is not provided.
+        </p>
+    catAccProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the account product code.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A </b>
+        </p>
+    catAccProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the account product version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>
+        </p>
+    transactionCode:
+      type: string
+      description:
+        <p>
+        The transaction code, as defined in the CMS.
+        Valid values must be retrieved  from PowerCARD <b>TRANSACTIONS_DEFINITION</b> table
+        </p>
+    reversalFlag:
+      type: string
+      description:
+        <p>
+        Indicates whether it is a normal or reversal transaction.<br>
+        <b>	N</b> Normal.<br>
+        <b>R</b> Reversal. <br>
+        </p>
+    transactionAmount:
+      type: string
+      $ref: 'aggregate.yaml#/CurAmtV35'
+    catPIProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the payment instrument product code.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P </b>
+        </p>
+    catPIProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the payment instrument product version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P </b>
+        </p>
+
+#StatementFeesV35
+StatementFeesV35:
+  type: object
+  properties:
+    cardNumber:
+      type: string
+      description:
+        <p>
+        The card number.
+        Must contain the card number. The number should be valid and previously present in the PowerCARD CARD table under the cardholder section.
+        This field becomes mandatory when the card product code is not provided.
+        </p>
+    accountNumber:
+      type: string
+      description:
+        <p>
+        It refers to financial account number.
+        Mandatory in case of Statement fees for credit card & prepaid card
+        </p>
+    catAccProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the account product code.
+        Valid values must be retrieved from PowerCARD CATALOGUE_PRODUCT table with product type = A using the Web Service  <b>getParameterList</b>
+        </p>
+    catAccProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the account product version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>
+        </p>
+    catPIProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the payment instrument product code.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P </b>
+        </p>
+    catPIProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the payment instrument product version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+        </p>
+#AuthorizationDetailV35
+AuthorizationDetailV35:
+  type: object
+  properties:
+    ResponseCode:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates the authorization response code.
+        </p>
+    AutoIndicator:
+      type: string
+      description:
+        <p>
+        This field is reserved for future use.
+        </p>
+    AuthoLength:
+      type: string
+      description:
+        <p>
+        Number of characters in the authorization code. <br>
+        Default value = 6. <br>
+        </p>
+    AuthoSource:
+      type: string
+      description:
+        <p>
+        This field contain two information data,
+        Authorization mode & source <br>
+        First Digit ; Authorization capture mode <br>
+        <b>‘T’</b> = Telex,<br>
+        <b>‘V’</b> = VAP,<br>
+        <b>‘P’</b> = Phone,<br>
+        <b>‘A’</b> = Auto-telex,<br>
+        <b>‘E’</b> = Electronic.<br>
+        Second Digit ; Authorization deliver source<br>
+        <b>‘0’</b> = Issuer,<br>
+        <b>‘1’</b> = Stand in by an international network,<br>
+        <b>‘2’</b> = Stand in by the processing center.<br>
+        </p>
+    RoutingCode:
+      type: string
+      description:
+        <p>
+        Message routing code.
+        </p>
+    CaptureCode:
+      type: string
+      description:
+        <p>
+        Data capture mode on the server.
+        </p>
+    IssuerResponse:
+      type: string
+      description:
+        <p>
+        Issuer response code.
+        </p>
+    EventCode:
+      type: string
+      description:
+        <p>
+        Authorization event code.
+        This code must be previously defined in the PowerCARD in <b>ACTION_WHEN_EVENT</b> table under the general parameter section.
+        Valid values must be retrieved  from <b>PowerCARD</b> using the Web Service <b>getReferentialList</b>. This field is not required for the merchant details.
+        </p>
+    MessageError:
+      type: string
+      description:
+        <p>
+        The Message error
+        </p>
+    AcquirerAuthoCode:
+      type: string
+      description:
+        <p>
+        The Acquirer authorization code
+        </p>
+    OriginalTransaction:
+      type: string
+      description:
+        <p>
+        The original transaction code
+        </p>
+    ReasonCode:
+      type: string
+      description :
+        <p>
+        The response code
+        </p>
+    ReversalReason:
+      type: string
+      description:
+        <p>
+        Reversal reason
+        </p>
+    ReversalSTAN:
+      type: string
+      description:
+        <p>
+        Reversal STAN
+        </p>
+    ReversalTransactionDate:
+      type: string
+      description:
+        <p>
+        Reversal Transaction Date
+        </p>
+    RejectreasonCode:
+      type: string
+      description:
+        <p>
+        Reject reason code
+        </p>
+    OriginCode:
+      type: string
+      description:
+        <p>
+        Transaction issuer/acquirer indicator. Possible
+        values are <br>
+        <b>‘0’</b> = ONUS card / local merchant <br>
+        <b>‘1’</b> = ONUS card / local other bank merchant <br>
+        <b>‘2’</b> = ONUS card / foreign merchant <br>
+        <b>‘3’</b> = local other bank card / local merchant <br>
+        <b>‘4’</b> = foreign card / local merchant <br>
+        <b>‘U’</b> = Unknown. <br>
+        </p>
+    FunctionCode:
+      type: string
+      description:
+        <p>
+        The function code indicates the specific object of the message in its message class as described in the <b>ISO8583</b> protocol.
+        This code must be previously defined in the PowerCARD in <b>FUNCTION_LIST</b> table under the general parameter section.
+        </p>
+#POSDataV35
+POSDataV35:
+  type: object
+  properties:
+    DataEntryCapability:
+      type: string
+      enum: [0,1,2,3,4,5,6,7,8,9,M]
+      description:
+        <p>
+        Position 01  Data entry capability  <br>
+        <b> 0 - </b> Not specified<br>
+        <b> 1 - </b> Manual, no terminal<br>
+        <b> 2 - </b> Magnetic stripe read<br>
+        <b> 3 - </b> Bar code read<br>
+        <b> 4 - </b> Optical read<br>
+        <b> 5 - </b> Chip read and magnetic stripe read<br>
+        <b> 6 - </b> Manual entry<br>
+        <b> 7 - </b> Manual entry & magnetic stripe<br>
+        <b> 8 - </b> Manual entry & magnetic stripe & chip read<br>
+        <b> 9 - </b> Chip read<br>
+        <b> M - </b> Magnetic stripe, & ICC contact reader, ICC contactless reader.<br>
+        </p>
+    AuthoAbility:
+      type: string
+      enum: [0,1,2]
+      description:
+        <p>
+        Position 02 - Cardholder Authentication Capability <br>
+        <b>0</b> - No authentification <br>
+        <b>1</b> - PIN <br>
+        <b>2</b> - Manual signature <br>
+        </p>
+    CaptureAbility:
+      type: string
+      enum: [0,1,2]
+      description:
+        <p>
+        Position 03 - Card Retention Capability <br>
+        <b>0 </b> - No <br>
+        <b>1 </b> - Yes <br>
+        <b>2 </b> - Unknown <br>
+        </p>
+    OperationgEnvironment:
+      type: string
+      enum: [0,1,2,3,4,5,9,S,T,U,V]
+      description:
+        <p>
+        Position 04 - Operating Environment <br>
+        <b>0 </b> - No terminal used <br>
+        <b>1 </b> - Inside card acceptor premises, Attended <br>
+        <b>2 </b> - Inside card acceptor premises, Unattended <br>
+        <b>3 </b> - Outside card acceptor premises, Attended <br>
+        <b>4 </b> - Outside of card acceptor premises, Unattended <br>
+        <b>5 </b> - Inside card owner premises, Unattended <br>
+        <b>9 </b> - Undetermined <br>
+        <b>S </b> - CAT level1, unattended <br>
+        <b>T</b> -  CAT level2, unattended <br>
+        <b>U </b> - CAT level3, unattended <br>
+        <b>V </b> - CAT level4, unattended <br>
+        </p>
+    ExistingCardholder:
+      type: string
+      enum: [0,1,2,3,4,5]
+      description:
+        <p>
+        Position 05 - Cardholder Presence Indicator <br>
+        <b>0 </b> - Cardholder present <br>
+        <b>1 </b> - Cardholder not present, Attended <br>
+        <b>2 </b> - Cardholder not present, mail order <br>
+        <b>3 </b> - Cardholder not present, phone order<br>
+        <b>4 </b> - Cardholder not present, authorized <br>
+        <b>5 </b> - Electronic order <br>
+        </p>
+    ExistingCard:
+      type: string
+      enum: [0,1]
+      description:
+        <p>
+        Position 06 - Card Presence Indicator <br>
+        <b>0 </b> - Card not present <br>
+        <b>1 </b> - Card present <br>
+        </p>
+    CaptureMode:
+      type: string
+      enum: [0,1,2,3,4,5,6,7,8,9,F,J,P,S,T,U,V,W,A,M,R,x]
+      description:
+        <p>
+        Position 07 - Card Data Input Mode <br>
+        <b>0 </b> - Not specified <br>
+        <b>1 </b> - Manual, no terminal <br>
+        <b>2 </b> - Magnetic strip read (Track 2) <br>
+        <b>5 </b> - Chipe read <br>
+        <b>6 </b> - Manual entry<br>
+        <b>7 </b> - Magnetic strip read (Track 1)<br>
+        <b>8 </b> - Fallback <br>
+        <b>9 </b> - E-Commerce <br>
+        <b>F</b> -  Credentials on file <br>
+        <b>J </b> - Chip read and CVV reliable <br>
+        <b>P </b> - PAN Auto Entry via Server <br>
+        <b>S </b> - E-commerce, Non-Authenticated, attempt <br>
+        <b>T </b> - E-commerce, Authenticated <br>
+        <b>U </b> - E-commerce, no security <br>
+        <b>V </b> - E-commerce, channel encryption <br>
+        <b>W </b> - Unaltered track provided <br>
+        <b>A </b> - PAN auto-entry via contactless magnetic stripe <br>
+        <b>M </b> - PAN auto-entry via contactless M/Chip <br>
+        <b>R </b> - PAN entry via electronic commerce, including remote chip <br>
+        <b>X </b> - PAN auto entry via server (issuer, acquirer, or third party vendor system <br>
+        </p>
+    AuthoMethod:
+      type: string
+      enum: [0,1,2,5]
+      description:
+        <p>
+        Position 08 - Cardholder Authentication Method <br>
+        <b>0 </b> - Not authenticated <br>
+        <b>1 </b> - PIN <br>
+        <b>2 </b> - Electronic signature <br>
+        <b>5 </b> - Manual signature <br>
+        </p>
+    AuthoEntity:
+      type: string
+      enum: [0,1,2,3,4,5,9]
+      description:
+        <p>
+        Position 09 - Cardholder Authentication Entity <br>
+        <b>0 </b> - Not authenticated <br>
+        <b>1 </b> - Chip <br>
+        <b>2 </b> - Terminal <br>
+        <b>3 </b> - Acquiring center <br>
+        <b>4 </b> - Merchant <br>
+        <b>5 </b> - Other <br>
+        <b>9 </b> - Not specified <br>
+        </p>
+    OutputCardAbility:
+      type: string
+      enum: [0,1,2,5]
+      description:
+        <p>
+        Position 10 - Rewrite Capability <br>
+        <b>0 </b> - Not specified <br>
+        <b>1 </b> - No rewrite capability <br>
+        <b>2 </b> - Track 3 rewrite possible <br>
+        <b>5 </b> - Track rewrite <br>
+        </p>
+    OutputTerminalAbility:
+      type: string
+      enum: [0,1,2,3,4]
+      description:
+        <p>
+        Position 11 - Terminal Output Capability <br>
+        <b>1 </b> - None <br>
+        <b>2 </b> - Printing <br>
+        <b>3 </b> - Display <br>
+        <b>4 </b> - Printing and display <br>
+        </p>
+    CapturePIN:
+      type: string
+      enum: [4,5,C]
+      description:
+        <p>
+        Position 12 - PIN lenght <br>
+        <b>4 </b> - Four characters <br>
+        <b>5 </b> - Five characters <br>
+        <b>C </b> - Twelve characters <br>
+        </p>
+#AuthoPOSDetailV35
+AuthoPOSDetailV35:
+  type: object
+  properties:
+    EntryMode:
+      type: string
+      description:
+        <p>
+        Original POS entry mode at the point of service (Depending on the Network).
+        </p>
+    POSData:
+      type: object
+      $ref: 'aggregate.yaml#/POSDataV35'
+#AuthoCardDetailV35
+AuthoCardDetailV35:
+  type: object
+  properties:
+    Network:
+      type: string
+      description:
+        <p>
+        Card network code. <br>
+        It is to mention that this code should be previously defined in the <b>NETWORK</b> table under the general parameter section.
+        </p>
+    IssuingBank:
+      type: string
+      description:
+        <p>
+        Issuer bank code.<br>
+        It is to mention that this code should be previously defined in the BANK table under the general parameter section.
+        </p>
+    StartExpiryDate:
+      type: string
+      description:
+        <p>
+        Card start validity date.
+        </p>
+    EndExpiryDate:
+      type: string
+      description:
+        <p>
+        Card expiry date
+        </p>
+    ServiceCode:
+      type: string
+      description:
+        <p>
+        Card Service code (For Magnetic read transactions only).
+        </p>
+    ReceivingInstitution:
+      type: string
+      description:
+        <p>
+        Authorization receiving institution identifier.
+        </p>
+    CardNumber:
+      type: string
+      description:
+        <p>
+        Card Number
+        </p>
+    CatPIProduct:
+      type: string
+      description:
+        <p>
+        It is a 6 digit code identifying the payment instrument product code to ne assigned to the card.<br>
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+        </p>
+    CatPIProductVersion:
+      type: string
+      description:
+        <p>
+        It is a 10 caracter fields identifying the payment instrument version.<br>
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+        </p>
+    ProductCurrency:
+      type: string
+      description:
+        <p>
+        Card product currency code.<br>
+        It is to mention that this code should be previously defined in the <b>CURRENCY_TABLE</b> table under the general parameter section
+        </p>
+    VIPLevel:
+      type: string
+      description:
+        <p>
+        The VIP code. <br>
+        Predefined level of importance associated with the cardholder’s professional or social status. It is usually used to grant special privileges to the cardholder.<br>
+        This code must be previously defined in the PowerCARD <b>VIP_LIST</b> table under the general parameter section.
+        </p>
+    PeriodCode:
+      type: string
+      description:
+        <p>
+        Period code.  <br>
+        This code must be previously defined in the PowerCARD in <b>P7_AUTHO_PERIOD</b> table under the general parameter section.
+        </p>
+    PeriodType:
+      type: string
+      description:
+        <p>
+        Period type. Possible values are <br>
+        <b>‘D’</b>= Daily, <br>
+        <b> ‘W’</b>= Weekly, <br>
+        <b> ‘M’</b>= Monthly, <br>
+        <b> ‘Q’</b>= Quarterly, <br>
+        <b> ‘Y’</b>= Yearly, <br>
+        <b> ‘S’</b>= Shift, <br>
+        <b> ‘N’</b>= No period. <br>
+        </p>
+    PeriodValue:
+      type: string
+      description:
+        <p>
+        Period value indicates the number of <b>'Period type'</b> in the period.
+        </p>
+#TransactionFeeAmountV35
+TransactionFeeAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CashbackAmountV35
+CashbackAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#ReplacementAmountV35
+ReplacementAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#BillingAmountV35
+BillingAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#TransactionAmountV35
+TransactionAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#AuthoAmountV35
+AuthoAmountV35:
+  type: object
+  properties:
+    TransactionAmount:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionAmountV35'
+    BillingAmount:
+      type: object
+      $ref: 'aggregate.yaml#/BillingAmountV35'
+    ReplacementAmount:
+      type: object
+      $ref: 'aggregate.yaml#/ReplacementAmountV35'
+    CashbackAmountV35:
+      type: object
+      $ref: 'aggregate.yaml#/CashbackAmountV35'
+    TransactionFeeAmount:
+      type: object
+      $ref: 'aggregate.yaml#/TransactionFeeAmountV35'
+    ConversionRate:
+      type: string
+      description:
+        <p>
+        Conversion Rate
+        </p>
+    ConversionRateDate:
+      type: string
+      description:
+        <p>
+        Conversion Rate Date
+        </p>
+#CurrentBalanceV35
+CurrentBalanceV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#LimitBeforeTransactionV35
+LimitBeforeTransactionV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#BalanceInformationV35
+BalanceInformationV35:
+  type: object
+  properties:
+    CurrentBalance:
+      type: object
+      $ref: 'aggregate.yaml#/CurrentBalanceV35'
+    LimitBeforeTransaction:
+      type: object
+      $ref: 'aggregate.yaml#/LimitBeforeTransactionV35'
+#FeeAmountV35
+FeeAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#AdditionalFeesV35
+AdditionalFeesV35:
+  type: object
+  properties:
+    FeeAmount:
+      type: object
+      $ref: 'aggregate.yaml#/FeeAmountV35'
+    FeeIndicator:
+      type: string
+      description:
+        <p>
+        The Additional Fee Indicator
+        </p>
+    FeeSign:
+      type: string
+      description:
+        <p>
+        The Additional Fee Sign
+        </p>
+    FeeType:
+      type: string
+      description:
+        <p>
+        The Additional Fee Type
+        </p>
+#AqSettlementFeeV35
+AqSettlementFeeV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#SettlementFeeV35
+SettlementFeeV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+    ConversionRate:
+      type: string
+      description:
+        <p>
+        Issuer settlement amount conversion rate.
+        </p>
+    ConversionRateDate:
+      type: string
+      description:
+        <p>
+        Date of Issuer settlement amount conversion rate.
+        </p>
+#SettlementAmountV35
+SettlementAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+    SettlementDate:
+      type: string
+      description: <p>Issuer settlement date</p>
+#IssuerSettlementV35
+IssuerSettlementV35:
+  type: object
+  properties:
+    SettlementAmount:
+      type: object
+      $ref: 'aggregate.yaml#/SettlementAmountV35'
+    SettlementFee:
+      type: object
+      $ref: 'aggregate.yaml#/SettlementFeeV35'
+#AcquirerSettlementV35
+AcquirerSettlementV35:
+  type: object
+  properties:
+    SettlementAmount:
+      type: object
+      $ref: 'aggregate.yaml#/SettlementAmountV35'
+    SettlementFee:
+      type: object
+      $ref: 'aggregate.yaml#/AqSettlementFeeV35'
+#AuthoAmountDetailV35
+AuthoAmountDetailV35:
+  type: object
+  properties:
+    AuthoAmount:
+      type: object
+      $ref: 'aggregate.yaml#/AuthoAmountV35'
+    BalanceInformation:
+      type: object
+      $ref: 'aggregate.yaml#/BalanceInformationV35'
+    AdditionalFees:
+      type: object
+      $ref: 'aggregate.yaml#/AdditionalFeesV35'
+    IssuerSettlement:
+      type: object
+      $ref: 'aggregate.yaml#/IssuerSettlementV35'
+    AcquirerSettlement:
+      type: object
+      $ref: 'aggregate.yaml#/AcquirerSettlementV35'
+#AuthoAcquirerDetailV35
+AuthoAcquirerDetailV35:
+  type: object
+  properties:
+    AcquirerCountry:
+      type: string
+      description:
+        <p>
+        The Acquirer country
+        </p>
+    AcquirerBank:
+      type: string
+      description:
+        <p>
+        The Acquirer bank
+        </p>
+    AcquirerActivity:
+      type: string
+      description:
+        <p>
+        The Acquirer activity
+        </p>
+    AcquirerTerminal:
+      type: string
+      description:
+        <p>
+        The Acquirer Terminal
+        </p>
+    AcquirerAcceptorId:
+      type: string
+      description:
+        <p>
+        Acquirer acceptor point identification.
+        </p>
+    AcquirerName:
+      type: string
+      description:
+        <p>
+        Acquirer Name
+        </p>
+    AcquirerAddress:
+      type: string
+      description:
+        <p>
+        Acquirer Address
+        </p>
+    AcquirerTCC:
+      type: string
+      description:
+        <p>
+        Acquirer Transaction category code. Possible values are <br>
+        <b>'A'</b>= Car rental, <br>
+        <b>'C'</b>= Cash advance, <br>
+        <b>'F'</b>= Restaurants, <br>
+        <b>'H'</b>= Hotel, <br>
+        <b>'O'</b>= Health, Education, <br>
+        <b>'R'</b>= Purchase, <br>
+        <b>'T'</b>= Mail / Phone order, <br>
+        <b>'U'</b>= Unique, <br>
+        <b>'X'</b>= Airline, <br>
+        <b>'Z'</b>= ATM.<br>
+        </p>
+    MerchantBank:
+      type: string
+      description:
+        <p>
+        Merchant bank code
+        </p>
+    AcquirerNetwork:
+      type: string
+      description:
+        <p>
+        Acquirer network
+        </p>
+#AuthoDatesDetailV35
+AuthoDatesDetailV35:
+  type: object
+  properties:
+    ResponseTime:
+      type: string
+      description:
+        <p>
+        </p>
+    TransmissionTime:
+      type: string
+      description:
+        <p>
+        Authorization transmission date & time.
+        </p>
+    CaptureDate:
+      type: string
+      description:
+        <p>
+        Authorization response date & time.
+        </p>
+    BusinessDate:
+      type: string
+      description:
+        <p>
+        Authorization's business date.
+        </p>
+    PreAuthoTimeLimit:
+      type: string
+      description:
+        <p>
+        Pre-authorization time limit when applicable.
+        </p>
+    LocalDate:
+      type: string
+      description:
+        <p>
+        Transaction date & time at the point of service (Electronic transactions only).
+        </p>
+#AccountSourceV35
+AccountSourceV35:
+  type: object
+  properties:
+    EntityType:
+      type: string
+      enum: [CH,CL,CO,NL,PB,UU]
+      description:
+        <p>
+        Source account entity code. Possible values are <br>
+        <b>‘CH’</b> = Cardholder,  <br>
+        <b>‘CL’</b> = Client,  <br>
+        <b>‘CO’</b> = Corporate,  <br>
+        <b>‘NL’</b> = Channel,  <br>
+        <b>‘PB’</b> = Partner brand,  <br>
+        <b>‘UU’</b> = Unknown.  <br>
+        </p>
+    EntityId:
+      type: string
+      description:
+        <p>
+        Source account entity id. (Depending on the entity code).
+        </p>
+    EntitySequence:
+      type: string
+      description:
+        <p>
+        Account sequence number in the <b>ACCOUNTS_LINK</b> table.
+        </p>
+    EntityLevel:
+      type: string
+      description:
+        <p>
+        Account entity level. (Depending on the entity code).
+        </p>
+    AccountType:
+      type: string
+      description:
+        <p>
+        Account type. It should be defined in <b>ACCOUNT_TYPE_LIST</b> table.
+        </p>
+    AccountNumber:
+      type: string
+      description:
+        <p>
+        Account number. It should be defined in <b>ACCOUNTS_LINK</b> table.
+        </p>
+#AuthoAccountDetailV35
+AuthoAccountDetailV35:
+  type: object
+  properties:
+    AccountSource:
+      type: object
+      $ref: 'aggregate.yaml#/AccountSourceV35'
+    AccountDestination:
+      type: object
+      $ref: 'aggregate.yaml#/AccountSourceV35'
+#CreditCurrencyBalanceV35
+CreditCurrencyBalanceV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditCashBalanceV35
+CreditCashBalanceV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditLoanBlanceV35
+CreditLoanBlanceV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditLimitV35
+CreditLimitV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditCashLimitV35
+CreditCashLimitV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditLoanLimitV35
+CreditLoanLimitV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#PendingCreditV35
+PendingCreditV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#PendingCashV35
+PendingCashV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#PendingLoanV35
+PendingLoanV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+    CreditResponseCode:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates the authorization response code.
+        </p>
+    CreditTermCount:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates in case of loan transactions, the number of Loan installments.
+        </p>
+#CreditInstallmentAmountV35
+CreditInstallmentAmountV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+#CreditAvailableBalanceV35
+CreditAvailableBalanceV35:
+  type: object
+  properties:
+    amt:
+      type: number
+      description: <p>The nominal amount value is multiplied by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.</p>
+    curCode:
+      type: string
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+    CreditFirstDueDate:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates in case of loan transactions, the Loan first installment due date.
+        </p>
+    LoyaltyPointsRedemption:
+      type: string
+      description:
+        <p>
+        Number of loyalty points gained and eligible for redemption.
+        </p>
+    LoyaltyPointsGained:
+      type: string
+      description:
+        <p>
+        Number of loyalty points gained
+        </p>
+    LoyaltyProgramCode:
+      type: string
+      description:
+        <p>
+        Loyalty program code.
+        This code must be previously defined in the PowerCARD in <b>LOYALTY_PROGRAM</b> table under the general parameter section.
+        
+        </p>
+#AuthoCreditDetailV35
+AuthoCreditDetailV35:
+  type: object
+  properties:
+    CreditCurrencyCode:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates the Credit account currency code.<br>
+        This code must be previously defined in the PowerCARD in <b>CURRENCY_TABLE</b> table under the general parameter section.
+        </p>
+    CreditVIPLevel:
+      type: string
+      description:
+        <p>
+        For Credit and Charge cards, this field indicates the account VIP level. It should be defined in <b>VIP_LIST</b> table.
+        </p>
+    CreditCurrencyBalance:
+      type: object
+      $ref: 'aggregate.yaml#/CreditCurrencyBalanceV35'
+    CreditCashBalance:
+      type: object
+      $ref: 'aggregate.yaml#/CreditCashBalanceV35'
+    CreditLoanBlance:
+      type: object
+      $ref: 'aggregate.yaml#/CreditLoanBlanceV35'
+    CreditLimit:
+      type: object
+      $ref: 'aggregate.yaml#/CreditLimitV35'
+    CreditCashLimit:
+      type: object
+      $ref: 'aggregate.yaml#/CreditCashLimitV35'
+    CreditLoanLimit:
+      type: object
+      $ref: 'aggregate.yaml#/CreditLoanLimitV35'
+    PendingCredit:
+      type: object
+      $ref: 'aggregate.yaml#/PendingCreditV35'
+    PendingCash:
+      type: object
+      $ref: 'aggregate.yaml#/PendingCashV35'
+    PendingLoan:
+      type: object
+      $ref: 'aggregate.yaml#/PendingLoanV35'
+    CreditInstallmentAmount:
+      type: object
+      $ref: 'aggregate.yaml#CreditInstallmentAmountV35'
+    CreditAvailableBalance:
+      type: object
+      $ref: 'aggregate.yaml#CreditAvailableBalanceV35'
+# ---- PANProductDetails definition
+PANProductDetailsV35:
+  type: object
+  properties:
+    catPIProduct:
+      example: 'PANCV1'
+      description: <p>
+        It is a 6 digit code identifying the payment instrument product code assigned to the card.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+        </p>
+      type: string
+    catPIProductVersion:
+      type: string
+      example: '1'
+      description:
+        <p>
+        It is a 10 character fields identifying the payment instrument version.
+        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+        </p>
+    packCode:
+      type: string
+      example: 'Pack5'
+      description:
+        <p>
+        It is a 6 digit character field that identifies the selected product bundles.<br>
+        Must be a valid value defined in <b>CATALOGUE_PACK</b>
+        </p>
+    productCurrency:
+      type: string
+      example: '978'
+      description:  <p>
+        Specifies the currency code of the cardholder’s direct debit account (<b>ISO 4217</b>). It should be the ISO alphanumeric value (e.g. EUR for euro, USD for dollar).<br>
+        The ISO currency code must be previously defined in the PowerCARD <b>CURRENCY</b> TABLE under the general parameters section.
+        </p>
+    cycleCutoff:
+      type: string
+      example: ""
+      description:
+        <p>
+        The account cycle cutoff assigned to the account <br>
+        Must be defined in <b>cycle_cutoff_parameter</b>
+        </p>
+    directDebitOption:
+      type: string
+      example: 'CIK'
+      description : <p></p>
+    productServices:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ProductServicesV35'
+# ---- ProductServices definition
+ProductServicesV35:
+  type: object
+  properties:
+    serviceCode:
+      type: string
+      example: 'CTLESS'
+      description:
+        <p>
+        Refers to list of services on card.
+        The possible values are <br>
+        <b>CTLESS</b> -   Contactles. <br>
+        You can directly use activateContactless API to enable and disable NFC Service <br>
+        <b>STOPLST</b> - Card stop listed <br>
+        You can directly use updateCardStatus API to place the card in stop list <br>
+        <b>RMSTOP</b> -  Remove card stop listed. <br>
+        You can directly use updateCardStatus API to remove the card from the stop list queue <br>
+        <b>BLCARD</b> -  Block/Unblock the card <br>
+        You can directly use updateCardStatus API to block or unblock the card. <br>
+        <b>DOMSTP</b> - Domain Setup <br>
+        Use the DomainControlSRVAddendum aggregate to perform the requested action <br>
+        <b>VELSTP</b> - Velocity setup <br>
+        Use the CardLimitSRVAddendum aggregate to perform the requested action <br>
+        <b>DDDEFR</b> - Direct debit deferment <br>
+        Use the DeffermentServiceAddendum
+        Aggregate <br>
+        <b>CORSOL</b> Corporate Solidarity <br>
+        <b>SECECM</b> -  Secured ecommerce <br>
+        <b>NSCECM</b> -  Not secured ecommerce <br>
+        </p>
+    serviceStatus:
+      type: string
+      example: 'Y'
+      description:
+        <p>
+        A Boolean indicator <br>
+        <b>Y - </b> Service is enabled. <br>
+        <b>N - </b> Service is disabled. <br>
+        </p>
+    isServiceMandatory:
+      type: string
+      example: 'Y'
+      description:
+        <p>
+        A Boolean indicator <br>
+        <b>Y</b> - Service is mandatory and can not be disabled. <br>
+        <b>N</b> -  Service is optional and can be disabled.
+        </p>
+    serviceExpositionChannel:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/ServiceExpositionChannelsV35'
+    deffermentServiceAddendum:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/DeffermentServiceAddendumV35'
+    domainControlSRVAddendum:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/DomainControlSRVAddendumV35'
+    cardLimitSRVAddendum:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/CardLimitSRVAddendumcaractersticsV35'
+# ---- ServiceExpositionChannels definition
+ServiceExpositionChannelsV35:
+  type: object
+  properties:
+    channelType:
+      example: ""
+      description: <p>
+        Refers to the channel type.
+        The possible values are <br>
+        <b>BAG</b> -  Bank agent channel  <br>
+        <b>COW</b> - Corporate portal channel   <br>
+        <b>CHM</b> - Cardholder Mobile app <br>
+        <b>CHW</b> - Cardholder portal <br>
+        </p>
+      type: string
+    serviceToBeExposedInChannel:
+      type: string
+      example: 'A'
+      description:
+        <p>
+        <b>Y</b> -  Service can be visible in the channel. <br>
+        <b>N</b> - Service might be visible or invisible in the channel. In case visible, the service should be greyed out.<br>
+        </p>
+
+  # ---- DomainControlSRVAddendum definition
+DomainControlSRVAddendumV35:
+  type: object
+  properties:
+    controlType:
+      type: string
+      example: 'CTR'
+      description:
+        <p>
+        The ControlType defines the type of control that is to be used throughout the Domain control. Valid Control Types are <br>
+        <b>CTR - </b> Country  <br>
+        <b>MCC - </b> MCC   <br>
+        <b>PRS - </b> Processing code  <br>
+        <b>MER - </b> Merchant <br>
+        <b>CUR - </b> Currency
+        </p>
+    controlOperator:
+      type: string
+      example: 'IN'
+      description:
+        <p>
+        Symbol that you use to check or combine values. <br>
+        <b>IN</b> -   Allows users to specify one or multiple values in ControlValueList <br>
+        <b>NOT IN</b> - To exclude a list of values from the ControlValueList
+        </p>
+    controlValues:
+      type: array
+      items:
+        type: string
+      default: []
+
+
+  # ---- ControlValueListV35 definition
+ControlValueListV35:
+  type: object
+  properties:
+    controlValue:
+      type: string
+      description:
+        <p>
+        Users must ensure that this code is a valid value defined in the PowerCARD under the general parameter section <br>
+        <b>COUNTRY</b> table for ControlType = ‘CTR’. <br>
+        <b>MCC</b> table for ControlType = ‘MCC’. <br>
+        <b>PROCESSING_LIST</b> table for ControlType = ‘PRS’. <br>
+        <b>MERCHANT</b> table for ControlType = ‘MER’. <br>
+        <b>CURRENCY_TABLE</b> table for ControlType = ‘CUR’. <br>
+        If not, the request will be rejected. <br>
+        </p>
+#TerritorialityOnlineV35
+TerritorialityOnlineV35:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: 'ONS'
+      description: <p>
+        Valid values
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer. <br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country. <br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country. <br>
+        </p>
+    transactionAmount:
+      type: number
+      example: 800
+      description:
+        <p>
+        Must contain the target amount of the limit that should be set on the card.
+        </p>
+        #transactionAmountMAX:
+        #    type: string
+        #   example: null
+        #  description:
+        #     <p>
+        #         The max total amount can be negotiated for the selected period and teritoriality
+      #   </p>
+    numberOfTransactions:
+      type: string
+      example: 1
+      description:
+        <p>
+        Must contain the target the number of transactions of the limit.
+        </p>
+      #numberOfTransactionsMAX:
+      #     type: string
+      #    example: null
+      #   description:
+      #      <p>
+      #          The max number of transactions that can be negotiated for the selected period and teritoriality
+      #    </p>
+#TerritorialityOfflineV35
+TerritorialityOfflineCaracteresticsV35:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: 'ONS'
+      description: <p>
+        Valid values
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer. <br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country. <br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country. <br>
+        </p>
+    transactionAmount:
+      type: string
+      example: '300'
+      description:
+        <p>Must contain the target amount of the limit that should be set on the card.</p>
+    numberOfTransactions:
+      type: string
+      example: '1'
+      description: <p>
+        Must contain the target the number of transactions of the limit.
+        </p>
+    totalTransactionAmountOnline:
+      type: string
+      example: '8000'
+      description: <p>
+        Must contain total of the target amount of the limit that should be set on the card.
+        </p>
+    totalNumberOfTransactionsOnline:
+      type: string
+      example: '8'
+      description:
+        <p>
+        Must contain total of the target the number of transactions of the limit.
+        </p>
+    totalTransactionAmounOffline:
+      type: string
+      example: '600'
+      description: <p>
+        Must contain total of the target amount of the limit that should be set on the card.
+        </p>
+    totalNumberOfTransactionsOffline:
+      type: string
+      example: '2'
+      description: <p>
+        Must contain total of the target the number of transactions of the limit.
+        </p>
+# ---- CurrencyAmountV4
+CurrencyAmountV4:
+  type: object
+  properties:
+    amount:
+      type: number
+      example: '10'
+      description: <p>The nominal amount value is multiplied or divided by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.<br>For more details please refer to <q>API Basic / Currency management </q> section.</p>
+    currencyCode:
+      type: string
+      example: '480'
+      description: <p>Currency code.ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+# ---- BasicAuthorizationV41
+BasicAuthorizationV41:
+  type: object
+  properties:
+    cid:
+      type: string
+      description:
+        <p>Unique identifier for the transaction.</p>
+    referenceNumber:
+      type: string
+      description:
+        <p>Reference number as defined in ISO-8583 norm (Field 37).</p>
+    messageType:
+      type: string
+      description:
+        <p>Message type as defined in the ISO8583 protocol.</p>
+    externalStan:
+      type: string
+      description:
+        <p>External STAN (System Trace Audit Number).
+        This number is generated by the sender and should remain unchanged in all messages related to this transaction.</p>
+    internalStan:
+      type: string
+      description:
+        <p>Internal STAN (System Trace Audit Number).</p>
+    authorizationFlag:
+      type: string
+      description:
+        <p>Flag indicating authorization status.</p>
+    reversalFlag:
+      type: string
+      description:
+        <p>Flag indicating reversal status.</p>
+    processingCode:
+      type: string
+      description:
+        <p>Code that identifies the cardholder transaction type.
+        Must be defined in the PowerCARD PROCESSING_LIST table under the general parameter section.</p>
+    transmissionTime:
+      type: string
+      description:
+        <p>Transmission date sent by the initiator in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z').</p>
+    transactionTime:
+      type: string
+      description:
+        <p>Local transaction date and time in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z').</p>
+    localTime:
+      type: string
+    originalTransactionTime:
+      type: string
+    reversalTransactionDate:
+      type: string
+    preAuthorizationTimeLimit:
+      type: string
+    responseTime:
+      type: string
+    actionCode:
+      type: string
+      description:
+        <p>Indicates the action taken or to take and the reason.</p>
+    cardNumber:
+      type: string
+      description:
+        <p>Represents the Card Number or the Card Token Id.
+        It should contain a valid value.</p>
+    issuerBankCode:
+      type: string
+      description:
+        <p>Issuer Bank Code.</p>
+    receiverBankCode:
+      type: string
+    authorizationCode:
+      type: string
+      description:
+        <p>Authorization code (Code assigned by the authorization body and indicating the agreement).</p>
+    captureCode:
+      type: string
+    routingCode:
+      type: string
+    sourceIndicator:
+      type: string
+    functionCode:
+      type: string
+    originCode:
+      type: string
+    eventCode:
+      type: string
+    reasonCode:
+      type: string
+    authorizationAmount:
+      $ref: 'aggregate.yaml#/AmountAuthorization'
+    authorizationAcquirer:
+      $ref: 'aggregate.yaml#/AcquirerAuthorization'
+    authorizationAccount:
+      $ref: 'aggregate.yaml#/AccountAuthorization'
+    creditLimit:
+      $ref: 'aggregate.yaml#/CreditAuthorizationAggregate'
+    currentCreditBalance:
+      $ref: 'aggregate.yaml#/CreditAuthorizationAggregate'
+# ---- AmountAuthorization
+AmountAuthorization:
+  type: object
+  properties:
+    transactionAmount:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the transaction amount.</p>
+    billingAmount:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the billing amount.</p>
+    replacementAmount:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the replacement amount.</p>
+    cashBack:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the cash back amount.</p>
+    transactionFee:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the transaction fee amount.</p>
+    issuerSettlement:
+      $ref: 'aggregate.yaml#/SettlementAuthorization'
+      description:
+        <p>Details about the issuer settlement.</p>
+    acquirerSettlement:
+      $ref: 'aggregate.yaml#/SettlementAuthorization'
+      description:
+        <p>Details about the acquirer settlement.</p>
+    conversionRate:
+      type: string
+      description:
+        <p>Conversion rate for the transaction.</p>
+    conversionRateDate:
+      type: string
+      description:
+        <p>Date of the conversion rate.</p>
+# ---- SettlementAuthorization
+SettlementAuthorization:
+  type: object
+  properties:
+    amount:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the settlement amount.</p>
+    fee:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the settlement fee.</p>
+    date:
+      type: string
+      description:
+        <p>Date of the settlement.</p>
+# ---- AcquirerAuthorization
+AcquirerAuthorization:
+  type: object
+  properties:
+    cardAcceptorId:
+      type: string
+      description:
+        <p>Identification code of the card acceptor.</p>
+    cardAcceptorTerminalId:
+      type: string
+      description:
+        <p>Identification code of the card acceptor terminal.</p>
+    cardAcceptorNameAddress:
+      type: string
+      description:
+        <p>Name and address of the card acceptor.</p>
+    cardAcceptorActivity:
+      type: string
+      description:
+        <p>Activity of the card acceptor.</p>
+    acquirerCountryCode:
+      type: string
+      description:
+        <p>Country code of the acquirer.</p>
+    acquirerBankCode:
+      type: string
+      description:
+        <p>Bank code of the acquirer.</p>
+    forwardingCountryCode:
+      type: string
+      description:
+        <p>Country code of the forwarding institution.</p>
+    forwardingBankCode:
+      type: string
+      description:
+        <p>Bank code of the forwarding institution.</p>
+# ---- AccountAuthorization
+AccountAuthorization:
+  type: object
+  properties:
+    sourceAccount:
+      $ref: 'aggregate.yaml#/AccountAuthorizationAggregate'
+      description:
+        <p>Details about the source account.</p>
+    destinationAccount:
+      $ref: 'aggregate.yaml#/AccountAuthorizationAggregate'
+      description:
+        <p>Details about the destination account.</p>
+# ---- AccountAuthorizationAggregate
+AccountAuthorizationAggregate:
+  type: object
+  properties:
+    entityCode:
+      type: string
+    entityId:
+      type: string
+    accountType:
+      type: string
+    accountNumber:
+      type: string
+    accountSequence:
+      type: string
+    entityLevel:
+      type: string
+# ---- CreditAuthorizationAggregate
+CreditAuthorizationAggregate:
+  type: object
+  properties:
+    credit:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the credit amount.</p>
+    cash:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the cash amount.</p>
+    loan:
+      $ref: 'aggregate.yaml#/CurrencyAmountV4'
+      description:
+        <p>Details about the loan amount.</p>

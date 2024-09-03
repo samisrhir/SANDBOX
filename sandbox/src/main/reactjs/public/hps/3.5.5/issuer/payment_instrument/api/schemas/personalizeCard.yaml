@@ -1,0 +1,194 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- RenewCard
+  /personalizeCardWebService/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        PowerCARD offers through its web service interface a flexible way to personalize a non-personalized card.
+        
+        It is important to note that a non-personalized card is a card in which a generic identifier is embossed or printed in place of the cardholder name along with the card number and the expiration date. This service was introduced to help any financial institution wishing to transform non-personalized card into a personalized card. This process serve to link a card to an existing/new client and (optionally) to activate it.
+        
+        Note that No card production process will be triggered, the present API should be used to provide the cardholder with a card from the available stock at the bank branches. Renewal or replacement will be personalized..
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/personalizeCard.png" />
+      summary:    A customer can request to renew his card before its expiration date.
+      tags:
+        - Renew Card
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/personalizeCardV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/personalizeCardV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr><td>09601</td><td>Invalid card number/ Token id.</td></tr>
+            <tr><td>09602</td><td>Invalid card activation flag.</td></tr>
+            <tr><td>09603</td><td>Card is already registered to another client.</td></tr>
+            <tr><td>09604</td><td>Invalid client code.</td></tr>
+            <tr><td>09605</td><td>Error while generating the client code.</td></tr>
+            <tr><td>09606</td><td>Invalid bank code in customer details segment.</td></tr>
+            <tr><td>09607</td><td>Invalid branch code in customer details segment.</td></tr>
+            <tr><td>09608</td><td>Invalid family status.</td></tr>
+            <tr><td>09610</td><td>Invalid cardholder’s gender.</td></tr>
+            <tr><td>09614</td><td>Invalid cardholder’s birth date.</td></tr>
+            <tr><td>09617</td><td>Invalid vip level.</td></tr>
+            <tr><td>09618</td><td>Invalid nationality code.</td></tr>
+            <tr><td>09619</td><td>Invalid language code.</td></tr>
+            <tr><td>09620</td><td>Invalid title code.</td></tr>
+            <tr><td>09626</td><td>Invalid owner code.</td></tr>
+            <tr><td>09627</td><td>Invalid socio professional code.</td></tr>
+            <tr><td>09628</td><td>Invalid activity code.</td></tr>
+            <tr><td>09629</td><td>Invalid customer segment.</td></tr>
+            <tr><td>09633</td><td>Invalid lodging mode.</td></tr>
+            <tr><td>09634</td><td>Invalid channel number.</td></tr>
+            <tr><td>09635</td><td>Invalid phone type 1.</td></tr>
+            <tr><td>09637</td><td>Invalid phone type 2.</td></tr>
+            <tr><td>09639</td><td>Invalid phone type 3.</td></tr>
+            <tr><td>09641</td><td>Invalid phone type 4.</td></tr>
+            <tr><td>09645</td><td>Invalid primary address type.</td></tr>
+            <tr><td>09646</td><td>Invalid primary address sending mode.</td></tr>
+            <tr><td>09655</td><td>Invalid client primary address city code.</td></tr>
+            <tr><td>09657</td><td>Invalid client primary address region code.</td></tr>
+            <tr><td>09659</td><td>Invalid client primary address country code.</td></tr>
+            <tr><td>09667</td><td>City code or city free text is required for card secondary address.</td></tr>
+            <tr><td>09668</td><td>Region code or region free text is required for card secondary address.</td></tr>
+            <tr><td>09675</td><td>Invalid client secondary address type.</td></tr>
+            <tr><td>09676</td><td>Invalid client secondary address sending mode.</td></tr>
+            <tr><td>09685</td><td>Invalid client secondary address city code.</td></tr>
+            <tr><td>09687</td><td>Invalid client primary address region code.</td></tr>
+            <tr><td>09689</td><td>Invalid client primary address country code.</td></tr>
+            <tr><td>09690</td><td>Validity start date must not be in the past in case client secondary address.</td></tr>
+            <tr><td>09691</td><td>Validity start date cannot be greater than validity end date in case client secondary address.</td></tr>
+            <tr><td>09692</td><td>Validity end date must not be in the past in case client secondary address.</td></tr>
+            <tr><td>09695</td><td>City code or city free text is required for card secondary address.</td></tr>
+            <tr><td>09696</td><td>Region code or region free text is required for card secondary address.</td></tr>
+            <tr><td>09703</td><td>Invalid client document code.</td></tr>
+            <tr><td>09711</td><td>Invalid card branch code.</td></tr>
+            <tr><td>09712</td><td>Invalid card priority code.</td></tr>
+            <tr><td>09713</td><td>Invalid card gender.</td></tr>
+            <tr><td>09715</td><td>Invalid card birth date.</td></tr>
+            <tr><td>09717</td><td>Invalid card VIP level.</td></tr>
+            <tr><td>09718</td><td>Invalid card nationality code.</td></tr>
+            <tr><td>09719</td><td>Invalid card language code.</td></tr>
+            <tr><td>09720</td><td>Invalid card title code.</td></tr>
+            <tr><td>09726</td><td>Invalid card owner code.</td></tr>
+            <tr><td>09727</td><td>Invalid card socio professional code.</td></tr>
+            <tr><td>09728</td><td>Invalid card activity code.</td></tr>
+            <tr><td>09729</td><td>Invalid card customer segment.</td></tr>
+            <tr><td>09733</td><td>Invalid card status code.</td></tr>
+            <tr><td>09734</td><td>Invalid card status reason.</td></tr>
+            <tr><td>09736</td><td>Invalid card fees code.</td></tr>
+            <tr><td>09737</td><td>Invalid card velocity limit index.</td></tr>
+            <tr><td>09741</td><td>Invalid card corporate id.</td></tr>
+            <tr><td>09742</td><td>Invalid card phone type 1.</td></tr>
+            <tr><td>09744</td><td>Invalid card phone type 2.</td></tr>
+            <tr><td>09746</td><td>Invalid card phone type 3.</td></tr>
+            <tr><td>09748</td><td>Invalid card phone type 4.</td></tr>
+            <tr><td>09752</td><td>Invalid card plastic delivery method.</td></tr>
+            <tr><td>09753</td><td>Invalid card pin delivery method.</td></tr>
+            <tr><td>09754</td><td>Invalid card promotion code.</td></tr>
+            <tr><td>09759</td><td>Invalid card primary address type.</td></tr>
+            <tr><td>09760</td><td>Invalid card primary address sending mode.</td></tr>
+            <tr><td>09761</td><td>Invalid card primary address purpose ID.</td></tr>
+            <tr><td>09769</td><td>Invalid card primary address city code.</td></tr>
+            <tr><td>09771</td><td>Invalid card primary address region code.</td></tr>
+            <tr><td>09773</td><td>Invalid card primary address country code.</td></tr>
+            <tr><td>09781</td><td>City code or city free text is required for card secondary address.</td></tr>
+            <tr><td>09782</td><td>Region code or region free text is required for card secondary address.</td></tr>
+            <tr><td>09789</td><td>Invalid card secondary address type.</td></tr>
+            <tr><td>09790</td><td>Invalid card secondary address sending mode.</td></tr>
+            <tr><td>09791</td><td>Invalid card secondary address purpose ID.</td></tr>
+            <tr><td>09799</td><td>Invalid card secondary address city code.</td></tr>
+            <tr><td>09801</td><td>Invalid card secondary address region code.</td></tr>
+            <tr><td>09803</td><td>Invalid card secondary address country code.</td></tr>
+            <tr><td>09804</td><td>Validity start date must not be in the past in case card secondary address.</td></tr>
+            <tr><td>09805</td><td>Validity start date cannot be greater than validity end date in case card secondary address.</td></tr>
+            <tr><td>09806</td><td>Validity end date must not be in the past in case card secondary address.</td></tr>
+            <tr><td>09809</td><td>City code or city free text is required for card secondary address.</td></tr>
+            <tr><td>09810</td><td>Region code or region free text is required for card secondary address.</td></tr>
+            <tr><td>09815</td><td>Region free text is required in case of region not valued for client secondary address.</td></tr>
+            <tr><td>09832</td><td>Invalid insurance branch code.</td></tr>
+            <tr><td>09836</td><td>Invalid account type.</td></tr>
+            <tr><td>09838</td><td>Invalid bank code in bank account segment.</td></tr>
+            <tr><td>09840</td><td>Invalid branch code in bank account segment.</td></tr>
+            <tr><td>09844</td><td>BranchCode is missing when AccountNumber is a valued field.</td></tr>
+            <tr><td>09845</td><td>AccountNumber is missing when BranchCode is a valued field.</td></tr>
+            <tr><td>09846</td><td>IBAN is missing when SwiftCode is a valued field.</td></tr>
+            <tr><td>09848</td><td>Invalid account number.</td></tr>
+            <tr><td>09849</td><td>Invalid account currency.</td></tr>
+            <tr><td>09852</td><td>Invalid card field name.</td></tr>
+            <tr><td>09854</td><td>Duplicate AddressType, more Address with the same AddressType.</td></tr>
+            <tr><td>09855</td><td>Duplicate AddressPurpose, more AddressPurposeID with the same purpose.</td></tr>
+            <tr><td>09856</td><td>An error occurred while inserting or updating a bank account.</td></tr>
+            <tr><td>09858</td><td>Client Demog is mandatory when Existing Client is not provided.</td></tr>
+            <tr><td>09859</td><td>Primary address is mandatory when existing client is not provided.</td></tr>
+            <tr><td>09860</td><td>Invalid link flag.</td></tr>
+            <tr><td>09861</td><td>Invalid link entity code.</td></tr>
+            <tr><td>09862</td><td>Invalid link address type.</td></tr>
+            <tr><td>09863</td><td>Invalid purpose address type.</td></tr>
+            <tr><td>09864</td><td>Invalid purpose address type sending mode.</td></tr>
+            <tr><td>09865</td><td>Document Expiry Date must not be in the past.</td></tr>
+            <tr><td>09866</td><td>Document Expiry Date cannot be lesser than document issue date.</td></tr>
+            <tr><td>09867</td><td>Document Issue Date can not be in the future.</td></tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/personalizeCardV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/personalizeCardV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    personalizeCardV35Rq:
+      $ref: 'request.yaml#/personalizeCardV35Rq'
+    personalizeCardV35Rs:
+      $ref: 'response.yaml#/personalizeCardV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #   /ApplePayEncryption/v2:
+  /ApplePayEncryption/v2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          The ApplePayEncryption API receives from the Bank mobile banking app the payment data payload together with other necessary information for the encryption and responds back with the encrypted payment data payload based on each Scheme encryption rules.         </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/on attend l image.png" />
+      summary:  Approve the tokenizing through the identification and verification.
+      tags:
+        - Approve Card Provisioning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplePayEncryptionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ApplePayEncryptionRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr><td>00000</td><td>Success</td></tr>
+            <tr><td>01001</td><td>Encryption failure Apple Pay</td></tr>
+            <tr><td>01002</td><td>Invalid Leaf Input</td></tr>
+            <tr><td>01003</td><td>Invalid Input Data</td></tr>
+            <tr><td>01004</td><td>Error Tav Generation</td></tr>
+            <tr><td>01005</td><td>Error MBAC Generation</td></tr>
+            <tr><td>01006</td><td>Error MBAD Generation</td></tr>
+            <tr><td>01007</td><td>System Error</td></tr>
+            <tr><td>01008</td><td>Invalid Card Scheme</td></tr>
+            <tr><td>01009</td><td>Invalid CardNumber/Alias Pan</td></tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplePayEncryptionRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApplePayEncryptionRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import ApplePayEncryptionRq request and response
+    ApplePayEncryptionRq:
+      $ref: 'request.yaml#/ApplePayEncryptionRq'
+    ApplePayEncryptionRs:
+      $ref: 'response.yaml#/ApplePayEncryptionRs'
+security:
+  - bearerAuth: []

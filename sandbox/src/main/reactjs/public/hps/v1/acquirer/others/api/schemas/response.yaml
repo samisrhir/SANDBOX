@@ -1,0 +1,512 @@
+      # ---- TokenAuthenticationResponse response definition  
+        TokenAuthenticationResponse:
+                type: object
+                properties:
+                        responseInfo:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- DemoV35Rs
+        DemoV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- AddMerchantActivityRs
+        AddMerchantActivityRs:
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        merchantActivity:
+                                type: object
+                                $ref: 'aggregate.yaml#/MerchantActivity'                             
+        # --- AddMerchantAddressRs
+        AddMerchantAddressRs:
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        postAddr:
+                           type: object
+                           $ref: 'aggregate.yaml#/PostAddr'                 
+                                
+        # --- AddMerchantBankAccountRs
+        AddMerchantBankAccountRs:
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        bankAcctRec:
+                           type: object
+                           $ref: 'aggregate.yaml#/BankAcctRec'
+
+        # --- AddMerchantContactDetailsRs
+        AddMerchantContactDetailsRs:
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        merchantRepresentative:
+                           type: object
+                           $ref: 'aggregate.yaml#/MerchantRepresentative'                               
+
+        # --- AddMerchantSiteRs
+        AddMerchantSiteRs:
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        merchantSite:
+                                type: object
+                                $ref: 'aggregate.yaml#/MerchantSite' 
+        #CloseCaseRs:
+        CloseCaseRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        CaseReference:
+                                type: string
+                                description: <p>
+                                                Refer to the reference of the case subject to closing.
+                                                The value transmitted in this field should be already present in <b>CASE_TABLE</b>
+                                                </p>  
+        #CloseEventRs:
+        CloseEventRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                
+                        EventReference:
+                                type: string
+                                description: <p>
+                                                Should contain the reference of the event subject to cancellation.
+                                                The value of this field must be present in <b>EVENT_TABLE</b> table
+                                                </p>  
+        #CreateAcceptorPointRs:
+        CreateAcceptorPointRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        merAcceptorPoint:
+                                type: object
+                                $ref: 'aggregate.yaml#/MerchantAcceptorPoint'
+                        contractBasicInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ContractBasicInformation'
+                        operationType:
+                                type: string
+                                description: 
+                                    <p>
+                                        The operation type, possible values are <br>
+                                        <b>ADD</b> For adding a new merchant acceptor point. <br>
+                                        <b>UPD</b> For updating an existing merchant acceptor point.
+                                   </p>  
+        #CreateBasicMerchantRs:
+        CreateBasicMerchantRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        merchantBasicInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/MerchantBasicInfo'
+                        operationType:
+                                type: string
+                                description: 
+                                        <p>
+                                        Operation type, possible values are
+                                        <b>ADD</b> For adding a new merchant info.
+                                        </p>   
+        #CreateCaseRs:
+        CreateCaseRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        CaseData:
+                                type: object
+                                $ref: 'aggregate.yaml#/Case'  
+
+        #CreateClaimRs:
+        CreateClaimRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        claim:
+                            type: object
+                            $ref: 'aggregate.yaml#/Claim' 
+
+        #DeleteMerchantContactRs:
+        DeleteMerchantContactRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        representativeId:
+                                type: string
+                                description: <p>Should contain the identifier of the contact to be deleted</p>   
+
+        #DeleteMerchantOwnerRs:
+        DeleteMerchantOwnerRs: 
+                type: object
+                properties: 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'                  
+                        representativeId:
+                                type: string
+                                description: <p>Should contain the identifier of the contact to be deleted</p> 
+
+       #GetChainHierarchyRs:
+        GetChainHierarchyRs: 
+            type: object
+            properties:
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'              
+                chainHierarchyNode:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ChainHierarchyNode'
+
+       #GetMerchantDetailRs:
+        GetMerchantDetailRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'              
+                merchant:
+                    type: object
+                    $ref: 'aggregate.yaml#/Merchant'
+
+       #GetOutletDetailsRs:
+        GetOutletDetailsRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'
+                pos:
+                    type: object
+                    $ref: 'aggregate.yaml#/Pos'                                    
+       #GetProductRs:
+        GetProductRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+       #GetRemittanceRs:
+        GetRemittanceRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response' 
+                linkupCode:
+                    type: string
+                    description: <p>A linkup code is an identification used to group transactions within a remittance or a batch. For instance PowerCARD may allocate a different linkup code to each remittance type ( Pos, Manal, ATM, E Commerce…)</p> 
+                batchNumber:
+                    type: string
+                    description: <p>A batch is a collection of transactions, usually a single day’s worth.
+                                Batches can be set at the terminal level as manual or automatic to send at a certain time during the day.
+                                This number can be used to group transactions.
+                                </p> 
+                remittanceSequence:
+                    type: string
+                    description: <p>Refers to the remittance Identification number as stored internally in PowerCARD.</p> 
+                transactionList:
+                    type: array
+                    items:
+                        type: object
+                        $ref: 'aggregate.yaml#/Transaction'
+       #SearchClaimsRs:
+        SearchClaimsRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response' 
+                claim:
+                    type: array
+                    items: 
+                      type: object
+                      $ref: 'aggregate.yaml#/Claim'
+
+       #SearchRemittancesRs:
+        SearchRemittancesRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response' 
+                claim:
+                    type: array
+                    items: 
+                      type: object
+                      $ref: 'aggregate.yaml#/Remit'
+
+       #updateAcceptorPointStatusRs:
+        updateAcceptorPointStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'                       
+
+       #updateMerchantAccountStatusRs:
+        updateMerchantAccountStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'
+
+       #updateMerchantActivityRs:
+        updateMerchantActivityRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'                      
+
+       #updateMerchantActivityStatusRs:
+        updateMerchantActivityStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'  
+
+       #UpdateMerchantAddressDetailsRs:
+        UpdateMerchantAddressDetailsRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'  
+
+       #UpdateMerchantAddressStatusRs:
+        UpdateMerchantAddressStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response' 
+
+       #UpdateMerchantBankAccountRs:
+        UpdateMerchantBankAccountRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'                      
+
+       #UpdateMerchantContactDetailsRs:
+        UpdateMerchantContactDetailsRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'    
+
+       #UpdateMerchantContractRs:
+        UpdateMerchantContractRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'
+
+       #UpdateMerchantContractStatusRs:
+        UpdateMerchantContractStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'  
+
+       #UpdateMerchantDescriptionRs:
+        UpdateMerchantDescriptionRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'  
+
+       #UpdateMerchantSiteRs:
+        UpdateMerchantSiteRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'         
+
+       #UpdateMerchantStatusRs:
+        UpdateMerchantStatusRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'                        
+
+       #ValidateMerchantRs:
+        ValidateMerchantRs: 
+            type: object
+            properties: 
+                response:
+                    type: object
+                    $ref: 'aggregate.yaml#/Response'
+        #GetMerchantContractDetailRs:
+        GetMerchantContractDetailRs: 
+            type: object
+            properties: 
+                ContractBasicInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/ContractBasicInformation'
+                AcceptedNetworkList:
+                    type: object
+                    $ref: 'aggregate.yaml#/AcceptedNetwork'
+                AcceptedCurrencyList:
+                    type: array
+                    items:
+                       type: string
+                       description:
+                            <p>
+                                    This aggregate must contain the list of the code of the merchant accepted currencies.
+                                    Code as defined as per the <b>ISO-4217</b>
+                                    Valid values are stored in PowerCARD <b>CURRENCY_TABLE</b> table and can be retrieved using the Web Service getReferentialList
+                            </p>
+                CharacteristicList:
+                        type: array
+                        items:
+                           type: object
+                           $ref: 'aggregate.yaml#/ProductContext'
+                ServiceOptionList:
+                        type: array
+                        items:
+                           type: object
+                           $ref: 'aggregate.yaml#/ProductContext'
+                ChargingConditionList:
+                        type: array
+                        items:
+                           type: object
+                           $ref: 'aggregate.yaml#/ChargingCondition'
+                SettlementConditionList:
+                        type: array
+                        items:
+                           type: object
+                           $ref: 'aggregate.yaml#/SettlementCondition'
+
+       #SearchMerchantTransactionRs:
+        SearchMerchantTransactionRs: 
+            type: object
+            properties: 
+                RqUID:
+                    type: string
+                    example: UUID
+                    description:
+                            <p>
+                                Request Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                                This value must be used to match response with request messages
+                                The generation mask should be the following
+                                <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX </b>
+                            </p>
+                ResultId:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the result of processing in PowerCARD. 
+                            The possible values are <br>
+                            <b>ProceedWithSuccess</b> Call was ended successfully. <br>
+                            <b>ProceedWithSuccessMC</b> Call made successfully, however the request will be inserted in a Maker Checker queue for further analysis. <br>
+                            <b>Error</b> An error has occurred during the processing. <br>
+                            <b>SystemError</b> An unknown system error occurred during the process. <br>
+                        </p>
+                ErrorCode:
+                    type: string
+                    description:
+                        <p>
+                             Indicate the error code used by the PowerCARD to tell you that the program was experiencing a particular problem during the processing of the request.
+                             They are defined in the "General error Definition” table or in the “business rules” section of each specific web service.
+                        </p>
+                ErrorDesc:
+                    type: string
+                    description: If present, this field must contain the description of the error encountered  
+                Transaction : 
+                   type: array
+                   items:
+                      type : object
+                      $ref: 'aggregate.yaml#/Transaction'
+                TransactionTotal:
+                    type: array
+                    items:
+                       type : object
+                       $ref: 'aggregate.yaml#/TransactionsTotal'
+
+       #getCaseRs:
+        getCaseRs: 
+            type: object
+            properties: 
+                RqUID:
+                    type: string
+                    example: UUID
+                    description:
+                            <p>
+                                Request Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                                This value must be used to match response with request messages
+                                The generation mask should be the following
+                                <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX </b>
+                            </p>
+                ResultId:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the result of processing in PowerCARD. 
+                            The possible values are <br>
+                            <b>ProceedWithSuccess</b> Call was ended successfully. <br>
+                            <b>ProceedWithSuccessMC</b> Call made successfully, however the request will be inserted in a Maker Checker queue for further analysis. <br>
+                            <b>Error</b> An error has occurred during the processing. <br>
+                            <b>SystemError</b> An unknown system error occurred during the process. <br>
+                        </p>
+                ErrorCode:
+                    type: string
+                    description:
+                        <p>
+                             Indicate the error code used by the PowerCARD to tell you that the program was experiencing a particular problem during the processing of the request.
+                             They are defined in the "General error Definition” table or in the “business rules” section of each specific web service.
+                        </p>
+                ErrorDesc:
+                    type: string
+                    description: If present, this field must contain the description of the error encountered  
+                CaseData:
+                    type : object
+                    $ref: 'aggregate.yaml#/Case'
+                                  
+
+                           
+
+                
+
+                      
+
+                      

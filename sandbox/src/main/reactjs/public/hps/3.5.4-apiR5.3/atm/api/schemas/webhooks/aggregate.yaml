@@ -1,0 +1,138 @@
+EventInfo:
+  type: object
+  properties:
+    eventUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p> Event Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.</p>
+
+      type: string
+      example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+    eventDate:
+      description: Date when the request was submitted.
+      type: string
+      example: '2020-02-05T00:00:00'
+    eventType:
+      description: Describes the type of the event, e.g., "connect_api-card_created"
+      type: string
+      example: connect_api-card_created
+    apiVersion:
+       type: string
+       example: "2"
+       description: <p>API version at the time the event data was generated</p>
+    pendingWebhooks:
+       type: string
+       example: "3"
+       description :
+             <p> The number of webhooks yet to be sent for this event </p>
+  required:  [eventUID,eventDate,eventType,apiVersion,pendingWebhooks]
+PrimaryAddress:
+  type: object
+  properties:
+    addressLine1:
+      type: string
+      description: The primary address of the card holder.
+      example: "addressLine1"
+    zipCode:
+      type: string
+      description: The zip code of primary address of the card holder.
+      example: "20040"
+    cityCode:
+      type: string
+      description: The city code of the card holder.
+      example: "840"
+    countryCode:
+      type: string
+      description: The country code of the card holder.
+      example: "700"
+  required:  [addressLine1,zipCode,cityCode,countryCode]
+CardHolderDetails:
+  type: object
+  properties:
+    id:
+      type: string
+      description: Card Event Identifier. It is sent to the webhooks as a universally unique identifier for the event.
+      example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+    object:
+      type: string
+      description: String representing the object’s type. Objects of the same type share the same value.
+      example: "issuing_customer"
+    bankCode:
+      type: string
+      example: "ISS004"
+      description : <p>The card holder issuer bank code</p>
+    clientCode:
+        type: string
+        example : "300056"
+        description: <p>The client code belongs to the created card</p>
+    phoneNumber:
+         type: string
+         example: "023494584939"
+         description : <p>The primary phone number of the card holder.</p>
+    email:
+      type: string
+      example: "connectApi@hps-worldwide.Com"
+      description : <p>The primary email of the card holder.</p>
+    primaryAddress:
+      type: object
+      $ref: 'aggregate.yaml#/PrimaryAddress'
+  required:  [id,object,bankCode,clientCode,phoneNumber,email,primaryAddress]
+CardDetails:
+  type: object
+  properties:
+    id:
+      type: string
+      description: Card Event Identifier. It is sent to the webhooks as a universally unique identifier for the event.
+      example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+    object:
+      type: string
+      description: String representing the object’s type. Objects of the same type share the same value.
+      example: "issuing_card"
+    tokenReference:
+      type: string
+      description: String representing the cardNumber of the created card.
+      example: "7728523555429510899"
+    branchCode:
+      type: string
+      description: This is the 6 digits code that identifies the cardholder's branch..
+      example: "100001"
+    activityCode:
+      type: string
+      description: This code categorizes the cardholders based on their professional occupation
+      example: "112"
+    StatusCode:
+      type: string
+      description: This field indicates the initial card status.
+      example: "N"
+    CardProduct:
+      type: string
+      description: This 6 digit code identifying the payment instrument product code to be assigned to the card.
+      example: "PANAV1"
+    accountNumber:
+      type: string
+      description: Specifies the cardholder’s debit account number.This field is used in conjunction with debit cards.
+      example: "446567667"
+    accountCurrency:
+      type: string
+      description: Specifies the currency code of the cardholder’s direct debit account (ISO 4217).
+      example: "250"
+  required:  [id,object,tokenReference,branchCode,activityCode,StatusCode,CardProduct,accountNumber,accountCurrency]
+EventObject:
+  type: object
+  properties:
+    id:
+      type: string
+      description : Card Event Identifier. It is sent to the webhooks as a universally unique identifier for the event.
+      example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+    object:
+      type: string
+      description: String representing the object’s type. Objects of the same type share the same value.
+      example: "issuing_card"
+    cardHolderDetails:
+      type: object
+      $ref: 'aggregate.yaml#/CardHolderDetails'
+    cardDetails:
+      type: object
+      $ref: 'aggregate.yaml#/CardDetails'
+  required:  [id,object,cardHolderDetails,cardDetails]

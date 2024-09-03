@@ -1,0 +1,123 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Boarding",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Get Application Detail",
+          "file": "GetApplicationDetailV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetApplicationDetailV2.yaml",
+              "name": "Get Application Detail",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Application Documents",
+          "file": "GetApplicationDocumentsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetApplicationDocumentsV2.yaml",
+              "name": "Get Application Documents V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Document",
+          "file": "SearchDocumentV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchDocumentV2.yaml",
+              "name": "Search Document V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Application",
+          "file": "SearchApplicationV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchApplicationV2.yaml",
+              "name": "Search Application V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Send Application",
+          "file": "SendApplicationV2.yaml",
+          "subApiList": [
+            {
+              "file": "SendApplicationV2.yaml",
+              "name": "Send Application V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Application Status",
+          "file": "UpdateApplicationStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateApplicationStatusV2.yaml",
+              "name": "Update Application Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Custom Field Value",
+          "file": "CheckCustomFieldValueV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckCustomFieldValueV2.yaml",
+              "name": "Check Custom Field Value V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

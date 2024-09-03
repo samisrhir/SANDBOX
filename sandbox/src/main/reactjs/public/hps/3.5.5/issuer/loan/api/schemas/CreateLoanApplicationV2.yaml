@@ -1,0 +1,111 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #createLoanApplication  
+  /CreateLoanApplication/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               The main purpose of this web service is to convert normal transactions to loans. <br> Loan program, reason and transaction Identifier are one of required fields.
+                               At the end of day processing, manual conversions are treated by PowerCARD using the chosen loan program.
+                               During the conversion process, the loan limit will be checked.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/createLoanApplication.png" />
+            summary: The main purpose of this web service is to convert normal transactions to loans. 
+            tags:
+              - Create Loan Application.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoanApplicationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoanApplicationV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>18801</td>
+                                         <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18802</td>
+                                         <td>Invalid Loan Amount</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18803</td>
+                                         <td>Invalid Loan Currency</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18804</td>
+                                         <td>Invalid Catalog Loan Product</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18805</td>
+                                         <td>Invalid Catalog Loan Product Version</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18806</td>
+                                         <td>Error to generate the application number</td>
+                                      </tr>
+                                      <tr>
+                                         <td>18807</td>
+                                         <td>Error available check</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateLoanApplicationV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/CreateLoanApplicationV35Rs'       
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CreateLoanApplicationV35Rq request and response
+      CreateLoanApplicationV35Rq:
+               $ref: 'request.yaml#/CreateLoanApplicationV35Rq'
+      CreateLoanApplicationV35Rs:
+               $ref: 'response.yaml#/CreateLoanApplicationV35Rs' 
+security:
+  - bearerAuth: []

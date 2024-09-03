@@ -1,0 +1,70 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://connect-api-f421ce7420d03b16.elb.eu-north-1.amazonaws.com
+    description: Development server
+paths:
+  /sandbox/v4/jwe/decryption:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>JWE represents encrypted content using JSON data structures and base64url encoding. The representation consists of four parts the JWE Header, the JWE Encrypted Key, the JWE Ciphertext, and the JWE Integrity Value.
+        </p>
+      summary: JWE decryption
+      tags:
+        - JWE decryption for dev purpose only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptionRequestV4Req'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/EncryptionRequestV4Req'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            </div>
+
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptionRequestV4Res'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EncryptionRequestV4Res'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+    EncryptionRequestV4Req:
+            $ref: 'encryption.yaml#/EncryptionRequestV4DecReq'
+    EncryptionRequestV4Res:
+            $ref: 'encryption.yaml#/EncryptionRequestV4DecRes'
+security:
+  - bearerAuth: []

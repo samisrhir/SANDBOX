@@ -1,0 +1,93 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /GetChainHierarchy/V3
+  /GetChainHierarchy/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service might be used whenever a merchant or a financial institution representative would like to display the architecture of all the components linked to a given node. A node in PowerCARD could represent an ISO, a Sub ISO, a chain, a sub chain, a Payment Facilitator, a merchant or also a point of sale.
+        PowerCARD offers a rich database structure for its customers allowing them to easily map their existing business in the PowerCARD database. Here after the architecture highlighting the various components that shapes the PowerCARD database. The levels included in this figure are not all mandatory. In fact, depending on the customer architecture, PowerCARD can offer the appropriate internal architecture that answers the customer needs in a best way
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/GetChainHierarchy.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Get Chain Hierarchy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>61900</td><td>Invalid Chain Identification Number</td></tr>
+            <tr><td>61901</td><td>Invalid Merchant Identification Number</td></tr>
+            <tr><td>61902</td><td>Invalid ISO</td></tr>
+            <tr><td>61903</td><td>Invalid SubIso</td></tr>
+            <tr><td>61904</td><td>Invalid VAR</td></tr>
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import GetChainHierarchy request and response
+    GetChainHierarchyRq:
+      $ref: 'request.yaml#/GetChainHieararchyRq'
+    GetChainHierarchyRs:
+      $ref: 'response.yaml#/GetChainHieararchyRs'
+security:
+  - bearerAuth: []

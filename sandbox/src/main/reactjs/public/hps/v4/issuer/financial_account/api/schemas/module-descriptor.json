@@ -1,0 +1,155 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"OAuth Authentication",
+          "file": "oauth2Authentication.yaml",
+          "subApiList": [
+            {
+              "file": "oauth2Authentication.yaml",
+              "name": "OAuth Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Create user authorization",
+          "file": "createUserAuthorization.yaml",
+          "subApiList": [
+            {
+              "file": "createUserAuthorization.yaml",
+              "name": "Create user authorization",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Encryption and signature",
+          "file": "security.html",
+          "staticContent": true,
+          "subApiList": [
+            {
+              "file": "./security/jweEncryption.yaml",
+              "name": "JWE encryption",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jweDecryption.yaml",
+              "name": "JWE decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsEncryption.yaml",
+              "name": "JWS encryption and signature ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsDecryption.yaml",
+              "name": "JWS verify signature and decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            }
+          ]
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Financial-account",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Bank Account management",
+          "file": "createBankAccount.yaml",
+          "subApiList": [
+            {
+              "file": "createBankAccount.yaml",
+              "name": "Create bank account",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "updateBankAccount.yaml",
+              "name": "Update bank account",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "deleteBankAccount_deprecated.yaml",
+              "name": "Delete bank account",
+              "HttpVerb": "DELETE",
+              "deprecated": true
+            },
+            {
+              "file": "deleteBankAccount.yaml",
+              "name": "Delete bank account",
+              "HttpVerb": "PATCH"
+            }
+          ]
+      },
+        {
+          "name":"Check Account custom field",
+          "file": "accountCheckCardCustomField.yaml",
+          "subApiList": [
+            {
+              "file": "accountCheckCardCustomField.yaml",
+              "name": "Check Account custom field",
+              "HttpVerb": "POST"
+            }]
+      },
+        {
+          "name":"Event Notification Management",
+          "file": "getAccountEventNotificationList.yaml",
+          "subApiList": [
+            {
+              "file": "getAccountEventNotificationList.yaml",
+              "name": "Get Account event notification list",
+              "HttpVerb": "GET"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

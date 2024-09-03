@@ -1,0 +1,123 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch Channel API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second.
+  version: PowerCARD V4
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /GetDynamicCVC2WebService/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This API is mainly used to generate a dynamic CVC2 (dCVC2) when providing a PAN or PAN Alias. <br>
+        The dCVV2 is used by the cardholder in the same way as a CVV2.<br>
+        The returned dCVV will be only valid for a period of time (configurable from the PowerCARD).<br>
+        </p>
+        <p>
+        if a new call to the API is made while the card still has a valid DCVV2 (not expired), the same DCVV2 and ExpiryDate pair will be returned by the API and the timer will return the time remaining before the expiration of this pair.
+        </p>
+        <p>
+        The DCVV2/ExpiryDate couple can be used "n" times, during its period of validity. <br>
+        When the DVV2 expired, it could be used for an additional grace period configurable in the database. <br>
+        PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value. <br>
+        The following sections are intended to highlight the process as well as the technical specification of the request and response messages.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/getCardDcvc2.png" />
+      summary:    This web service is mainly used to retrieve the dynamic CVV2  when providing a PAN or PAN Alias.
+      tags:
+        - Get Card Dynamic CVC2
+      requestBody:
+        required: true
+        description:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCardDynamicCVV2Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetCardDynamicCVV2Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>20801</td>
+            <td>Invalid Card Number/Token Id</td>
+            </tr>
+            <tr>
+            <td>20803</td>
+            <td>Error while generating dCVV2 </td>
+            </tr>
+            <tr>
+            <td>20804</td>
+            <td>Operation not permitted, Cancelled card </td>
+            </tr>
+            <tr>
+            <td>20805</td>
+            <td>Operation not permitted, Replaced card</td>
+            </tr>
+            <tr>
+            <td>20806</td>
+            <td>Card in the stop list</td>
+            </tr>
+            <tr>
+            <td>20807</td>
+            <td>Operation not permitted, Suspended card</td>
+            </tr>
+            <tr>
+            <td>20808</td>
+            <td>Operation not permitted, Expired card</td>
+            </tr>
+            <tr>
+            <td>20809</td>
+            <td>Dynamic CVV2 not supported for this card </td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardDynamicCVV2Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetCardDynamicCVV2Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # ---- Import GetCardDynamicCVV2V4Rq request and response definition
+    GetCardDynamicCVV2Rq:
+      $ref: 'request.yaml#/GetCardDynamicCVV2Rq'
+    GetCardDynamicCVV2Rs:
+      $ref: 'response.yaml#/GetCardDynamicCVV2Rs'
+security:
+  - bearerAuth: []

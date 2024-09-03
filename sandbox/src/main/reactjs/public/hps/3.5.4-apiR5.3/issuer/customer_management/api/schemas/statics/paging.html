@@ -1,0 +1,82 @@
+<style>
+    .static-page-title{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        margin-bottom: 28px;
+        left: 15px;
+    }
+    .static-page-p{
+        font-family: "Open Sans", sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 25px;
+        border-radius: 10px;
+        color: rgb(162, 252, 162);
+    }
+</style>
+<h2 class="static-page-title">Paging in Connect'API</h2>
+<div>
+<p class="static-page-p">A lot of the time, when you're making calls to the search API in the Connect’API, there'll be a lot of results to return. For that reason, Connect’API can paginate the results to make sure responses are easier to handle.</p>
+<ul>
+    <li class="static-page-p">Use the <b class="static-page-b">pageSize</b> (a positive value) parameter to control how many resource representations to display per page.</li>
+    <li class="static-page-p">Use the <b class="static-page-b">pageIndex</b> (a positive value) to display the current page's number in the pager sequence.</li>
+</ul>
+
+    <pre  id="json"class="static-page-code">
+
+        {
+            "keyValues": [
+                    {
+                        "key": "PREVIOUS_PAGE",
+                        "data": "1"
+                        "type":null
+                    },
+                    {
+                        "key": "CURRENT_PAGE",
+                        "data": "1"
+                        "type":null
+                    },
+                    {
+                        "key": "NEXT_PAGE",
+                        "data": "1"
+                        "type":null
+                    },
+                    {
+                        "key": "MAX_PAGE_SIZE",
+                        "data": "10"
+                        "type":null
+                    },
+                    {
+                        "key": "TOTAL_PAGES",
+                        "data": "10"
+                        "type":null
+                    }
+            ]
+        }
+
+    </pre>
+</div>
+<script>
+    (function() {
+        var element = document.getElementById("json");
+        var obj = JSON.parse(element.innerText);
+        element.innerHTML = JSON.stringify(obj, undefined, 2);
+    })();
+</script>

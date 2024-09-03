@@ -1,0 +1,402 @@
+# ---- KeyValueV35
+      KeyValueV35:
+         type: object
+         properties:
+            key: 
+              type: string
+            data:
+               type: string
+            type:
+               type: string
+      # ---- RequestInfo definition
+      RequestInfo:
+          type: object
+          properties:
+                      requestUID:
+                          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                          type: string
+                          example: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+                      requestDate:
+                          description: Date when the request was submitted.
+                          type: string
+                          example: '2020-02-05T00:00:00'
+                      userID:
+                          description: Represents the user Id who made the request.
+                          type: string
+                          example: user001
+          required:  [userID,requestUID,requestDate]
+    #Response  
+      Response :
+          type: object
+          properties: 
+                RqUID:
+                    type: string
+                    example: UUID
+                    description:
+                            <p>
+                                Request Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                                This value must be used to match response with request messages
+                                The generation mask should be the following
+                                <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX </b>
+                            </p>
+                ResultId:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the result of processing in PowerCARD. 
+                            The possible values are <br>
+                            <b>ProceedWithSuccess</b> Call was ended successfully. <br>
+                            <b>ProceedWithSuccessMC</b> Call made successfully, however the request will be inserted in a Maker Checker queue for further analysis. <br>
+                            <b>Error</b> An error has occurred during the processing. <br>
+                            <b>SystemError</b> An unknown system error occurred during the process. <br>
+                        </p>
+                ErrorCode:
+                    type: string
+                    description:
+                        <p>
+                             Indicate the error code used by the PowerCARD to tell you that the program was experiencing a particular problem during the processing of the request.
+                             They are defined in the "General error Definition” table or in the “business rules” section of each specific web service.
+                        </p>
+                ErrorDesc:
+                    type: string
+                    description: If present, this field must contain the description of the error encountered            
+      # ---- ResponseInfo definition
+      ResponseInfo:
+          type: object
+          properties:
+                      responseUID:
+                        description: Response Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                        type: string
+                      resultID:
+                        description: Refers to the result of processing in PowerCARD.
+                        type: string
+                      errorCode:
+                        description: Indicate the error code used by the PowerCARD to tell you that program was experiencing a particular problem during the processing of the request.
+                        type: string 
+                      errorDescription:
+                        description: If present, this field must contain the description of the error encountered
+                        type: string
+                      keyValues: 
+                        type: array
+                        items:
+                            type: object   
+                            $ref: 'aggregate.yaml#/KeyValueV35'
+          required:  [responseUID,resultID,errorCode]  
+    #AddUsrIdentif 
+      AddUsrIdentif :
+          type: object
+          properties: 
+              userId:
+                    type: string
+                    description:
+                            <p>
+                            Represents the user Id who made the request.
+                            </p>
+              requestDate:
+                    type: string
+                    description:
+                            <p>
+                            Date when the request was submitted
+                            </p>  
+              userLanguage:
+                    type: string
+                    description:
+                            <p>
+                                 The language used by the current user. This language is taken into consideration while preparing the answer.
+                                The possible values are the following <br>
+                                <b>en_US</b> for English <br>
+                                <b>es_ES</b> for Spanish <br>
+                                <b>fr_FR</b> for French  <br>
+                            </p> 
+              financialInstitution:
+                    type: string
+                    description:
+                            <p>
+                                This is a 6 alphanumeric code representing the financial institution to which belongs the user.
+                                This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              products:
+                    type: array
+                    items:
+                         type: string
+                         description: <p>A card product list, this is used as a criteria in a request. All responses must belong to these products if provided within a request.</p>
+              providerLogin:
+                    type: string
+                    description:
+                            <p>
+                              Provider login is used to secure communication and data. If the user is not authorized, the request must be rejected
+                            </p> 
+              providerPasswd:
+                    type: string
+                    description:
+                            <p>
+                               The secret word of to the user that allow him to log in the system
+                            </p>   
+      #CustInfo 
+      CustInfo :
+          type: object
+          properties: 
+              customerId:
+                    type: string
+                    description:
+                            <p>
+                                  Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                                  If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table
+                            </p>
+              orgId:
+                    type: string
+                    description:
+                            <p>
+                                The organization/corporate identifier. If this field is mentioned, all data returned must belong to this organization.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              orgDepth:
+                    type: string
+                    example: 12
+                    description:
+                            <p>
+                                 The organization/corporate depth. The organization depth determines how many hierarchy levels will be returned.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              contractId:
+                    type: string
+                    description:
+                            <p>
+                                The contract id. If a contract id is specified all results must validate that criteria.
+                                For issuing request, this field must be equal to the card number that should be previously defined in the PowerCARD CARD table.
+                                The field is also used in case of SearchMerchantTransaction to specify the card number for which the request is being sent. Users may also send a part of the card number, for instance the first six digits of the card number followed by %, in that case the list of transactions returned back in the response message should belong to all cards starting with this six digits.   
+                            </p>   
+     #MerchantInfo 
+      MerchantInfo :
+          type: object
+          properties: 
+              chainId:
+                    type: string
+                    description:
+                            <p>
+                                This code identifies the chain from where the request is coming.
+                                All the data returned are supposed to belong only to the provided chain.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>CHAIN</b> table
+                            </p>
+              merchantId:
+                    type: string
+                    description:
+                            <p>
+                                This code identifies the merchant from where the request is coming.
+                                All the data returned are supposed to belong only to the concerned merchant.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>MERCHANT</b> table.
+                                A payment Facilitator is also considered as a Merchant in PowerCARD database. Hence, for any request with regards to a payment facilitator, the caller must include its identification in this field
+
+                            </p> 
+              posId:
+                    type: string
+                    description:
+                            <p>
+                                 This code identifies the point of sale from where the request is coming.
+                                 All the data returned are supposed to belong only to the concerned point of sale.
+                                 The Chain Id must be valid and must be defined in the PowerCARD <b>MER_ACCEPTOR_POINT</b> table
+                            </p>       
+     #AgentInfo 
+      AgentInfo :
+          type: object
+          properties: 
+              oedInstitutionId:
+                    type: string
+                    description:
+                            <p>
+                                Refers to the code identifying a financial institution in PowerCARD. This is 6 alphanumeric characters that must be previously defined in the PowerCARD <b>BANK</b> table.
+                                Data returned in the response must belong only to this institution.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>  
+              branchId:
+                    type: string
+                    description:
+                            <p>
+                                 Refer to the branch where is working the agent. 
+                                Users must ensure that this code is a valid value defined in the PowerCARD <b>BRANCH</b> table under the general parameter section.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              agentId:
+                    type: string
+                    description:
+                            <p>
+                               Represent the agent identifier who is making the request.
+                            </p>  
+     #Cassette 
+      Cassette :
+          type: object
+          properties: 
+              cassetteId:
+                    type: string
+                    description: <p>Cassette identification number</p> 
+              cassetteStatus:
+                    type: string
+                    description: 
+                       <p>
+                            Cassette Status
+                            Possible values are <br>
+                            <b>A</b> Available. <br>
+                            <b>C</b> Critical. <br>
+                            <b>E</b> Empty. <br>
+                            <b>N</b> Not available <br>
+                       </p>
+              cassettetype:
+                    type: string
+                    description: 
+                       <p>
+                             Cassette Type.
+                            Valid values must be retrieved from PowerCARD <b>NDC_CASSETTE_TYPE</b> table using the Web Service getReferentialList
+                       </p>                                                                      
+     #TerminalAtm 
+      TerminalAtm :
+          type: object
+          properties: 
+              terminalId:
+                    type: string
+                    description: 
+                       <p>
+                          Must contain the ATM terminal identification number as stored in PowerCARD
+                       </p>
+              atmAcronym:
+                    type: string
+                    description: 
+                      <p>
+                         This fields refers to the ATM acronym as defined under PowerCARD.
+                      </p> 
+              atmGrouping:
+                    type: string
+                    description:
+                       <p>
+                            It should contain the code of the group to which belong the ATM.
+                            Those codes are defined for grouping reason to simplify the search and monitoring of ATMs
+                            Valid values must be retrieved from PowerCARD <b>TERMINAL_ATM_GROUP</b> table using the Web Service getReferentialList
+                       </p>
+              atmLocation:
+                    type: string
+                    description: <p>This is the name of the ATM location</p> 
+              countryCode:
+                    type: string
+                    description:
+                        <p>
+                             The code of the country for the ATM location
+                            Valid values must be retrieved from PowerCARD <b>COUNTRY</b> table using the Web Service getReferentialList
+                        </p> 
+              stateCode:
+                    type: string
+                    description: 
+                       <p>
+                            The code of the region for the ATM location
+                            Valid values must be retrieved from PowerCARD <b>REGION</b> table using the Web Service getReferentialList
+                       </p> 
+              cityCode:
+                    type: string
+                    description: 
+                       <p>
+                        The code of the city for the ATM location
+                        Valid values must be retrieved from PowerCARD <b>CITY</b> table using the Web Service getReferentialList
+                       </p>
+              availability:
+                    type: string
+                    description: 
+                       <p>
+                            This value indicates the availability of the ATM
+                            Possible values are <br>
+                            <b>OS</b> Out of service. <br>
+                            <b>IW</b> Waiting for card. <br>
+                            <b>IC</b> On communication with server.<br>
+                            <b>ID</b> On distribution.<br>
+                            <b>IM</b> In maintenance.<br>
+                       </p>
+              inThisStatusSince:
+                    type: string
+                    description: <p>Last status update date & time</p> 
+              brandCode:
+                    type: string
+                    description:
+                       <p>
+                         Refers to the ATM brand code
+                         Valid values must be retrieved from PowerCARD <b>ATM_BRAND</b> table using the Web Service getReferentialList
+                       </p> 
+              cassetteRejectStatus:
+                    type: string
+                    description: <p></p> 
+              safeBoxStatus:
+                    type: string
+                    description: 
+                      <p>
+                             Last status of the Safe Box
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                      </p> 
+              pinpadStatus:
+                    type: string
+                    description:
+                        <p>
+                            Last status of the PinPad
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                       </p> 
+              cardReaderStatus:
+                    type: string
+                    description: 
+                        <p>
+                            Last status of the card reader
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                       </p> 
+              encryptionDeviceStatus:
+                    type: string
+                    description: 
+                        <p>
+                            Last status of the encryption device
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                       </p> 
+              ticketPrinterStatus:
+                    type: string
+                    description:
+                        <p>
+                            Last status of the ticket printer
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>C</b>Critical. <br>
+                            <b>O</b> Out of service. <br>
+                       </p>  
+              logPrinterStatus:
+                    type: string
+                    description:
+                        <p>
+                            Last status of the log printer
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>C</b>Critical. <br>
+                            <b>O</b> Out of service. <br>
+                       </p>  
+              cashDepositStatus:
+                    type: string
+                    description: 
+                        <p>
+                            Last status of the Cash deposit
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                       </p> 
+              dispenser:
+                    type: string
+                    description:
+                        <p>
+                            Last status of the dispenser
+                            Possible values are <br>
+                            <b>I</b> Into service. <br>
+                            <b>O</b> Out of service. <br>
+                       </p> 
+              cassetteList:
+                    type: array
+                    items: 
+                       type: object
+                       $ref: 'aggregate.yaml#/Cassette'

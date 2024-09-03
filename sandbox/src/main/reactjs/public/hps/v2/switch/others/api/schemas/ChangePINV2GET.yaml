@@ -1,0 +1,164 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths: 
+  /Cards/V2/{aliasPAN}/ChangePIN:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                    The PIN change web Service allows the any cardholder to change its PIN. The cardholder is required to enter the new PIN, as well as the old PIN for verification.
+                    </p>
+                    <p>
+                     The same service is also used to set a pin value for the customer.<br>
+                     It is to mention that the new and old PINs are encrypted and formatted as a block of 16 hexadecimal digits. (The new PIN is chosen by the cardholder to replace the current PIN when the cardholder does not remember his current PIN, or the current PIN is compromised, or just wants a new PIN to be set for his card.)<br>
+                     A cardholder PINs (Old and new) are never logged, not even in an encrypted form.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/changePin.png" />
+        summary:  The PIN change web Service allows the any cardholder to change its PIN
+        tags:
+          - Change Pin.
+        parameters:
+          - in: path
+            name: aliasPAN
+            schema:
+              type: string
+            required: true
+            description: The AliasPAN value.
+          - in: query
+            name: requestUID 
+            schema:
+              type: string
+              example : 6948DF80-14BD-4E04-8842-7668D9C001F5
+            required: true 
+            description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+          - in: query
+            name: requestDate 
+            schema:
+              type: string
+              example: '2020-02-05T00:00:00'
+            required: true
+            description: Date when the request was submitted.
+          - in: query
+            name: userID 
+            schema:
+              type: string
+              example: user001
+            description: Represents the user Id who made the request.            
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePinV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ChangePinV35Rq'
+        responses:  
+          200:
+            description:
+                    <div>
+                          <h6>Successful</h6>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>02101</td>
+                                <td>Invalid card number</td>
+                              </tr>
+                              <tr> 
+                                <td>02105</td>
+                                <td>Invalid Pin Block Format</td>
+                              </tr>
+                              <tr> 
+                                <td>02106</td>
+                                <td>Invalid Pin method</td>
+                              </tr>
+                              <tr> 
+                                <td>02107</td>
+                                <td>Invalid New PIN</td>
+                              </tr>
+                              <tr> 
+                                <td>02108</td>
+                                <td>Card do not belong to any range in the system</td>
+                              </tr>
+                              <tr> 
+                                <td>02109</td>
+                                <td>Error when translating the Pin Block</td>
+                              </tr>
+                              <tr> 
+                                <td>02110</td>
+                                <td>Zone Pin Key not defined in the system</td>
+                              </tr>
+                              <tr> 
+                                <td>02111</td>
+                                <td>Error generating the Visa PVV</td>
+                              </tr>
+                              <tr> 
+                                <td>02112</td>
+                                <td>Error generating IBM Offset</td>
+                              </tr>
+                              <tr> 
+                                <td>02113</td>
+                                <td>Error updating PVV value in the database</td>
+                              </tr>	
+                              <tr> 
+                                <td>02114</td>
+                                <td>Error while getting PVK Keys</td>
+                              </tr>	
+                              <tr> 
+                                <td>02115</td>
+                                <td>Error Verify Visa PIN</td>
+                              </tr>	
+                              <tr> 
+                                <td>02116</td>
+                                <td>Error Verify IBM PIN</td>
+                              </tr>								
+                           </table>
+                    </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ChangePinV35Rs' 
+              application/xml:
+                      schema:
+                          $ref: '#/components/schemas/ChangePinV35Rs'         
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+  security:
+  - bearerAuth: []

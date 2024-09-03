@@ -1,0 +1,124 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:                         
+#GetParameterList/V2  
+  /GetParameterList/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          This web service is used to search the referential lists in the system. Third-party application developers can use different criteria to find and view the desired lists as below &#8282;
+                          </p>
+                        <h3>Functional Description</h3>
+                      <img  src="./docs/GetParameterList.png" /> 
+                      <p>The API support two modes for searching &#8282; <br>
+                        - Parameter &#8282;  the query must include search filters and the column to search.<br>
+                        - Referentiel &#8282; the query must include the table name wich data must be returned .
+                      </p>
+            summary: This web service is used to search the referential lists in the system. 
+            tags:
+              - Get Parameters List
+            requestBody:
+              required: true
+              description: 
+                           <img id="select-case-img" src="./docs/exclamation.png" /> 
+                           <label id="select-case">To try this API with different scenarios please click the button 'Try it out' then select a test case &#8282; </label>
+                           <select  id="testCase1" class="content-type">
+                                 <option value="account_type_list">ACCOUNT TYPE LIST</option>
+                                 <option value="action_list">ACTION LIST</option>
+                                 <option value="action_table">ACTION TABLE</option>
+                                 <option value="address_type_list">ADDRESSES TYPE LIST</option>
+                                 <option value="bank">BANK</option>
+                                 <option value="branch">BRANCH</option>
+                                 <option value="card_batch_status">CARD BATCH STATUS</option>
+                                 <option value="card_product">CARD PRODUCT</option>
+                                 <option value="card_status">CARD STATUS</option>
+                                 <option value="card_reason">CASE REASON</option>
+                                 <option value="card_type">CASE TYPE</option>
+                                 <option value="city">CITY</option>
+                                 <option value="country">COUNTRY</option>
+                                 <option value="chain">CHAIN</option>
+                                 <option value="cr_profile">CR PROFILE</option>
+                                 <option value="currency_table">CURRENCY TABLE</option>
+                                 <option value="document_list">DOCUMENT LIST</option>
+                                 <option value="language_list">LANGUAGE LIST</option>
+                                 <option value="mcc">MCC</option>
+                                 <option value="owner_list">OWNER LIST</option>
+                                 <option value="plastic_list">PLASTIC LIST</option>
+                                 <option value="processing_list">PROCESSING LIST</option>
+                                 <option value="protocol_list">PROTOCOL LIST</option>
+                                 <option value="region">REGION</option>
+                                 <option value="status_reason_list">STATUS REASON LIST</option>
+                                 <option value="title_list">TITLE LIST</option>
+                                 <option value="transaction_status">TRANSACTION STATUS</option>
+                                 <option value="transaction_definition">TRANSACTIONS DEFINITION</option>
+                                 <option value="vip_list">VIP LIST</option>
+                                 <option value="withdrawl_reason_code">WITHDRAWAL REASON CODE</option>
+                            </select>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetParameterListV35Rq'
+                #application/xml:
+                  #schema:
+                   # $ref: '#/components/schemas/GetParameterListV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>21101</td>
+                                         <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetParameterListV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/GetParameterListV35Rs'          
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetParameterList request and response
+      GetParameterListV35Rq:
+               $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                $ref: 'response.yaml#/GetParameterListV35Rs'
+security:
+  - bearerAuth: []

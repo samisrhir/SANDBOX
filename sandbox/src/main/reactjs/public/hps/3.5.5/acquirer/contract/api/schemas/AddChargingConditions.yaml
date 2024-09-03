@@ -1,0 +1,102 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /AddChargingConditions /V3
+  /AddChargingConditions/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service is aimed to be used whenever any user would like to add charging conditions to existing merchant contract item for specific billable elements related to concerned contract service.          <h3>Functional Description</h3>
+        <img  src="./docs/AddChargingConditions.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Add Charging Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddChargingConditionsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddChargingConditionsRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> <b>Merchant ID or legal ID</b></td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>61310</td><td>Invalid Contract Element ID</td></tr>
+            <tr><td>61003</td><td>Billable element not found</td></tr>
+            <tr><td>61004</td><td>Service not found</td></tr>
+            <tr><td>61008</td><td>Characteristic value is mandatory</td></tr>
+            <tr><td>61011</td><td>Charging method not found</td></tr>
+            <tr><td>61013</td><td>Characteristic value not found</td></tr>
+            <tr><td>61014</td><td>Invalid attribute value, it should be greater than 0</td></tr>
+            <tr><td>61015</td><td>Invalid currency defined on TD_CURRENCY</td></tr>
+            <tr><td>61016</td><td>Invalid charging rate should be between 0 and 100</td></tr>
+            <tr><td>61017</td><td>Charging period not found</td></tr>
+            <tr><td>61019</td><td>Tag value not matched</td></tr>
+            <tr><td>61020</td><td>Value is not alphanumeric</td></tr>
+            <tr><td>61021</td><td>Value is not numeric</td></tr>
+            <tr><td>61022</td><td>Value is not in range</td></tr>
+            <tr><td>61023</td><td>Invalid address details</td></tr>
+            <tr><td>61029</td><td>Invalid elements on charging conditions</td></tr>
+            <tr><td>61036</td><td>An error has occurred on Create charging condition</td></tr>
+            <tr><td>61042</td><td>There is already an existing chargingCondition configured for this billable element</td></tr>
+            <tr><td>61044</td><td>Only one item should be selected on valueList, multiplechoice not allowed</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddChargingConditionsRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AddChargingConditionsRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import AddChargingConditionsRq request and response
+    AddChargingConditionsRq:
+      $ref: 'request.yaml#/AddChargingConditionsRq'
+    AddChargingConditionsRs:
+      $ref: 'response.yaml#/AddChargingConditionsRs'
+security:
+  - bearerAuth: []

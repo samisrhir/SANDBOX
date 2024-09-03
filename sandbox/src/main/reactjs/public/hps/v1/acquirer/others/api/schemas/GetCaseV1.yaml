@@ -1,0 +1,91 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- getCase
+  /GetCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive case management module that enables users to create and maintain cases in the system. It helps also to make the follow up of any case created as well as performing some actions on it.</p>
+                    <p>The present web service aims to get the details of an existing case in the system. All the information with regards to the case including its status and dates are all returned in the response message.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getCase.png" />
+                  
+      summary: PowerCARD offers a comprehensive case management module...
+      tags:
+        - Get Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getCaseRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/getCaseRq'
+      responses:  
+         200:
+          description: 
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00451</td>
+                                <td>Case reference not provided in the request message</td>
+                              </tr>		
+                              <tr> 
+                                <td>00452</td>
+                                <td>Case reference not found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCaseRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/getCaseRs'                                                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import ValidateMerchant request and response 
+      getCaseRq:
+               $ref: 'request.yaml#/getCaseRq'  
+      getCaseRs:
+               $ref: 'response.yaml#/getCaseRs'                                                                                          
+security:
+  - bearerAuth: []
+
+
+

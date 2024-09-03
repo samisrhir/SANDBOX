@@ -1,0 +1,178 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateMerchantDescription/V3
+  /UpdateMerchantDescription/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        To update merchant information, users may use the current service. When using this service, the caller must send a valid merchant identification along with valid information to be updated, like Company name, location, legal identification…
+        In case the request contains invalid data, PowerCARD will reject the call and sent back a specific error code in the response message highlighting the field causing the error.
+        
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateMerchantDescription.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update Merchant Description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantDescriptionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantDescriptionRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr>
+            <td>60100</td>
+            <td>Invalid Merchant Bank Code</td>
+            </tr>
+            <tr>
+            <td>60102</td>
+            <td>Invalid Merchant LegalId</td>
+            </tr>
+            <tr>
+            <td>60104</td>
+            <td>Invalid Merchant ID / Merchant Not Found</td>
+            </tr>
+            <tr>
+            <td>60105</td>
+            <td>Invalid Merchant Opening Date</td>
+            </tr>
+            <tr>
+            <td>60107</td>
+            <td>Invalid Merchant Country Code</td>
+            </tr>
+            <tr>
+            <td>60108</td>
+            <td>Invalid Merchant Region Code</td>
+            </tr>
+            <tr>
+            <td>60109</td>
+            <td>Merchant Contract Reference Already used</td>
+            </tr>
+            <tr>
+            <td>60110</td>
+            <td>Merchant External ID 1 Already used</td>
+            </tr>
+            <tr>
+            <td>60115</td>
+            <td>Invalid Merchant Chain Code</td>
+            </tr>
+            <tr>
+            <td>60116</td>
+            <td>Invalid Merchant Pay Facilitator</td>
+            </tr>
+            <tr>
+            <td>60117</td>
+            <td>Invalid Merchant Legal form</td>
+            </tr>
+            <tr>
+            <td>60118</td>
+            <td>Invalid Merchant Language Code</td>
+            </tr>
+            <tr>
+            <td>60119</td>
+            <td>Invalid Merchant Verification Value</td>
+            </tr>
+            <tr>
+            <td>60120</td>
+            <td>Invalid Merchant Risk Indicator</td>
+            </tr>
+            <tr>
+            <td>60121</td>
+            <td>Invalid Merchant Trans Indicator</td>
+            </tr>
+            <tr>
+            <td>60122</td>
+            <td>Invalid MerchantOnId Identifier</td>
+            </tr>
+            <tr>
+            <td>60123</td>
+            <td>Invalid MerchantOnId Value</td>
+            </tr>
+            <tr>
+            <td>60126</td>
+            <td>Wrong legal id format</td>
+            </tr>
+            <tr>
+            <td>60129</td>
+            <td>Network on id Identifier defined more than once</td>
+            </tr>
+            <tr>
+            <td>60138</td>
+            <td>Normal, suspended, under surveillance are the status needed to allow updating</td>
+            </tr>
+            <tr>
+            <td>60139</td>
+            <td>Error while update merchant basic info</td>
+            </tr>
+            <tr>
+            <td>60200</td>
+            <td>Merchant not found</td>
+            </tr>
+            
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantDescriptionRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantDescriptionRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    UpdateMerchantDescriptionRq:
+      $ref: 'request.yaml#/UpdateMerchantDescriptionRq'
+    UpdateMerchantDescriptionRs:
+      $ref: 'response.yaml#/UpdateMerchantDescriptionRs'
+security:
+  - bearerAuth: []

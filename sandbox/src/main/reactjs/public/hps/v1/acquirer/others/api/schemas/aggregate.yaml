@@ -1,0 +1,3968 @@
+# ---- KeyValueV35
+      KeyValueV35:
+         type: object
+         properties:
+            key: 
+              type: string
+            data:
+               type: string
+            type:
+               type: string
+      # ---- RequestInfo definition
+      RequestInfo:
+          type: object
+          properties:
+                      requestUID:
+                          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                          type: string
+                          example: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+                      requestDate:
+                          description: Date when the request was submitted.
+                          type: string
+                          example: '2020-02-05T00:00:00'
+                      userID:
+                          description: Represents the user Id who made the request.
+                          type: string
+                          example: user001
+          required:  [userID,requestUID,requestDate]
+      # ---- ResponseInfo definition
+      ResponseInfo:
+          type: object
+          properties:
+                      responseUID:
+                        description: Response Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                        type: string
+                      resultID:
+                        description: Refers to the result of processing in PowerCARD.
+                        type: string
+                      errorCode:
+                        description: Indicate the error code used by the PowerCARD to tell you that program was experiencing a particular problem during the processing of the request.
+                        type: string 
+                      errorDescription:
+                        description: If present, this field must contain the description of the error encountered
+                        type: string
+                      keyValues: 
+                        type: array
+                        items:
+                            type: object   
+                            $ref: 'aggregate.yaml#/KeyValueV35'
+          required:  [responseUID,resultID,errorCode]                 
+    # ------------------------------ V1 ----------------------------
+     #AgentInfo 
+      AgentInfo :
+          type: object
+          properties: 
+              oedInstitutionId:
+                    type: string
+                    example: "ISS005"
+                    description:
+                            <p>
+                                Refers to the code identifying a financial institution in PowerCARD. This is 6 alphanumeric characters that must be previously defined in the PowerCARD <b>BANK</b> table.
+                                Data returned in the response must belong only to this institution.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>  
+              branchId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                 Refer to the branch where is working the agent. 
+                                Users must ensure that this code is a valid value defined in the PowerCARD <b>BRANCH</b> table under the general parameter section.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              agentId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                               Represent the agent identifier who is making the request.
+                            </p>   
+          required : [oedInstitutionId]                                                        
+     #MerchantInfo 
+      MerchantInfo :
+          type: object
+          properties: 
+              chainId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                This code identifies the chain from where the request is coming.
+                                All the data returned are supposed to belong only to the provided chain.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>CHAIN</b> table
+                            </p>
+              merchantId:
+                    type: string
+                    example: "000015001032117"
+                    description:
+                            <p>
+                                This code identifies the merchant from where the request is coming.
+                                All the data returned are supposed to belong only to the concerned merchant.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>MERCHANT</b> table.
+                                A payment Facilitator is also considered as a Merchant in PowerCARD database. Hence, for any request with regards to a payment facilitator, the caller must include its identification in this field
+
+                            </p> 
+              posId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                 This code identifies the point of sale from where the request is coming.
+                                 All the data returned are supposed to belong only to the concerned point of sale.
+                                 The Chain Id must be valid and must be defined in the PowerCARD <b>MER_ACCEPTOR_POINT</b> table
+                            </p>                                                          
+      #CustInfo 
+      CustInfo :
+          type: object
+          properties: 
+              customerId:
+                    type: string
+                    example: "ADMIN_CUSTOMER"
+                    description:
+                            <p>
+                                  Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                                  If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table
+                            </p>
+              orgId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                The organization/corporate identifier. If this field is mentioned, all data returned must belong to this organization.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              orgDepth:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                 The organization/corporate depth. The organization depth determines how many hierarchy levels will be returned.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              contractId:
+                    type: string
+                    example: ""
+                    description:
+                            <p>
+                                The contract id. If a contract id is specified all results must validate that criteria.
+                                For issuing request, this field must be equal to the card number that should be previously defined in the PowerCARD CARD table.
+                                The field is also used in case of SearchMerchantTransaction to specify the card number for which the request is being sent. Users may also send a part of the card number, for instance the first six digits of the card number followed by %, in that case the list of transactions returned back in the response message should belong to all cards starting with this six digits.   
+                            </p>                                                                                      
+    #AddUsrIdentif 
+      AddUsrIdentif :
+          type: object
+          properties: 
+              userId:
+                    type: string
+                    example: "4247"
+                    description:
+                            <p>
+                            Represents the user Id who made the request.
+                            </p>
+              requestDate:
+                    type: string
+                    example: "2020-05-28T13:54:44.578Z"
+                    description:
+                            <p>
+                            Date when the request was submitted
+                            </p>  
+              userLanguage:
+                    type: string
+                    example: "en_US"
+                    description:
+                            <p>
+                                 The language used by the current user. This language is taken into consideration while preparing the answer.
+                                The possible values are the following <br>
+                                <b>en_US</b> for English <br>
+                                <b>es_ES</b> for Spanish <br>
+                                <b>fr_FR</b> for French  <br>
+                            </p> 
+              financialInstitution:
+                    type: string
+                    example: "ISS005"
+                    description:
+                            <p>
+                                This is a 6 alphanumeric code representing the financial institution to which belongs the user.
+                                This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              products:
+                    type: array
+                    items:
+                         type: string
+                         example: "002"
+                         description: <p>A card product list, this is used as a criteria in a request. All responses must belong to these products if provided within a request.</p>
+              providerLogin:
+                    type: string
+                    example: "ISS005"
+                    description:
+                            <p>
+                              Provider login is used to secure communication and data. If the user is not authorized, the request must be rejected
+                            </p> 
+              providerPasswd:
+                    type: string
+                    example: "$2a$10$pqvWCjWkYvxODwl1VhweE.8qwMYhRjjaQguizA3sMlY8wKuahTP1S"
+                    description:
+                            <p>
+                               The secret word of to the user that allow him to log in the system
+                            </p>   
+          required: [userId,requestDate,userLanguage,FinancialInstitution]                                                                                                                                                                  
+    #Request 
+      Request :
+          type: object
+          properties: 
+                RqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                AddUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                CustomerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                MerchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                AgentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                         
+
+    #Response  
+      Response :
+          type: object
+          properties: 
+                RqUID:
+                    type: string
+                    example: UUID
+                    description:
+                            <p>
+                                Request Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                                This value must be used to match response with request messages
+                                The generation mask should be the following
+                                <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX </b>
+                            </p>
+                ResultId:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the result of processing in PowerCARD. 
+                            The possible values are <br>
+                            <b>ProceedWithSuccess</b> Call was ended successfully. <br>
+                            <b>ProceedWithSuccessMC</b> Call made successfully, however the request will be inserted in a Maker Checker queue for further analysis. <br>
+                            <b>Error</b> An error has occurred during the processing. <br>
+                            <b>SystemError</b> An unknown system error occurred during the process. <br>
+                        </p>
+                ErrorCode:
+                    type: string
+                    description:
+                        <p>
+                             Indicate the error code used by the PowerCARD to tell you that the program was experiencing a particular problem during the processing of the request.
+                             They are defined in the "General error Definition” table or in the “business rules” section of each specific web service.
+                        </p>
+                ErrorDesc:
+                    type: string
+                    description: If present, this field must contain the description of the error encountered                    
+      #MerchantActivity
+      MerchantActivity:
+          type: object
+          properties: 
+              activityIdentifier:
+                 type: string
+                 description:
+                     <p>
+                        The activity identifier.
+                        This is an internal code generated by PowerCARD, it is used to identify uniquely the merchant activity.
+                        This field is not required in case of creation process.
+                     </p>
+              activityCode:
+                 type: string
+                 description: 
+                     <p>
+                         The code of the activity (MCC).
+                        This is the <b>ISO standard MCC</b> representing the merchant activity. The possible values are previously defined in the PowerCARD MCC table under the general parameter section.
+                        Possible values must be retrieved from the PowerCARD <b>MCC</b> table using the Web Service  getReferentialList
+                     </p>
+              activityName:
+                 type: string
+                 description: 
+                    <p>
+                        This field must contain the name or description of the activity.
+                        By default, this field might contain the description of the <b>MCC</b> as stored in the PowerCARD MCC table. But users are allowed to modify it if needed during the creation of the activity. 
+                    </p>
+              activityType:
+                 type: string
+                 enum: [P,S]
+                 description: 
+                      <p>
+                          The activity type, this field is used to indicate whether the concerned activity is primary one or secondary. 
+                          Possible values are <br>
+                        	<b>P</b> -  Primary activity <br>
+                         	<b>S</b> -  Secondary activity
+                      </p>  
+              activityTerminalNumber:
+                 type: string
+                 description:
+                        <p>
+                           The number of point of sales having this activity
+                        </p> 
+              activityStatusCode:
+                 type: string
+                 description: 
+                    <p>
+                        The activity status, this field is used to indicate the status of the activity. 
+                            Possible values are <br>
+                            <b>P</b> In progress <br>
+                            <b>N</b> Normal <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Closed
+                    </p>                     
+              activityStatusReasonCode:
+                 type: string
+                 description: 
+                      <p>
+                          The reason used to change the status of the merchant activity.
+                          Status reason code as defined in PowerCARD <b>STATUS_REASON_LIST</b> table. Valid values can be retrieved using the Web Service  getReferentialList
+                      </p>
+              activityStatusDate:
+                 type: string
+                 description: <p>This field indicate the date when the status will be effective.</p>
+              activityStatusEndDate:
+                 type: string
+                 description: <p>This field refers to the date till when the current merchant activity status will be valid.</p> 
+              sitePointOfSaleList:
+                  type: array
+                  items:
+                        type: string
+                        description: <p>This field indicate the opening date of the activity. </p>                                   
+      #CodeLabel
+      CodeLabel:
+              type: object
+              properties: 
+                code:
+                   type: string
+                   description: <p>Must contain the code of the parameter being shared</p>
+                label:
+                   type: string
+                   description: <p>The label of the parameter being shared</p>
+                defaultSelected:
+                   type: string
+                   description: <p>Set to true if this is a default value, otherwise this field is set to false.</p>
+                comments:
+                   type: string
+                   description: <p>Any comments that could be shared for better understanding of the parameter being shared.</p> 
+      #ZipCode
+      ZipCode:
+              type: object
+              properties: 
+                zipCode:
+                    type: string
+                    description: <p>Identify the postal code as being defined in PowerCARD</p>
+                zipCodeLabel:
+                    type: string
+                    description: <p>Refers to the name of the postal code</p>
+      #City
+      City:
+              type: object
+              properties: 
+                    cityCode:
+                        type: string
+                        description: <p></p>
+                    cityName:
+                        type: string
+                        description: <p></p>
+                    zipCodeList:
+                        type: array
+                        items:
+                            type: object
+                            $ref: 'aggregate.yaml#/ZipCode' 
+      #Region
+      Region:
+              type: object
+              properties: 
+                regionCode:
+                    type: string
+                    description: <p>Identify the region code as being defined in PowerCARD</p>
+                regionName:
+                    type: string
+                    description: <p>Refers to the name of the region</p>
+                cityList:
+                   type: array
+                   items:
+                      type: object
+                      $ref: 'aggregate.yaml#/City' 
+      #Country
+      Country:
+              type: object
+              properties: 
+                countryCode:
+                   type: string
+                   description: <p>Identify the country code ISO-3166 1-numeric</p>
+                countryName:
+                   type: string
+                   description: 
+                        <p>
+                            Identify the country name
+                            Both the country code and the country name are downloaded from the PowerCARD <b>COUNTRY</b> table present under the general parameter section.
+                            To populate the list of countries present in the system, the requester must use the Web Service getReferentialList
+                        </p> 
+                regionList:
+                   type: array
+                   items:
+                     type: object
+                     $ref: 'aggregate.yaml#/Region' 
+      #SelRangeDt
+      SelRangeDt:
+              type: object
+              properties: 
+                startDt:
+                   type: string
+                   description: <p>Start date</p>
+                endDt:
+                   type: string
+                   description: <p>End date</p>
+      #PhoneNum
+      PhoneNum:
+              type: object
+              properties: 
+                phoneType:
+                   type: string
+                   description:
+                       <p>
+                            Phone typeType of the phone number, possible values are <br>
+                            <b>0</b> Office fixed line phone.<br>
+                            <b>1</b> Office mobile phone.<br>
+                            <b>2</b> Home phone.<br>
+                            <b>3</b> Personal mobile phone.<br>
+                            <b>4</b> Others.<br>
+                       </p>
+                phone:
+                   type: string
+                   description: 
+                        <p>
+                            Phone Number, Where the contact can be reached at. The phone number must be formatted correctly based on the country policies.
+                        </p>
+      #PostAddr 
+      PostAddr:
+              type: object
+              properties: 
+                addressId:
+                   type: string
+                   description: <p>Internal Identification of the addresses as generated by PowerCARD.</p>
+                addressIndicator:
+                   type: string
+                   description:
+                        <p>
+                           Used to indicate whether the address being sent is a principal or a secondary address. Possible values are as follow <br>
+                           <b>P</b> Principal address, each entity must have only one Principal address <br>
+                           <b>S</b> Secondary address. It is to mention that there is no limitation as to the number of secondary addresses that an entity (Customer, cardholder, merchant, chain…) could have in the system
+                        </p>
+                addrType:
+                   type: string
+                   description: 
+                      <p>
+                           Address type
+                            Address type based on the intended purpose of use.
+                            This is a 2-digit code that must be defined in the PowerCARD <b>ADDRESSES_TYPE_LIST</b> table under the general parameters section.
+                            Values must be retrieved from PowerCARD using the Web Service getReferentialList
+                      </p>
+                addrTypeDesc:
+                   type: string
+                   description:
+                       <p>
+                           Refers to the description of the address type. <br>
+                       </p>       
+                addrStatus:
+                   type: string
+                   description:
+                       <p>
+                            Address status.  Possible values are <br>
+                            <b>P</b> Ongoing <br>
+                            <b>N</b> Normal <br>
+                            <b>C</b> Closed
+                       </p>          
+                addrSeq:
+                   type: string
+                   description:
+                      <p>
+                          Address sequence in the list. Automatically generated by the system at the address creation
+                      </p>                   
+                addrListId:
+                   type: string
+                   description:
+                        <p>
+                            Address list ID automatically generated by the system at the address creation
+                        </p>   
+                careOf:
+                   type: string
+                   description: 
+                        <p>
+                            Care of
+                            Represent the recipient, name that will be used in any communication with the entity.
+                            An entity could be, depending on the context, a customer, a merchant, a chain…
+                        </p>              
+                defaultUsage:
+                   type: string
+                   description: 
+                      <p>
+                            Default usage,Describes what each entity’s address type will be used for <br>
+                            <b>01</b> Mail. <br>
+                            <b>02</b> Loyalty.  <br>
+                            <b>03</b> Dispute. <br>
+                            <b>04</b> Statement.  <br>
+                      </p>   
+                addr1:
+                   type: string
+                   description: 
+                     <p>
+                        Address Line 1
+                        1st line of the recipient address.
+                     </p>  
+                addr2:
+                   type: string
+                   description: 
+                     <p>
+                        Address Line 2
+                        2nd line of the recipient address.
+                     </p>  
+                addr3:
+                   type: string
+                   description: 
+                     <p>
+                        Address Line 3
+                        3rd line of the recipient address.
+                     </p>    
+                addr4:
+                   type: string
+                   description: 
+                     <p>
+                        Address Line 4
+                        4th line of the recipient address.
+                     </p>   
+                city:
+                   type: object
+                   $ref: 'aggregate.yaml#/CodeLabel'                      
+                stateProv:
+                   type: object
+                   $ref: 'aggregate.yaml#/CodeLabel'                     
+                postalCode:
+                   type: string
+                   description: <p></p>        
+                country:
+                   type: object
+                   $ref: 'aggregate.yaml#/Country'
+                validityRangeDate:
+                   type: object
+                   $ref: 'aggregate.yaml#/SelRangeDt'   
+                phoneNumber1:
+                   type: object
+                   $ref: 'aggregate.yaml#/PhoneNum'             
+                phoneNumber2:
+                   type: object
+                   $ref: 'aggregate.yaml#/PhoneNum'
+                phoneNumber3:
+                   type: object
+                   $ref: 'aggregate.yaml#/PhoneNum'
+                phoneNumber4:
+                   type: object
+                   $ref: 'aggregate.yaml#/PhoneNum'
+                emailAddr:
+                   type: string
+                   description: <p>The email address</p>  
+                url:
+                   type: string
+                   description: <p>The web site address</p> 
+                sendingMode:
+                   type: string
+                   description: 
+                        <p>
+                           The defined values are <br>
+                            <b>M</b> mail <br>
+                            <b>F</b> Fax <br>
+                            <b>E</b> Email <br>
+                        </p>
+                fax:
+                   type: string
+                   description: 
+                       <p>
+                        Fax Number The fax number must be formatted correctly based on the country policies
+                       </p>                                 
+      #BankAcctRec 
+      BankAcctRec:
+              type: object
+              properties: 
+                cmsAccountId:
+                   type: string
+                   description: 
+                       <p>
+                             This is a unique identifier on the provider. It's the account identifier in the card management system.
+                             Note that this field could contain either the card number for a product which is card based or a credit account number for a product non-card based.
+                             For merchant account, this field must contain the Merchant number.
+                       </p>
+                bic:
+                   type: string
+                   description: 
+                       <p>
+                            Bank Identification Code as defined by <b>ISO 9362</b>.
+                            It refers to the international identification code of the concerned bank. It is used to identify specific banks worldwide.
+                       </p>
+                accountNumber:
+                   type: string
+                   description: <p>It refers to the bank account number part of the IBAN.</p>
+                iban:
+                   type: string
+                   description: 
+                       <p>
+                            International bank identification number as defined by <b>ISO</b>.
+                            An <b>IBAN</b> is used to uniquely identify a customer’s bank account. The IBAN consists of an alphabetical country code, followed by two digits, and then up to thirty-five characters for the bank account number.
+                       </p>
+                acctCcy:
+                   type: string
+                   description:
+                        <p>
+                            Currency code as defined by <b>ISO-4217</b>
+                            Possible values must be downloaded from the PowerCARD <b>CURRENCY_TABLE</b> table using the Web Service getReferentialList
+                        </p>
+                acctStatus:
+                   type: string
+                   description:
+                        <p>
+                            Account Status
+                            Refers to the status of the bank Account. Valid values are <br>
+                            <b>N</b> = Normal <br>
+                            <b>C</b> = Cancelled  <br>
+                            <b>S</b> = Suspended  <br>
+                            <b>W</b> = Waiting for validation  <br>
+                            <b>V</b> = To be sent for validation  <br>
+                            <b>R</b> = Rejected.  <br>
+                        </p>
+                acctAuthNbr:
+                   type: string  
+                   description: 
+                        <p> 
+                            The authorization number will be required for the customer bank that manages it.
+                            This field is reserved for future use.
+                        </p>                  
+                acctAutRangeDt:
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt'                   
+                acctBankCode:
+                   type: string   
+                   description:
+                      <p>
+                        Code identifying the bank where the account is opened.
+                        It is a 6-digit code must be stored in the PowerCARD <b>BANK</b> table under the general parameter section.
+                        Use the Web Service getReferentialList to retrieve the possible values.
+                      </p>               
+                acctBankAgency:
+                   type: string
+                   description: 
+                        <p>
+                            Code of the branch where the account is opened.
+                            This code must be stored in the PowerCARD <b>BRANCH</b> table under the general parameter section.
+                            Use the Web Service getReferentialList to retrieve the possible values.
+                        </p>
+                acctBankAddress:
+                    type: object
+                    $ref: 'aggregate.yaml#/PostAddr'            
+                acctType:
+                   type: string
+                   description:
+                       <p>
+                            Account type
+                            Refers to the type of the account.
+                            Possible values can be downloaded from the PowerCARD <b>ACCOUNT_TYPE_LIST</b> table under the general parameter section using the Web Service getReferentialList
+                       </p>
+                accountIndicator:
+                   type: string
+                   description: 
+                        <p>
+                            The account type. Can be <br>
+                                <b>P </b> For a principal account <br>
+                                <b>S</b> For a secondary account <br>
+                        </p>
+                seqID:
+                   type: number
+                   description: <p>Account sequence within the same Entity. Possible values are '00' to '99'</p>
+                routingNumber:
+                   type: string
+                   description: <p>Account routing number (Required for United States' Accounts).</p>
+                remittanceGrouping:
+                   type: string
+                   description:
+                       <p>
+                           Flag indicating whether the account transfer should be done for all remittances grouped or not. Possible values (for remittances)  <br>
+                            <b>D</b> Detail (Remittance by Remittance), <br>
+                            <b>E</b> Aggregate by contract element, <br>
+                            <b>M</b> Aggregate by merchant, <br>
+                            <b>C</b> Aggregate by the chain attached to the merchant, <br>
+                            <b>A</b> Aggregate all <br>
+                       </p>
+                feesGrouping:
+                   type: string
+                   description: 
+                         <p>
+                             Flag indicating whether the account transfer should be done for all fees grouped or not. Possible values (for Fees)  <br>
+                                <b>D</b> Detail (Fee by Fee), <br>
+                                <b>E</b> Aggregate by contract element,<br>
+                                <b>M</b> Aggregate by merchant, <br>
+                                <b>C</b> Aggregate by the chain attached to the merchant,<br>
+                                <b>A</b> Aggregate all <br>
+                         </p>                      
+                chargebackGrouping:
+                   type: string
+                   description: 
+                        <p>
+                             Flag indicating whether the account transfer should be done for all chargeback grouped or not. Possible values (for Chargebacks) <br>
+                                <b>D</b> Detail (Chargeback by Chargeback), <br>
+                                <b>E</b> Aggregate by contract element, <br>
+                                <b>M</b> Aggregate by merchant, <br>
+                                <b>C</b> Aggregate by the chain attached to the merchant, <br>
+                                <b>A</b> Aggregate all <br>
+                        </p>         
+                billableElmtGrouping:
+                   type: string
+                   description: 
+                        <p>
+                            Flag indicating whether the account transfer should be done for all billing elements grouped or not. Possible values are <br>
+                            Possible values (for billable elements) <br> 
+                            <b>D</b> Detail (Billable Element by Billable Element),<br>
+                            <b>E</b> Aggregate by contract element,<br>
+                            <b>M</b> Aggregate by merchant,<br>
+                            <b>C</b> Aggregate by the chain attached to the merchant,<br>
+                        </p>
+      #PersonName 
+      PersonName:
+              type: object
+              properties: 
+                lastName:
+                   type: string
+                   description: 
+                lastName2:
+                   type: string
+                   description:
+                firstName:
+                   type: string
+                   description:
+                middleName:
+                   type: string
+                   description: 
+                titlePrefix:
+                   type: string
+                   description:
+                nameSuffix:
+                   type: string
+                   description: 
+                nickName:
+                   type: string
+                   description: 
+                legalName:
+                   type: string
+                   description:            
+      #MerchantRepresentative 
+      MerchantRepresentative:
+              type: object
+              properties: 
+                representativeID:
+                   type: string
+                   description: 
+                        <p>
+                             Merchant representative Identification.
+                             Not required in case of creation.
+                        </p> 
+                contactName:
+                   type: string
+                   description: 
+                        <p>
+                           Merchant representative position, ‘01’ for Owner.
+                        </p>                     
+                position:
+                   type: string
+                   description: 
+                        <p>
+                           Merchant Representative position description
+                        </p>  
+                positionDescription:
+                   type: string
+                   description: 
+                        <p>
+                           Merchant Representative position description
+                        </p> 
+                titleCode:
+                   type: string
+                   description: 
+                        <p>
+                           One character identifying the gender of a person. Valid values are <br>
+                        <b>M</b>  Male <br>
+                        <b>F</b> Female <br>
+                        <b>N</b> Not applicable<br>
+                        This field is not required for the merchant details
+                        </p>             
+                gender:
+                   type: string
+                   description: 
+                        <p>
+                            One character identifying the gender of a person. Valid values are <br>
+                            <b>M</b> Male <br>
+                            <b>F</b> Female <br>
+                            <b>N</b> Not applicable <br>
+                            This field is not required for the merchant details.
+                        </p>              
+                personName:
+                   type: object
+                   $ref: 'aggregate.yaml#/PersonName'                   
+                birthDate:
+                   type: string
+                   description: 
+                        <p>
+                            Date of birth
+                            This field is not required for the merchant details.
+                        </p>
+                languageCode:
+                   type: string
+                   description: 
+                        <p>
+                             This field refers to the merchant language code.
+                             Valid values are stored in the PowerCARD <b>LANGUAGE_LIST</b> table. They must be retrieved from PowerCARD using the Web Service  getReferentialList
+                        </p>
+                documentCode:
+                   type: string
+                   description: 
+                        <p>
+                            Document Code
+                            Code identifying the government Issued Identifications
+                        </p>  
+                documentNumber:
+                   type: string
+                   description: 
+                        <p>
+                            Merchant Representative legal identification
+                        </p>  
+                emailAddr:
+                   type: string
+                   description: 
+                        <p>
+                          Email Address of the person
+                        </p>  
+                url:
+                   type: string
+                   description: 
+                        <p>
+                          Email Address of the person
+                        </p>  
+                fax:
+                   type: string
+                   description: 
+                        <p>
+                                Fax Number
+                                The fax number must be formatted correctly based on the country policies
+                        </p>  
+                taxNumber:
+                   type: string
+                   description: 
+                        <p>
+                        Merchant Representative Tax number
+                        </p>  
+                equityOwnership:
+                   type: number
+                   description: 
+                        <p>
+                            Representative ownership percentage.
+                        </p> 
+                authorizedSignatoryFlag:
+                   type: string
+                   description: 
+                        <p>
+                            Is the representative signature accepted or not?
+                        </p>   
+                phoneNum:
+                   type: array
+                   items:
+                      type: object
+                      $ref: 'aggregate.yaml#/PhoneNum'
+                postAddr:
+                   type: array
+                   items:
+                      type: object
+                      $ref: 'aggregate.yaml#/PostAddr'
+      #MerchantSite
+      MerchantSite:
+              type: object
+              properties: 
+                siteIdentifier:
+                   type: string
+                   description: 
+                       <p>
+                            The internal site identifier.
+                            This code is generated by PowerCARD and is used to identify a merchant site in the database.
+                            Not required in case of Site creation
+                       </p>
+                externalSiteIdentifier:
+                   type: string
+                   description: 
+                        <p>
+                          The external site identifier.
+                          Can potentially be used to identify the site in an external system exchanging data with PowerCARD.
+                          This field is optional
+                        </p>
+                siteName:
+                   type: string
+                   description: 
+                       <p>
+                         The name of the site as defined in the PowerCARD database.
+                       </p>
+                siteType:
+                   type: string
+                   description: 
+                       <p>
+                            This field is used to indicate the type of the merchant site.
+                            Possible values and their descriptions must be downloaded from PowerCARD <b>SITE_TYPE_LIST</b> table using the Web Service  getReferentialList
+                       </p>
+                siteLocalization:
+                   type: object
+                   $ref: 'aggregate.yaml#/PostAddr'
+                siteUrl:
+                   type: string
+                   description: <p>The system may display the URL of the site in this field.
+                            This field is optional
+                            </p>
+                siteOpeningDate:
+                   type: string
+                   description: <p>The site opening date
+                        It refers to the date when the sire was opened for the first time.
+                        </p>
+                siteTerminalNumber:
+                   type: string
+                   description: <p>Refers to the number of terminals present in the concerned site.</p>
+                sitePointOfSaleList:
+                   type: array
+                   items:
+                      type: string
+                      description: <p>This field could contain the list of the points of sales that are located in that site.
+                            This field is optional; if present it will contain the PowerCARD identification of the point of sales.
+                            </p>
+                siteStatusCode:
+                   type: string
+                   description: <p>Merchant acquiring site status. Possible values <br>
+                            <b>P</b> In progress <br>
+                            <b>N</b> Normal <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Closed <br>
+                        </p>
+                statusReasonCode:
+                   type: string
+                   description:
+                        <p>
+                          Status reason code as defined in PowerCARD <b>'STATUS_REASON_LIST'</b> table. Valid values can be retrieved using the Web Service getReferentialList
+                        </p>
+                statusStartDate:
+                   type: string
+                   description: <p>Status start date, refers to the date from when the status code is valid</p>                                                      
+                statusEndDate:
+                   type: string
+                   description: <p>Status end date, refers to the date till when the status code is valid</p>  
+      #MerchantOnId
+      MerchantOnId:
+              type: object
+              properties: 
+                merchantOnIdIdentifier:
+                   type: string
+                   description: 
+                       <p>
+                       </p>
+                merchantOnId:
+                   type: string
+                   description: 
+                       <p>
+                       </p>
+      #MerchantAcceptorPoint
+      MerchantAcceptorPoint:
+              type: object
+              properties: 
+                merchantAcceptorPointId:
+                   type: string
+                   description: 
+                       <p>
+                           Merchant Acceptor Point internal identification number
+                       </p>
+                siteIdentifier:
+                   type: string
+                   description: 
+                       <p>
+                            The internal site identifier.
+                            This code is generated by PowerCARD and is used to identify a merchant site in the database.
+                            Not required in case of Site creation
+                       </p>
+                activityIdentifier:
+                   type: string
+                   description: 
+                       <p>
+                            The activity identifier.
+                            This is an internal code generated by PowerCARD, it is used to identify uniquely the merchant activity.
+                            This field is not required in case of activity creation.
+                       </p>
+                acceptorPointName:
+                   type: string
+                   description: 
+                       <p>
+                          Acceptor Point name
+                       </p>
+                posCardsNumber:
+                   type: number
+                   description: 
+                       <p>
+                          Code of the Stop list to be generated for the Point of Service as defined in PowerCARD database
+                       </p>
+                externalId1:
+                   type: string
+                   description: 
+                       <p>
+                           Acceptor Point first external ID (Used to access the Acceptor Point)
+                       </p>
+                externalId2:
+                   type: string
+                   description: 
+                       <p>
+                         Acceptor Point first external ID (Used to access the Acceptor Point)
+                       </p>   
+                externalId3:
+                   type: string
+                   description: 
+                       <p>
+                           Acceptor Point first external ID (Used to access the Acceptor Point)
+                       </p>   
+                location:
+                   type: string
+                   description: 
+                       <p>
+                           Acceptor Point location
+                       </p>
+                acronym:
+                   type: string
+                   description: 
+                       <p>
+                         Acceptor Point acronym
+                       </p>
+                merchantOtherGroupCode:
+                   type: string
+                   description: 
+                       <p>
+                          Free user defined Merchant grouping code. Might be used as Merchant group reporting code
+                       </p> 
+                apOnId1:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId2:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId3:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId4:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId5:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId6:
+                   type: object
+                   $re7: 'aggregate.yaml#/MerchantOnId'
+                apOnId8:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId9:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'
+                apOnId10:
+                   type: object
+                   $ref: 'aggregate.yaml#/MerchantOnId'                                                                                                                              
+      #ContractBasicInformation
+      ContractBasicInformation:
+              type: object
+              properties: 
+                contractElementId:
+                   type: string
+                   description: 
+                       <p>
+                         The contact element id
+                       </p> 
+                contractReference:
+                   type: string
+                   description: 
+                       <p>
+                          The contact reference
+                       </p> 
+                productType:
+                   type: string
+                   description: 
+                       <p>
+                         The product type
+                       </p>
+                productCode:
+                   type: string
+                   description: 
+                       <p>
+                          The product code
+                       </p> 
+                statusCode:
+                   type: string
+                   description: 
+                       <p>
+                         The status code
+                       </p>   
+                statusReasonCode:
+                   type: string
+                   description: 
+                       <p>
+                         The status Reason code
+                       </p> 
+                statusStartDate:
+                   type: string
+                   description: 
+                       <p>
+                           The status start date
+                       </p>      
+                statusEndDate:
+                   type: string
+                   description: 
+                       <p>
+                           The status end date
+                       </p>  
+                activationIndicator:
+                   type: string
+                   description: 
+                       <p>
+                          The activation indicator
+                       </p>  
+                contractStartDate:
+                   type: string
+                   description: 
+                       <p>
+                          The contract start date
+                       </p>    
+                contractEndDate:
+                   type: string
+                   description: 
+                       <p>
+                        The contract end date
+                       </p>    
+                externalId1:
+                   type: string
+                   description: 
+                       <p>
+                           The external Id 1
+                       </p>    
+                externalId2:
+                   type: string
+                   description: 
+                       <p>
+                           The external Id 2
+                       </p>    
+                externalId3:
+                   type: string
+                   description: 
+                       <p>
+                           The external Id 3
+                       </p>   
+                associatedVar:
+                   type: object
+                   $ref: 'aggregate.yaml#/CodeLabel' 
+                activationRangeDate:
+                   type: object
+                   $ref: 'aggregate.yaml#/SelRangeDt'
+      #NetworkAmount
+      NetworkAmount:
+              type: object
+              properties: 
+                networkCode:
+                    type: string
+                    description: 
+                       <p>
+                       
+                       </p> 
+                networkAmnt:
+                    type: number
+                    description: 
+                       <p>
+                       
+                       </p>                        
+      #NetworkEstimation
+      NetworkEstimation:
+              type: object
+              properties: 
+                networkEstim1:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'
+                networkEstim2:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'
+                networkEstim3:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'
+                networkEstim4:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'
+                networkEstim5:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'
+                networkEstim6:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkAmount'                                                                                                    
+                currencyCode:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p> 
+                ratioCNP:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p>  
+                averageTicketAmnt:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p> 
+                highestTicketAmnt:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p>
+                b2BTrxPercent:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p>
+                internetTrxPercent:
+                   type: string
+                   description: 
+                       <p>
+                       
+                       </p>                                                                                                                                          
+      #MerchantCommonInfo
+      MerchantCommonInfo:
+              type: object
+              properties: 
+                merchantId:
+                   type: string
+                   description: 
+                       <p>
+                            This code identifies the merchant from where the request is coming.
+                            All the data returned are supposed to belong only to the concerned merchant.
+                            The Merchant Identification must be valid and must be present in the PowerCARD <b>MERCHANT</b> table
+                       </p>
+                externalMerchantId:
+                   type: string
+                   description: 
+                       <p>
+                          The first external merchant identifier
+                          If present, this field is used to identify the merchant in a third-party system.
+                          This field is optional.
+                       </p> 
+                externalMerchantId2:
+                   type: string
+                   description: 
+                       <p>
+                          The second external merchant identifier
+                          If present, this field is used to identify the merchant in a third-party system.
+                          This field is optional.
+                       </p>  
+                merchantTradeName:
+                   type: string
+                   description: 
+                       <p>
+                          The merchant trade name
+                          It refers to the name the merchant uses to identify itself. The one used for trading commercial products or services
+                       </p>  
+                merchantName:
+                   type: string
+                   description: 
+                       <p>
+                          Merchant Name
+                         The legal name of the merchant. It could be different than the Trade Name.
+                       </p>  
+                merchantLegalId:
+                   type: string
+                   description: 
+                       <p>
+                            Merchant legal Identification
+                            This field represents the legal identification number of the merchant.
+                            This identification enables a clear and unique identification of the merchant in the market
+                       </p>  
+                merchantLegalIdType:
+                   type: string
+                   description: 
+                       <p>
+                          Merchant legal Id Type
+                       </p>
+                merchantCountry:
+                    type: object
+                    $ref: 'aggregate.yaml#/Country'
+                merchantRegion:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'
+                merchantLocation:
+                   type: string
+                   description: 
+                       <p>
+                          Merchant Location
+                       </p>
+                merchantMainActivity:
+                   type: string
+                   description: 
+                       <p>
+                            The merchant category code (MCC).
+                            This field contains the main activity code of the merchant.
+                            The valid MCC codes are stored in the PowerCARD <b>MCC</b> table and must be retrieved using the Web Service getReferentialList
+                       </p> 
+                merchantStatus:
+                   type: string
+                   description: 
+                       <p>
+                            The status of the merchant
+                            The merchant status is one digit that could have one of the following values <br>
+                       </p> 
+                       <table>
+                         <tr>
+                           <th>Code</th>
+                           <th>Description</th>
+                         </tr>
+                         <tr>
+                              <td>P</td>
+                              <td>In progress</td>
+                         </tr>
+                         <tr>
+                              <td>V</td>
+                              <td>Waiting for the validation of a superior authority</td>
+                         </tr>  
+                         <tr>
+                              <td>Q</td>
+                              <td>Waiting for qualification</td>
+                         </tr> 
+                         <tr>
+                              <td>N</td>
+                              <td>Normal</td>
+                         </tr>
+                         <tr>
+                              <td>R</td>
+                              <td>Declined</td>
+                         </tr>
+                         <tr>
+                              <td>S</td>
+                              <td>Suspended</td>
+                         </tr>
+                         <tr>
+                              <td>C</td>
+                              <td>Closed</td>
+                         </tr>
+                          <tr>
+                              <td>M</td>
+                              <td>Monitored</td>
+                         </tr>
+                         <tr>
+                              <td>D</td>
+                              <td>Banned</td>
+                         </tr>
+                       </table> 
+                merchantStatusReason:
+                   type: string
+                   description: 
+                       <p>
+                            The reason used to change the status of the merchant.
+                            Status reason code as defined in PowerCARD <b>STATUS_REASON_LIST</b> table. 
+                       </p>  
+                merchantStatusDate:
+                   type: string
+                   description: 
+                       <p>
+                         Merchant Status date
+                         Refers to the last date when the merchant status has been updated. 
+                       </p>  
+                merchantStatusEndDate:
+                   type: string
+                   description: 
+                       <p>
+                            Merchant Status end date
+                            Refers to the date till when the current merchant status will be valid. 
+                       </p>
+                merchantAgreementDate:
+                   type: string
+                   description: 
+                       <p>
+                          The agreement date of the contract
+                            Usually, the date on which the agreement is signed by two parties; the merchant and the acquirer.
+                       </p>
+                merchantOpeningDate:
+                   type: string
+                   description: 
+                       <p>
+                          The opening date
+                         It refers to the date when the merchant was created in the system.
+                       </p>
+                merchantClosingDate:
+                   type: string
+                   description: 
+                       <p>
+                             The closing date
+                             The date when the merchant was closed in PowerCARD. (Merchant Status moves to C Closed)
+                       </p>  
+                payFacilitator:
+                   type: string
+                   description: 
+                       <p>
+                         Payment Facilitator
+                       </p>
+                chainCode:
+                   type: string
+                   description: 
+                       <p>
+                            This code identifies the merchant chain code. 
+                            The Chain Id must be valid and must be defined in the PowerCARD <b>CHAIN</b> table.
+                       </p> 
+                annualTurnover:
+                   type: string
+                   description: 
+                       <p>
+                          The annual turnover of the merchant
+                       </p>
+                networkEstimation:
+                    type: object
+                    $ref: 'aggregate.yaml#/NetworkEstimation'
+                contractNumber:
+                   type: string
+                   description: 
+                       <p>
+                          The contract number is the number associated with the contract, assigned to the merchant during the subscription to the contract.
+                       </p> 
+                companyName:
+                   type: string
+                   description: 
+                       <p>
+                       Company name
+                       </p> 
+                vatNumbere:
+                   type: string
+                   description: 
+                       <p>
+                        VAT number assigned to the merchant
+                       </p> 
+                languageCode:
+                   type: string
+                   description: 
+                       <p>
+                         This field refers to the merchant language code.
+                         Valid values are stored in the PowerCARD <b>LANGUAGE_LIST</b> table. They must be retrieved from PowerCARD using the Web Service getReferentialList
+                       </p> 
+                legalForm:
+                   type: string
+                   description: 
+                       <p>
+                         Legal Form
+                       </p>  
+                tradeLicenceNumber:
+                   type: string
+                   description: 
+                       <p>
+                          Merchant trade license number
+                       </p> 
+                merchantOnId1:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId'
+                merchantOnId2:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId3:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId4:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId5:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId6:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId7:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId8:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId9:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantOnId10:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantOnId' 
+                merchantVerifValue:
+                   type: string
+                   description: 
+                       <p>
+                           Visa Merchant Verification Value
+                       </p>   
+                merchantTransIndicator:
+                   type: string
+                   description: 
+                       <p>
+                         Merchant transaction indicator
+                       </p> 
+                merchantRiskIndicator:
+                   type: string
+                   description: 
+                       <p>
+                         VISA Merchant risk indicator
+                       </p>  
+                merchantAccountList:
+                   type: array
+                   items:
+                      type: object
+                      $ref: 'aggregate.yaml#/BankAcctRec' 
+
+      #MerchantBasicInfo
+      MerchantBasicInfo:
+              type: object
+              properties: 
+                merchantid:
+                   type: string
+                   description: 
+                       <p>
+                         This code identifies the merchant from where the request is coming.
+                         All the data returned are supposed to belong only to the concerned merchant.
+                         The Merchant Identification must be valid and must be present in the PowerCARD <b>MERCHANT</b> table.
+                       </p>    
+                externalmerchantid:
+                   type: string
+                   description: 
+                       <p>
+                            The external merchant identifier
+                            If present, this field is used to identify the merchant in a third-party system.
+                            This field is optional.
+                       </p>   
+                contractnumber:
+                   type: string
+                   description: 
+                       <p>
+                            The contract number is the number associated with the merchant, assigned to the merchant during the subscription to that contract.
+                       </p>   
+                bankcode:
+                   type: string
+                   description: 
+                       <p>
+                         This is a 6 alphanumeric code representing the financial institution to which belong the merchant.
+                        This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                       </p>     
+                branchcode:
+                   type: string
+                   description: 
+                       <p>
+                         This is a 6 alphanumeric code representing branch of the financial institution to which belong the merchant.
+                         This code must be previously defined in the PowerCARD <b>BRANCH</b> table under the general parameter section
+                         Valid values must be retrieveds  from PowerCARD using the Web Service getReferentialList
+                       </p> 
+                merchantcommoninfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantCommonInfo' 
+      #Case
+      Case:
+              type: object
+              properties: 
+                caseReference:
+                   type: string
+                   description: 
+                       <p>
+                            Should contain the reference of the case.
+                            This value must be present in <b>CASE_TABLE</b> table.
+                            Optial in case of creation
+                       </p>
+                externalCaseId:
+                   type: string
+                   description: 
+                       <p>
+                           For any case created in the system and identified also by an external reference Id, user may search using this Id
+                       </p>                                                                                                                                                   
+                caseSource:
+                   type: string
+                   description: 
+                       <p>
+                          Source from where the case was craeted.
+                            Possible values are <br>
+                            <b>A</b> Automatic <br>
+                            <b>M</b> manual  <br>
+                            <b>W</b> Web service <br>
+                       </p>                                                                                                                                                                                                         
+                caseTypeCode:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the type of case being serached.
+                            Remember that cases in PowerCARD system are categorized by case type. A case type mainly corresponds to an area of operation or module.
+                            Valid values must be retrieved  from PowerCARD <b>CASE_TYPE</b> table using the Web Service getReferentialList
+                       </p> 
+                caseDescription:
+                   type: string
+                   description: 
+                       <p>
+                          Description of the case.
+                       </p>     
+                caseAbrvWording:
+                   type: string
+                   description: 
+                       <p>
+                           A breif description of the case
+                       </p> 
+                caseEntityCode:
+                   type: string
+                   description: 
+                       <p>
+                            Entity code that refers to the entity subject to claim/case.
+                            Valid values must be retrieved  from PowerCARD <b>CASE_ENTITY</b> table using the Web Service getReferentialList
+                       </p>  
+                caseOpenningDate:
+                   type: string
+                   description: 
+                       <p>
+                         Date when the case was created in the system
+                       </p>    
+                caseOpenningUser:
+                   type: string
+                   description: 
+                       <p>
+                          Identify the user who created the case
+                       </p> 
+                caseClosingDate:
+                   type: string
+                   description: 
+                       <p>
+                            If present, it should refer to the date when the case was closed
+                       </p> 
+                CaseClosingUser:
+                   type: string
+                   description: 
+                       <p>
+                           If present, it should refer to the user who closed the case
+                       </p>
+                transaction:
+                   type: array
+                   items:
+                      type: object
+                caseEventList:
+                   type: array
+                   items:
+                      type: object
+      #ContactInfo
+      ContactInfo:
+              type: object
+              properties: 
+                contactId:
+                   type: string
+                   description: 
+                       <p>
+   
+                       </p> 
+                contactPref:
+                   type: string
+                   description: 
+                       <p>
+                            Contact Preference. This is the preferred method to reach the entity to whom the <ContactInfo> refers.
+                            Possible values are <br>
+                            <b>D</b> Day Phone,  <br>
+                            <b>E</b> Evening Phone,  <br>
+                            <b>F</b> Day Fax, <br>
+                            <b>V</b> Evening Fax, <br>
+                            <b>M</b> Email, <br>
+                            <b>P</b> Post. <br>
+                            This field is reserved for future use
+                       </p>   
+                prefTimeStart:
+                   type: string
+                   description: 
+                       <p>
+                            Preferred Contact Start Time. 
+                            This is the beginning of the window of time within which contact is preferred.
+                            This field is reserved for future use
+                       </p> 
+                prefTimeEnd:
+                   type: string
+                   description: 
+                       <p>
+                            Preferred Contact End Time. 
+                            This is the end of the window of time within which contact is preferred.
+                            This field is reserved for future use
+                       </p> 
+                address:
+                   type: array
+                   items:
+                       type: object
+                       $ref: 'aggregate.yaml#/PostAddr'
+                phoneNum:
+                   type: array
+                   items:
+                       type: object
+                       $ref: 'aggregate.yaml#/PhoneNum' 
+                contactName:
+                   type: string
+                   description: 
+                       <p>
+                             Name of the person associated with the contact information. Typically, this is the name of the person within the business that the phone number, email address, and/or address is associated with.
+                       </p> 
+                emailAddr:
+                   type: string
+                   description: 
+                       <p>
+                            Email Address of the person
+                       </p>    
+                url:
+                   type: string
+                   description: 
+                       <p>
+                            Web Site Address
+                       </p> 
+                fax:
+                   type: string
+                   description: 
+                       <p>
+                            Fax Number
+                            The fax number must be formatted correctly based on the country policies
+                       </p> 
+                position:
+                   type: string
+                   description: 
+                       <p>
+                            Merchant Representative position as defined in PowerCARD <b>'POSITION_LIST'</b> table General parameters
+                            Valid values can be retrieved using the Web Service getReferentialList
+                       </p> 
+                positionDescription:
+                   type: string
+                   description: 
+                       <p>
+                            Should contain the description the position filed above
+                       </p>
+      #ClaimHistory
+      ClaimHistory:
+              type: object
+              properties: 
+                date:
+                   type: string
+                   description: 
+                       <p>
+                            It refers to the date when the claim was processed and changed to the corresponding status transmitted in the following field.
+                       </p>  
+                status:
+                   type: string
+                   description: 
+                       <p>
+                            Indicates the status of the claim being sent. In its cycle life, This value refers to the last status of the claim.
+                            Valid values are <br>
+                            <b>O</b> Open. It this case the claim is not yet assigned to an agent for processing. <br>
+                            <b>W</b> Waiting to be processed. The claim is assigned but still under progress  <br>
+                            <b>P</b> Processed. Only when the claim is processed and closed by the agent. <br>
+                       </p> 
+                description:
+                   type: string
+                   description: 
+                       <p>
+   
+                       </p>                            
+                                                                                           
+      #Claim
+      Claim:
+              type: object
+              properties: 
+                claimId:
+                   type: string
+                   description: 
+                       <p>
+                            This is an internal identification number generated and assigned by the system to any new claim
+                       </p> 
+                claimReasonCode:
+                   type: string
+                   description: 
+                       <p>
+                            Claim reason code must be sent within the request.
+                            Valid values must be retrieved  from PowerCARD <b>CASE_REASON</b> table using the Web Service getReferentialList
+                       </p>
+                claimReasonDesc:
+                   type: string
+                   description: 
+                       <p>
+                             Description of case. 
+                            The user might use the description stored in the <b>CASE_REASON</b> table as default value.
+                       </p> 
+                claimDesc:
+                   type: string
+                   description: 
+                       <p>
+                            This field must contain a description of the claim. The description must be done in a way that can help the agent understanding the claim easily.
+                       </p> 
+                claimStatusCode:
+                   type: string
+                   description: 
+                       <p>
+                            Indicates the status of the claim being sent. In its cycle life, This value refers to the last status of the claim.
+                            Valid values are <br>
+                            <b>O</b> Open. It this case the claim is not yet assigned to an agent for processing.  <br>
+                            <b>W</b> Waiting to be processed. The claim is assigned but still under progress <br>
+                            <b>P</b> Processed. Only when the claim is processed and closed by the agent.  <br>
+                       </p> 
+                claimTransfertDate:
+                   type: string
+                   description: 
+                       <p>
+                            This field refers to the date when the request has been transmitted to PowerCARD
+                       </p> 
+                transactionId:
+                   type: string
+                   description: 
+                       <p>
+                            If the claim is related to a transaction, the end user might transmit the Transaction Acquirer Nuumber for analysis.
+                       </p> 
+                terminalId:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the terminal concerned by this claim
+                       </p> 
+                remittanceSequence:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the Remittance identification subject of this claim if available
+                       </p>   
+                merchantId:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the merchant identification subject to the claim if available
+                       </p>   
+                merchantName:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the merchant name subject to the claim if available
+                       </p>   
+                merchantLegalId:
+                   type: string
+                   description: 
+                       <p>
+                            Refers to the merchant legal Identification subject to the claim if available
+                       </p>   
+                linkupCode:
+                   type: string
+                   description: 
+                       <p>
+                          Refer to the transaction linkup code 
+                       </p>  
+                batchNumber:
+                   type: string
+                   description: 
+                       <p>
+                            Refer to the transaction batch code
+                       </p>                                                                                                                                                 
+                claimContact:
+                    type: object
+                    $ref: 'aggregate.yaml#/ContactInfo'
+                claimHistoryList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ClaimHistory'                      
+
+# ---- ChainHierarchyNode
+      ChainHierarchyNode:
+        type: object
+        properties:
+            nodeType: 
+              type: string
+              description: 
+                   <p>
+                      This field indicates the chain hierarchy node type. Possible values are  
+                        <b>ISO</b>(Independent Sales Organization) <br>
+                        <b>SUB-ISO</b> (Sub Independent Sales Organization) <br>
+                        <b>VAR</b> (Value Added Reseller) <br>
+                        <b>CHAIN (Chain)</b> <br>
+                        <b>MERCHANT(Merchant)</b> <br>
+                        <b>POS (Point of Sale)</b> <br>
+                   </p>
+            nodeIdentifier: 
+              type: string
+              description: 
+                   <p>
+                         It must contain the ISO/Sub Iso/VAR/Chain/Merchant/Point of sale internal identification as defined in PowerCARD tables.
+                         For instance, if the Node Type is set to <b>CHAIN</b>, this field must contain a valid Chain Identification number.
+                         If it is equal to <b>MERCHANT</b>, this field must contain a valid Merchant Identification
+                         And if the Node type is set this time to <b>POS</b>, the Node Identifier filed must contain a valid point of sale identification number….
+                   </p>   
+            nodeIdentifierParent: 
+              type: string
+              description: 
+                 <p>
+                        Whenever a node in the structure is belonging to another entity, this field must contain the identification of the entity to whom it belongs.
+                        Hence this field might contain either a valid chain identification number, a merchant Identification number, an <b>ISO id</b>, <b>Sub ISO Id</b>, or a <b>VAR id</b>.
+                 </p> 
+            nodeLabel: 
+              type: string
+              description:
+                   <p>
+                        The acronym of the entity being shared in this record.
+                        It could be <br>
+                        The chain acronym   <br>
+                        The merchant acronym  <br>
+                        The point of sale acronym. <br>
+                        The ISO acronym <br>
+                        The Sub ISO acronym <br>
+                        The VAR acronym <br>
+                   </p>   
+            posSiteName: 
+              type: string
+              description: 
+                    <p>This field is mandatory only in case of a Point of sale node.
+                      It should then contain site name of the point of sale as defined in the PowerCARD database.
+                    </p> 
+            posActivityName: 
+              type: string
+              description: 
+                    <p>This field must contain the name or description of the point of sale activity.
+                    By default this field might contain the description of the <b>MCC</b> as stored in the PowerCARD MCC table.
+                    Field must be present only in case of point of sale node.
+                    </p>  
+            posAcceptanceProduct: 
+              type: string
+              description: <p>The name of the product associated to contract element of that point of sale.
+                Field must be present only in case of point of sale node.
+                </p>
+            posNumberOfTerminal: 
+              type: string
+              description: <p>Refers to the number of terminals belonging to the point of sale.
+                    Present only in case of a node representing a point of sale.
+                    </p>
+            legalId: 
+              type: string
+              description:  <p>  Chain/Merchant/Point of sale  legal Identification
+                                 This field represents the legal identification number of the concerned entity.
+                                 This identification refers to unique identification of the entity in the market.
+                            </p>   
+# ---- TinInfo
+      TinInfo:
+        type: object
+        properties:
+            tinType: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            taxId: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+            certCode: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+# ----CurAmt
+      CurAmt:
+         type: object
+         properties:
+            amt:
+                type: number
+                description: 
+                    <p>
+                        Amount.
+                        The nominal amount value is multiplied by 10n; where n is the currency exponent of the currency code sent in the field below; the last n digits are used for decimals.
+                        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.
+                    </p>
+            curCode:
+                type: string
+                description: 
+                    <p>
+                        Currency code.
+                        <b>ISO currency</b> code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+
+                    </p>                
+# ---- Finance
+      Finance:
+         type: object
+         properties:
+            financeType:
+                type: string
+                description: <p></p>
+            denomination:
+                 type: string
+                 description: <p></p>
+            period:
+                type: string
+                description: <p></p>
+            endDate:
+                type: string
+                description: <p></p>
+            amt:
+                type: object
+                $ref: 'aggregate.yaml#/CurAmt'
+# ---- GovIssueIdent
+      GovIssueIdent:
+        type: object
+        properties:
+            govIssueIdentType: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            identSerialNum: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            govOrg: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            govOrgName: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            govRank: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+            stateProv: 
+                type: object
+                $ref: 'aggregate.yaml#/CodeLabel'
+            country: 
+                type: object
+                $ref: 'aggregate.yaml#/Country'
+            description: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            issDt: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            expDt: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+# ---- OtherIdentDoc
+      OtherIdentDoc:
+        type: object
+        properties:
+            description: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            identSerialNum: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            issuer: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            issueLoc: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            issDt: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            expDt: 
+                type: string
+                description: 
+                    <p>
+                    </p>                    
+# ---- PersonInfo
+      PersonInfo:
+        type: object
+        properties:
+            personId: 
+                type: string
+                description: 
+                    <p>
+                        Person identifier
+                        Refers to the unique customer identification in the system.
+                    </p> 
+            personName: 
+                type: object
+                $ref: 'aggregate.yaml#/PersonName' 
+            contactInfo: 
+                type: object
+                $ref: 'aggregate.yaml#/ContactInfo'
+            tinInfo: 
+                type: object
+                $ref: 'aggregate.yaml#/TinInfo'
+            motherMaidenName: 
+                type: string
+                description: 
+                    <p>
+                       Mother's Maiden Name.
+                    </p>
+            spouseName: 
+                type: string
+                description: 
+                    <p>
+                      Spouse's Name.
+                    </p> 
+            gender: 
+                type: string
+                description: 
+                    <p>
+                         One character identifying the gender of a person. Valid values are <br>
+                        <b>M</b> Male <br>
+                        <b>F</b> Female <br>
+                        <b>N</b> Not applicable <br>
+                        This field is not required for the merchant details.
+                    </p>
+            maritalStatus: 
+                type: string
+                description: 
+                    <p>
+                         Marital Status
+                        Specifies the customer marital status, possible values are <br>
+                        <b>S</b> Single. <br>
+                        <b>M</b> Married. <br>
+                        <b>D</b> Divorced. <br>
+                        <b>W</b>Widower. <br>
+                        <b>N</b> Not applicable. <br>
+                        This field is not required for the merchant details 
+                    </p>   
+            dependents: 
+                type: string
+                description: 
+                    <p>
+                        Number of Dependents.
+                        Number of persons relying on the customer.
+                    </p> 
+            oEDCode: 
+                type: string
+                description: 
+                    <p>
+                        Officer, Employee, Director Code, Possible values are <br>
+                        <b>O</b> Officer <br>
+                        <b>E</b> Employee <br>
+                        <b>D</b> Director <br>
+                        This field is reserved for future use.
+                    </p>
+            oEDInstitution: 
+                type: string
+                description: 
+                    <p>
+                            Officer, Employee, Director Institution name. Defined values <br>  
+                            <b>UNK</b> Unknown <br>
+                            <b>AFI</b> Affiliate Financial Institution <br>
+                            <b>HCM</b> Holding Company <br>
+                            <b>OFI</b>Other Financial Institution <br>
+                            <b>TFI</b> This Financial Institution <br>
+                            This field is reserved for future use. <br>
+                    </p> 
+            orgName: 
+                type: string
+                description: 
+                    <p>
+                        Name of the Organization/Corporate to which belong the customer.
+                        This value must be previously defined in the PowerCARD <b>CORPORATE</b> table.
+                    </p>   
+            govIssueIdent:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/GovIssueIdent' 
+            otherIdentDoc:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/OtherIdentDoc'  
+            bankAcctRec:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/BankAcctRec'
+            ownerCode: 
+                type: string
+                description: 
+                    <p>
+                        The owner code.  
+                        This field is typically used to distinguish between individual cardholder, business cardholder or company cardholder.
+                        The value must be defined in the PowerCARD <b>OWNER_LIST</b> table under the general parameters section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                        This field is not required for the merchant details.
+                    </p> 
+            liabilityIndicator: 
+                type: string
+                description: 
+                    <p>
+                         Liability indicator to be filled only if the person is corporate. Possible values <br>   
+                        <b>P</b> Personal Liability (for personal cards/persons) <br>
+                        <b>I</b> Individual liability (personal liability for corporate cards) <br>
+                        <b>J</b> Joint (Both personal and corporate liability for corporate cards). <br>
+                        <b>F</b> Full liability Corporation only is liable. <br>
+                        Business rules or controls <br>
+                        The liability indicator of a corporate card could never be set to <b>P</b>   <br>
+                        The liability indicator of an individual card could never be set to <b>F</b>  <br>
+                        
+                        This field is not required for the merchant details.
+                    </p>    
+            vipLevel: 
+                type: string
+                description: 
+                    <p>
+                        The VIP code.
+                        Predefined level of importance associated with the cardholder’s professional or social status. It is usually used to grant special privileges to the cardholder.
+                        This code must be previously defined in the PowerCARD <b>VIP_LIST</b> table under the general parameter section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                        This field is not required for the merchant details.
+                    </p> 
+            customerSegment: 
+                type: string
+                description: 
+                    <p>
+                        The customer segment.
+                        Specifies the customer segments to which the cardholder belongs. This field is used mainly for marketing segmentation purposes. 
+                        Assignable values must be previously defined in the PowerCARD <b>CUSTOMER_SEGMENT</b> table under the general parameters section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                        This field is not required for the merchant details.
+                    </p> 
+            socioProfCode: 
+                type: string
+                description: 
+                    <p>
+                        Socio-professional code of the person.
+                        Used for the segmentation of cardholders based on such criteria as job industry, and professional qualification.  
+                        This code must be previously defined in the PowerCARD <b>SOCIOPROF LIST</b> table under the general parameters section
+                        This field is not required for the merchant details.
+                    </p>
+            branchId: 
+                type: string
+                description: 
+                    <p>
+                        The branch identifier
+                        Code of the bank branch holding the cardholder’s account.
+                        Assignable values must be previously defined in the PowerCARD <b>BRANCH</b> table under the general parameters section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                        This field is not required for the merchant details.
+                    </p>    
+            finances:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/Finance'
+            birthDate: 
+                type: string
+                description: 
+                    <p>
+                        Date of birth
+                        This field is not required for the merchant details.
+                    </p> 
+            birthCity: 
+                type: object
+                $ref: 'aggregate.yaml#/CodeLabel' 
+            birthState: 
+                type: object
+                $ref: 'aggregate.yaml#/CodeLabel'
+            birthCountry: 
+                type: object
+                $ref: 'aggregate.yaml#/Country'   
+            nationality: 
+                type: string
+                description: 
+                    <p>
+                        Nationality of the person. 
+                        Country code of the person’s citizenship according to the <b>ISO-3166</b> specification.  
+                        This code must be previously defined in the PowerCARD <b>COUNTRY</b> table under the general parameters section and must be retrieved from PowerCARD using the Web Service getCountriesReferentialList
+                        This field is not required for the merchant details
+                    </p>
+            jobTitle: 
+                type: string
+                description: 
+                    <p>
+                      Job title
+                    </p>  
+            employeeID: 
+                type: string
+                description: 
+                    <p>
+                        The employee Identifier
+                        Refers to the identification of the employee assigned to him by the employer
+                    </p> 
+            employmentStatus: 
+                type: string
+                description: 
+                    <p>
+                         Employment Status 
+                        Possible values are as follow <br>
+                        <b>C</b> Corporate or company  <br>
+                        <b>E</b> Employee <br>
+                        <b>L</b> Liberal job <br>
+                        <b>R</b> Retired <br>
+                        <b>S</b> Student <br>
+                        <b>U</b> Unemployed <br>
+                        <b>N</b> Not applicable <br>
+                        <b>M</b> Military <br>
+                    </p> 
+            recruitmentDate: 
+                type: string
+                description: 
+                    <p>
+                       Person recruitment Date
+                    </p>
+            statusID: 
+                type: string
+                description: 
+                    <p>
+                         Refers to the status of the person in the system. 
+                        Possible values must be retrieved from the PowerCARD <b>STATUS_LIST</b> using the Web Service getReferentialList
+                        This field is not required for the merchant details.
+                    </p>  
+            statusDate: 
+                type: string
+                description: 
+                    <p>
+                    Status date
+                    Date at which the person status was last updated.
+                    </p> 
+            languageCode: 
+                type: string
+                description: 
+                    <p>
+                       This field refers to the customuer language code.
+                        Valid values are stored in the PowerCARD <b>LANGUAGE_LIST</b> table. They must be retrieved from PowerCARD using the Web Service getReferentialList
+                    </p>  
+            documentCode: 
+                type: string
+                description: 
+                    <p>
+                        Document Code
+                        Code identifying the government Issued Identifications
+                    </p>   
+            titleCode: 
+                type: string
+                description: 
+                    <p>
+                        Person Title Prefix.
+                        Prefix added to the customer’s name. Titles may refer to social honorifics, professional designations, or academic ranks.
+                        This code must be previously defined in the PowerCARD <b>TITLE_LIST</b> table under the general parameters section and must be retrieved from PowerCARD using the Web Service getReferentialList
+                    </p> 
+# ---- AcceptedNetwork
+      AcceptedNetwork:
+        type: object
+        properties:
+            networkCode: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            network: 
+                type: string
+                description: 
+                    <p>
+                    </p>    
+            floorLimit: 
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+            bankFloorLimit: 
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+            defaultVal: 
+                type: string
+                description: 
+                    <p>
+                    </p>                                                                                    
+# ---- MerchantAcceptanceContract
+      MerchantAcceptanceContract:
+        type: object
+        properties:
+            merchantContractId: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            acceptanceProduct: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            statusID: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            StatusReasonID: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            statusStartDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            statusEndDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            agreementStartDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            agreementEndDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>   
+            activationIndicator: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+            activationRangeDate: 
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt' 
+            acceptedNetworkList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/AcceptedNetwork'
+# ---- ConditionAttribute
+      ConditionAttribute:
+        type: object
+        properties:
+            linkedNode: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+            conditionName: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+            attributeName: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            attributeValue: 
+                type: string
+                description: 
+                    <p>
+                    </p>  
+# ---- BillableElement
+      BillableElement:
+        type: object
+        properties:
+            name: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            chargingMode: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            chargingConditionList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ConditionAttribute'                                                                                                                              
+# ---- ServiceOption
+      ServiceOption:
+        type: object
+        properties:
+            serviceOptionCode: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            serviceOptionName: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            serviceOptionType: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            attributeNameList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/CodeLabel' 
+            billableElementList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/BillableElement'                        
+
+# ---- MerchantEquipmentContract
+      MerchantEquipmentContract:
+        type: object
+        properties:
+            merchantContractId: 
+                type: string
+                description: 
+                    <p>
+                    </p>   
+            equipementProductCode: 
+                type: string
+                description: 
+                    <p>
+                    </p>   
+            equipementProductName: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            statusID: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            StatusReasonID: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            StatusStartDate: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            StatusEndDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>   
+            agreementStartDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            agreementEndDate: 
+                type: string
+                description: 
+                    <p>
+                    </p>
+            activationIndicator: 
+                type: string
+                description: 
+                    <p>
+                    </p>   
+            activationRangeDate: 
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt'
+            equipementProductTerminalNumber: 
+                type: string
+                description: 
+                    <p>
+                    </p> 
+            serviceOptionList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ServiceOption'                                                                                                                                                                                                                                                                                                                                                                                                                 
+# ---- Merchant
+      Merchant:
+        type: object
+        properties:
+            merchantId: 
+                type: string
+                description: 
+                    <p>
+                            This code identifies the merchant from where the request is coming.
+                            All the data returned are supposed to belong only to the concerned merchant.
+                            The Merchant Identification must be valid and must be present in the PowerCARD <b>MERCHANT</b> table.
+                    </p>
+            externalMerchantId: 
+                type: string
+                description: 
+                    <p>
+                        The external merchant identifier
+                        If present, this field is used to identify the merchant in a third-party system.
+                        This field is optional.
+                    </p>
+            merchantCommonInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantCommonInfo'
+            merchantRepresentativeList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/MerchantRepresentative'
+            personInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/PersonInfo' 
+            contactList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ContactInfo'
+            merchantAccContractList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/MerchantAcceptanceContract'                                                                                                                                            
+            merchantEquipContractList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/MerchantEquipmentContract'                                                                                                                                            
+            PostAddrList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/PostAddr'
+            merchantPosList:
+                    type: array
+                    items:
+                       type: object
+            merchantSiteList:
+                    type: array
+                    items:
+                       type: object
+            merchantActivityList:
+                    type: array
+                    items:
+                       type: object 
+# --- TimeLimits
+      TimeLimits:
+        type: object
+        properties:
+            weekday: 
+                type: string
+                description: 
+                    <p> 
+                        Refers to the weekday <br>
+                        <b>MON</b> Monday   <br>
+                        <b>TUE</b> Tuesday  <br>
+                        <b>WEN</b> Wednesday <br>
+                        <b>THU</b> Thursday <br>
+                        <b>FRI</b> Friday  <br>
+                        <b>SAT</b> Saturday <br>
+                        <b>SUN</b> Sunday <br>
+                    </p>   
+            fromHour: 
+                type: string
+                description: 
+                    <p>
+                       The from hour limit 
+                    </p> 
+            toHour: 
+                type: string
+                description: 
+                    <p> 
+                      The end hour limit
+                    </p>
+            activeStatus: 
+                type: string
+                description: 
+                    <p> 
+                        The current status of the time limits The value <b>True</b> stands for active otherwise the period is not considered valid any more.
+                    </p> 
+# --- TerminalCurAmt
+      TerminalCurAmt:
+        type: object
+        properties:
+            terminalCurAmtId: 
+                type: string
+                description: 
+                    <p> 
+                        Amount Id.
+                        Possible values are :1,2,3,4,5,6
+                    </p>  
+            currencyCode: 
+                type: string
+                description: 
+                    <p> 
+                         Currency used for the following amounts
+                        ISO currency code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.
+                        Valid values must be retrieved from PowerCARD using the Web Service getReferentialList
+                    </p>  
+            minimumAmount: 
+                type: string
+                description: 
+                    <p> 
+                    Minimum amount accepted in the POS
+                    </p>
+            floorLimit: 
+                type: string
+                description: 
+                    <p> 
+                    Maximum amount accepted by the POS. Over this amount the POS should make a call
+                    </p> 
+            ceilingLimit: 
+                type: string
+                description: 
+                    <p> 
+                    Ceiling limit amount. Passed thos amount, the merchant should make a manually authorization
+                    </p>                                                                                                        
+# --- TerminalPos
+      TerminalPos:
+        type: object
+        properties:
+            terminalPosNumber: 
+                type: string
+                description: 
+                    <p> 
+                        Must contain the terminal identification number as stored in PowerCARD
+                    </p>
+            masterPosIndicator: 
+                type: string
+                description: 
+                    <p> 
+                        Refers to the pos indicator. Possible values are <br> 
+                        <b>M </b> Master  <br>
+                        <b>S </b> Slave   <br>
+                        <b>A</b> Autonomous <br>
+                    </p>  
+            masterPosNumber: 
+                type: string
+                description: 
+                    <p> 
+                        Refers to the Pos number of the master POS.
+                        This field is mandatory only in case the field above is set to <b>S</b> (Slave)
+                    </p> 
+            outletNumber: 
+                type: string
+                description: 
+                    <p> 
+                    Must contain the code of the Acceptor point to which this POS belong
+                    </p> 
+            terminalPosGrouping: 
+                type: string
+                description: 
+                    <p> 
+                        It should contain the code of the group to which belong the terminal.
+                        Those codes are defined for grouping reason to simplify the search and monitoring of terminals
+                        Valid values must be retrieved from PowerCARD <b>TERMINAL_POS_GROUPING</b> table using the Web Service getReferentialList
+                    </p>
+            posAcronym: 
+                type: string
+                description: 
+                    <p> 
+                         Must contain the terminal acronym
+                    </p>  
+            posLocation: 
+                type: string
+                description: 
+                    <p> 
+                       Refers to the POS location
+                    </p>   
+            cityCode: 
+                type: string
+                description: 
+                    <p> 
+                        This field contains the code of the city where the terminal is located.
+                        Valid values must be retrieved from PowerCARD <b>CITY</b> table using the Web Service getReferentialList
+                    </p> 
+            regionCode: 
+                type: string
+                description: 
+                    <p> 
+                        This field contains the code of the state where the terminal is located.
+                        Valid values must be retrieved from PowerCARD <b>REGION</b> table using the Web Service getReferentialList
+                    </p>
+            countryCode: 
+                type: string
+                description: 
+                    <p> 
+                        This field contains the code of the country where the terminal is located.
+                        Valid values must be retrieved from PowerCARD <b>COUNTRY</b> table using the Web Service getReferentialList
+                    </p>
+            posBrandCode: 
+                type: string
+                description: 
+                    <p> 
+                        Pos Brand Code
+                        Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                    </p>
+            protocolIndex: 
+                type: string
+                description: 
+                    <p> 
+                        Terminal Protocol
+                        Valid values must be retrieved from PowerCARD <b>PROTOCOL_LIST</b> table using the Web Service getReferentialList
+                    </p> 
+            posProfileCode: 
+                type: string
+                description: 
+                    <p> 
+                        Terminal profile code
+                        Valid values must be retrieved from PowerCARD <b>POS_PROFILE</b> table using the Web Service getReferentialList
+                    </p>                      
+            transactionProcessingMode: 
+                type: string
+                description: 
+                    <p> 
+                         Transaction processing mode.
+                        Possible values are <br>
+                        <b>SM</b> Single message without reconciliation <br>
+                        <b>DM</b> Double message with reconciliation <br>
+                        <b>TD</b> Double message with transaction download <br>
+                    </p> 
+            serialNumber: 
+                type: string
+                description: 
+                    <p> 
+                       Pos Serial number
+                    </p> 
+            serialNumberPinPad: 
+                type: string
+                description: 
+                    <p> 
+                        Pinpad serial number
+                    </p> 
+            installationDate: 
+                type: string
+                description: 
+                    <p> 
+                       Installation date
+                    </p> 
+            terminalModeStatus: 
+                type: string
+                description: 
+                    <p> 
+                        Terminal mode status.
+                        Possible values are <br>
+                        <b>T</b> Test mode <br>
+                        <b>L</b> Live mode <br>
+                        <b>F</b> Forbidden mode <br>
+                        <b>C</b> Cancelled mode <br>
+                    </p> 
+            dateStatus: 
+                type: string
+                description: 
+                    <p> 
+                       Last update status date
+                    </p>
+            terminalCurAmtList: 
+                type: array
+                items:
+                    type: object
+                    $ref: 'aggregate.yaml#/TerminalCurAmt'
+            creditnoteflag: 
+                type: string
+                description: 
+                    <p> 
+                        This field indicates if the POS must be refunded to the merchant in case the POS is removed from the outlet location. <br>
+                        <b>Y</b> Yes <br>
+                        <b>N</b> No  <br>
+                    </p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+            dialHour: 
+                type: string
+                description: 
+                    <p> 
+                       Dial hour. Date format HH24:MI
+                    </p> 
+            downLoadUser: 
+                type: string
+                description: 
+                    <p> 
+                       This field indicates the user who downloaded the POS data to the terminal
+                    </p> 
+            dialPrefixe: 
+                type: string
+                description: 
+                    <p> 
+                      This field indicates the prefix that needs to be dialed before the actual server number
+                    </p>   
+            tonepulseFlag: 
+                type: string
+                description: 
+                    <p> 
+                        This field indicates in the POS uses the tone or pulse standard
+                        <b>T</b> Tone  <br>
+                        <b>P</b> Pulse  <br>
+                    </p>  
+            pinKeyNumber: 
+                type: string
+                description: 
+                    <p>
+                        PIN key number 
+                    </p> 
+            transPortPinKeyNumber: 
+                type: string
+                description: 
+                    <p> 
+                       Transport PIN key number
+                    </p>  
+            mackeyNumber: 
+                type: string
+                description: 
+                    <p> 
+                       MAC key number
+                    </p> 
+            masterKeyNumber: 
+                type: string
+                description: 
+                    <p> 
+                       Master key number
+                    </p> 
+            userPassword: 
+                type: string
+                description: 
+                    <p> 
+                       User password for configuration change at terminal level
+                    </p> 
+            languageCode1: 
+                type: string
+                description: 
+                    <p> 
+                        This field indicates which 1st language code to be used by the terminal.
+                        Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                    </p> 
+            languageCode2: 
+                type: string
+                description: 
+                    <p> 
+                        This field indicates which 2nd language code to be used by the terminal.
+                        Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                    </p>
+            languageCode3: 
+                type: string
+                description: 
+                    <p> 
+                        This field indicates which 3rd language code to be used by the terminal.
+                        Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                    </p>
+            idleLoopDisplay: 
+                type: string
+                description: 
+                    <p> 
+                       Idle loop display on terminal
+                    </p> 
+            terminalApplicationCode: 
+                type: string
+                description: 
+                    <p> 
+                        Terminal application code
+                    </p>
+            currentSoftwareVersion: 
+                type: string
+                description: 
+                    <p> 
+                        Current POS application software
+                    </p>  
+            lastUploadSoftwareDate: 
+                type: string
+                description: 
+                    <p> 
+                        Date of last upload successfully of current software
+                    </p>
+            posCardsNumber: 
+                type: string
+                description: 
+                    <p> 
+                        Pos cards number
+                    </p>  
+            equipmentFeeCode: 
+                type: string
+                description: 
+                    <p> 
+                        Fee code related to the rental of this equipment
+                        Must exist in the equipment table
+                    </p>  
+            stopListCode: 
+                type: string
+                description: 
+                    <p> 
+                    </p>                                                                                                                                                                                                                                                                                                                                                                                   
+# --- PosInfo
+      PosInfo:
+        type: object
+        properties:
+            posIdentifier: 
+                type: string
+                description: 
+                    <p> 
+                    It refers to the internal identification of the point of sale as defined in PowerCARD tables.
+                    </p>  
+            externalPosId: 
+                type: string
+                description: 
+                    <p>
+                        The external Point of Sale identifier. Used to identify the point of sale in a third-party system.
+                        This field is optional.
+                    </p>
+            posSiteIdentifier: 
+                type: string
+                description: 
+                    <p> 
+                       If present, this field should contain the identifier of the acceptor point site.
+                        Valid values must be predefined in the PowerCARD <b>MER_ACQUIRING_SITE</b> table.
+                    </p>  
+            contractIdentifier: 
+                type: string
+                description: 
+                    <p> 
+                        The contract identifier associated to that point of sale.
+                        It refers to an acceptance contract Elements that contains the appropriate characteristics, services and optional services created for that point of sale
+                    </p>  
+            remitExternalId: 
+                type: string
+                description: 
+                    <p>
+                    The remittance identification of the point of sale.
+                    This field is used to identify the Acceptance Point or the point of sale in the flow of Merchant remittance. 
+                    </p> 
+            posName: 
+                type: string
+                description: 
+                    <p> 
+                    Must contain the name of the point of sale as defined previously in PowerCARD.
+                    </p> 
+            posActivityIdentifier: 
+                type: string
+                description: 
+                    <p> 
+
+                    </p>  
+            posActivityCode: 
+                type: string
+                description: 
+                    <p> 
+                        This field must contain the code of the activity of the point of sale.
+                        The value must be one of the available activities set for the merchant.
+                        The valid MCC’s are stored in the PowerCARD <b>MCC</b> table and must be retrieved using the Web Service getReferentialList
+                    </p>
+            posActivityName: 
+                type: string
+                description: 
+                    <p> 
+                        This field must contain the name or description of the activity.
+                        By default this field might contain the description of the <b>MCC</b> as stored in the MCC table. However, users are allowed to modify it if needed during the creation of the activity.
+                    </p>                                                                                                                                                                                            
+            posSiteName: 
+                type: string
+                description: 
+                    <p> 
+                    The name of the site where the point of sale is operating
+                    </p> 
+            posLegalId: 
+                type: string
+                description: 
+                    <p> 
+                        This field represents the legal identification number of the point of sale.
+                        This Id enables a clear and unique identification of the point of sale in the market. 
+                    </p> 
+            posValidityRangeDate: 
+                type: object
+                $ref: 'aggregate.yaml#/SelRangeDt'
+            posStatusCode: 
+                type: string
+                description: 
+                    <p> 
+                    </p>
+            posStatusReasonCode: 
+                type: string
+                description: 
+                    <p> 
+                    </p> 
+            posStatusStartDate: 
+                type: string
+                description: 
+                    <p> 
+                    </p>  
+            posStatusEndDate: 
+                type: string
+                description: 
+                    <p> 
+                    </p>
+            posOpeningDate: 
+                type: string
+                description: 
+                    <p> 
+                    The opening date of the point of sale
+                    </p>
+            posClosingDate: 
+                type: string
+                description: 
+                    <p> 
+                    The closing date of the point of sale
+                    </p> 
+            posOpeningHourList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/TimeLimits' 
+            terminalPosList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/TerminalPos'                                                                                                                                                                                                           
+# --- Pos
+      Pos:
+        type: object
+        properties:
+            posId: 
+                type: string
+                description: 
+                    <p> 
+                    It refers to the internal identification of the point of sale as defined in PowerCARD tables.
+                    </p> 
+            posInfo: 
+                type: object
+                $ref: 'aggregate.yaml#/PosInfo'
+            contactInfo: 
+                type: object
+                $ref: 'aggregate.yaml#/ContactInfo'
+            merchantContract: 
+                type: object
+                $ref: 'aggregate.yaml#/MerchantAcceptanceContract'                                                                                                                            
+
+      #Product:
+      Product: 
+            type: object
+            properties:
+                productCode: 
+                        type: string
+                        description: <p>This is the product PowerCARD internal identifier. It is used to link the contract elements to products from which they are derived.</p>
+                productExternalCode: 
+                        type: string
+                        description: <p>This is the product PowerCARD external (distributor) identifier. It is used to find a product in the database.</p>
+                productType: 
+                        type: string
+                        description: <p></p>
+                productName: 
+                        type: string
+                        description: <p>This field refers to the product name. It is entered during the technical product definition and inherited at different customization levels. It may be modified during the product customization.</p>
+                externalId1: 
+                        type: string
+                        description: <p>This field indicates the first product external identifier. It is used to find a product in another system</p>
+                description: 
+                        type: string
+                        description: <p>This field refers to the product detailed description. It is entered during the technical product’s definition and inherited at different customization levels. It may be modified during the product customization throughout its life cycle.</p>
+                productParentCode: 
+                        type: string
+                        description:
+                              <p>
+                                        This is the parent product PowerCARD internal identifier (e.g. technical product internal identifier for the level 1 customization product). It is inherited from the parent product during the customization.  <br>
+                                        <b>For technical product </b> It is used to link a customized product to the basic product from which it is derived. It is used to link the parent product to the customized product in PowerCARD GUI and is also used to retrieve the parent product external identifier. <br>
+                                        <b>For a level 1 or 2 customized product</b> It is used to link a customized to a technical product from which it is derived. It is used to retrieve the technical product external identifier.<br>
+                                        This identifier is displayed on level 1 and level 2 customized products.
+                             </p>
+                productLevelCode: 
+                        type: string
+                        description:
+                              <p>
+                                         This field indicates the code of the customization level of this product during its definition. Possible values are <br>
+                                        <b>0</b>  Generic,  <br>
+                                        <b>1</b> Technical,   <br>
+                                        <b>2</b> Customizable,  <br>
+                                        <b>3</b> Marketable <br>
+                              </p>
+                statusCode: 
+                        type: string
+                        description: 
+                            <p>
+                                This is the status of the product in the catalog. Possible values are <br>
+                                <b>C</b> Marketable,    <br>
+                                <b>L</b> Customizable,  <br>
+                                <b>P</b> Ongoing,  <br>
+                                <b>R</b> Rejected,  <br>
+                                <b>M</b> Maintenance,  <br>
+                                <b>T</b> Closed,  <br>
+                                <b>A</b> Archived  <br>
+                            </p>
+                statusStartDate: 
+                        type: string
+                        description: <p>This field indicates the date from which the product can be used for customization or marketing. It corresponds by default to the current date of the status change if no earlier date has been entered. It is displayed in the catalog screens and is used to view PowerCARD customizable and / or marketable products at a future date.</p>    
+                statusEndDate: 
+                        type: string
+                        description: <p>This field lets specify the date from which the product can no longer be used for customization or marketing. At this date the product will no longer be usable. This optional date corresponds to an early closing date of a product. It is displayed in the catalog screens and is used to identify PowerCARD closed products at a future date.
+                                        It is automatically positioned once the product status changes to ‘T’.
+                                        </p>    
+                exclusiveFlag: 
+                        type: string
+                        description: <p>This field indicates if the product is considered exclusive to a banks group or bank. Possible values are <br>
+                                        <b>0</b> Not Exclusive
+                                        <b>1</b> Exclusive.
+                                        This field reserved for future usage
+                                        </p>    
+                exclusiveEndDate: 
+                        type: string
+                        description: <p>This is the date after which the product is no longer considered exclusive. It is not set by default during technical product creation. It cannot be changed during the level 1 and / or 2 customization, if it is defined at the product parent’s level. It is used with the exclusive indicator. After this date, a product is considered non-exclusive even if the exclusive indicator is ‘1’ = Exclusive.
+                                        This field reserved for future usage
+                                        </p>    
+                exclusiveStartDate: 
+                        type: string
+                        description: <p>This is the date from which the product is considered exclusive to a banks group or bank. It is proposed by default to the current date during technical product creation, if there is an exclusive indicator. It cannot be changed during the level 1 and / or 2 customization. It is used with the exclusive indicator. Before that date, a product is considered non-exclusive even if the exclusive indicator is ‘1’ = Exclusive.
+                                        This field reserved for future usage
+                                        </p>    
+                productFamilyFlag: 
+                        type: string
+                        description: <p> This is the package type if it exists. Possible values are <br>
+                               <b>C</b> Executive Contract, <br>
+                               <b>V</b> Convention, <br>
+                               <b>O</b> Offer.</p> <br>    
+                productFamilyId: 
+                        type: string
+                        description: <p>This field indicates the package identifier concerned by this product. It must be defined in <b>PRODUCT_PACKAGE</b>  table.</p>    
+                currencyCode: 
+                        type: string
+                        description: <p>This field specifies the default currency in which should appear the different characteristics of product payment type (i.e. banking ceilings, other amounts, turnover which are sometimes given in local currency). It is therefore useful if the local currency is different from the regulatory currency. It must be defined in <b>‘CURRENCY_TABLE’</b> table</p>    
+                validFrom: 
+                        type: string
+                        description: <p>This is the product validity start date. It is entered during the technical product definition and inherited during level 1 and level 2 customized product definition. It cannot be changed at customization level i.e. it is changed only when the product is version 1, with ‘P’ status. It is displayed in screens and is used when looking for a parent product for customization; only products with expired validity start date are displayed</p>  
+                validUntil: 
+                        type: string
+                        description: <p>This is the product validity end date. It is entered during the technical product definition and inherited at different customization levels. It may be modified during the product customization throughout its life cycle. A product cannot be customized to a level lower than the parent product validity end date</p>     
+                sensitiveFlag: 
+                        type: string
+                        description: <p>This field indicates if the product is considered sensitive or not, and any application to this product must be validated or not by a hierarchical.
+                                Possible values are <br>
+                                <b>0</b>Not Sensitive <br>
+                                <b>1</b> Sensitive.</p>     
+                subscriptionLevel: 
+                        type: string
+                        description: <p>The application level of a service product indicating if it can be subscribed to one of the following levels <br>
+                            <b>M</b> Merchant, <br>
+                            <b>C</b> Chain, <br>
+                            <b>A</b> All</p>     
+                refEchange: 
+                        type: string
+                        description: <p>Product exchange reference</p> 
+      #Authorization:
+      Authorization: 
+            type: object
+            properties: 
+                authCode:
+                    type: string
+                    description: <p></p>
+                authDate:
+                    type: string
+                    description: <p></p>
+                referenceNumber:
+                    type: string
+                    description: <p></p>
+                posData:
+                    type: string
+                    description: <p></p>                                                            
+       #TransactionCommon:
+      TransactionCommon: 
+            type: object
+            properties:
+                transId:
+                   type: string
+                   description: <p>The transaction ID
+                        A 23-digit identification number assigned by the system to each transaction.
+                        The TransId is unique by transaction.
+                        </p>
+                trnType:
+                   type: string
+                   description: <p>This aggregate must contain the transaction code as defined in PowerCARD <b>TRANSACTIONS_DEFINITION</b> table as well as the description of the transaction.
+                        Note that the valid transaction codes must be retrieved from PowerCARD using the Web Service getReferentialList
+                        </p>
+                transSign:
+                   type: string
+                   description: <p>Transaction sign
+                                Contains a code that indicates the sign of the transaction.
+                                Possible values are <br>
+                                <b>D</b> Debit  <br>
+                                <b>C</b> Credit <br>
+                            </p> 
+                transDate:
+                   type: string
+                   description: <p>The date when the transaction was made.</p>
+                transDateEvent:
+                   type: string
+                   description: <p>The date when the transaction was proceed by the card management system.</p>
+                transAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                cashback:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                amtExcludingVAT:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                vATAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                authCode:
+                    type: object
+                    $ref: 'aggregate.yaml#/Authorization' 
+                interchangeAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                conversionRate:
+                   type: string
+                   description: <p>Rate of conversion</p>
+                cardNumber:
+                   type: string
+                   description: <p>The card number used during the transaction.</p>  
+                country:
+                    type: object
+                    $ref: 'aggregate.yaml#/Country'
+                cardNetwork:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel' 
+                clearingNetwork:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'
+       #Mcc:
+      Mcc: 
+            type: object
+            properties: 
+                mccCode:
+                   type: string
+                   description: 
+                        <p>
+                          MCC code or Merchant category code.
+                          This code must be previously defined in the PowerCARD <b>MCC</b> table under the general parameter section. Valid values with their description in the system must be retrieved  using the Web Service getReferentialList
+                        </p>
+                mccLabel:
+                   type: string
+                   description: <p>MCC description as stored in PowerCARD.</p> 
+       #Interchange:
+      Interchange: 
+            type: object
+            properties: 
+                code:
+                   type: string
+                   description: <p></p>
+                label:
+                   type: string
+                   description: <p></p>
+                rate:
+                   type: string
+                   description: <p></p> 
+                fixe:
+                   type: string
+                   description: <p></p>                                                                                                       
+       #TransactionAcquiring:
+      TransactionAcquiring: 
+            type: object
+            properties: 
+                network:
+                   type: string
+                   description: 
+                       <p>
+                             The network field allows you to specify the network where transactions are made.
+                             It is to mention that this code should be previously defined in the <b>NETWORK</b> table under the general parameter section. To populate the valid values from PowerCARD, the requester must use the Web Service getReferentialList
+                       </p>
+                mcc:
+                    type: object
+                    $ref: 'aggregate.yaml#/Mcc'                   
+                trnStatus:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'
+                tipsAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                discountAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                taxesAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                linkupCode:
+                   type: string
+                   description: <p>A linkup code is an identification used to group transactions within a remittance or a batch. For instance PowerCARD may allocate a different linkup code to each remittance type ( Pos, Manal, ATM, E Commerce…)</p>  
+                batchNumber:
+                   type: string
+                   description: <p>A batch is a collection of transactions, usually a single day’s worth.
+                        Batches can be set at the terminal level as manual or automatic to send at a certain time during the day.
+                        This number can be used to group transactions.
+                        </p>
+                terminalId:
+                   type: string
+                   description: <p></p> 
+                remittanceSequence:
+                   type: string
+                   description:
+                        <p>	 Refers to the remittance Identification number as stored internally in PowerCARD. 
+                        </p>
+                bankingServiceVAT:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                posEntryMode:
+                   type: string
+                   description: <p></p>
+                transRejectCode:
+                   type: array
+                   items:
+                     type: string
+                reversalInd:
+                   type: string
+                   description:
+                        <p>
+                            It indicates whether the transaction is reversed or not. Valid values are <br>
+                            <b>0</b> Not reversed  <br>
+                            <b>1</b> Fully reversed  <br>
+                            <b>2</b> Partially reversed
+                        </p>                     
+                merchantAcronym:
+                   type: string
+                   description: <p>The Merchant Acronym
+                        Acronym of the merchant in the original transaction. It could be the name imprinted on the transaction receipt by the merchant’s or member’s imprinter plate.
+                        </p> 
+                indicatorStatus:
+                   type: string
+                   description:
+                        <p>
+                             This indicator is used to specify the wheteher the transaction was subject to a reversal, chargeback, tretreival required…
+                            Possible values are as follow <br>
+                            0	Normal  <br>
+                            1	Reversed  <br>
+                            2	Subject to retrieval request  <br>
+                            3	Subject to retrieval request cancellation <br>
+                            4	Subject retrieval request response <br>
+                            5	Subject to retrieval request response reversal <br>
+                            6	Subject to a chargeback <br>
+                            7	Subject to a  chargeback reversal <br>
+                            8	Subject to a second presentment <br>
+                            9	Subject to a second presentment reversal <br>
+                            A	Subject to a second chargeback <br>
+                            B	Subject to a second chargeback reversal <br>
+                            C	Subject to a third chargeback <br>
+                            D	Subject to a third chargeback reversal <br>
+                            E	Subject to a third presentment <br>
+                            F	Subject to a third presentment reversal <br>
+                        </p>
+                settlementDate:
+                   type: string
+                   description: <p>The merchant settlement date, date whene the transaction  has been payed to the merchant</p> 
+                avs:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel' 
+                cvv:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'
+                qualificationLevel:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'
+                interchange:
+                    type: object
+                    $ref: 'aggregate.yaml#/Interchange'
+                surchargeFee:
+                   type: number
+                   description: <p></p>  
+                convenienceFee:
+                   type: number
+                   description: <p></p>  
+                customerCode:
+                   type: string
+                   description: <p></p> 
+                businessTaxAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                freightAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                destinationZipCode:
+                   type: string
+                   description: <p></p>
+                destinationStateCode:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel'  
+                destinationCountryCode:
+                    type: object
+                    $ref: 'aggregate.yaml#/CodeLabel' 
+                taxIndicator:
+                   type: string
+                   description: <p></p>  
+       #TransactionIssuing:
+      TransactionIssuing: 
+            type: object
+            properties:
+                description:
+                    type: string
+                    description: <p>Short description of the merchant where the transaction occurred.</p>  
+                territoriality:
+                    type: string
+                    description: 
+                         <p>
+                              Valid values <br>
+                            <b>ONS</b> On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer.  <br>
+                            <b>NAT</b> National, apply only to transactions made in the same country as the issuer country. <br>
+                            <b>INT</b> International, apply only to transactions that took place outside the cardholder country. <br>
+                         </p> 
+                billCurAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'                      
+                transAccountId:
+                    type: string
+                    description: <p>The Account Number where the transaction is posted.</p>   
+                clearingTrxAmt:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+       #TransactionItem:
+      TransactionItem: 
+            type: object
+            properties:
+                itemSequence: 
+                     type: string
+                     description: <p></p>
+                description: 
+                     type: string
+                     description: <p></p>
+                productCode: 
+                     type: string
+                     description: <p></p>
+                commodityCode: 
+                     type: string
+                     description: <p></p> 
+                unitCost:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                quantity: 
+                     type: string
+                     description: <p></p>
+                unitOfMeasure: 
+                     type: string
+                     description: <p></p>
+                extendedAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                taxAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                discountAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                taxIndicator: 
+                     type: string
+                     description: <p></p>  
+                taxCode1: 
+                     type: string
+                     description: <p></p>  
+                taxAmount1:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                taxCode2: 
+                     type: string
+                     description: <p></p>  
+                taxAmount2:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                taxCode3: 
+                     type: string
+                     description: <p></p>  
+                taxAmount3:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                taxCode4: 
+                     type: string
+                     description: <p></p>  
+                taxAmount4:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+       #Transaction:
+      Transaction: 
+            type: object
+            properties:
+                transactionCommon:
+                    type: object
+                    $ref: 'aggregate.yaml#/TransactionCommon'  
+                transactionAcquiring:
+                    type: object
+                    $ref: 'aggregate.yaml#/TransactionAcquiring'                               
+                TransactionIssuing:
+                    type: object
+                    $ref: 'aggregate.yaml#/TransactionIssuing'
+                TransactionItem:
+                    type: object
+                    $ref: 'aggregate.yaml#/TransactionItem'
+       #RemitInfo:
+      RemitInfo: 
+            type: object
+            properties:
+                bankCode:
+                    type: string
+                    description: 
+                        <p>
+                             This is a 6 alphanumeric code representing the financial institution to which belong the merchant.
+                            This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section
+                            Valid values must be retrieved  from PowerCARD using the  Web Service getReferentialList
+                        </p> 
+                linkupCode:
+                    type: string
+                    description: <p>A linkup code is an identification used to group transactions within a remittance or a batch. For instance PowerCARD may allocate a different linkup code to each remittance type ( Pos, Manal, ATM, E Commerce…)</p>  
+                batchNumber:
+                    type: string
+                    description: <p>A batch is a collection of transactions, usually a single day’s worth.
+                        Batches can be set at the terminal level as manual or automatic to send at a certain time during the day.
+                        This number can be used to group transactions.
+                        </p> 
+                remittanceSequence:
+                    type: string
+                    description: <p>The remittance Sequence or Identification is used to identify a set of transactions submitted by the merchant to its bank for settlement</p> 
+                remittanceType:
+                    type: string
+                    description: 
+                         <p>
+                            This field refers to the type of the remittance. Possible values are <br>
+                            <b>A</b> ATM  <br>
+                            <b>P</b> POS   <br>
+                            <b>M</b> Manual  <br>
+                            <b>E</b> Electronic Commerce  <br>
+                            <b>C</b> CAT <br>
+
+                         </p> 
+                remittanceStatus:
+                    type: string
+                    description: 
+                          <p>
+                                 Status of the remittance. Possible values are <br>
+                                <b>P</b> Pending; the concerned remittance has been loaded, but not processed. <br>
+                                <b>S</b> Posted; the remittance is valid has been totally posted to the merchant account.<br> 
+                                <b>R</b> Rejected; the entire remittance has been rejected by the system. <br>
+                                <b>T</b> Partially rejected. Part of the remittance has been rejected. The remaining transactions are considered valid and has been posted to the merchant account <br>
+                                <b>D</b> Deleted, the concerned remittance has been deleted from the system. <br>
+                          </p> 
+                terminalIdentification:
+                    type: string
+                    description: <p>This code identifies a POS terminal at a Card Acceptor location</p>
+                outletNumber:
+                    type: string
+                    description: 
+                         <p>
+                            This code refers to the number assigned to the card acceptor.
+                            This code must be previously defined in the PowerCARD merchant database. <b>(MER_ACCEPTOR_POINT table)</b>.
+                         </p> 
+                merchantId:
+                    type: string
+                    description:
+                          <p>
+                                This code refers to the number assigned to the merchant.
+                                This code must be previously defined in the PowerCARD merchant database. <b>(MERCHANT table)</b>.
+                          </p>
+                remittanceDate:
+                    type: string
+                    description: <p>Refers to the date of the remittance</p>
+                processingDate:
+                    type: string
+                    description: <p>Refers to the date when the remittance was processed in the system</p> 
+                posEntryMode:
+                    type: string
+                    description: <p>The POS entry mode field is used to indicate the method by which a point-of-transaction terminal obtains and transmits the cardholder information necessary to complete a transaction.
+                            For more details refer to ISO Field 22 in VIP Specifications (VisaNet Integrated Payment) & IPM specification (Integrated Product Messages)
+                            </p>
+                posConditionCode:
+                    type: string
+                    description: <p>Code identifying transaction conditions at the point of sale or point of service.</p>   
+                numberOfTransactions:
+                    type: string
+                    description: <p>This field contains the total number of transactions submitted in the remittance.</p> 
+                remittanceAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'  
+                settledAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                discountAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                interchangeAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+      Remit: 
+         type: object
+         properties:
+                remitInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RemitInfo'   
+
+     #ProductContext:
+      ProductContext: 
+            type: object
+            properties:
+                contractId:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the merchant Contract Id.
+                        </p>
+                productContextCode:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the product context code, a unique value attributed to each component of the product.
+                        </p>
+                parentContextCode:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the product context code of the product component parent. 
+                           The parent context code can be empty in case the component has no parent.
+                        </p>   
+                contextCode:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the context code of the category to which belong the component.
+                        </p>
+                contextValue:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the value attributed to the product component.
+                            The value can be <br>
+                            <b>Reference value </b>
+                            <b>Account number value </b>
+                            <b>Number value </b>
+                        </p> 
+     #CriteriaValue:
+      CriteriaValue: 
+            type: object
+            properties:
+                criteriaName:
+                    type: string
+                    description: 
+                        <p>
+                          Refers to the context code of the criteria
+                        </p> 
+                criteriaValue:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the value given to the criteria
+                        </p> 
+                criteriaStartRange:
+                    type: number
+                    description: 
+                        <p>
+                           This criteria is used when the charging is based on the volume of transactions. The criteria represent the lower range
+                        </p> 
+                criteriaEndRange:
+                    type: number
+                    description: 
+                        <p>
+                          This criteria is used when the charging is based on the volume of transactions. The criteria represent the high range
+                        </p>                                                                           
+     #CriteriaElement:
+      CriteriaElement: 
+            type: object
+            properties:
+                criteriaAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                criteriaRate:
+                    type: number
+                    description: 
+                        <p>
+                        </p>   
+                criteriaPeriod:
+                    type: string
+                    description: 
+                        <p>
+                        </p> 
+                graceAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                minimumAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                maximumAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                thresholdAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                contractInterchangeRate:
+                    type: number
+                    description: 
+                        <p>
+                        </p> 
+                contractInterchangeAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                genDiscountCreditAdjustment:
+                    type: String
+                    description: 
+                        <p>
+                        </p>    
+                criteriaValueList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/CriteriaValue'                                                                                                                                                                                                                                      
+     #ChargingCondition:
+      ChargingCondition: 
+            type: object
+            properties:
+                merchantContractId:
+                    type: string
+                    description: 
+                        <p>
+                            The merchant contract identifier.
+                            This is field is generated automatically by PowerCARD and used to identify uniquely a merchant contract element in the system.
+                        </p>
+                chargingId:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the charging condition Id.
+                            This is field is generated automatically by PowerCARD and used to identify a chaging condition in a contract.
+                        </p>   
+                internalServiceId:
+                    type: string
+                    description: 
+                        <p>
+                             Refers to the service to be charged internal id within the product.
+                        </p>   
+                billableElementId:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the internal Id linked to the billable element in the product.
+                        </p>
+                chargingMethodId:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the internal id linked to the charging rule.
+                            It’s defined at the charging conditions level of a product.
+                        </p> 
+                fixedAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                chargingRate:
+                    type: number
+                    description: 
+                        <p>
+                           Refers to the percentage of the charging rule.
+                        </p> 
+                chargingPeriod:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the period id of the charging rule
+                        </p> 
+                graceAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                minimumAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                maximumAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                thresholdAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'  
+                contractInterchangeRate:
+                    type: number
+                    description: 
+                        <p>
+                        This criteria is used in case the pricing method is interchange plus. Refer to the documentation of interchange plus for more details.
+                        </p> 
+                contractInterchangeAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'
+                genDiscountCreditAdjustment:
+                    type: string
+                    description: 
+                        <p>
+                           This criteria is used to apply a different charging methode depending on the type of credit adjustement apply to correcte the discount amount.
+                        </p> 
+                criteriaList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/CriteriaElement' 
+
+     #Criteria:
+      Criteria: 
+            type: object
+            properties:
+                criteriaValueList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/CriteriaValue' 
+                productContextList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ProductContext'                         
+     #SettlementCondition:
+      SettlementCondition: 
+            type: object
+            properties:
+                merchantContractLevel:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the posting rules level <br> 
+                            <b>M</b> Merchant level <br> 
+                            <b>C</b> Contract level <br> 
+                            <b>B</b> Both Merchant and Contract level
+                        </p>
+                postingId:
+                    type: string
+                    description: 
+                        <p>
+                           Refers to the posting Id attributed to the posting condition.
+                            It’s generated automatically by PowerCARD so it’s Optional at the contract creation step
+                        </p> 
+                productContextList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ProductContext'
+                criteriaList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/Criteria'                                                                        
+
+     #MerchantContractIdType:
+      MerchantContractIdType: 
+            type: object
+            properties:
+                ContractId:
+                    type: string
+                    description: 
+                        <p>
+                          Contract element's internal identification number
+                        </p>
+       #TransactionsTotal:
+      TransactionsTotal: 
+            type: object
+            properties: 
+                NbTransactions:
+                    type: string
+                    description : 
+                       <p>
+                          Indicates the number of transactions returned.
+                       </p>
+                TotalCredit:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                TotalDebit:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'   
+                KeyValues:
+                    type: object
+                    $ref: 'aggregate.yaml#/KeyValueV35'                                                                                                                           

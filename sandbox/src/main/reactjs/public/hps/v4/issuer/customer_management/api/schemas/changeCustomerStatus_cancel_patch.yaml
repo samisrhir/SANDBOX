@@ -1,0 +1,157 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  /customer-management/v4.0/customers/{customerId}/cancel_status:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+        <p>
+        The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones.
+        </p>
+        <p>
+        The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+        </p>
+        <p>
+        As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/setCustomerDetails.png" />
+      summary:  Change the status of the customer to cancel
+      parameters:
+            - in: path
+              name: customerId
+              schema:
+                type: integer
+              required: true
+              example : "0358649690"
+              description: Represent the customer identifier
+      tags:
+        - Change customer status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            <tr>
+            <td>00014</td>
+            <td>Invalid business date</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>000085</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000125</td>
+            <td>Change already present</td>
+            </tr>
+            <tr>
+            <tr>
+            <td>000109</td>
+            <td>Invalid status reason</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      SetCustomerDetailV4Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV4Rs'
+      SetCustomerDetailDeleteV4Rq:
+            $ref: 'request.yaml#/SetCustomerDetailDeleteV4Rq'
+security:
+  - bearerAuth: []

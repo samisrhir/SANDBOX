@@ -1,0 +1,133 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-xPos API documentation
+  description: <p>HPS’ PowerCARD-xPOS solution can help payments providers, retailers and banks overcome these challenges, and rapidly roll out new services and simply global device deployment, while keeping maintenance and administration costs to a minimum. </p>
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: http://196.12.238.134:12080/PowerCardConnectApi/rest
+    description: Development server
+paths:
+   # ------- replaceDevice
+  /replaceDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The replace device API is commonly used to delink a POS terminal from a hardware device and link it to a new one with a different serial number.</p>
+                    <p>As input the service must have information regarding the terminal number as well as the new machine serial number and its brand.</p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/replaceDevice.png" />
+                  
+      summary: The replace device API is commonly used to delink a POS terminal from a hardware device...
+      tags:
+        - Replace Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReplaceDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05801</td>
+                                  <td>Invalid terminal pos number </td>
+                                </tr>
+                                <tr> 
+                                  <td>05802</td>
+                                  <td>This terminal is not already allocated </td>
+                                </tr>
+                                <tr> 
+                                  <td>05803</td>
+                                  <td>Pos Back reason not found </td>
+                                </tr>
+                                <tr> 
+                                  <td>05804</td>
+                                  <td>Serial number or Brand code not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>05805</td>
+                                  <td>Device already allocated to terminal</td>
+                                </tr>
+                                <tr> 
+                                  <td>05806</td>
+                                  <td>Serial number or Brand code not provided in the request</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'                                                                 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+    # --- Import DemoV35 request and response
+      ReplaceDeviceRq:
+               $ref: 'request.yaml#/ReplaceDeviceRq'
+      ReplaceDeviceRs:
+               $ref: 'response.yaml#/ReplaceDeviceRs'     
+         
+security:
+  - bearerAuth: []
+  

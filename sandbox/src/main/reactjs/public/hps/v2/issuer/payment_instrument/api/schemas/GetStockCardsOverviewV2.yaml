@@ -1,0 +1,97 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:                                               
+  /GetStockCardsOverview/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               The current service may be used by any third party application to retrieve all the pre-paid batches with different set of criteria’s including Bank, Branch, Batch Number… the answer must contain the list of batches along with a set of details that could help the end used during its analysis or decision making  .
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetStockCardsOverview.png" />
+            summary: Can be used by any third party application to retrieve all the pre-paid batches…
+            tags:
+              - Get Stock Cards Overview
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStockCardsOverviewV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStockCardsOverviewV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>17701</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>
+                              <tr> 
+                                <td>17702</td>
+                                <td>Invalid Branch Code</td>
+                              </tr>
+                              <tr> 
+                                <td>17703</td>
+                                <td>Batch Number Not Found</td>
+                              </tr>
+                              <tr> 
+                                <td>17704</td>
+                                <td>Invalid range dates</td>
+                              </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStockCardsOverviewV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetStockCardsOverviewV35Rs'                                                                         
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    
+    # --- Import GetStockCardsOverview request and response definition
+      GetStockCardsOverviewV35Rq:
+          $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+           $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'  
+security:
+  - bearerAuth: []

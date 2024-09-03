@@ -1,0 +1,163 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/getStepUpMethod:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The getStepUpMethod API allows the issuer to provide supported methods of cardholder step-up authentication, for example, tenured data (email, phone number) for delivering One-Time-Password (OTP).
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getStepUpMethod.png" />
+            summary: Provide supported methods of cardholder...
+            tags:
+              - Get StepUp Method
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStepUpMethodV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStepUpMethodV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1201</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1202</td>
+                                        <td>Missing Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1203</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1204</td>
+                                        <td>Missing Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1205</td>
+                                        <td>Invalid Correlation Id </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1206</td>
+                                        <td>Missing Correlation Id </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1207</td>
+                                        <td>Invalid Pan </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1208</td>
+                                        <td>Missing Pan </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1209</td>
+                                        <td>Invalid Card holder Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1210</td>
+                                        <td>Missing Card holder Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1211</td>
+                                        <td>Invalid Expiry Month Date </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1212</td>
+                                        <td>Invalid Expiry Year Date </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1213</td>
+                                        <td>Missing Expiry Month Date </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1214</td>
+                                        <td>Missing Expiry Year Date </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1215</td>
+                                        <td>Expiry Month Date must not be in the past </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1216</td>
+                                        <td>Expiry Year Date must not be in the past </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1217</td>
+                                        <td>Invalid CVV </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1218</td>
+                                        <td>Invalid Consumer Wallet Account ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1219</td>
+                                        <td>Missing Consumer Wallet Account ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1220</td>
+                                        <td>Invalid Wallet Account Email Address </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1221</td>
+                                        <td>Missing device ID </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStepUpMethodV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetStepUpMethodV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        GetStepUpMethodV35Rq:
+               $ref: 'request.yaml#/GetStepUpMethodV35Rq'
+        GetStepUpMethodV35Rs:
+               $ref: 'response.yaml#/GetStepUpMethodV35Rs'
+security:
+  - bearerAuth: []

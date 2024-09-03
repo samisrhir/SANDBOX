@@ -1,0 +1,156 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #/v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/tokenNotificationService
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/tokenNotificationService:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This API is exposed by PowerCARD-Tokenization. TPL will invoke this API call when the issuer's token status has changed such as when the token is activated, suspended, unsuspended or deleted, or when information about the token or its product configuration has changed.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/tokenNotificationService.png" />
+            summary: Invoked when the issuer's token status has changed.
+            tags:
+              - Token Notification Service
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/TokenNotificationServiceV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/TokenNotificationServiceV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr>
+                                        <td>T0301</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0302</td>
+                                        <td>Invalid Token RequestorID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0303</td>
+                                        <td>Invalid Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0304</td>
+                                        <td>Invalid Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0305</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0306</td>
+                                        <td>Invalid Device ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0307</td>
+                                        <td>Invalid Status Updated </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0308</td>
+                                        <td>Invalid Operation Type </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0309</td>
+                                        <td>Invalid Date Time Of Operation </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0310</td>
+                                        <td>Invalid Token Customer Info </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0311</td>
+                                        <td>Invalid customer Id. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0312</td>
+                                        <td>Invalid Customer Application Type </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0313</td>
+                                        <td>Invalid merchant id. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0314</td>
+                                        <td>Invalid Merchant Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0315</td>
+                                        <td>Invalid action code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0316</td>
+                                        <td>Invalid Cardholder StepUp Result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0317</td>
+                                        <td>Invalid Binding Result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0318</td>
+                                        <td>Invalid Activation Verification Result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0319</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/TokenNotificationServiceV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/TokenNotificationServiceV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import TokenNotificationServiceV35 request and response
+      TokenNotificationServiceV35Rq:
+               $ref: 'request.yaml#/TokenNotificationServiceV35Rq'
+      TokenNotificationServiceV35Rs:
+               $ref: 'response.yaml#/TokenNotificationServiceV35Rs'
+security:
+  - bearerAuth: []

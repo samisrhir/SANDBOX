@@ -1,0 +1,123 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- createClaim
+  /CreateClaim/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The web service interface in PowerCARD offers a function for creating claims in the system for an existing ISO, Sub Iso, Var, merchant or a point of sale. A claim consists of passing different information that might be related to a transaction, like the transaction Id, the terminal identification number, the merchant Id…each claim must initiated using a valid reason. While created in the system, an internal process in PowerCARD is then executed to assign the case to the appropriate user, who is responsible for handling the case. End users can use the search claim service to check the status of their captured cases.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createClaim.png" />
+                  
+      summary: The web service interface in PowerCARD offers a function for creating claims...
+      tags:
+        - Create Claim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClaimRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateClaimRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07201</td>
+                                  <td>Invalid Merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07202</td>
+                                  <td>Invalid Reason Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07203</td>
+                                  <td>Invalid Claim status</td>
+                                </tr>
+                                <tr> 
+                                  <td>07204</td>
+                                  <td>Invalid Transaction Identification</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07205</td>
+                                  <td>Invalid Terminal</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07206</td>
+                                  <td>Different Merchant identifications are present in the aggregate Claim & MerchantInformation</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07207</td>
+                                  <td>Invalid Remittance Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07208</td>
+                                  <td>Missing Merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07209</td>
+                                  <td>Missing reason code in the request</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07210</td>
+                                  <td>Missing claims description</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07211</td>
+                                  <td>Missing claim status</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateClaimRs'                                                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CreateClaim request and response 
+      CreateClaimRq:
+               $ref: 'request.yaml#/CreateClaimRq'
+      CreateClaimRs:
+               $ref: 'response.yaml#/CreateClaimRs'                                                                                         
+security:
+  - bearerAuth: []
+
+
+

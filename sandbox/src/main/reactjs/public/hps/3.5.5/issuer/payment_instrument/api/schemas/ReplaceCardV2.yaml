@@ -1,0 +1,119 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+ # --- ReplaceCard
+  /ReplaceCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             In PowerCARD, lost or damaged cards card be replaced in the system using this web service. Agents as well as customers can ask for the replacement of an existing card by specifying the reason. Based on that reason, the system can either replace the card by keeping the same card number or generating a new card number for the cardholder. 
+                          </p>
+                          <p>
+                              The service allows also applying or not some fees amount while replacing a card. Fees are then charged to the account with a specific transaction code.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/ReplaceCard.png" />
+            summary:     Lost or damaged cards card be replaced in the system using this web service.
+            tags:
+              - Replace Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00530</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>00531</td>
+                                  <td>Invalid replacement reason code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00533</td>
+                                  <td>Invalid fee option</td>
+                                </tr>
+                                <tr> 
+                                  <td>00534</td>
+                                  <td>Invalid fee amount</td>
+                                </tr>
+                                <tr> 
+                                  <td>00535</td>
+                                  <td>Invalid delivery branch</td>
+                                </tr>
+                                <tr> 
+                                  <td>00536</td>
+                                  <td>Invalid Card number</td>
+                                </tr>
+                                <tr> 
+                                  <td>00537</td>
+                                  <td>Invalid Priority Indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>00538</td>
+                                  <td>Invalid Priority Indicator</td>
+                                </tr>							
+                                <tr> 
+                                  <td>00539</td>
+                                  <td>Invalid Plastic Delivery Method</td>
+                                </tr>							
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ReplaceCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/ReplaceCardV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      ReplaceCardV35Rq:
+                     $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+                     $ref: 'response.yaml#/ReplaceCardV35Rs'         
+security:
+  - bearerAuth: []

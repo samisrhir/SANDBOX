@@ -1,0 +1,113 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ---CaptureLoyaltyGift
+  /CaptureLoyaltyGift/V3   :
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.</p>
+        <p>By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc… </p>
+        
+        <p>Capture Loyalty Gift web service enables customers, agents or any third party to capture data specific to gifts as redeemed by program members, the capture is directly processed and posted to the Loyalty account. </p>
+        
+        <h3>Functional Description</h3>
+        <img  src="./docs/CaptureLoyaltyGift .PNG" />
+      summary:   Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.
+      tags:
+        - CaptureLoyaltyGift
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureLoyaltyGiftV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CaptureLoyaltyGiftV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>11701</td>
+            <td>Invalid bank code </td>
+            </tr>
+            <tr>
+            <td>11702</td>
+            <td>Invalid account owner type</td>
+            </tr>
+            <tr>
+            <td>11703</td>
+            <td>Invalid account owner Id </td>
+            </tr>
+            <tr>
+            <td>11704</td>
+            <td>Invalid loyalty program Id </td>
+            </tr>
+            <td>11706</td>
+            <td>Invalid loyalty account number </td>
+            </tr>
+            </tr>
+            <td>11707</td>
+            <td>Invalid gift code   </td>
+            </tr>
+            <td>11708</td>
+            <td>Not enough points on balance to capture this gift    </td>
+            </tr>
+            <td>11709</td>
+            <td>Operation not allowed for account with cancelled status    </td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureLoyaltyGiftV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CaptureLoyaltyGiftV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import CaptureLoyaltyGiftV35 request and response
+    CaptureLoyaltyGiftV35Rq:
+      $ref: 'request.yaml#/CaptureLoyaltyGiftV35Rq'
+    CaptureLoyaltyGiftV35Rs:
+      $ref: 'response.yaml#/CaptureLoyaltyGiftV35Rs'
+security:
+  - bearerAuth: []

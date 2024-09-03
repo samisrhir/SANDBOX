@@ -1,0 +1,793 @@
+      # ---- CreateUserAuthorization definition
+      CreateUserAuthorizationV4Req:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          scopes:
+            type: array
+            items:
+              type: string
+              example: 'all'
+          profileId:
+            type: string
+            example: 'DEF'
+          startValidityDate:
+            type: string
+            example: null
+          endValidityDate:
+            type: string
+            example: null
+          signingAlgorithm:
+            type: string
+            example: null
+          activationFlag:
+            type: string
+            example: null
+          userCreate:
+            type: string
+            example: null
+          dateCreate:
+            type: string
+            example: null
+          userModif:
+            type: string
+            example: null
+          dateModif:
+            type: string
+            example: null
+        required: ['scopes', 'profileId']
+      # ---- TokenAuthentication definition
+      TokenAuthentication:
+          type: object
+          properties: 
+            providerLogin: 
+                type: string
+                example: 'ISS004'
+            providerPassword: 
+                type: string
+                example: '$2a$10$pqvWCjWkYvxODwl1VhweE.8qwMYhRjjaQguizA3sMlY8wKuahTP1S'
+            userLanguage:
+                type: string
+                example: 'en_US'
+            requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+          required: [requestInfo, providerLogin, providerPassword, userLanguage]
+      DeliverCardStatusV4Rq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          cardNumber:
+            type: string
+            description: <p>The card number or tokenID</p>
+            example: "4260000001120770"
+          bankCode:
+            description: Code of the bank .
+            type: string
+            example: '500010'
+          operation:
+            type: string
+            example: "L"
+            description: <p>The operation code &#58; <br>
+              <b> L </b> - Deliver Card
+              </p>
+        required: [ requestInfo,cardNumber,bankCode,operation ]
+      ContactLessV4Rq:
+            type: object
+            properties:
+                    cardNumber:
+                      type: string
+                      example: '4260000004020043'
+                      description: The card number or the TokenId.
+                    bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+                    expiryDate:
+                      type: date
+                      example: '2612'
+                      description:  "Refers to the expiry date of the card Format yyMM "
+                    activationFlag: 
+                        example : "A"
+                        description: This one character flag indicates whether the operation request concerns an activation or a deactivation.
+                                        Possible values are <br>
+                                        <b>A</b> -  Activation <br>
+                                        <b>D</b> -  Deactivation 
+                    requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo,expiryDate,bankCode]
+ 
+      # ---  ChangePinV4Rq
+      ChangePinV4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    example: "4250120656063430"
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+
+                pinBlockFormat:
+                    type: string
+                    example: "01"
+                    description: <p>
+                                  PIN Block Format this field indicates the format of the PIN block for the two PIN blocks (Old and new).Valid values are <br>
+                                  <b>- 01</b> Format is based on the PIN, the PIN length, the selected rightmost digits of the account number, and the pad characters 0 and F—combined through an exclusive OR operation.<br>
+                                  <b>- 03</b> Format is based on the PIN and the F pad character
+                                  </p>
+                pinMethod:
+                    type: string
+                    example: "PVV"
+                    description: <p>
+                                  Method of PIN validation
+                                  This operation is performed within a Host Security Module (HSM)
+                                  Valid values are <br>
+                                  <b>- PVV</b> Pin Verification Value<br>
+                                  <b>- OFS</b> Offset
+                                </p>
+                currentPin:
+                    type: string
+                    example: "AC8876D9E644C0FC"
+                    description: <p>
+                                  This field contains the current PIN. It is encrypted and formatted as a block of 16 hexadecimal digits. 
+                                  The PIN Block is transmitted encrypted under the <b>ZPK (Zone PIN key)</b>.
+                                  This key should be shared between PowerCARD and the other party.
+                                  This field is optional
+                                 </p>
+                currentPvv:
+                    type: string
+                    example: "3018"
+                    description: <p>
+                                      Refers to the current <b>PVV/Offset</b> value that resides in the track 2 of the card.
+                                      This value is mandatory only when the customer is aiming tyo change the existing PIN by a new one.
+                                      This field is used for PIN verification.
+                                 </p>
+                newPin:
+                    type: string
+                    example: "AC8876D9E644C0FC"
+                    description: <p>
+                                      This field contains a new PIN to replace an existing PIN. It is encrypted and formatted as a block of 16 hexadecimal digits. (A new PIN is chosen to replace the current PIN when the cardholder does not remember the current PIN, or the current PIN is compromised, or just wants a new PIN.).
+                                      The PIN block encrypted under the <b>ZPK (Zone PIN key)</b> and must conform to the PIN Block Format 01 
+                                      The ZPK key should be shared previously between PowerCARD and the other party.
+                                 </p>
+                outletNumber: 
+                    type: string 
+                    example: "200000150000248"
+                    description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo,newPIN,currentPin,pinMethod,pinBlockFormat,outletNumber,bankCode]
+      # ResetPinTryCounterV4Rq
+      ResetPinTryCounterV4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    example: "4250120656063430"
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,bankCode,requestInfo]
+      #GetCardCVC2V4Rq
+      GetCardCVC2V4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    example: "4250120656063430"
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,bankCode,requestInfo]
+      # ---  VerifyPinV4Rq
+      VerifyPinV4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    example: "4250120656063430"
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+                pinBlockFormat:
+                    type: string
+                    example: "01"
+                    description: <p>
+                                  PIN Block Format this field indicates the format of the PIN block for the two PIN blocks (Old and new).Valid values are <br>
+                                  <b>- 01</b> Format is based on the PIN, the PIN length, the selected rightmost digits of the account number, and the pad characters 0 and F—combined through an exclusive OR operation.<br>
+                                  <b>- 03</b> Format is based on the PIN and the F pad character
+                                  </p>
+                pinMethod:
+                    type: string
+                    example: "PVV"
+                    description: <p>
+                                  Method of PIN validation
+                                  This operation is performed within a Host Security Module (HSM)
+                                  Valid values are <br>
+                                  <b>- PVV</b> Pin Verification Value<br>
+                                  <b>- OFS</b> Offset
+                                </p>
+                currentPIN:
+                    type: string
+                    example: "AC8876D9E644C0FC"
+                    description: <p>
+                                  This field contains the current PIN. It is encrypted and formatted as a block of 16 hexadecimal digits. 
+                                  The PIN Block is transmitted encrypted under the <b>ZPK (Zone PIN key)</b>.
+                                  This key should be shared between PowerCARD and the other party.
+                                  This field is optional
+                                 </p>
+                currentPvv:
+                    type: string
+                    example: "3018"
+                    description: <p>
+                                      Refers to the current <b>PVV/Offset</b> value that resides in the track 2 of the card.
+                                      This value is mandatory only when the customer is aiming tyo change the existing PIN by a new one.
+                                      This field is used for PIN verification.
+                                 </p>
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,bankCode,requestInfo,pinMethod,pinBlockFormat]
+      # ResetCVV2TryCounterV4Rq
+      ResetCVV2TryCounterV4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    example: "4250120656063430"
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+                operation: 
+                        type: string
+                        description: <p>
+                                        Indicates whether the operation request concerns cvv2 counter or expiry date counter. Possible values are:\ 
+                                        C:\ reset cvv2
+                                        E:\ reset expiry date
+                                    </p>
+                        example: 'C'
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,bankCode,requestInfo,operation]
+      # --- GetCardCVV2V4Rq
+      GetCardCVV2V4Rq:
+          type: object
+          properties:
+              requestInfo:
+                  type: object
+                  $ref: 'aggregate.yaml#/RequestInfo'
+              cardNumber:
+                  type: string
+                  example: '4260000004020043'
+                  description: <p>The card number or the Card Token Id.</p>
+              bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the entity.</p>
+                      example: "500010"
+              expiryDate :
+                  type: string
+                  example: "2312"
+                  description: 
+                        <p>
+                            Refers to the expiry date of the card
+                            Format,The value will be in GMT
+                        </p>
+          required:  [cardNumber,bankCode,requestInfo,expiryDate ]
+      # --- UpdateCardStatusV4Rq
+      UpdateCardStatusV4Rq:
+        type: object
+        properties:
+              cardNumber:
+                type: string
+                description: <p>The card number or tokenID</p>
+                example: "test"  
+              reasonCode:
+                  type: string
+                  example: "test"
+                  description:
+                      <p>
+                      Reason code 
+                      Refers to the reason why the agent or the customer is requesting to change the status of an existing card.
+                      If operation is set to S, the reason code field must match one of the codes present in the <b>STOP_LIST_REASON_CODE</b> table
+                      </p>
+              rangeDate: 
+                     type: object
+                     $ref: 'aggregate.yaml#/RangeDateV4'
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+        required:  [cardNumber,reasonCode]
+      # --- StopListRq
+      StopListRq:
+        type: object
+        properties:
+              cardNumber:
+                type: string
+                description: <p>The card number or tokenID</p>
+                example: "4260000004020043" 
+              bankCode:
+                description: Code of the bank .
+                type: string
+                example: '500010'
+              operation: 
+                type: string   
+                example : "S"
+                description: <p>
+                                This field indicates the type of operation  . Possible values are the following <br>
+                                    <b>S</b> -  Put in stop list<br>
+                                    <b>R</b> -  Remove from stop list.<br>
+                                </p> 
+              reasonCode:
+                  type: string
+                  example: "00"
+                  description:
+                      <p>
+                      Reason code 
+                      Refers to the reason why the agent or the customer is requesting to change the status of an existing card.
+                      If operation is set to S, the reason code field must match one of the codes present in the <b>STOP_LIST_REASON_CODE</b> table
+                      </p>
+              rangeDate: 
+                     type: object
+                     $ref: 'aggregate.yaml#/RangeDateV4'
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+        required:  [cardNumber,reasonCode,operation,bankCode]
+      # --- ActivateCardStatusV4Rq
+      ActivateCardStatusV4Rq:
+        type: object
+        properties:
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'        
+              cardNumber:
+                type: string
+                description: <p>The card number or tokenID</p>
+                example: "4260000001120770"  
+              bankCode:
+                type: string
+                example: 'ISS004'
+                description: <p>The card bank code</p>
+              operation:
+                type: string
+                example: "L"
+                description: <p>The operation code &#58; <br>
+                  <b> A </b> - Activate Card<br>
+                  <b> D </b> - Deactivate Card
+                  </p>
+        required:  [requestInfo,cardNumber,bankCode,operation]
+      # --- ChangeCardStatusToRV4Rq
+      ChangeCardStatusToRV4Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    description: <p>The card number or tokenID</p>
+                    example: "test"  
+                reasonCode:
+                    type: string
+                    example: "test"
+                    description:
+                        <p>
+                        Reason code 
+                        Refers to the reason why the agent or the customer is requesting to remove the card from stop list queue.
+                        The reason code field must match one of the codes present in the <b>WITHDRAWAL​_REASON _CODE</b> table
+                        </p>
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,reasonCode]
+      # --- GetCardFromTokenV4Rq
+      GetCardFromTokenV4Rq:
+        type: object
+        properties:
+          tokenReferenceID:
+            type: string
+            example: '447123093236'
+            description: <p>Token value for which a card number must be returned.</p>
+          bankCode:
+            type: string
+            example: 'ISS004'
+            description: <p>The card bank code</p>
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required:  [tokenReferenceID,bankCode,requestInfo]
+      # --- ReversalRequestRq
+      ReversalRequestRq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          cardNumber:
+            type: string
+            description:  <p id="field-size">size</p>
+              <p id="field-size-value">C(22)</p>
+              <p id="field-description">The card number or tokenID</p>
+            example: "4260000004020043"
+          bankCode:
+            type: string
+            example: 'ISS004'
+            description: <p id="field-size">size</p>
+              <p id="field-size-value">C(6)</p>
+              <p id="field-description">The card bank code</p>
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: <p>This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).</p>
+          referenceNumber:
+            type: string
+            example: ""
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(12)</p>
+              <p id="field-description">
+              Contains the reference number as defined in <b>ISO-8583 norm
+              (Field 37)</b>
+              </p>
+          expiryDate:
+            type: string
+            example: '2025-10-01'
+            description: <p>Refers to the expiry date of the card Format yyMM</p>
+          authorizationAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurrencyAmountV4'
+          replacementAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurrencyAmountV4'
+          reasonCode:
+            type: string
+            example: "1012"
+            description: <p id="field-size">size</p>
+              <p id="field-size-value">C(4)</p>
+              <p id="field-description">reason code</p>
+          externalStan:
+            type: string
+            example: '022747'
+            description: <p id="field-size">size</p>
+              <p id="field-size-value">C(6)</p>
+              <p id="field-description">
+                            External STAN (System Trace Audit Number). This number is generated by the sender. 
+                            It is a unique identification of the transaction. This number should remain unchanged in all the messages related 
+                            to this transaction.</p>
+          transactionDate:
+            type: string
+            example: '2023-03-26'
+            description: <p>transaction date time</p>
+          authorizationId:
+            type: string
+            example: '03008703000181003136'
+          captureCode:
+            type: string
+            example: '030001'
+        required:  [requestInfo,authorizationId,cardNumber,bankCode,transactionAmount,replacementAmount,externalStan,transactionDateTime]
+      # --- GetCardDynamicCVV2V4Rq
+      GetCardDynamicCVV2V4Rq:
+        type: object
+        properties:
+          cardNumber:
+            type: string
+            example: '4250120088972067'
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(22)</p>
+              <p>The card number or the Card Token Id.</p>
+          bankCode:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(6)</p>
+              <p>Represent the bank code of the entity.</p>
+            example: "500010"
+          expiryDate:
+            type: string
+            example: "0723"
+            description:
+              <p>
+              Refers to the expiry date of the card
+              Format,The value will be in GMT
+              </p>
+          requestAmount:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(15)</p>
+              <p>Represent the request amount</p>
+            example: "1000"
+          currencyCode:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(3)</p>
+              <p>Represent the currency of request amount</p>
+            example: "840"
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required: [ cardNumber,bankCode,requestInfo,expiryDate ]
+      ChangeCardStatusV4Rq:
+        type: object
+        properties:
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          newStatusCode:
+            type: string
+            example: "N"
+            description: <p>Represent the new desired status of the card.</p>
+          statusReasonCode:
+            type: string
+            example: "CA"
+            description:
+              <p>
+              Reason code
+              Refers to the reason why the agent or the customer is requesting to change the status of an existing card, required only if Operation is set to <b>cancel</b>.
+              If operation is set <b>cancel</b> this code must be a valid value that must previously defined in the <b>STATUS_REASON_LIST</b> table under the general parameter section.
+              </p>
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required: [ cardNumber,newStatusCode,statusReasonCode,bankCode,requestInfo ]
+      # --- requestAuthorizationsRq
+      requestAuthorizationsRq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          authorizationType:
+            type: string
+            example: 'P'
+            description: <p>The authorization Type &#58; <br>
+                          <b> N </b> - Normal authorization<br>
+                          <b> P </b> - pre-authorization
+                          </p>
+          expiryDate:
+            type: date
+            example: '2612'
+            description: "Refers to the expiry date of the card Format yyMM "
+          authorizationAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurrencyAmountV4'
+          cardholder:
+            type: object
+            example: 'cardholderName'
+            description: <p>card holder name</p>
+          cvc:
+            type: string
+            example: '123'
+            description: <p>cvc</p>
+        required: [ outletNumber,cardNumber,expiryDate,authorizationAmount,authorizationType,bankCode,requestInfo ]
+      # --- authorizationsRequestMotoRq
+      authorizationsRequestMotoRq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          authorizationType:
+            type: string
+            example: 'P'
+            description: <p>The authorization Type &#58; <br>
+              <b> N </b> - Normal authorization<br>
+              <b> P </b> - pre-authorization
+              </p>
+          expiryDate:
+            type: date
+            example: '2612'
+            description: "Refers to the expiry date of the card Format yyMM "
+          authorizationAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurrencyAmountV4'
+          cardholder:
+            type: object
+            example: 'cardholderName'
+            description: <p>card holder name</p>
+          cvc:
+            type: string
+            example: '123'
+            description: <p>cvc</p>
+          motoIndicator:
+            type: string
+            example: 'M'
+            description: <p>Mail order/Telephone order indicator<br>
+              <b> M </b> - Mail order<br>
+              <b> T </b> - Telephone order
+              </p>
+        required: [ outletNumber,cardNumber,expiryDate,authorizationAmount,authorizationType,bankCode,motoIndicator,requestInfo ]
+      # --- AddressVerificationRq
+      AddressVerificationRq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          address:
+            type: string
+            example: "20141   LINE 1LINE 2LINE 3LINE 4"
+            description: <p>Represent the address to verify <br>
+                          Format &#8282; <b>[zipCode]</b>[space]<b>[Addresses]</b>
+                         </p>
+      # --- AddressVerificationRq
+      VerifyAddressReq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          zipCode:
+            type: string
+            example: "20141"
+            description: <p>The zip code</p>
+          addresses:
+            type: array
+            items:
+              type: string
+            example: ["address 1", "address 2", "address 3"]
+            description: <p>Represent the list of addresses to verify <br>
+              </p>
+      # --- AccountVerificationRq
+      AccountVerificationRq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          outletNumber:
+            type: string
+            example: "200000150000248"
+            description: This code must be previously defined in the PowerCARD merchant database. (MER_ACCEPTOR_POINT table).
+          cardNumber:
+            type: string
+            example: "4250120088972067"
+            description: <p>The card number.</p>
+          bankCode:
+            type: string
+            example: "ISS004"
+            description: <p>Represent the bankcode of the account owner.</p>
+          expiryDate:
+            type: string
+            example: '2025-10-01'
+            description: <p>Refers to the expiry date of the card Format yyMM</p>
+          transactionAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurAmtV35'
+        required: [requestInfo,outletNumber,cardNumber,bankCode,expiryDate,transactionAmount]
+      # --- DynamicPINV4Rq
+      DynamicPINRq:
+        type: object
+        properties:
+          cardNumber:
+            type: string
+            example: '4250120088972067'
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(22)</p>
+              <p>The card number or the Card Token Id.</p>
+          bankCode:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(6)</p>
+              <p>Represent the bank code of the entity.</p>
+            example: "500010"
+          expiryDate:
+            type: string
+            example: "0723"
+            description:
+              <p>
+              Refers to the expiry date of the card
+              Format,The value will be in GMT
+              </p>
+          requestAmount:
+            type: object
+            $ref: 'aggregate.yaml#/CurrencyAmountV4'
+          pinBlock:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(16)</p>
+              <p>Represent the pin block</p>
+            example: "DE9600BC23292902"
+          sequenceNumber:
+            type: string
+            description:
+              <p id="field-size">size</p>
+              <p id="field-size-value">C(3)</p>
+              <p>Represent the sequence of zpk</p>
+            example: "001"
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required: [ cardNumber,bankCode,requestInfo,expiryDate,pinBlock,SequenceNumber ]
+      # ---- OAuth2AuthenticationRequest
+      OAuth2AuthenticationRequest:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required: [ requestInfo ]

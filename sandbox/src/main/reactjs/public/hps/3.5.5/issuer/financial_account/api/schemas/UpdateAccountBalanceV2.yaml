@@ -1,0 +1,155 @@
+openapi: "3.0.3"
+info:
+  title: Financial account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account, Account transactions and Statements list.</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #updateAccountBalance     
+  /UpdateAccountBalance/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           The purpose of the current service is to give the possibility to any allowed third party to update an existing debit account balance in PowerCARD  whenever it is required to synchronize the PowerCARD database with data coming from other systems like bank hosts. It is worth to mention that this operation is expected to update the balance information of the account with the data transmitted within the request message. Any issue noticed while trying to update the account will result in a decline of the request, that will be followed by providing an error code back in the response message. For further information, refer the following sections.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAccountBalance.png" />
+            summary: Update an existing debit account balance in PowerCARD...
+            tags:
+              - Update Account Balance
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccountBalance35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAccountBalance35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>15301</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                       <tr> 
+                                        <td>15302</td>
+                                        <td>Invalid Card Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15303</td>
+                                        <td>Invalid Request Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15304</td>
+                                        <td>Invalid Transaction Type</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15305</td>
+                                        <td>Invalid Transaction Amount</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>15306</td>
+                                        <td>Invalid Balance Amount</td>
+                                      </tr>  
+                                                                            <tr> 
+                                        <td>15306</td>
+                                        <td>Invalid Balance Amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15307</td>
+                                        <td>Invalid Sign</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15308</td>
+                                        <td>Invalid Facilities Amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15309</td>
+                                        <td>Invalid Blocked amount</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15310</td>
+                                        <td>10	15310	Inconsistent field
+                                          Note that the text message will contain the field concerned.
+                                        </td>
+                                        <tr> 
+                                        <td>15311</td>
+                                        <td>Error while updating balance record</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15312</td>
+                                        <td>Operation not permitted, Expired card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15313</td>
+                                        <td>Operation not permitted, Cancelled card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15314</td>
+                                        <td>Operation not permitted, Replaced card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15315</td>
+                                        <td>Card in the stop list</td>
+                                      </tr>  
+                                       <tr> 
+                                        <td>15316</td>
+                                        <td>Operation not permitted, Suspended card</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>15317</td>
+                                        <td>Invalid currency code</td>
+                                      </tr>  
+                                      </tr>                                            
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateAccountBalance35Rq request and response
+      UpdateAccountBalance35Rq:
+               $ref: 'request.yaml#/UpdateAccountBalance35Rq'
+      UpdateAccountBalance35Rs:
+               $ref: 'response.yaml#/UpdateAccountBalance35Rs'   
+security:
+  - bearerAuth: []

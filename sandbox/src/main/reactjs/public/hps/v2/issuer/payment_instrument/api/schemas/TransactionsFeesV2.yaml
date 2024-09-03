@@ -1,0 +1,147 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- Transactions/V2/Fees
+  /Transactions/V2/Fees:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This API is intended to be used whenever a customer or an agent would like to get further details with regards to fees amount linked to several card operations, fees on transactions as well as detail of a statement fees previously defined in the system…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/FeeInQuiry.png" />
+      summary: Get further details with regards to fees amount linked to several card operations.
+      tags:
+        - Fee Inquiry
+      parameters:
+        - in: query
+          name: aliasPAN
+          schema:
+            type: string
+          required: false
+          description: The aliasPAN value.
+        - in: query
+          name: catAccProduct
+          schema:
+            type: string
+          required: false
+          description: The catAccProduct value.
+        - in: query
+          name: catAccProductVer
+          schema:
+            type: string
+          required: false
+          description: The catAccProductVer value.
+        - in: query
+          name: transactionCode
+          schema:
+            type: string
+          required: false
+          description: The transactionCode value.
+        - in: query
+          name: reverFlag
+          schema:
+            type: string
+          required: false
+          description: The reverFlag value.
+        - in: query
+          name: catPIProduct
+          schema:
+            type: string
+          required: false
+          description: The catPIProduct value. 
+        - in: query
+          name: catPIProductVer
+          schema:
+            type: string
+          required: false
+          description: The catPIProductVer value. 
+        - in: query
+          name: transAmount
+          schema:
+            type: string
+          required: true
+          description: The transAmount value.
+        - in: query
+          name: transCurCode
+          schema:
+            type: string
+          required: false
+          description: The transCurCode value. 
+        - in: query
+          name: requestUID 
+          schema:
+            type: string
+          required: true
+          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+        - in: query
+          name: requestDate 
+          schema:
+            type: string
+          required: true
+          description: Date when the request was submitted.
+        - in: query
+          name: userID 
+          schema:
+            type: string
+          required: true
+          description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>20201</td>
+                                  <td>Invalid Card Number/Token Id</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeeInQuiryV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/FeeInQuiryV35Rs'   
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+      FeeInQuiryV35Rq:
+                     $ref: 'request.yaml#/FeeInQuiryV35Rq'
+      FeeInQuiryV35Rs:
+                     $ref: 'response.yaml#/FeeInQuiryV35Rs'         
+security:
+  - bearerAuth: []

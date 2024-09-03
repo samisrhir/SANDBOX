@@ -1,0 +1,95 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # VTS - GooglePayEncryption (Outbound)
+  /GooglePayEncryption/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The GooglePayEncryption API receives from the Bank mobile banking app the payment data payload together with other necessary information for the encryption and responds back with the encrypted payment data payload based on each Scheme encryption rules.
+        The following sections are intended to highlight the process as well as the technical specification of the request and response messages
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/on attend  l image .png" />
+      summary: This web service is not available at the moment in the sandbox .
+      tags:
+        - Google Pay Encryption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GooglePayEncryptionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GooglePayEncryptionRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr><td>80101</td><td>Invalid Card Number / Alias Pan</td></tr>
+            <tr><td>80102</td><td>Invalid Expiration Date</td></tr>
+            <tr><td>80103</td><td>Invalid Intent</td></tr>
+            <tr><td>80104</td><td>Invalid Client Wallet Provider</td></tr>
+            <tr><td>80105</td><td>Invalid Client Wallet Account ID</td></tr>
+            <tr><td>80106</td><td>Invalid Client Device ID</td></tr>
+            <tr><td>80107</td><td>Invalid Client Application ID</td></tr>
+            <tr><td>80108</td><td>Invalid IDnV Indicator</td></tr>
+            <tr><td>80109</td><td>Encryption Error</td></tr>
+            <tr><td>99999</td><td>System Error</td></tr>
+            <tr><td>80111</td><td>Invalid Card Scheme</td></tr>
+            <tr><td>80112</td><td>Invalid Cardholder Name</td></tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GooglePayEncryptionRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GooglePayEncryptionRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import GooglePayEncryptionRq request and response
+    GooglePayEncryptionRq:
+      $ref: 'request.yaml#/GooglePayEncryptionRq'
+    GooglePayEncryptionRs:
+      $ref: 'response.yaml#/GooglePayEncryptionRs'
+security:
+  - bearerAuth: []

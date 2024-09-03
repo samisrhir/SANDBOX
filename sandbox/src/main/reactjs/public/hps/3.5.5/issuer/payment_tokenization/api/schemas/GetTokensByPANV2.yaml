@@ -1,0 +1,99 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/getTokensByPAN:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The getTokensByPAN API enables the Issuer to retrieve the list of all Token for a particular PAN.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getTokensByPAN.png" />
+            summary: Retrieve the list of all Token for a particular PAN.
+            tags:
+              - Get Tokens By PAN
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetTokensByPANV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetTokensByPANV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0901</td>
+                                        <td>Invalid bank code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0902</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0903</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0904</td>
+                                        <td>Invalid Pan </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0905</td>
+                                        <td>Invalid Cardholder Name </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetTokensByPANV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetTokensByPANV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        GetTokensByPANV35Rq:
+               $ref: 'request.yaml#/GetTokensByPANV35Rq'
+        GetTokensByPANV35Rs:
+               $ref: 'response.yaml#/GetTokensByPANV35Rs'
+security:
+  - bearerAuth: []

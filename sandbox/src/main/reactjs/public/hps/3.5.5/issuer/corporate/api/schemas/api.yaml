@@ -1,0 +1,932 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements, Capture a gift, Capture loyalty adjustment and Transfer loyalty points.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: 	Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                schema:
+                  $ref: '#/components/schemas/TokenAuthenticationResponse'                   
+   # --- CreateLoyaltyAccount
+  /LoyaltyAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              For any customer to whom the financial institution is aiming to create a loyalty account, users can use this web service to proceed with first the creation, then the linking of the loyalty account to that customer. The service requires to specify the loyalty program subscribed by the customer. As soon as the account is created in the system, and customers making purchases, the customer will start collecting loyalty points based on the setup of the chosen loyalty program. 
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/CreateLoyaltyAccount.png" />
+            summary:   For any customer to whom the financial institution is aiming to create a loyalty account.
+            tags:
+              - Create Loyalty Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>13001</td>
+                                    <td>Invalid Account Owner Type</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13002</td>
+                                    <td>Invalid Account Owner Id</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13003</td>
+                                    <td>Invalid Loyalty Product</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13004</td>
+                                    <td>Invalid Bank Code</td>
+                                  </tr>								
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'                         
+  #CreateLoyaltyAccount
+  /CreateLoyaltyAccount/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              For any customer to whom the financial institution is aiming to create a loyalty account, users can use this web service to proceed with first the creation, then the linking of the loyalty account to that customer. The service requires to specify the loyalty program subscribed by the customer. As soon as the account is created in the system, and customers making purchases, the customer will start collecting loyalty points based on the setup of the chosen loyalty program. 
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/CreateLoyaltyAccount.png" />
+            summary:   For any customer to whom the financial institution is aiming to create a loyalty account.
+            tags:
+              - Create Loyalty Account
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>13001</td>
+                                    <td>Invalid Account Owner Type</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13002</td>
+                                    <td>Invalid Account Owner Id</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13003</td>
+                                    <td>Invalid Loyalty Product</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>13004</td>
+                                    <td>Invalid Bank Code</td>
+                                  </tr>								
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'                        
+#getLoyaltyAccounts  
+  /GetLoyaltyAccounts/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                        <p>
+                             In loyalty programs, for each dollar amount  spent, the cardholder can earn a number of points. He can for instance use those points as credit against future purchases. This web service was introduced to help customers as well as agent to display all the loyalty accounts linked to a given card. It also helps checking their loyalty account balance. The response will include for reach loyalty account, the name of the subscribed loyalty program, the number of outstanding points in the account, and some more details. Needless to mention that, the loyalty balance takes into consideration the eared points and also the redeemed ones.
+                        </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetLoyaltyAccounts.png" />
+            summary:  This web service was introduced to help customers as well as agent to display all the loyalty accounts linked to a given card.
+            tags:
+              - Get LoyaltyAccounts.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountsV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>12801</td>
+                                    <td>Invalid Account Owner Type</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>12802</td>
+                                    <td>Invalid Account Owner Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>12803</td>
+                                    <td>No loyalty account defined for this entity</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>12804</td>
+                                    <td>Invalid Bank Code</td>
+                                  </tr>									
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'                        
+  #LoyaltyAccounts  
+  /LoyaltyAccounts/V2:
+        get:
+            description:
+                        <h3>API Overview</h3>
+                        <p>
+                             In loyalty programs, for each dollar amount  spent, the cardholder can earn a number of points. He can for instance use those points as credit against future purchases. This web service was introduced to help customers as well as agent to display all the loyalty accounts linked to a given card. It also helps checking their loyalty account balance. The response will include for reach loyalty account, the name of the subscribed loyalty program, the number of outstanding points in the account, and some more details. Needless to mention that, the loyalty balance takes into consideration the eared points and also the redeemed ones.
+                        </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetLoyaltyAccounts.png" />
+            summary:  This web service was introduced to help customers as well as agent to display all the loyalty accounts linked to a given card.
+            tags:
+              - Get LoyaltyAccounts.
+            parameters:
+              - in: query
+                name: bankCode 
+                schema:
+                  type: string
+                description: The bankCode value.
+              - in: query
+                name: accountOwnerType 
+                schema:
+                  type: string
+                description: The accountOwnerType value.
+              - in: query
+                name: accountOwnerId 
+                schema:
+                  type: string
+                description: The accountOwnerId value.
+              - in: query
+                name: LoyaltyAccountNbr 
+                schema:
+                  type: string
+                description: The LoyaltyAccountNbr value.
+              - in: query
+                name: rangeStartDt 
+                schema:
+                  type: string
+                description: The rangeStartDt value.
+              - in: query
+                name: rangeEndtDt 
+                schema:
+                  type: string
+                description: The rangeEndtDt value.
+              - in: query
+                name: requestUID 
+                schema:
+                  type: string
+                description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+              - in: query
+                name: requestDate 
+                schema:
+                  type: string
+                description: Date when the request was submitted.
+              - in: query
+                name: userID 
+                schema:
+                  type: string
+                description: Represents the user Id who made the request.
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>12801</td>
+                                    <td>Invalid Account Owner Type</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>12802</td>
+                                    <td>Invalid Account Owner Id</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>12803</td>
+                                    <td>No loyalty account defined for this entity</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>12804</td>
+                                    <td>Invalid Bank Code</td>
+                                  </tr>									
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'                        
+  #getLoyaltyAccountTransactions  
+  /GetLoyaltyAccTrxs/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.  By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc…
+                          </p>
+                          <p>
+                          The current service is intended to send back the list of points earned by the customer within a range of date. Each transaction must contain information’s with regards to the shopping made by the customers as well as the number of points earned in that program. 
+                          </p>
+                        <h3>Functional Description</h3>
+                       <img  src="./docs/getLoyaltyAccountTransactions.png" />
+            summary:  Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.
+            tags:
+              - Get Loyalty Account Transactions.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountTransactionsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountTransactionsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>13101</td>
+                                          <td>Invalid Account Owner Type</td>
+                                      </tr>
+                                      <tr>
+                                          <td>13102</td>
+                                          <td>Invalid Account Owner Id</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>13103</td>
+                                          <td>Invalid range date</td>
+                                      </tr>                                                                             
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoyaltyAccountTransactionsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoyaltyAccountTransactionsV35Rs'                        
+  # ------- UpdateLoyaltyAccountStatus API  
+  /UpdateLoyaltyAccStatus/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The loyalty account can be cancelled in the system for any reason. For that, PowerCARD offers this web service that requires the loyalty account as input in the request message as well as the cancellation reason. PowerCARD will then process to the cancellation of the loyalty account only if that account has no outstanding balance. If this is the case, the system will inform the requester who may need to make a manual adjustment on the account before proceeding to the account cancellation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/UpdateLoyaltyAccountStatus.png" />
+      summary: This web service that requires the loyalty account as input in the request message as well as the cancellation reason.
+      tags:
+        - Update Loyalty Account Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>12901</td>
+                                <td>Invalid reason code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12902</td>
+                                <td>Account already cancelled.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12903</td>
+                                <td>Account with outstanding balance. Need to adjust the balance before proceeding to cancellation.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12904</td>
+                                <td>Invalid loyalty Account number</td>
+                              </tr>	
+                              <tr> 
+                                <td>12905</td>
+                                <td>Invalid Loyalty Program Identification</td>
+                              </tr>	
+                              <tr> 
+                                <td>12906</td>
+                                <td>Invalid Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12907</td>
+                                <td>Invalid Account Owner Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>12908</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>
+                              <tr> 
+                                <td>12909</td>
+                                <td>Loyalty Account Not Founded</td>
+                              </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'
+            application/xml:
+                      schema:
+                        $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'                  
+  # ------- LoyaltyAccountStatus API  
+  /LoyaltyAccountStatus/V2:
+    patch:
+      description:  <h3>API Overview</h3>
+                    <p>The loyalty account can be cancelled in the system for any reason. For that, PowerCARD offers this web service that requires the loyalty account as input in the request message as well as the cancellation reason. PowerCARD will then process to the cancellation of the loyalty account only if that account has no outstanding balance. If this is the case, the system will inform the requester who may need to make a manual adjustment on the account before proceeding to the account cancellation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/UpdateLoyaltyAccountStatus.png" />
+      summary: This web service that requires the loyalty account as input in the request message as well as the cancellation reason.
+      tags:
+        - Update Loyalty Account Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>12901</td>
+                                <td>Invalid reason code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12902</td>
+                                <td>Account already cancelled.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12903</td>
+                                <td>Account with outstanding balance. Need to adjust the balance before proceeding to cancellation.</td>
+                              </tr>	
+                              <tr> 
+                                <td>12904</td>
+                                <td>Invalid loyalty Account number</td>
+                              </tr>	
+                              <tr> 
+                                <td>12905</td>
+                                <td>Invalid Loyalty Program Identification</td>
+                              </tr>	
+                              <tr> 
+                                <td>12906</td>
+                                <td>Invalid Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>12907</td>
+                                <td>Invalid Account Owner Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>12908</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>
+                              <tr> 
+                                <td>12909</td>
+                                <td>Loyalty Account Not Founded</td>
+                              </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'
+            application/xml:
+                      schema:
+                        $ref: '#/components/schemas/UpdateLoyaltyAccStatusV35Rs'                  
+
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import GetLoyaltyAccountTransactionsV35 request and response
+      GetLoyaltyAccountTransactionsV35Rq:
+               $ref: 'request.yaml#/GetLoyaltyAccountTransactionsV35Rq'
+      GetLoyaltyAccountTransactionsV35Rs:
+               $ref: 'response.yaml#/GetLoyaltyAccountTransactionsV35Rs'          
+security:
+  - bearerAuth: []
+
+  

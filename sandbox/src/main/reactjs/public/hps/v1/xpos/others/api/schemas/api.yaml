@@ -1,0 +1,792 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-xPos API documentation
+  description: <p>HPS’ PowerCARD-xPOS solution can help payments providers, retailers and banks overcome these challenges, and rapidly roll out new services and simply global device deployment, while keeping maintenance and administration costs to a minimum. </p>
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: http://196.12.238.134:12080/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- allocateDevice
+  /allocateDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present API provides functionality to allocate a device to a terminal in the system.</p>
+                    <p>While invoking this API, the system assigns a device serial number as well as a brand identification code to the logical terminal. It is worth to note that one device can be assigned to only one terminal, attempting to assign the same device to another terminal will be followed by a rejection with a specific error code. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/allocateDevice.png" />
+                  
+      summary: The present API provides functionality to allocate a device to a terminal in the system.
+      tags:
+        - Allocate Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocateDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AllocateDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05501</td>
+                                  <td>Invalid Terminal Pos Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05502</td>
+                                  <td>Invalid bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05503</td>
+                                  <td>Invalid Serial Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05504</td>
+                                  <td>Device is already allocated to this terminal</td>
+                                </tr>
+                                <tr> 
+                                  <td>05505</td>
+                                  <td>Device not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>05506</td>
+                                  <td>Not used</td>
+                                </tr>
+                                <tr> 
+                                  <td>05507</td>
+                                  <td>Invalid device Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>05508</td>
+                                  <td>Error occurred during allocation, please contact the administrator</td>
+                                </tr>														
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'    
+  # ------- createDevice
+  /createDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The create device API provides functionality to add a new device definition in the system. The device details sent in the request message include information concerning the machine being captured in the system, like its serial number, brand name, purchase date… Please note that in a later stage this device will be allocated to a logical POS terminal number. This association helps to setting up a link between the hardware or a device and its definition in the system.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createDevice.png" />
+                  
+      summary: The create device API provides functionality to add a new device definition in the system.
+      tags:
+        - Create Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05301</td>
+                                  <td>Invalid Operation Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>05302</td>
+                                  <td>Invalid bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05303</td>
+                                  <td>Invalid Pos Brand Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05304</td>
+                                  <td>Invalid Serial Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05305</td>
+                                  <td>Invalid Device Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>05306</td>
+                                  <td>Invalid Currency Code </td>
+                                </tr>
+                                <tr> 
+                                  <td>05307</td>
+                                  <td>Device already exists in the system</td>
+                                </tr>
+                                <tr> 
+                                  <td>05308</td>
+                                  <td>Device not found</td>
+                                </tr>														
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDeviceRs'  
+  # ------- getDevice
+  /getDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The get device API provides functionality to retrieve information with regards to a given device. Data returned in the response message should include data like the POS brand, the serial number, the device status…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getDevice.png" />
+                  
+      summary: The get device API provides functionality to retrieve information with regards to a given device.
+      tags:
+        - Get Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>05901</td>
+                                <td>Invalid bank code</td>
+                              </tr>
+                              <tr> 
+                                <td>05902</td>
+                                <td>Device and terminal not found</td>
+                              </tr>
+                              <tr> 
+                                <td>05903</td>
+                                <td>Device multi allocated to terminal</td>
+                              </tr>													
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeviceRs'  
+   # ------- replaceDevice
+  /replaceDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The replace device API is commonly used to delink a POS terminal from a hardware device and link it to a new one with a different serial number.</p>
+                    <p>As input the service must have information regarding the terminal number as well as the new machine serial number and its brand.</p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/replaceDevice.png" />
+                  
+      summary: The replace device API is commonly used to delink a POS terminal from a hardware device and link it to a new one with a different serial number.
+      tags:
+        - Replace Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReplaceDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05801</td>
+                                  <td>Invalid terminal pos number </td>
+                                </tr>
+                                <tr> 
+                                  <td>05802</td>
+                                  <td>This terminal is not already allocated </td>
+                                </tr>
+                                <tr> 
+                                  <td>05803</td>
+                                  <td>Pos Back reason not found </td>
+                                </tr>
+                                <tr> 
+                                  <td>05804</td>
+                                  <td>Serial number or Brand code not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>05805</td>
+                                  <td>Device already allocated to terminal</td>
+                                </tr>
+                                <tr> 
+                                  <td>05806</td>
+                                  <td>Serial number or Brand code not provided in the request</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceDeviceRs' 
+   # ------- returnDevice
+  /returnDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Returning a device for reparation purpose for instance is translated by setting the status of the device to the new value sent in the request.</p>
+                    <h3>Functional Description</h3>
+                   <img  src="./docs/returnDevice.png" />
+                  
+      summary: Returning a device for reparation purpose for instance is translated by setting the status of the device
+      tags:
+        - Return Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReturnDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05701</td>
+                                  <td>Not used</td>
+                                </tr>
+                                <tr> 
+                                  <td>05702</td>
+                                  <td>Not used</td>
+                                </tr>
+                                <tr> 
+                                  <td>05703</td>
+                                  <td>Invalid terminal Pos Number </td>
+                                </tr>
+                                <tr> 
+                                  <td>05704</td>
+                                  <td>The terminal is not allocated</td>
+                                </tr>
+                                <tr> 
+                                  <td>05705</td>
+                                  <td>Invalid Pos Reason Back Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05706</td>
+                                  <td>Error occurred when returning the terminal details, please contact the administrator</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnDeviceRs'  
+   # ------- createTerminal
+  /createTerminal/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Users have the ability to create a logical representation of the POS terminal in the system thank to this API. The said API provides functionality to capture a new POS terminal along with set a data that identify uniquely the terminal in the system. Including but not limited to information like floor limit amounts per supported currency, supported languages, POS location…. Please note that in a later stage this terminal need to be assigned uniquely to an existing device with a unique serial number. This association helps to setting up a link between the hardware and its definition in the system.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createTerminal.png" />
+                  
+      summary: Users have the ability to create a logical representation of the POS terminal in the system thank to this API.
+      tags:
+        - Create Terminal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTerminalRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateTerminalRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>05401</td>
+                                <td>Invalid operation type</td>
+                              </tr>
+                              <tr> 
+                                <td>05402</td>
+                                <td>Terminal Pos number already exists </td>
+                              </tr>
+                              <tr> 
+                                <td>05403</td>
+                                <td>Invalid terminal pos number</td>
+                              </tr>
+                              <tr> 
+                                <td>05404</td>
+                                <td>Invalid Master pos indicator </td>
+                              </tr>
+                              <tr> 
+                                <td>05405</td>
+                                <td>Pos profile not found </td>
+                              </tr>
+                              <tr> 
+                                <td>05406</td>
+                                <td>Invalid outlet number </td>
+                              </tr>	
+                              <tr> 
+                                <td>05407</td>
+                                <td>The values provided in country, region and city are not coherent </td>
+                              </tr>	
+                              <tr> 
+                                <td>05408</td>
+                                <td>Pos location is not provided</td>
+                              </tr>	
+                              <tr> 
+                                <td>05409</td>
+                                <td>Invalid pulse flag </td>
+                              </tr>	
+                              <tr> 
+                                <td>05410</td>
+                                <td>Master pos number is null </td>
+                              </tr>	
+                              <tr> 
+                                <td>05411</td>
+                                <td>Invalid protocol index </td>
+                              </tr>	
+                              <tr> 
+                                <td>05412</td>
+                                <td>Invalid pos soft </td>
+                              </tr>	
+                              <tr> 
+                                <td>05413</td>
+                                <td>Invalid transaction processing mode </td>
+                              </tr>	
+                              <tr> 
+                                <td>05414</td>
+                                <td>Invalid terminal pos grouping </td>
+                              </tr>	
+                              <tr> 
+                                <td>05415</td>
+                                <td>Dial hour is null</td>
+                              </tr>	
+                              <tr> 
+                                <td>05416</td>
+                                <td>Invalid stop list parameters</td>
+                              </tr>
+                              <tr> 
+                                <td>05417</td>
+                                <td>Invalid terminal mode status </td>
+                              </tr>	
+                              <tr> 
+                                <td>05418</td>
+                                <td>Invalid credit note flag </td>
+                              </tr>		
+                              <tr> 
+                                <td>05419</td>
+                                <td>Invalid currency code </td>
+                              </tr>		
+                              <tr> 
+                                <td>05420</td>
+                                <td>First currency code is null </td>
+                              </tr>		
+                              <tr> 
+                                <td>05421</td>
+                                <td>First language code is null </td>
+                              </tr>
+                              <tr> 
+                                <td>05422</td>
+                                <td>Invalid language code </td>
+                              </tr>	
+                              <tr> 
+                                <td>05423</td>
+                                <td>Terminal Pos number not generated </td>
+                              </tr>	
+                              <tr> 
+                                <td>05424</td>
+                                <td>Terminal Amount list structure is empty </td>
+                              </tr>	
+                              <tr> 
+                                <td>05425</td>
+                                <td>Master Pos number not found</td>
+                              </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTerminalRs'
+   # ------- searchTerminal
+  /searchTerminal/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a rich merchant database structure to its customers. This structure includes a variety of components that allow users to map their existing business easily and within a limited time in PowerCARD. For example, PowerCARD allows storing and maintaining the point of sales terminals in the database and link them to the appropriate point of sale, merchant then to their corresponding chain if managed.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchTerminal.png" />
+                  
+      summary: PowerCARD offers a rich merchant database structure to its customers. This structure includes a variety of components that allow users to map their existing business ...
+      tags:
+        - Search Terminal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchTerminalRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchTerminalRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>07801</td>
+                                <td>Missing information in the request message. Need to fill at least one of the following fields ( Chain, Merchant or Pos Identification Numbers)</td>
+                              </tr>
+                              <tr> 
+                                <td>07802</td>
+                                <td>Invalid Merchant Identification Number</td>
+                              </tr>
+                              <tr> 
+                                <td>07803</td>
+                                <td>Invalid Point of sale Identification Number</td>
+                              </tr>
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'                                                                
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+    # --- Import DemoV35 request and response
+      ReplaceDeviceRq:
+               $ref: 'request.yaml#/ReplaceDeviceRq'
+      ReplaceDeviceRs:
+               $ref: 'response.yaml#/ReplaceDeviceRs' 
+
+    # --- Import GetDeviceRq request and response
+      GetDeviceRq:
+               $ref: 'request.yaml#/GetDeviceRq'
+      GetDeviceRs:
+               $ref: 'response.yaml#/GetDeviceRs'
+
+    # --- Import AllocateDevice request and response
+      AllocateDeviceRq:
+               $ref: 'request.yaml#/AllocateDeviceRq'
+      AllocateDeviceRs:
+               $ref: 'response.yaml#/AllocateDeviceRs'
+
+    # --- Import CreateDevice request and response
+      CreateDeviceRq:
+               $ref: 'request.yaml#/CreateDeviceRq'
+      CreateDeviceRs:
+               $ref: 'response.yaml#/CreateDeviceRs'
+
+    # --- Import ReturnDevice request and response
+      ReturnDeviceRq:
+               $ref: 'request.yaml#/ReturnDeviceRq'
+      ReturnDeviceRs:
+               $ref: 'response.yaml#/ReturnDeviceRs'
+
+    # --- Import CreateTerminal request and response
+      CreateTerminalRq:
+               $ref: 'request.yaml#/CreateTerminalRq'
+      CreateTerminalRs:
+               $ref: 'response.yaml#/CreateTerminalRs'
+
+    # --- Import SearchTerminal request and response
+      SearchTerminalRq:
+               $ref: 'request.yaml#/SearchTerminalRq'
+      SearchTerminalRs:
+               $ref: 'response.yaml#/SearchTerminalRs'
+
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'             
+         
+security:
+  - bearerAuth: []
+  

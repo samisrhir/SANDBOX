@@ -1,0 +1,221 @@
+TokenAuthentication:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        $ref: aggregate.yaml#/KeyValueDataV35
+    providerLogin:
+      type: string
+      example: firstUser
+    providerPassword:
+      type: string
+      example: $2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e
+    userLanguage:
+      type: string
+      example: en_US
+    requestInfo:
+      type: object
+      $ref: aggregate.yaml#/RequestInfo
+UpdateCollaboratorAuthenticationCodeRq:
+  type: object
+  required:
+    - requestInfo
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    corporateId:
+      type: string
+      description: <p>The organization/corporate identifier, predefined in the PowerCARD
+        CORPORATE table. Optional.</p>
+      example: '1000000019'
+    employeeId:
+      type: string
+      description: <p>The employee identifier. Optional.</p>
+      example: 'C985424'
+    authenticationCode:
+      type: string
+      description: <p>Authentication code for the request. Optional.</p>
+      example: 'a1b2c3'
+
+
+#---------------------------------
+SearchCorporateTransactionsRq:
+  type: object
+  required:
+    - requestInfo
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    corporateId:
+      type: string
+      description: <p>The organization/corporate identifier, predefined in the PowerCARD
+        CORPORATE table. Optional.</p>
+      example: '1000000019'
+    startDate:
+      type: string
+      description: '<p>Start date for the requested data or action, in GMT format:
+        yyyy-MM-dd''T''HH:mm:ss.SSS''Z''. Optional.</p>'
+      example: '2018-11-01T00:00:00'
+    endDate:
+      type: string
+      description: '<p>End date for the requested data or action, in GMT format: yyyy-MM-dd''T''HH:mm:ss.SSS''Z''.
+        Optional.</p>'
+      example: '2020-02-05T00:00:00'
+    firstname:
+      type: string
+      description: <p>The first name of the employee or individual associated with
+        the request. Optional.</p>
+      example: 'NEVA'
+    lastname:
+      type: string
+      description: <p>The family name of the employee.</p>
+      example: 'TREVINO'
+    cardNumber:
+      type: string
+      description: <p>The card number or the Card Token Id. .</p>
+      example: '42501AC0903B9007'
+    debitAccountNumber:
+      type: string
+      example: '194924029'
+#-------------------------
+GetSummaryCardTransactionsRq:
+  type: object
+  required:
+    - requestInfo
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    corporateId:
+      type: string
+      description: <p>The organization/corporate identifier. Must be predefined in
+        the PowerCARD CORPORATE table. Optional.</p>
+      example: '1000000019'
+    startDate:
+      type: string
+      description: <p>Start date in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z'). Optional.</p>
+      example: '2018-10-01T00:00:00'
+    endDate:
+      type: string
+      description: <p>End date in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z'). Optional.</p>
+      example: '2020-02-05T00:00:00'
+    firstname:
+      type: string
+      description: <p>The first name of the employee. Optional.</p>
+      example: 'NEVA'
+    lastname:
+      type: string
+      description: <p>The family name of the employee. Optional.</p>
+      example: 'TREVINO'
+    cardNumber:
+      type: string
+      description: <p>The card number or the Card Token Id. Should contain a valid
+        value. Optional.</p>
+      example: '42501AC0903B9007'
+    directDebitOption:
+      type: string
+      description: <p>Direct debit option. Optional.</p>
+      example: 'DCO'
+#---------------------------------------
+GetCardCharacteristicsRq:
+  type: object
+  required:
+    - requestInfo
+    - cardNumber
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    cardNumber:
+      type: string
+      description: <p>The card number or the Card Token Id. Should contain a valid
+        value.</p>
+      example: '5109990601175509'
+
+
+#RegisterWebhook35Rq:
+RegisterWebhook35Rq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          name:
+            type: string
+            example: 'Card created webhook'
+            description: <p>
+              The name of the webhook endpoint
+              </p>
+          url:
+            type: string
+            example: 'https://localhost:8099/webhooks/card_created'
+            description: <p>
+              The url of the webhook endpoint to register for events push
+              </p>
+          status:
+            type: string
+            example: 'A'
+            description: <p>
+              The webhook status <br>
+              <b>A</b> - To enable  event push to registered webhook<br>
+              <b>D</b> - To disable event push to registered webhook<br>
+              </p>
+          eventType:
+            type: string
+            example: 'card_created'
+            description: <p>
+              The event type to subscribe for this webhook
+              </p>
+        required: [requestInfo,name,url,status,eventType]
+#UpdateWebhook35Rq:
+UpdateWebhook35Rq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          webhookId:
+            type: string
+            example: '6948DF80-14BD-4E04-8842'
+            description: <p>
+              The identifier of the webhook to update
+              </p>
+          name:
+            type: string
+            example: 'Card created webhook'
+            description: <p>
+              The name of the webhook endpoint
+              </p>
+          url:
+            type: string
+            example: 'https://localhost:8099/webhooks/card_created'
+            description: <p>
+              The url of the webhook endpoint to register for events push
+              </p>
+          status:
+            type: string
+            example: 'A'
+            description: <p>
+              The webhook status <br>
+              <b>A</b> - To enable  event push to registered webhook<br>
+              <b>D</b> - To disable event push to registered webhook<br>
+              </p>
+          eventType:
+            type: string
+            example: 'card_created'
+            description: <p>
+              The event type to subscribe for this webhook
+              </p>
+        required: [requestInfo,webhookId,name,url,status,eventType]
+DeleteWebhook35Rq:
+        type: object
+        properties:
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+          webhookId:
+            type: string
+            example: '6948DF80-14BD-4E04-8842'
+            description: <p>
+              The identifier of the webhook to delete from the system
+              </p>
+        required: [requestInfo,webhookId]

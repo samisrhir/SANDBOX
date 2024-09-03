@@ -1,0 +1,107 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- searchRemittances
+  /SearchRemittances/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service is intended to allow the end user to look for a detail of a set of transaction remittances in the system. For instance, a merchant or a point of sale can use the service to search for the submitted transaction remittances in a period of time.</p>
+                    <p>The output of the service may include the list of remittances submitted by the merchant/point of sale along with some details regarding each remittance. Those details should include the status of the remittance, the number of submitted transactions, the processing date, the remittance type…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchRemittances.png" />
+                  
+      summary: The present web service is intended to allow the end user to look for a detail...
+      tags:
+        - Search Remittances
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRemittancesRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchRemittancesRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>07001</td>
+                                    <td>Merchant and POS identification are both missing in the request message.</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>07002</td>
+                                    <td>Invalid Merchant Identification number</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>07003</td>
+                                    <td>Invalid Point of sale Identification number</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07004</td>
+                                    <td>Invalid Range date</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07005</td>
+                                    <td>Invalid Chain Identification Number</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07006</td>
+                                    <td>Value Added Reseller not defined in the system.</td>
+                                  </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRemittancesRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchRemittancesRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SearchRemittancesRq request and response 
+      SearchRemittancesRq:
+               $ref: 'request.yaml#/SearchRemittancesRq'
+      SearchRemittancesRs:
+               $ref: 'response.yaml#/SearchRemittancesRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

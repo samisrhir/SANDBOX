@@ -1,0 +1,152 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/checkCardEligibility
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/checkCardEligibility:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            TPL invokes the CheckCardEligibility API call to determine if the card is eligible for tokenization and if so,PowerCARD-Tokenization will return the issuer-defined card Art and Terms & Conditions (T&C) to the wallet provider in the name of the issuer. 
+                          </p>
+                          <p>
+                            As output the API send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/CreateCreditCard.png" /> 
+            summary: Determine if the card is eligible for tokenization. 
+            tags:
+              - Check Card Eligibility
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCardEligibilityV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCardEligibilityV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                    </tr>
+                                    <tr>
+                                    <td>T0101</td>
+                                    <td>Invalid Wallet ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0102</td>
+                                    <td>Missing Wallet ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0103</td>
+                                    <td>Invalid Token Requestor ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0104</td>
+                                    <td>Missing Token Requestor ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0105</td>
+                                    <td>Invalid Correlation Id </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0106</td>
+                                    <td>Missing Correlation Id </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0107</td>
+                                    <td>Invalid Pan </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0108</td>
+                                    <td>Missing Pan </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0109</td>
+                                    <td>Invalid Card holder Name </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0110</td>
+                                    <td>Missing Card holder Name </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0111</td>
+                                    <td>Invalid Expiry Month Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0112</td>
+                                    <td>Invalid Expiry Year Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0113</td>
+                                    <td>Missing Expiry Month Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0114</td>
+                                    <td>Missing Expiry Year Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0115</td>
+                                    <td>Expiry Month Date must not be in the past </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0116</td>
+                                    <td>Expiry Year Date must not be in the past </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0117</td>
+                                    <td>Invalid CVV2 </td>
+                                    <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCardEligibilityV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/CheckCardEligibilityV35Rs'   
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CheckCardEligibilityV35 request and response
+      CheckCardEligibilityV35Rq:
+               $ref: 'request.yaml#/CheckCardEligibilityV35Rq'
+      CheckCardEligibilityV35Rs:
+               $ref: 'response.yaml#/CheckCardEligibilityV35Rs'
+security:
+  - bearerAuth: []

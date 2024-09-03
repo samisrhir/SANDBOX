@@ -1,0 +1,105 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths: 
+  # --- Cards/V2/{aliasPAN}/Limits
+  /Cards/V2/{aliasPAN}/Limits:
+        get:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              For risk management purpose, PowerCARD introduces the mechanism of card limits. Card limits are the maximum amount that cardholders can either withdraw in an ATM machine or also use to make a purchase via internet, terminal pos… Those limits are defined in PowerCARD as a package identified by a unique index. That index could be either linked to a particular card or also linked a range or a product and by the way the entire cards in this range or having such product inherit the characteristics of that index.
+                          </p>
+                          <p>
+                              The index is constituted from a set of setup, each setup is intended to refer to a different transaction types. Within each setup, a daily and periodic limit amounts are shared to give an overview of the limits that should not be exceeded. 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetCardLimits.png" />
+            summary: Get Card limits, maximum amount that cardholders can either withdraw in an ATM machine
+            tags:
+              - Get Card Limit
+            parameters:
+                    - in: path
+                      name: aliasPAN
+                      schema:
+                        type: string
+                      required: true
+                      description: AliasPAN String to get card details.
+                      example: '42504D19EB30A855'
+                    - in: query
+                      name: requestUID 
+                      schema:
+                        type: string
+                      description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                      example: '6948DF80-14BD-4E04-8842-7668D9C001F5'
+                    - in: query
+                      name: requestDate 
+                      schema:
+                        type: string
+                      description: Date when the request was submitted.
+                      example: '2020-02-05T00:00:00'
+                    - in: query
+                      name: userID 
+                      schema:
+                        type: string
+                      description: Represents the user Id who made the request.
+                      example: 'user001'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>21101</td>
+                                      <td>Invalid Card Number/Token Id</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCardLimitsV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetCardLimitsV35Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+  security:
+  - bearerAuth: []

@@ -1,0 +1,158 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/PaymentTransactionNotificationService:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The PaymentTransactionNotificationService API is exposed by TPL, PowerCARD-Tokenization will invoke this API call to notifies a payment transaction.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/PaymentTransactionNotificationService.png" />
+            tags:
+              - Payment Transaction Notification Service
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/PaymentTransactionNotificationServiceV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/PaymentTransactionNotificationServiceV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0701</td>
+                                        <td>Invalid bank code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0702</td>
+                                        <td>Invalid Payment Instrument Info </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0703</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0704</td>
+                                        <td>Invalid Pan First Digits </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0705</td>
+                                        <td>Invalid Pan Last Digits </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0706</td>
+                                        <td>Invalid Cardholder Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0707</td>
+                                        <td>Invalid Payment Transaction Type </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0708</td>
+                                        <td>Invalid Payment Transaction Result </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0709</td>
+                                        <td>Invalid Payment Transaction Result Reason </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0710</td>
+                                        <td>Invalid Payment Transaction Result ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0711</td>
+                                        <td>Invalid Wallet Provider Transaction ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0712</td>
+                                        <td>Invalid Payment Transaction Amount </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0713</td>
+                                        <td>Invalid currency code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0714</td>
+                                        <td>Invalid Merchant Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0715</td>
+                                        <td>Invalid Raw Merchant Name </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0716</td>
+                                        <td>Invalid Merchant Address City </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0717</td>
+                                        <td>Invalid Merchant Address Zip Code </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0718</td>
+                                        <td>Invalid Industry Category </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0719</td>
+                                        <td>Invalid Industry Code </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0720</td>
+                                        <td>Invalid Payment Transaction Date Time </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/PaymentTransactionNotificationServiceV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/PaymentTransactionNotificationServiceV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        PaymentTransactionNotificationServiceV35Rq:
+               $ref: 'request.yaml#/PaymentTransactionNotificationServiceV35Rq'
+        PaymentTransactionNotificationServiceV35Rs:
+               $ref: 'response.yaml#/PaymentTransactionNotificationServiceV35Rs'
+security:
+  - bearerAuth: []

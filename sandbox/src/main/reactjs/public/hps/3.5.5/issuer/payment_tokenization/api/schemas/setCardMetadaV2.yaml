@@ -1,0 +1,139 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/setCardMetada:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This setCardMetadata lets the issuer update the Card Metadata attributes associated with the card after the card has provisioned, the issuer can use this API to change Card Art images without requiring a re-provisioning.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/setCardMetada.png" />
+            summary: Update the Card Metadata.
+            tags:
+              - Set Card Meta data
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SetCardMetadaV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SetCardMetadaV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1001</td>
+                                        <td>WalletID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1002</td>
+                                        <td>TokenRequestorID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1003</td>
+                                        <td>CorrelationID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1004</td>
+                                        <td>TokenReferenceID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1005</td>
+                                        <td>PanReferenceID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1006</td>
+                                        <td>MetadataChangeReason </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1007</td>
+                                        <td>ProfileMetaTag </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1008</td>
+                                        <td>CardName </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1009</td>
+                                        <td>ForegroundRGB </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1010</td>
+                                        <td>BackgroundRGB </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1011</td>
+                                        <td>Description </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1012</td>
+                                        <td>CardArtInfo </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1013</td>
+                                        <td>ArtReferenceID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1014</td>
+                                        <td>TnCReferenceID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1015</td>
+                                        <td>TnCURL </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SetCardMetadaV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/SetCardMetadaV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        SetCardMetadaV35Rq:
+               $ref: 'request.yaml#/SetCardMetadaV35Rq'
+        SetCardMetadaV35Rs:
+               $ref: 'response.yaml#/SetCardMetadaV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,3253 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://connect-api-f421ce7420d03b16.elb.eu-north-1.amazonaws.com
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /compliance/v4.0/tokens/authentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                                  <tr>
+                                     <td>00000</td>
+                                     <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00001</td>
+                                      <td>Bad Credentials Invalid login and/or password</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00003</td>
+                                      <td>User Blocked</td>
+                                  <tr>
+                                       <td>00005</td>
+                                       <td>Invalid Password configuration</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00006</td>
+                                      <td>User Password expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System Error</td>
+                                  </tr>
+
+                       </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                      schema:
+                        $ref: '#/components/schemas/TokenAuthenticationResponse'                                                                 
+                                                                              
+              
+  # --- CreateDebitCardV4
+  /payment-instrument/v4.0/cards/create_debit_card:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   A debit card allows the cardholder to create a client and/or its debit card.
+            tags:
+              - Create Debit Card
+            requestBody:
+              required: true
+              description:
+                    <img id="select-case-img" src="./docs/exclamation.png" />
+                    <label id="select-case">When we use this Api with the aggregate <b>Existing Client</b> (clientCode and bankCode not empty) , all the other customer details aggregates are ignored. </label>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV4Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                      <p>Technical Error Codes &#58;</p>
+                        <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                            </tr>
+                            <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>                  
+                            <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                            </tr>
+                            <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                            </tr>
+                   <table>
+                      <p>Business Error Codes &#58;</p>
+                      <table>
+                        <tr>
+                          <th>Error code</th>
+                          <th>Error Description <b>*</b></th>
+                        </tr>                               
+                          <tr>
+                            <td>000332</td>
+                            <td>Client code is not valid</td>
+                          </tr>
+                          <tr>
+                          <td>000037</td>
+                          <td>Client code already exist</td>
+                          </tr>
+                          <tr>
+                            <td>000220</td>
+                            <td>BranchCode is not valid</td>
+                          </tr>
+                          <tr>
+                              <td>000068</td>
+                              <td>VipLevel is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000219</td>
+                              <td>NationalityCode is not valid</td>
+                          </tr>     
+                          <tr>
+                              <td>000211</td>
+                              <td>Language is not valid</td>
+                          </tr>  
+                          <tr>
+                              <td>000212</td>
+                              <td>Title code is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000079</td>
+                              <td>OwnerCode is not valid</td>
+                          </tr>  
+                          <tr>
+                              <td>000080</td>
+                              <td>SocioProfessionalCode is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000081</td>
+                              <td>Activity code is not valid</td>
+                          </tr>   
+                          <tr>
+                              <td>000050</td>
+                              <td>CustomerSegment is not valid</td>
+                          </tr>
+                            <tr>
+                                <td>000082</td>
+                                <td>LodgingMode is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>000139</td>
+                              <td>PhoneType is not valid </td>
+                          </tr>
+                            <tr>
+                              <td>000130</td>
+                              <td>Address type is not valid</td>
+                            </tr>
+                              <tr>
+                              <td>000128</td>
+                              <td>Sending mode is not valid</td>
+                              </tr>
+                            <tr>
+                              <td>03017</td>
+                              <td>ZipCode is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>03011</td>
+                              <td>CityCode is not valid</td>
+                            </tr>
+                          <tr>
+                          <td>03019</td>
+                          <td>Region is not valid</td>
+                          </tr>
+                          <tr>
+                          <td>000136</td>
+                          <td>Country code is not valid</td>
+                          </tr>
+                         <tr>
+                              <td>000053</td>
+                              <td>DocumentCode is not valid</td>
+                          </tr>   
+                          <tr>
+                              <td>000054 <b>[deprecated]</b> </td>
+                              <td>DocumentId is not valid</td>
+                          </tr>                                                                                                                                                                                                                                                                       
+                          <tr>
+                              <td>000218</td>
+                              <td>FieldName is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000179</td>
+                              <td>CatPIProduct or catPIProductVersion is not valid</td>
+                          </tr>
+                            <tr>
+                                <td>000164</td>
+                                <td>Account type is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>000156</td>
+                              <td>Currency code is not valid</td>
+                            </tr>
+                            <tr>
+                                <td>000185</td>
+                                <td>DefaultAccount is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>000175</td>
+                              <td>Invalid Strategy id in Communication event</td>
+                            </tr>
+                              <tr>
+                                <td>001177</td>
+                                <td>EventCode is not valid</td>
+                              </tr>
+                              <tr>
+                                <td>001178 <b>[deprecated]</b> </td>
+                                <td>Event activation status is not valid</td>
+                              </tr>
+                              <tr>
+                                  <td>001179</td>
+                                  <td>ChannelActivationStatus is not valid</td>
+                              </tr>
+                              <tr>
+                                <td>000210</td>
+                                <td>Channel type is not valid</td>
+                              </tr> 
+                              <tr>
+                                <td>001211</td>
+                                <td>Document Issue date should be less than business date</td>
+                              </tr>
+                              <tr>
+                                <td>001210</td>
+                                <td>Document ExpiryDate should be greater than business date  </td>
+                              </tr>
+                              <tr>
+                                <td>003009</td>
+                                <td>Free city text not allowed</td>
+                              </tr>
+                              <tr>
+                                  <td>003010</td>
+                                  <td>Free region text not allowed</td>
+                              </tr>
+                              <tr>
+                                  <td>000327</td>
+                                  <td>Duplicated address provided</td>
+                              </tr>
+                              <tr>
+                                  <td>000238</td>
+                                  <td>Address startDate greater than endDate</td>
+                              </tr>
+                              <tr>
+                                  <td>000222</td>
+                                  <td>Operation not permitted, cancelled client</td>
+                              </tr>
+                              <tr>
+                                  <td>000240</td>
+                                  <td>invalid birthCountry</td>
+                              </tr>
+                              <tr>
+                              <td>000247</td>
+                              <td>Invalid priorityCode</td>
+                              </tr>
+                  </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV4Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV4Rs'   
+  # Renew card                                                
+  /payment-instrument/v4.0/cards/renew_card:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                               Usually a card is automatically renewed within the month it expires. However, for some reasons, as if when the customer is going to be out of the town during the renewal process, he may request to renew his card before its expiration date. For that, PowerCARD offers the possibility to use this web service. The service is mainly used to store the request that will be processed during the end of the day. 
+                          </p>
+                          <p>
+                              It is important to mention here that PowerCARD makes multiple controls on the card before proceeding to perform the renewal action. Those controls are all defined in the system and can be activated or deactivated by the financial institution using the PowerCARD setup screens.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/RenewCard.png" />
+            summary:    A customer can request to renew his card before its expiration date.
+            tags:
+              - Renew Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/RenewCardV4Rq'
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>          
+            responses:  
+              200:
+                description:
+                        <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                                <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                </tr>
+                                <tr>
+                                    <td>99999</td>
+                                    <td>System error</td>
+                                </tr>
+                                <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                    <td>00002</td>
+                                    <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                    <td>00007</td>
+                                    <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                    <td>00008</td>
+                                    <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                    <td>00009</td>
+                                    <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                    <td>00010</td>
+                                    <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                    <td>00011</td>
+                                    <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                    <td>00012</td>
+                                    <td>Invalid token</td>
+                                </tr>
+                            <table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                          <td>021301</td>
+                                          <td>Invalid CardNumber / TokenID</td>
+                                      </tr>
+                                      <tr>
+                                          <td>021302</td>
+                                          <td>Invalid bankCode</td>
+                                      </tr>
+                                      <tr>
+                                        <td>000119</td>
+                                        <td>Month max validity exceeded</td>
+                                      </tr>
+                                      <tr>
+                                        <td>0001131</td>
+                                        <td>Month min validity exceeded</td>
+                                      </tr>   
+                                      <tr>
+                                        <td>000039</td>
+                                        <td>Operation not permitted, cancelled card</td>
+                                      </tr>    
+                                      <tr>
+                                        <td>000040</td>
+                                        <td>Operation not permitted, replaced card</td>
+                                      </tr>  
+                                      <tr>
+                                        <td>000120</td>
+                                        <td>Card in stop renewal</td>
+                                      </tr>  
+                                      <tr>
+                                        <td>000021</td>
+                                        <td>Card not allowed for renewal</td>
+                                      </tr>  
+                                      <tr>
+                                        <td>000047</td>
+                                        <td>Card is restricted</td>
+                                      </tr>  
+                                      <tr>
+                                        <td>000115</td>
+                                        <td>Card renewal blocked</td>
+                                      </tr>                        					
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/RenewCardV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RenewCardV4Rs'
+  # --- ReplaceCard
+  /payment-instrument/v4.1/cards/replace_card:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        In PowerCARD, lost or damaged cards card be replaced in the system using this web service. Agents as well as customers can ask for the replacement of an existing card by specifying the reason. Based on that reason, the system can either replace the card by keeping the same card number or generating a new card number for the cardholder.
+        </p>
+        <p>
+        The service allows also applying or not some fees amount while replacing a card. Fees are then charged to the account with a specific transaction code.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/ReplaceCard.png" />
+      summary:     Lost or damaged cards card be replaced in the system using this web service.
+      tags:
+        - Replace Card
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceCardV41Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReplaceCardV41Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            <table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            <tr>
+            <td>000125</td>
+            <td>Expiry date lesser than business date</td>
+            </tr>
+            <tr>
+            <td>000119</td>
+            <td>Month max validity exceeded</td>
+            </tr>
+            <tr>
+            <td>0001131</td>
+            <td>Month min validity exceeded</td>
+            </tr>
+            <tr>
+            <td>000039</td>
+            <td>Operation not permitted, cancelled card</td>
+            </tr>
+            <td>000040</td>
+            <td>Operation not permitted, replaced card</td>
+            </tr>
+            <tr>
+            <td>000120</td>
+            <td>Card in stop renewal</td>
+            </tr>
+            <tr>
+            <td>000021</td>
+            <td>Card not allowed for renewal</td>
+            </tr>
+            <tr>
+            <td>000047</td>
+            <td>Card is restricted</td>
+            </tr>
+            <tr>
+            <td>000115</td>
+            <td>Card renewal blocked</td>
+            </tr>
+            <tr>
+            <td>021301</td>
+            <td>Invalid CardNumber / TokenID</td>
+            </tr>
+            <tr>
+            <td>021302</td>
+            <td>Invalid bankCode</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplaceCardV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ReplaceCardV4Rs'
+  # --- ReplaceCard
+  /payment-instrument/v4.0/cards/replace_card:
+        post:
+            deprecated: true
+            description:
+                        <p id="deprecated-label">Since version PWC-4.1.1-RC1 !</p>
+                        <h3>API Overview</h3>
+                          <p>
+                             In PowerCARD, lost or damaged cards card be replaced in the system using this web service. Agents as well as customers can ask for the replacement of an existing card by specifying the reason. Based on that reason, the system can either replace the card by keeping the same card number or generating a new card number for the cardholder. 
+                          </p>
+                          <p>
+                              The service allows also applying or not some fees amount while replacing a card. Fees are then charged to the account with a specific transaction code.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/ReplaceCard.png" />
+            summary:     Lost or damaged cards card be replaced in the system using this web service.
+            tags:
+              - Replace Card
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>                 
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ReplaceCardV4Rq'
+            responses:  
+              200:
+                description:
+                          <div>
+                          <p>Technical Error Codes &#58;</p>
+                              <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                  <td>00000</td>
+                                  <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                  <td>99999</td>
+                                  <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                  <td>90009</td>
+                                  <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00002</td>
+                                  <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00007</td>
+                                  <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00008</td>
+                                  <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00009</td>
+                                  <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00010</td>
+                                  <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00011</td>
+                                  <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00012</td>
+                                  <td>Invalid token</td>
+                                  </tr>
+                              <table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th> 
+                                <tr>
+                                  <td>000125</td>
+                                  <td>Expiry date lesser than business date</td>
+                                </tr>  
+                                <tr>
+                                  <td>000119</td>
+                                  <td>Month max validity exceeded</td>
+                                </tr>                                		
+                                <tr>
+                                  <td>0001131</td>
+                                  <td>Month min validity exceeded</td>
+                                </tr>  
+                                <tr>
+                                  <td>000039</td>
+                                  <td>Operation not permitted, cancelled card</td>
+                                </tr>
+                                  <td>000040</td>
+                                  <td>Operation not permitted, replaced card</td>
+                                </tr>  
+                                <tr>
+                                  <td>000120</td>
+                                  <td>Card in stop renewal</td>
+                                </tr>  
+                                <tr>
+                                  <td>000021</td>
+                                  <td>Card not allowed for renewal</td>
+                                </tr>  
+                                <tr>
+                                  <td>000047</td>
+                                  <td>Card is restricted</td>
+                                </tr>  
+                                <tr>
+                                  <td>000115</td>
+                                  <td>Card renewal blocked</td>
+                                </tr>
+                                <tr>
+                                   <td>021301</td>
+                                   <td>Invalid CardNumber / TokenID</td>
+                                </tr>
+                                <tr>
+                                   <td>021302</td>
+                                   <td>Invalid bankCode</td>
+                                </tr>
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ReplaceCardV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/ReplaceCardV4Rs'   
+ # --- Card from token
+  /payment-instrument/v4.0/tokenization/card_from_token:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              When used in credit, debit or prepaid card transactions, tokens, sometimes referred to as surrogate value are created to replace the card number. A token, rather than the actual credit/debit card number, would be used to complete the purchases a customer is making with its card. In this context, this web service is mainly used to retrieve the clear card number when providing a token value. PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value.                          </p>
+                          <p>
+                          <p>
+                           Users are also required to pass the card expiry date in the list of input data to process the de-tokenization process and return back the clear card number.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/getCardNumberFromToken.png" />
+            summary:     Get the card number using an alias pan token .
+            tags:
+              - Get Card From Token
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>                
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCardFromTokenV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCardFromTokenV4Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                        <p>Technical Error Codes &#58;</p>
+                        <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                        <table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>	
+                                 <tr>
+                                  <td>021301</td>
+                                  <td>Invalid CardNumber / TokenID</td>
+                                </tr>
+                                  <tr>
+                                  <td>021302</td>
+                                  <td>Invalid bankCode</td>
+                                  </tr>
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCardFromTokenV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetCardFromTokenV4Rs'     
+ # --- UpdateCardStatus
+  /payment-instrument/v4.0/cards/activate_card:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service activate an existing card in the system.    
+            tags:
+              - Card Status Management
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>            
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ActivateCardStatusV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ActivateCardStatusV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                              <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  <tr>
+                                      <td>021301</td>
+                                      <td>Invalid cardNumber /TokenID</td>
+                                  </tr>
+                                    <tr>
+                                    <td>021302</td>
+                                    <td>Invalid BankCode </td>
+                                    </tr>      
+                                  <tr>
+                                    <td>000039</td>
+                                    <td>Operation not permitted, cancelled card</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000040</td>
+                                    <td>Operation not permitted, replaced card</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000041</td>
+                                    <td>Card is expired</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000047</td>
+                                    <td>Card is restrictedCard is restricted</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000042</td>
+                                    <td>Card already activated</td>
+                                  </tr>
+                                  <tr>
+                                  <td>000043</td>
+                                  <td>Card already deactivated</td>
+                                  </tr>                            				
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/deliver_card:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service deliver an existing card in the system.    
+            tags:
+              - Card Status Management
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>            
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/DeliverCardStatusV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/DeliverCardStatusV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                              <div>
+                              <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              </table>
+                              <p>Business Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              <tr>
+                              <td>021301</td>
+                              <td>Invalid cardNumber /TokenID</td>
+                              </tr>
+                              <tr>
+                              <td>021302</td>
+                              <td>Invalid BankCode </td>
+                              </tr>
+                              <tr>
+                                <td>000118</td>
+                                    <td>Invalid Delivery Mode</td>
+                                  </tr>    
+                                  <tr>
+                                    <td>000039</td>
+                                    <td>Operation not permitted, cancelled card</td>
+                                  </tr>    
+                                  <tr>
+                                    <td>000040</td>
+                                    <td>Operation not permitted, replaced card</td>
+                                  </tr>    
+                                  <tr>
+                                    <td>000041</td>
+                                    <td>Card is expired</td>
+                                  </tr>    
+                                  <tr>
+                                    <td>000047</td>
+                                    <td>Card is restricted</td>
+                                  </tr>    
+                                  <tr>
+                                    <td>000044</td>
+                                    <td>Card already delivered</td>
+                                  </tr>                                  				
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/stop_renew_card:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service stop renew card for an existing card in the system.    
+            tags:
+              - Card Status Management
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>            
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/StopRenewCardStatusV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/StopRenewCardStatusV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                <div>
+                                <p>Technical Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                <td>00000</td>
+                                <td>Success</td>
+                                </tr>
+                                <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                                </tr>
+                                <tr>
+                                <td>90009</td>
+                                <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                                </tr>
+                                </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                <tr>
+                                <td>021301</td>
+                                <td>Invalid cardNumber /TokenID</td>
+                                </tr>
+                                <tr>
+                                <td>021302</td>
+                                <td>Invalid BankCode </td>
+                                </tr>
+                                <tr>
+                                    <td>000117</td>
+                                    <td>Invalid Stop Renewal Reason</td>
+                                  </tr>                               				
+                                  <tr>
+                                    <td>000039</td>
+                                    <td>Operation not permitted, cancelled card</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000040</td>
+                                    <td>Operation not permitted, replaced card</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000041</td>
+                                    <td>Card is expired</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>000105</td>
+                                    <td>Stop renewal is rejected for this card</td>
+                                  </tr>  
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/cancel_status:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/UpdateCardStatus.png" />
+      summary:    This web service cancel an existing card in the system.
+      tags:
+        - Card Status Management
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCardStatusCancelV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateCardStatusCancelV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            <tr>
+            <td>021301</td>
+            <td>Invalid cardNumber /TokenID</td>
+            </tr>
+            <tr>
+            <td>021302</td>
+            <td>Invalid BankCode </td>
+            </tr>
+            <tr>
+            <td>000124 <b>[deprecated]</b> </td>
+            <td>Status date is required</td>
+            </tr>
+            <tr>
+            <td>0001110 <b>[deprecated]</b></td>
+            <td>Invalid status code</td>
+            </tr>
+            <tr>
+            <td>000109</td>
+            <td>Invalid reason code</td>
+            </tr>
+            <tr>
+            <td>000046</td>
+            <td>Change already present</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/cancel_card:
+        delete:
+            deprecated: true
+            description:
+                        <p id="deprecated-label">Since version PWC-4.1.0 !</p>
+                        <h3>API Overview</h3>
+                          <p>
+                              This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCardStatus.png" />
+            summary:    This web service cancel an existing card in the system.    
+            tags:
+              - Card Status Management
+            requestBody:
+              description:
+                <img id="select-case-img" src="./docs/exclamation.png" />
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>            
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusCancelV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardStatusCancelV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                              <div>
+                              <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              </table>
+                              <p>Business Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              <tr>
+                              <td>021301</td>
+                              <td>Invalid cardNumber /TokenID</td>
+                              </tr>
+                              <tr>
+                              <td>021302</td>
+                              <td>Invalid BankCode </td>
+                              </tr>                                     				
+                                  <tr>
+                                    <td>000124 <b>[deprecated]</b></td>
+                                    <td>Status date is required</td>
+                                  </tr>     
+                                  <tr>
+                                    <td>0001110 <b>[deprecated]</b></td>
+                                    <td>Invalid status code</td>
+                                  </tr>     
+                                  <tr>
+                                    <td>000109</td>
+                                    <td>Invalid reason code</td>
+                              </tr>     
+                              <tr>
+                                    <td>000046</td>
+                                    <td>Change already present</td>
+                              </tr> 
+                              </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/change_status:
+    put:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web services was introduced to allow changing the status of an existing card in the system. Agent and customers can ask to change the status of a card by selecting a reason for that operation from a pre-defined list of reasons. It is important to note that the web service requires the card number and the desired operation as input. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/UpdateCardStatus.png" />
+      summary:    This web service change status of an existing card in the system.
+      tags:
+        - Card Status Management
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCardStatusV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangeCardStatusV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+                <p>Business Error Codes &#58;</p>
+                <table>
+                <tr>
+                <th>Error code</th>
+                <th>Error Description</th>
+                <tr>
+                <td>021301</td>
+                <td>Invalid cardNumber /TokenID</td>
+                </tr>
+                <tr>
+                <td>021302</td>
+                <td>Invalid BankCode </td>
+                </tr>
+                <tr>
+                <td>000124</td>
+                <td>Status date is required</td>
+                </tr>
+                <tr>
+                <td>0001110</td>
+                <td>Invalid status code</td>
+                </tr>
+                <tr>
+                <td>000109</td>
+                <td>Invalid reason code</td>
+                </tr>
+                <tr>
+                <td>000046</td>
+                <td>Change already present</td>
+                </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateCardStatusV4Rs'
+  /payment-instrument/v4.0/cards/update_primary_address:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the primary address of an existing card.
+            tags:
+              - Update Card Primary Address
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>   
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardPrimaryAddressV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardPrimaryAddressV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                               <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                  <td>021301</td>
+                                  <td>Invalid CardNumber / TokenID</td>
+                                  </tr>
+                                  <tr>
+                                  <td>021302</td>
+                                  <td>Invalid bankCode</td>
+                                  </tr>
+                                 <tr>
+                                    <td>000151</td>
+                                    <td>Primary address is required</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000131</td>
+                                    <td>Missing address type in the address</td>
+                                  </tr>                                    				
+                                  <tr>
+                                    <td>000129</td>
+                                    <td>Missing sending mode in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000127</td>
+                                    <td>Missing first line in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000135</td>
+                                    <td>Missing country code in the address</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000130</td>
+                                    <td>Invalid address type</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000128</td>
+                                    <td>Invalid sending mode</td>
+                                  </tr>   
+                                  <tr>
+                                    <td>000136</td>
+                                    <td>Invalid country code</td>
+                                  </tr>      
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardAddressV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardAddressV4Rs'   
+  /payment-instrument/v4.0/cards/update_secondary_address:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the secondary address of an existing card.
+            tags:
+              - Update Card Secondary Address
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>   
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardSeceondaryAddressV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCardSeceondaryAddressV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                              <p>Technical Error Codes &#58;</p>
+                              <table>
+                              <tr>
+                              <th>Error code</th>
+                              <th>Error Description</th>
+                              </tr>
+                              <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                              </tr>
+                              <tr>
+                              <td>99999</td>
+                              <td>System error</td>
+                              </tr>
+                              <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                              <td>00002</td>
+                              <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                              <td>00007</td>
+                              <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                              <td>00008</td>
+                              <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                              <td>00009</td>
+                              <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                              <td>00010</td>
+                              <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                              <td>00011</td>
+                              <td>Token expired</td>
+                              </tr>
+                              <tr>
+                              <td>00012</td>
+                              <td>Invalid token</td>
+                              </tr>
+                              </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                        <tr>
+                                        <td>021301</td>
+                                        <td>Invalid CardNumber / TokenID</td>
+                                        </tr>
+                                        <tr>
+                                        <td>021302</td>
+                                        <td>Invalid bankCode</td>
+                                        </tr>
+                                        <tr>
+                                          <td>000133</td>
+                                          <td>Secondary address is required</td>
+                                        </tr>                                    				
+                                        <tr>
+                                          <td>000131</td>
+                                          <td>Missing address type in the address</td>
+                                        </tr>    
+                                        <tr>
+                                          <td>000130</td>
+                                          <td>Invalid address type</td>
+                                        </tr>    
+                                        <tr>
+                                          <td>000128</td>
+                                          <td>Invalid sending mode</td>
+                                        </tr>    
+                                        <tr>
+                                          <td>000129</td>
+                                          <td>Missing sending mode in the address</td>
+                                        </tr>    
+                                        <tr>
+                                          <td>000135</td>
+                                          <td>Missing country code in the address</td>
+                                        </tr>    
+                                        <tr>
+                                          <td>000136</td>
+                                          <td>Invalid country code</td>
+                                        </tr> 
+                                        <tr>
+                                          <td>000132</td>
+                                          <td>No secondary address is available for this card</td>
+                                        </tr> 
+                                        <tr>
+                                          <td>001150</td>
+                                          <td>The provided address type is not matching with an exiting address of the card</td>
+                                        </tr> 
+                                      </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCardAddressV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/UpdateCardAddressV4Rs'
+  #activate card event notification
+  /payment-instrument/v4.0/cards/activate_channel_notification:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web service is used activate/deactivate a communication channel as well as set communication event channel preferences.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateCardNotifEvent.png" />
+      summary: This web service is used activate/deactivate a card communication event.
+      tags:
+        - Activate card channel notification
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateCardChannelNotificationRequestV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateCardChannelNotificationRequestV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            <table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>021301</td>
+            <td>Invalid CardNumber / TokenID</td>
+            </tr>
+            <tr>
+            <td>021302</td>
+            <td>Invalid bankCode</td>
+            </tr>
+            <tr>
+            <td>000241</td>
+            <td>Communication setup not found</td>
+            </tr>
+            <tr>
+            <td>000242</td>
+            <td>Event not found</td>
+            </tr>
+            <tr>
+            <td>000243</td>
+            <td>Channel not found</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckCustomFieldValueV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckCustomFieldValueV4Rs'
+  #activate card event notification
+  /payment-instrument/v4.0/cards/activate_event_notification:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web service is used activate/deactivate a communication event as well as set communication event channel preferences.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateCardNotifEvent.png" />
+      summary: This web service is used activate/deactivate a card communication event.
+      tags:
+        - Activate card event notification
+      requestBody:
+        description:
+          <img id="select-case-img" src="./docs/exclamation.png" />
+          <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+          <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+          <code id="key-value-token">
+          {
+          ...
+          "keyValues" &#58; [{
+          "key" &#58; "token",
+          "data" &#58; "y"
+          }],
+          ...
+          }
+          </code>
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateCardEventNotificationRequestV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateCardEventNotificationRequestV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            <table>
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>021301</td>
+            <td>Invalid CardNumber / TokenID</td>
+            </tr>
+            <tr>
+            <td>021302</td>
+            <td>Invalid bankCode</td>
+            </tr>
+            <tr>
+            <td>000241</td>
+            <td>Communication setup not found</td>
+            </tr>
+            <tr>
+            <td>000242</td>
+            <td>Event not found</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckCustomFieldValueV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CheckCustomFieldValueV4Rs'
+  #checkCustomFieldValue
+  /payment-instrument/v4.0/cards/check_custom_field:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service is used to check the existance of custom field value for specific card, token value can be provided instead of card number. PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/checkCustomFieldValue.png" />
+            summary: This web service is used to check the existance of custom field value for specific card.
+            tags:
+              - Check Card Custom Field Value
+            requestBody:
+              description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>              
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <table>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>021301</td>
+                            <td>Invalid CardNumber / TokenID</td>
+                            </tr>
+                            <tr>
+                            <td>021302</td>
+                            <td>Invalid bankCode</td>
+                            </tr>
+                            </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCustomFieldValueV4Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CheckCustomFieldValueV4Rs' 
+  #requestPIN
+  /payment-instrument/v4.0/cards/request_pin:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        The PIN request API allows the bank cardholders to request for the PIN .A PIN request is usually called when the cardholder request from the bank to send him the PIN associated with his card. The cardholder has the ability to choose the appropriate mode of PIN re-sending.
+                    </p>
+                    <p>
+                         Note that the cardholder PIN is never logged, not even in an encrypted form; the system will generate it again based on some data.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/requestPIN.png" />
+        summary:  The PIN request API allows the bank cardholders to request for the PIN .
+        tags:
+          - Request PIN
+        requestBody:
+          description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>         
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestPinV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/RequestPinV4Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                        <p>Technical Error Codes &#58;</p>
+                        <table>
+                        <tr>
+                        <th>Error code</th>
+                        <th>Error Description</th>
+                        </tr>
+                        <tr>
+                        <td>00000</td>
+                        <td>Success</td>
+                        </tr>
+                        <tr>
+                        <td>99999</td>
+                        <td>System error</td>
+                        </tr>
+                        <tr>
+                        <td>90009</td>
+                        <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                        </tr>
+                        <tr>
+                        <td>00002</td>
+                        <td> Forbidden you don't have permission to access for this api</td>
+                        </tr>
+                        <tr>
+                        <td>00007</td>
+                        <td>Authorization header is empty</td>
+                        </tr>
+                        <tr>
+                        <td>00008</td>
+                        <td>Authorization header is missing</td>
+                        </tr>
+                        <tr>
+                        <td>00009</td>
+                        <td>Malformat Authorization content</td>
+                        </tr>
+                        <tr>
+                        <td>00010</td>
+                        <td>Bearer is required in the token</td>
+                        </tr>
+                        <tr>
+                        <td>00011</td>
+                        <td>Token expired</td>
+                        </tr>
+                        <tr>
+                        <td>00012</td>
+                        <td>Invalid token</td>
+                        </tr>
+                        <table>
+                        <p>Business Error Codes &#58;</p>
+                        <table>
+                        <tr>
+                        <th>Error code</th>
+                        <th>Error Description</th>
+                        </tr>
+                        <tr>
+                        <td>021301</td>
+                        <td>Invalid CardNumber / TokenID</td>
+                        </tr>
+                        <tr>
+                        <td>021302</td>
+                        <td>Invalid bankCode</td>
+                        </tr>
+                        </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RequestPinV4Rs'
+              application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RequestPinV4Rs'
+# ------- GetCardDetails API
+  /payment-instrument/v4.0/cards/cards_details:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a selection of web services with regards to cards maintenance, the get card details web services is one of those services that can be used by both agents and customers in order to retrieve more details regarding the concerned card being sent in the request message.</p>
+                    <p>Card details can include the cardholder’s full name, mailing address, phone number, date of birth, the card type, card number, expiration date.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCardDetails.png" />
+      summary: Retrieve more details regarding the concerned card being sent in the request message
+      tags:
+        - Get Card details
+      requestBody:
+        description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>  
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV4Rq'
+      responses:  
+         200:
+          description: 
+                   <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                            <tr>
+                               <th>Error code</th>
+                               <th>Error Description</th>
+                            </tr>
+                                <td>021301</td>
+                                <td>Invalid cardNumber /TokenID</td>
+                              </tr>
+                              <tr>
+                                <td>021302</td>
+                                <td>Invalid BankCode</td>
+                              </tr>
+                            </table>
+                    </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardDetailsV4Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetCardDetailsV4Rs'                                 
+ # ------- SetCardDetails API  
+  /cards/set_cards_details:
+    post:
+      description:  <h3>API Overview</h3>
+                      <p>The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card being sent in the request message.</p>
+                      <p>The setCardDetails web service includes the cardholder’s full name, embossed name, phones,  …
+                      As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                      </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SetCardDetails.png" />
+      summary: The setCardDetails web service can be used by both agents and customers in order to update details regarding the concerned card.
+      tags:
+        - Set Card Details
+      requestBody:
+        description: 
+                <img id="select-case-img" src="./docs/exclamation.png" /> 
+                <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                <code id="key-value-token"> 
+                     {
+                          ...
+                          "keyValues" &#58; [{
+                              "key" &#58; "token",
+                              "data" &#58; "y"
+                          }],
+                          ...
+                     }
+                </code>        
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCardDetailsV4Rq'
+      responses:  
+        200:
+          description:
+                  <div>
+                  <p>Technical Error Codes &#58;</p>
+                  <table>
+                  <tr>
+                  <th>Error code</th>
+                  <th>Error Description</th>
+                  </tr>
+                  <tr>
+                  <td>00000</td>
+                  <td>Success</td>
+                  </tr>
+                  <tr>
+                  <td>99999</td>
+                  <td>System error</td>
+                  </tr>
+                  <tr>
+                  <td>90009</td>
+                  <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                  </tr>
+                  <tr>
+                  <td>00002</td>
+                  <td> Forbidden you don't have permission to access for this api</td>
+                  </tr>
+                  <tr>
+                  <td>00007</td>
+                  <td>Authorization header is empty</td>
+                  </tr>
+                  <tr>
+                  <td>00008</td>
+                  <td>Authorization header is missing</td>
+                  </tr>
+                  <tr>
+                  <td>00009</td>
+                  <td>Malformat Authorization content</td>
+                  </tr>
+                  <tr>
+                  <td>00010</td>
+                  <td>Bearer is required in the token</td>
+                  </tr>
+                  <tr>
+                  <td>00011</td>
+                  <td>Token expired</td>
+                  </tr>
+                  <tr>
+                  <td>00012</td>
+                  <td>Invalid token</td>
+                  </tr>
+                  <table>
+                  <p>Business Error Codes &#58;</p>
+                  <table>
+                  <tr>
+                  <th>Error code</th>
+                  <th>Error Description <b>*</b></th>
+                  </tr>
+                    <tr>
+                    <td>021301</td>
+                    <td>Invalid CardNumber / TokenID</td>
+                    </tr>
+                    <tr>
+                    <td>021302</td>
+                    <td>Invalid bankCode</td>
+                    </tr>
+                  <tr>
+                  <td>000220</td>
+                  <td>BranchCode is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000068</td>
+                  <td>VipLevel is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000219</td>
+                  <td>NationalityCode is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000211</td>
+                  <td>Language is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000212</td>
+                  <td>Title code is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000079</td>
+                  <td>OwnerCode is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000080</td>
+                  <td>SocioProfessionalCode is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000081</td>
+                  <td>Activity code is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000050</td>
+                  <td>CustomerSegment is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000082</td>
+                  <td>LodgingMode is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000139</td>
+                  <td>PhoneType is not valid </td>
+                  </tr>
+                  <tr>
+                  <td>000218</td>
+                  <td>FieldName is not valid</td>
+                  </tr>
+                  <tr>
+                  <td>000240</td>
+                  <td>invalid birthCountry</td>
+                  </tr>
+                  </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCardDetailsV4Rs'
+            application/xml:
+              schema:
+                  $ref: '#/components/schemas/SetCardDetailsV4Rs' 
+#GetParameterList 
+  /payment-instrument/v4.0/parameters:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          This web service is used to search the referential lists in the system. Third-party application developers can use different criteria to find and view the desired lists as below &#8282;
+                          </p>
+                        <h3>Functional Description</h3>
+                      <img  src="./docs/GetParameterList.png" /> 
+                      <p>The API support two modes for searching &#8282; <br>
+                        - Parameter &#8282;  the query must include search filters and the column to search.<br>
+                        - Referentiel &#8282; the query must include the table name wich data must be returned .
+                      </p>
+            summary: This web service is used to search the referential lists in the system. 
+            tags:
+              - Get Parameters List
+            requestBody:
+              required: true
+              description: <p></p>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetParameterListV4Rq'
+                #application/xml:
+                  #schema:
+                   # $ref: '#/components/schemas/GetParameterListV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                <p>Technical Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                <td>00000</td>
+                                <td>Success</td>
+                                </tr>
+                                <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                                </tr>
+                                <tr>
+                                <td>90009</td>
+                                <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                                </tr>
+                                <table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                    <tr>
+                                      <td>000300</td>
+                                      <td>Invalid reference configuration</td>
+                                  </tr>
+                                    <tr>
+                                    <td>000301</td>
+                                    <td>Invalid parameter</td>
+                                    </tr>
+                            </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetParameterListV4Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/GetParameterListV4Rs'                                                         
+  #SearchCard 
+  /payment-instrument/v4.0/cards/search_card:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          When a search card web service is used, agents and customers can include several options in the query message. PowerCARD is then responsible of looking for all the cards in the cardholder database that meets the combination of the input criteria being sent within the request.
+                          </p>
+                          <p>
+                          Input criteria can include for instance card number, customer identification, card status, card product code, cardholder name…
+                          </p>
+                        <h3>Functional Description</h3>
+                      <img  src="./docs/SearchCard.png" /> 
+            summary: This web service is used to search card in the system. 
+            tags:
+              - Search Card
+            requestBody:
+              description: 
+                      <img id="select-case-img" src="./docs/exclamation.png" /> 
+                      <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                      <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                      <code id="key-value-token"> 
+                          {
+                                ...
+                                "keyValues" &#58; [{
+                                    "key" &#58; "token",
+                                    "data" &#58; "y"
+                                }],
+                                ...
+                          }
+                      </code>        
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchCardV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchCardV4Rq'
+            responses:  
+              200:
+                description:
+                      <div>
+                          <p>Technical Error Codes &#58;</p>
+                          <table>
+                              <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                              </tr>
+                              <tr>
+                                  <td>00000</td>
+                                  <td>Success</td>
+                              </tr>
+                              <tr>
+                                  <td>99999</td>
+                                  <td>System error</td>
+                              </tr>
+                              <tr>
+                                  <td>90009</td>
+                                  <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                              </tr>
+                              <tr>
+                                  <td>00002</td>
+                                  <td> Forbidden you don't have permission to access for this api</td>
+                              </tr>
+                              <tr>
+                                  <td>00007</td>
+                                  <td>Authorization header is empty</td>
+                              </tr>
+                              <tr>
+                                  <td>00008</td>
+                                  <td>Authorization header is missing</td>
+                              </tr>
+                              <tr>
+                                  <td>00009</td>
+                                  <td>Malformat Authorization content</td>
+                              </tr>
+                              <tr>
+                                  <td>00010</td>
+                                  <td>Bearer is required in the token</td>
+                              </tr>
+                              <tr>
+                                  <td>00011</td>
+                                  <td>Token expired</td>
+                              </tr>
+                              <tr>
+                                  <td>00012</td>
+                                  <td>Invalid token</td>
+                              </tr>
+                          <table>
+                      <p>Business Error Codes &#58;</p>
+                          <table>
+                              <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                              </tr>
+                              <tr>
+                                  <td>020056</td>
+                                  <td>No data found</td>
+                              </tr>
+                          </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchCardV4Rs'
+                  application/xml:
+                    schema:
+                        $ref: '#/components/schemas/SearchCardV4Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV4Rq:
+            $ref: 'request.yaml#/GetCardDetailsV4Rq'
+      GetCardDetailsV4Rs:
+             $ref: 'response.yaml#/GetCardDetailsV4Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV4Rq:
+            $ref: 'request.yaml#/RequestPinV4Rq'
+      RequestPinV4Rs:
+            $ref: 'response.yaml#/RequestPinV4Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateCardPrimaryAddressV4Rq:
+           $ref: 'request.yaml#/UpdateCardPrimaryAddressV4Rq'
+      UpdateCardAddressV4Rs:
+           $ref: 'response.yaml#/UpdateCardAddressV4Rs'  
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateCardSeceondaryAddressV4Rq:
+           $ref: 'request.yaml#/UpdateCardSeceondaryAddressV4Rq'
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV4Rq:
+              $ref: 'request.yaml#/RenewCardV4Rq'
+      RenewCardV4Rs:
+              $ref: 'response.yaml#/RenewCardV4Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV4Rq:
+              $ref: 'request.yaml#/ReplaceCardV4Rq'
+      ReplaceCardV41Rq:
+        $ref: 'request.yaml#/ReplaceCardV41Rq'
+      ReplaceCardV4Rs:
+              $ref: 'response.yaml#/ReplaceCardV4Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusCancelV4Rq:
+               $ref: 'request.yaml#/UpdateCardStatusCancelV4Rq'
+      ChangeCardStatusV4Rq:
+        $ref: 'request.yaml#/ChangeCardStatusV4Rq'
+      UpdateCardStatusV4Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV4Rq'
+      ActivateCardStatusV4Rq:
+               $ref: 'request.yaml#/ActivateCardStatusV4Rq'
+      StopRenewCardStatusV4Rq:
+        $ref: 'request.yaml#/StopRenewCardStatusV4Rq'
+      DeliverCardStatusV4Rq:
+        $ref: 'request.yaml#/DeliverCardStatusV4Rq'
+      UpdateCardStatusV4Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV4Rs'
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV4Rq:
+                      $ref: 'request.yaml#/GetParameterListV4Rq'
+      GetParameterListV4Rs:
+                       $ref: 'response.yaml#/GetParameterListV4Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV4Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV4Rq'
+      EncryptedCreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/EncryptedCreateDebitCardV35Rq'
+      CreateDebitCardV4Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV4Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+    # --- Import SetCardDetailsV4 request and response.
+      SetCardDetailsV4Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV4Rq'   
+      SetCardDetailsV4Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV4Rs' 
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+    
+    # --- Import SearchCardV4 request and response.
+      SearchCardV4Rq:
+               $ref: 'request.yaml#/SearchCardV4Rq'
+      SearchCardV4Rs:
+               $ref: 'response.yaml#/SearchCardV4Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import AddSupplementaryCard request and response
+      AddSupplementaryCardV35Rq:
+               $ref: 'request.yaml#/AddSupplementaryCardV35Rq'
+      AddSupplementaryCardV35Rs:
+               $ref: 'response.yaml#/AddsupplementaryCardV35Rs'  
+    # --- Import DemoV35 request and response
+      UpdateCardCharacteristicsV35Rq:
+               $ref: 'request.yaml#/UpdateCardCharacteristicsV35Rq'
+      UpdateCardCharacteristicsV35Rs:
+               $ref: 'response.yaml#/UpdateCardCharacteristicsV35Rs'
+    # --- Import DemoV35 request and response
+      GetCardCharacteristicsV35Rq:
+               $ref: 'request.yaml#/GetCardCharacteristicsV35Rq'
+      GetCardCharacteristicsV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'
+    # --- Import DemoV35 request and response
+      CheckCustomFieldValueV4Rq:
+               $ref: 'request.yaml#/CheckCustomFieldValueV4Rq'
+      ActivateCardEventNotificationRequestV4Rq:
+        $ref: 'request.yaml#/ActivateCardEventNotificationRequestV4Rq'
+      ActivateCardChannelNotificationRequestV4Rq:
+        $ref: 'request.yaml#/ActivateCardChannelNotificationRequestV4Rq'
+      CheckCustomFieldValueV4Rs:
+               $ref: 'response.yaml#/CheckCustomFieldValueV4Rs'
+    # --- Import GetProductDetailsV35Rq request and response
+      GetProductDetailsV35Rq:
+               $ref: 'request.yaml#/GetProductDetailsV35Rq'
+      GetProductDetailsV35Rs:
+                $ref: 'response.yaml#/GetProductDetailsV35Rs'
+    # --- Import GetCardFromTokenV4Rq request and response
+      GetCardFromTokenV4Rq:
+               $ref: 'request.yaml#/GetCardFromTokenV4Rq'
+      GetCardFromTokenV4Rs:
+               $ref: 'response.yaml#/GetCardFromTokenV4Rs'               
+security:
+  - bearerAuth: []

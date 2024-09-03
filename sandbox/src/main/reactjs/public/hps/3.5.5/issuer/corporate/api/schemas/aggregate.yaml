@@ -1,0 +1,585 @@
+# ---- KeyValueV35
+KeyValueV35:
+   type: object
+   properties:
+      key:
+        type: string
+      data:
+         type: string
+      type:
+         type: string
+
+
+ResponseInfo:
+  type: object
+  required:
+    - responseUID
+    - resultID
+    - errorCode
+    - contractElementId
+  properties:
+    responseUID:
+      type: string
+      description: <p>Response Identifier echoed back by PowerCARD to the requester.
+        It should contain the same value as the one sent in the request message.</p>
+      example: ''
+    resultID:
+      type: string
+      enum:
+        - ProceedWithSuccess
+        - ProceedWithSuccessMC
+        - Error
+        - SystemError
+      description: <p>Refers to the result of processing in PowerCARD. Possible values
+        are ProceedWithSuccess, ProceedWithSuccessMC, Error, and SystemError.</p>
+      example: ''
+    errorCode:
+      type: string
+      description: <p>Indicates the error code used by PowerCARD during the processing
+        of the request.</p>
+      example: ''
+    errorDescription:
+      type: string
+      description: <p>Description of the error encountered, if present. Optional.</p>
+      example: ''
+RequestInfo:
+  type: object
+  required:
+    - requestUID
+    - requestDate
+  properties:
+    requestUID:
+      type: string
+      pattern: ^[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
+      description: '<p>Request Identifier, sent as a universally unique identifier.
+        Example: 6948DF80-14BD-4E04-8842-7668D9C001F5.</p>'
+      example: '6948DF80-14BD-4E04-8842-7668D9C001F5'
+    requestDate:
+      type: string
+      format: date-time
+      description: '<p>Date when the request was submitted, in GMT format: yyyy-MM-dd''T''HH:mm:ss.SSS''Z''.</p>'
+      example: '2020-02-05T00:00:00'
+    userID:
+      type: string
+      description: <p>Represents the user ID who made the request. Optional.</p>
+      example: 'user001'
+
+
+
+#---------------
+
+TransactionAmount:
+  type: object
+  properties:
+    amt:
+      type: integer
+      description: 'Amount in smallest currency unit. Example: 9999999 for US$ 99,999.99.
+        Optional.'
+    curCode:
+      type: string
+      description: <p>ISO currency code of the transaction amount. Optional.</p>
+      example: ''
+MerchantInfo:
+  type: object
+  properties:
+    merchantName:
+      type: string
+      description: <p>The merchant name. Optional.</p>
+      example: ''
+    merchantCityName:
+      type: string
+      description: <p>The merchant city name. Optional.</p>
+      example: ''
+    merchantCountryName:
+      type: string
+      description: <p>The merchant country name. Optional.</p>
+      example: ''
+TransactionAmountEuro:
+  type: object
+  properties:
+    amt:
+      type: integer
+      description: 'Amount in smallest currency unit for Euro. Example: 9999999 for
+        € 99,999.99. Optional.'
+    curCode:
+      type: string
+      description: <p>ISO currency code of the transaction amount in Euro. Optional.</p>
+      example: ''
+CorporateTransaction:
+  type: object
+  properties:
+    firstName:
+      type: string
+      description: <p>The first name of the employee. Optional.</p>
+      example: ''
+    lastName:
+      type: string
+      description: <p>The family name of the employee. Optional.</p>
+      example: ''
+    cardNumber:
+      type: string
+      description: <p>The card number or the Card Token Id. Optional.</p>
+      example: ''
+    productType:
+      type: string
+      description: <p>Product type of the transaction. Optional.</p>
+      example: ''
+    debitType:
+      type: string
+      description: <p>Debit type of the transaction. Optional.</p>
+      example: ''
+    transactionDate:
+      type: string
+      format: date-time
+      description: '<p>The transaction date in GMT. Format: yyyy-MM-dd''T''HH:mm:ss.SSS''Z''.
+        Optional.</p>'
+      example: ''
+    clearingDate:
+      type: string
+      format: date-time
+      description: <p>Clearing date of the transaction. Optional.</p>
+      example: ''
+    merchantInfo:
+      $ref: aggregate.yaml#/MerchantInfo
+    transactionAmount:
+      $ref: aggregate.yaml#/TransactionAmount
+    transactionAmountEuro:
+      $ref: aggregate.yaml#/TransactionAmountEuro
+
+
+
+#------------
+SummaryCardTransaction:
+  type: object
+  properties:
+    firstName:
+      type: string
+      description: <p>The first name of the employee. Optional.</p>
+      example: ''
+    lastName:
+      type: string
+      description: <p>The family name of the employee. Optional.</p>
+      example: ''
+    cardNumber:
+      type: string
+      description: <p>The card number or the Card Token Id. Should contain a valid
+        value. Optional.</p>
+      example: ''
+    productType:
+      type: string
+      description: <p>Product type of the transaction. Optional.</p>
+      example: ''
+    debitType:
+      type: string
+      description: <p>Debit type of the transaction. Optional.</p>
+      example: ''
+    totalTransactionAmount:
+      $ref: aggregate.yaml#/TotalTransactionAmount
+TotalTransactionAmount:
+  type: object
+  properties:
+    amt:
+      type: integer
+      description: 'Total transaction amount, where the nominal value is multiplied
+        by 10^n. Example: 9999999 for US$ 99,999.99. Optional.'
+    curCode:
+      type: string
+      description: <p>ISO currency code of the transaction amount. Optional.</p>
+      example: ''
+
+
+#---------------------------------------------------------
+
+CardLimitSRVAddendum:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>Card limit ID.</p>
+      example: ''
+    limitDescription:
+      type: string
+      description: <p>Description of the limit.</p>
+      example: ''
+    limitAbrvWording:
+      type: string
+      description: <p>Brief description of the limit.</p>
+      example: ''
+    temporaryLimit:
+      type: string
+      description: <p>Indicates if limit is temporary (Y) or permanent (N). Default
+        is N.</p>
+      example: ''
+    validityRangeDate:
+      $ref: aggregate.yaml#/ValidityRangeDate
+    period:
+      type: array
+      items:
+        $ref: aggregate.yaml#/Period
+TerritorialityOnline:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      description: <p>Territoriality type for online transactions. ONS, NAT, INT.</p>
+      example: ''
+    transactionAmount:
+      type: number
+      format: decimal
+      description: Target amount of the limit for the territoriality online.
+    numberOfTransactions:
+      type: integer
+      description: Target number of transactions for the territoriality online.
+ServiceExpositionChannel:
+  type: object
+  properties:
+    channelType:
+      type: string
+      description: '<p>Type of channel. Example values: BAG, COW, CHM, CHW.</p>'
+      example: ''
+    serviceToBeExposedInChannel:
+      type: string
+      description: <p>Indicates if service should be visible in the channel. Y for
+        visible, N for invisible or greyed out.</p>
+      example: ''
+TerritorialityOffline:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      description: <p>Territoriality type for offline transactions. ONS, NAT, INT.</p>
+      example: ''
+    transactionAmount:
+      type: number
+      format: decimal
+      description: Target amount of the limit for the territoriality offline.
+    numberOfTransactions:
+      type: integer
+      description: Target number of transactions for the territoriality offline.
+ValidityRangeDate:
+  type: object
+  properties:
+    startDt:
+      type: string
+      format: date-time
+      description: <p>Validity start date in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z').</p>
+      example: ''
+    endDt:
+      type: string
+      format: date-time
+      description: <p>Validity end date in GMT format (yyyy-MM-dd'T'HH:mm:ss.SSS'Z').</p>
+      example: ''
+Period:
+  type: object
+  properties:
+    periodType:
+      type: string
+      description: <p>Type of period. D for Fixed, W for Rolling.</p>
+      example: ''
+    periodDayOff:
+      type: integer
+      format: int32
+      description: Day off for the period. Optional.
+    periodicityFlag:
+      type: string
+      description: <p>Periodicity of the limit. D for Daily, W for Weekly, M for Monthly,
+        Y for Yearly.</p>
+      example: ''
+    territorialityOnline:
+      type: array
+      items:
+        $ref: aggregate.yaml#/TerritorialityOnline
+    territorialityOffline:
+      type: array
+      items:
+        $ref: aggregate.yaml#/TerritorialityOffline
+    totalTransactionAmountOnline:
+      type: number
+      format: decimal
+      description: Total target amount of the limit for online transactions.
+    totalNumberOfTransactionsOnline:
+      type: integer
+      description: Total target number of transactions for online.
+    totalTransactionAmountOffline:
+      type: number
+      format: decimal
+      description: Total target amount of the limit for offline transactions.
+    totalNumberOfTransactionsOffline:
+      type: integer
+      description: Total target number of transactions for offline.
+    transactionCriteria:
+      $ref: aggregate.yaml#/TransactionCriteria
+TransactionCriteria:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>Card limit ID identifying the limit assigned to the card.</p>
+      example: ''
+    sequenceNumber:
+      type: integer
+      description: Sequence Number. Optional.
+    processingCode:
+      type: string
+      description: <p>Code identifying the cardholder transaction type.</p>
+      example: ''
+    countryCode:
+      type: string
+      description: <p>Numerical code identifying nations globally.</p>
+      example: ''
+    mcc:
+      type: string
+      description: <p>Merchant Category Code classifying the merchant's business.</p>
+      example: ''
+    paymentType:
+      type: string
+      description: <p>Type of payment.</p>
+      example: ''
+    currencyCode:
+      type: string
+      description: <p>ISO currency code of the transaction amount.</p>
+      example: ''
+    maxAmountPerTrx:
+      type: number
+      format: decimal
+      description: Maximum amount per transaction.
+    cardEntryMode:
+      type: string
+      description: <p>Method by which a terminal obtains and transmits cardholder
+        information.Valid values are :<br> 00:<br> Unknown or terminal not used 01:<br>
+        Manual (key entry) 02:<br> Magnetic stripe read 03:<br> Integrated circuit
+        card read 04:<br> Contactless device-read </p>
+      example: ''
+ControlValue:
+  type: object
+  properties:
+    controlValue:
+      type: string
+      description: <p>Value for control, must be a valid value defined in PowerCARD
+        under general parameter section.</p>
+      example: ''
+ProductDetails:
+  type: object
+  properties:
+    catPIProduct:
+      type: string
+      description: <p>Payment instrument product code assigned to the card. Optional.</p>
+      example: ''
+    catPIProductVersion:
+      type: string
+      description: <p>Payment instrument version. Optional.</p>
+      example: ''
+    packCode:
+      type: string
+      description: <p>Identifies the selected product bundles. Optional.</p>
+      example: ''
+    productCurrency:
+      type: string
+      description: <p>Currency code of the cardholder’s direct debit account. Optional.</p>
+      example: ''
+    cycleCutOff:
+      type: string
+      description: <p>Account cycle cutoff assigned to the account. Optional.</p>
+      example: ''
+    productServices:
+      type: array
+      items:
+        $ref: aggregate.yaml#/ProductService
+ProductService:
+  type: object
+  properties:
+    serviceCode:
+      type: string
+      description: '<p>Service code defined in SERVICES_DEFINITION table. Example
+        values: CTLESS, SECECO, ECOM00, etc.</p>'
+      example: ''
+    serviceStatus:
+      type: string
+      description: <p>Service status indicator. Y for enabled, N for disabled.</p>
+      example: ''
+    isServiceMandatory:
+      type: string
+      description: <p>Indicates if service is mandatory (Y) or optional (N).</p>
+      example: ''
+    serviceExpositionChannels:
+      type: array
+      items:
+        $ref: aggregate.yaml#/ServiceExpositionChannel
+    deffermentServiceAddendum:
+      type: array
+      items:
+        $ref: aggregate.yaml#/DeffermentServiceAddendum
+    domainControlSRVAddendum:
+      type: array
+      items:
+        $ref: aggregate.yaml#/DomainControlSRVAddendum
+    cardLimitSRVAddendum:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CardLimitSRVAddendum
+DeffermentServiceAddendum:
+  type: object
+  properties:
+    defferedDaysNumber:
+      type: number
+      format: float
+      description: Number of days for debit deferment.
+    defermentStartDate:
+      type: string
+      format: date
+      description: <p>Start date of the deferment. Defaulted to current business date.</p>
+      example: ''
+    defermentEnddate:
+      type: string
+      format: date
+      description: <p>End date of the deferment.</p>
+      example: ''
+DomainControlSRVAddendum:
+  type: object
+  properties:
+    controlType:
+      type: string
+      enum:
+        - CTR
+      description: '<p>Type of control used. Example: CTR for Country.</p>'
+      example: ''
+    controlOperator:
+      type: string
+      enum:
+        - IN
+        - NOT IN
+      description: <p>Operator for control check. IN for include, NOT IN for exclude.</p>
+      example: ''
+    controlValues:
+      type: array
+      items:
+        $ref: aggregate.yaml#/ControlValue
+EmployeeInformation:
+  type: object
+  properties:
+    corporateId:
+      type: string
+      description: <p>Organization/corporate identifier. Must be defined in the PowerCARD
+        CORPORATE table. Optional.</p>
+      example: ''
+    employeeId:
+      type: string
+      description: <p>Unique employee ID within the corporate. Optional.</p>
+      example: ''
+    employeeStatus:
+      type: string
+      description: <p>Employee status. Optional.</p>
+      example: ''
+    firstName:
+      type: string
+      description: <p>First name of the employee. Optional.</p>
+      example: ''
+    lastName:
+      type: string
+      description: <p>Family name of the employee. Optional.</p>
+      example: ''
+    email:
+      type: string
+      description: <p>Email address of the employee. Optional.</p>
+      example: ''
+    languageCode:
+      type: string
+      description: <p>Cardholder’s language code according to ISO 639-1. Optional.</p>
+      example: ''
+    vipLevel:
+      type: string
+      description: <p>VIP level associated with the cardholder. Optional.</p>
+      example: ''
+    titleCode:
+      type: string
+      description: <p>Title code representing a prefix to the customer’s name. Optional.</p>
+      example: ''
+
+
+
+
+
+
+
+
+
+# KeyValueDataV35
+KeyValueDataV35:
+  type: object
+  properties:
+    key:
+      type: string
+      example: 'Key'
+    data:
+      type: string
+      example: 'Value'
+    type:
+      type: string
+      example: 'Type'
+# ---- webhookV35
+webhookV35:
+  type: object
+  properties:
+    webhookId:
+      type: string
+      example: '6948DF80-14BD-4E04-8842'
+      description: <p>
+        The identifier of the webhook to update
+        </p>
+    name:
+      type: string
+      example: 'Card created webhook'
+      description: <p>
+        The name of the webhook endpoint
+        </p>
+    url:
+      type: string
+      example: 'https://localhost:8099/webhooks/card_created'
+      description: <p>
+        The url of the webhook endpoint to register for events push
+        </p>
+    status:
+      type: string
+      example: 'A'
+      description: <p>
+        The webhook status <br>
+        <b>A</b> - To enable  event push to registered webhook<br>
+        <b>D</b> - To disable event push to registered webhook<br>
+        </p>
+    eventType:
+      type: string
+      example: 'card_created'
+      description: <p>
+        The event type to subscribe for this webhook
+        </p>
+
+              
+              
+              
+
+
+                          
+                  
+                  
+                
+                     
+                               
+
+
+                    
+                    
+                    
+           
+
+
+                        
+          
+
+                   
+
+
+
+                 
+               
+                           
+               

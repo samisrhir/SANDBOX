@@ -1,0 +1,97 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #SimulateLoanPayOff  
+  /SimulateLoanPayOff/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service can be invoked before performing a Loan pay off operation for a particular account. Its purpose is to provide payment amount simulation + penalty fees. The agent and the customer can both review the pay off simulation before performing the actual PayOff
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/SimulateLoanPayOff.png" />
+            summary: Invoked before performing a Loan pay off operation for a particular account. 
+            tags:
+              - Simulate Loan PayOff.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPayOffV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SimulateLoanPayOffV35Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>41701</td>
+                                         <td>Invalid Account Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41702</td>
+                                         <td>Invalid Unpaid Installment</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41703</td>
+                                         <td>Invalid Transaction Id</td>
+                                      </tr>
+                                      <tr>
+                                         <td>41704</td>
+                                         <td>Invalid Reference Sequence</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SimulateLoanPayOffV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SimulateLoanPayOffV35Rs'          
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SimulateLoanPayOffV35Rq request and response
+      SimulateLoanPayOffV35Rq:
+               $ref: 'request.yaml#/SimulateLoanPayOffV35Rq'
+      SimulateLoanPayOffV35Rs:
+               $ref: 'response.yaml#/SimulateLoanPayOffV35Rs'   
+security:
+  - bearerAuth: []

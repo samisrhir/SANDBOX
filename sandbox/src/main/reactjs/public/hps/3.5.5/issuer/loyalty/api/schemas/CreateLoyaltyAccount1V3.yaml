@@ -1,0 +1,111 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #CreateLoyaltyAccount
+  /CreateLoyaltyAccount/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers. By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc…
+        </p>
+        <P>For any customer to whom the financial institution is aiming to create a loyalty account, users can use this web service to proceed with first the creation, then the linking of the loyalty account to that customer.  </p>
+        <p>The service requires to specify the loyalty program subscribed by the customer. As soon as the account is created in the system, and customers making purchases, the customer will start collecting loyalty points based on the setup of the chosen loyalty program.  </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/CreateLoyaltyAccount.png" />
+      summary:   Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.
+      tags:
+        - Create Loyalty Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateLoyaltyAccountV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>11101</td>
+            <td>Invalid bank code </td>
+            </tr>
+            <tr>
+            <td>11102 </td>
+            <td>Invalid Account Owner type </td>
+            </tr>
+            <tr>
+            <td>11103</td>
+            <td>Invalid account owner Id </td>
+            </tr>
+            <tr>
+            <td>11105</td>
+            <td>Invalid client code </td>
+            </tr>
+            <tr>
+            <td>11106</td>
+            <td>Invalid catalogue loyalty product ID-version  </td>
+            </tr>
+            <tr>
+            <td>11108</td>
+            <td>Client Code is not the owner of account  </td>
+            </tr>
+            <tr>
+            <td>11110</td>
+            <td>Loyalty account already exist  </td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateLoyaltyAccountV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import CreateLoyaltyAccountV35 request and response
+    CreateLoyaltyAccountV35Rq:
+      $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+    CreateLoyaltyAccountV35Rs:
+      $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+security:
+  - bearerAuth: []

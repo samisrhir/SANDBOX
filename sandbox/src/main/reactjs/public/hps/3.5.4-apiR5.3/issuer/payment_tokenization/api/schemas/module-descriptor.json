@@ -1,0 +1,473 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    }
+  ,{
+    "moduleName":"Mastercard Digital Enablement S.. (MDES)",
+    "expanded": false,
+    "apis":[
+      {
+        "name":"Authorize Service",
+        "file": "AuthorizeServiceV2.yaml",
+        "subApiList": [
+          {
+            "file": "AuthorizeServiceV2.yaml",
+            "name": "Authorize Service V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      },
+      {
+        "name":"Get Account Information",
+        "file": "GetAccountInformationV2.yaml",
+        "subApiList": [
+          {
+            "file": "GetAccountInformationV2.yaml",
+            "name": "Get Account Information V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      },
+      {
+        "name":"Notify Service Activated",
+        "file": "NotifyServiceActivatedV2.yaml",
+        "subApiList": [
+          {
+            "file": "NotifyServiceActivatedV2.yaml",
+            "name": "Notify Service Activated V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      },
+      {
+        "name":"Notify Token Updated",
+        "file": "NotifyTokenUpdatedV2.yaml",
+        "subApiList": [
+          {
+            "file": "NotifyTokenUpdatedV2.yaml",
+            "name": "Notify Token Updated V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      },
+      {
+        "name":"Request Activation Methods",
+        "file": "RequestActivationMethodsV2.yaml",
+        "subApiList": [
+          {
+            "file": "RequestActivationMethodsV2.yaml",
+            "name": "Request Activation Methods V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      },
+      {
+        "name":"Validate Activation Code",
+        "file": "ValidateActivationCodeV2.yaml",
+        "subApiList": [
+          {
+            "file": "ValidateActivationCodeV2.yaml",
+            "name": "Validate Activation Code V2",
+            "HttpVerb": "POST"
+          }
+        ]
+      }
+    ]}
+    ,{
+      "moduleName":"Visa Token Service (VTS)",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Approve Provisioning Stand In Notification",
+          "file": "ApproveProvisioningStandInNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "ApproveProvisioningStandInNotificationV2.yaml",
+              "name": "Approve Provisioning Stand In Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Card Metadata Update Notification",
+          "file": "CardMetadataUpdateNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "CardMetadataUpdateNotificationV2.yaml",
+              "name": "Card Metadata Update Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Eligibility",
+          "file": "CheckEligibilityV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckEligibilityV2.yaml",
+              "name": "Check Eligibility V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Device Token Binding Request",
+          "file": "DeviceTokenBindingRequestV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeviceTokenBindingRequestV2.yaml",
+              "name": "Device Token Binding Request V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Cardholder Verification Methods",
+          "file": "GetCardholderVerificationMethodsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardholderVerificationMethodsV2.yaml",
+              "name": "Get Cardholder Verification Methods V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"PAN Lifecycle",
+          "file": "PANLifecycleV2.yaml",
+          "subApiList": [
+            {
+              "file": "PANLifecycleV2.yaml",
+              "name": "PAN Lifecycle V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"PAN Update Notification",
+          "file": "PANUpdateNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "PANUpdateNotificationV2.yaml",
+              "name": "PAN Update Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Push Card Enrollment To Wallet",
+          "file": "PushCardEnrollmentToWalletV2.yaml",
+          "subApiList": [
+            {
+              "file": "PushCardEnrollmentToWalletV2.yaml",
+              "name": "Push Card Enrollment To Wallet V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Push Provisionning Status Notification",
+          "file": "PushProvisionningStatusNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "PushProvisionningStatusNotificationV2.yaml",
+              "name": "Push Provisionning Status Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },{
+          "name":"Review Profiles",
+          "file": "ReviewProfilesV2.yaml",
+          "subApiList": [
+            {
+              "file": "ReviewProfilesV2.yaml",
+              "name": "Review Profiles V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Send Passcode",
+          "file": "SendPasscodeV2.yaml",
+          "subApiList": [
+            {
+              "file": "SendPasscodeV2.yaml",
+              "name": "Send Passcode V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Token Inquiry By PAN",
+          "file": "TokenInquiryByPANV2.yaml",
+          "subApiList": [
+            {
+              "file": "TokenInquiryByPANV2.yaml",
+              "name": "Token Inquiry By PAN V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Token Inquiry",
+          "file": "TokenInquiryV2.yaml",
+          "subApiList": [
+            {
+              "file": "TokenInquiryV2.yaml",
+              "name": "Token Inquiry V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Token Notification",
+          "file": "TokenNotificationV2.yaml",
+          "subApiList": [
+            {
+              "file": "TokenNotificationV2.yaml",
+              "name": "Token Notification V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Card Metadata",
+          "file": "UpdateCardMetadataV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCardMetadataV2.yaml",
+              "name": "Update Card Metadata V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]},
+    {
+      "moduleName":"Payment-tokenization",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Deliver Activation Code",
+          "file": "DeliverActivationCodeV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeliverActivationCodeV2.yaml",
+              "name": "Deliver Activation Code V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card Num From Token",
+          "file": "GetCardNumberFromTokenV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardNumberFromTokenV2.yaml",
+              "name": "Get Card Number From Token V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Token Lifecycle",
+          "file": "TokenLifecycleV2.yaml",
+          "subApiList": [
+            {
+              "file": "TokenLifecycleV2.yaml",
+              "name": "Token Lifecycle V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Card Eligibility",
+          "file": "CheckCardEligibility.yaml",
+          "subApiList": [
+            {
+              "file": "CheckCardEligibility.yaml",
+              "name": "Check Card Eligibility",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Approve Card Provisioning",
+          "file": "ApproveCardProvisioningV2.yaml",
+          "subApiList": [
+            {
+              "file": "ApproveCardProvisioningV2.yaml",
+              "name": "Approve Card Provisioning V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Token Notification Service",
+          "file": "TokenNotificationServiceV2.yaml",
+          "subApiList": [
+            {
+              "file": "TokenNotificationServiceV2.yaml",
+              "name": "Token Notification Service V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Pan Notification Service",
+          "file": "PanNotificationServiceV2.yaml",
+          "subApiList": [
+            {
+              "file": "PanNotificationServiceV2.yaml",
+              "name": "Pan Notification Service V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Deliver Activation Code",
+          "file": "DeliverActivationCodeV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeliverActivationCodeV2.yaml",
+              "name": "Deliver Activation Code V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Digitization Request",
+          "file": "DigitizationRequestV2.yaml",
+          "subApiList": [
+            {
+              "file": "DigitizationRequestV2.yaml",
+              "name": "Digitization Request V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Payment Transaction Notification",
+          "file": "PaymentTransactionNotificationServiceV2.yaml",
+          "subApiList": [
+            {
+              "file": "PaymentTransactionNotificationServiceV2.yaml",
+              "name": "Payment Transaction Notification Service V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Token Details",
+          "file": "GetTokenDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetTokenDetailsV2.yaml",
+              "name": "Get Token Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Tokens By PAN",
+          "file": "GetTokensByPANV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetTokensByPANV2.yaml",
+              "name": "Get Tokens By PAN V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Set Card Meta da",
+          "file": "SetCardMetadaV2.yaml",
+          "subApiList": [
+            {
+              "file": "SetCardMetadaV2.yaml",
+              "name": "Set Card Meta da V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Card Metadata Notification Service",
+          "file": "CardMetadataNotificationServiceV2.yaml",
+          "subApiList": [
+            {
+              "file": "CardMetadataNotificationServiceV2.yaml",
+              "name": "Card Metadata Notification Service V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get System Status",
+          "file": "GetSystemStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetSystemStatusV2.yaml",
+              "name": "Get System Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Verify Activation Code",
+          "file": "VerifyActivationCodeV2.yaml",
+          "subApiList": [
+            {
+              "file": "VerifyActivationCodeV2.yaml",
+              "name": "Verify Activation Code V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get StepUp Method",
+          "file": "GetStepUpMethodV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetStepUpMethodV2.yaml",
+              "name": "Get StepUp Method V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

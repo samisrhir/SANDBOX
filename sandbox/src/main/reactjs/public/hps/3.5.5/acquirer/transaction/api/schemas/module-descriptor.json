@@ -1,0 +1,90 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Transaction",
+      "expanded": true,
+      "apis":[
+
+        {
+          "name":"Search Merchant Transactions ",
+          "file": "SearchMerchantTransactionsV3.yaml",
+          "subApiList": [
+            {
+              "file": "SearchMerchantTransactionsV3.yaml",
+              "name": "Search Merchant Transactions V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Merchant Batches ",
+          "file": "SearchMerchantBatchesV3.yaml",
+          "subApiList": [
+            {
+              "file": "SearchMerchantBatchesV3.yaml",
+              "name": "Search Merchant Batches V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Batch Details ",
+          "file": "GetMerchantBatchDetails.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantBatchDetails.yaml",
+              "name": "Get Merchant Batch Details V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Generate Merchant QRCode ",
+          "file": "GenerateMerchantQRCode.yaml",
+          "subApiList": [
+            {
+              "file": "GenerateMerchantQRCode.yaml",
+              "name": "Generate Merchant QRCode V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+
+      ]}]
+}

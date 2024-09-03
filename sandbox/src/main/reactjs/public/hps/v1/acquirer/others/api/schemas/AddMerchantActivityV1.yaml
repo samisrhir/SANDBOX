@@ -1,0 +1,114 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- addMerchantActivity
+  /AddMerchantActivity/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant activity API provides functionality to add a merchant activity during the enrollment process of a given merchant. This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API</p>
+                    <h3>Functional Description</h3>
+                   <img  src="./docs/addMerchantActivity.png" />
+      summary: The add merchant activity API provides functionality to add a merchant activity...
+      tags:
+        - Add Merchant Activity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08601</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08602</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08603</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08604</td>
+                                  <td>Invalid activity indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08605</td>
+                                  <td>The merchant must have a primary activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08606</td>
+                                  <td>The merchant already has a primary activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08607</td>
+                                  <td>Invalid MCC</td>
+                                </tr>
+                                <tr> 
+                                  <td>08608</td>
+                                  <td>Invalid activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08609</td>
+                                  <td>The merchant already has this MCC</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantActivityRs'                                                                                                   
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import AddMerchantActivity request and response
+      AddMerchantActivityRq:
+               $ref: 'request.yaml#/AddMerchantActivityRq'
+      AddMerchantActivityRs:
+               $ref: 'response.yaml#/AddMerchantActivityRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,66 @@
+<style>
+    .static-page-title{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        margin-bottom: 28px;
+        left: 15px;
+    }
+    .static-page-p{
+        font-family: "Open Sans", sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 25px;
+        border-radius: 10px;
+        color: rgb(162, 252, 162);
+    }
+</style>
+<h2 class="static-page-title">Currency Management</h2>
+<div>
+    <p class="static-page-p">The currency codes are sent and received in transaction and interchange files, etc. indicating the currency of related financial records. It is possible to declare several currencies according to the requirements of the concerned Financial Institution.</p>
+    <ul>
+        <li class="static-page-p"><b class="static-page-b">Alpha code currency</b>
+            Currency ISO alpha code in 3 letters based on the card industry standard. This field is mandatory. For example: <br>
+            <ul>
+                <li><b>USD</b> for United States Dollars;</li>
+                <li><b>EUR</b> for Euro.</li>
+            </ul>
+        </li>
+        <li class="static-page-p"><b class="static-page-b">Numeric code</b>
+            Currency ISO numeric value on 3 digits, based on the card industry standards. This field is mandatory. For example:
+            <ul>
+                <li><b>840</b> for United States Dollars;</li>
+                <li><b>978 </b> for Euro.</li>
+            </ul>
+        </li>
+        <li class="static-page-p"><b class="static-page-b">Exponent</b>
+            Number of decimal places in any amount expressed in a given currency. It is used by the system for printing and displaying format purposes.
+        </li>
+    </ul>
+    <h3 class="static-page-title">Currency in requests</h3>
+    <p class="static-page-p">
+        The nominal amount value is divided by 10<b>n</b> where <b>n</b> is the currency exponent of the currency code sent in the field below the last n digits are used for decimals. <br>
+        Example An amount received as <b>9999999</b>  will be handled by the connectAPI as  <b>US$ 99,999.99</b>.
+    </p>
+    <h3 class="static-page-title">Currency in responses</h3>
+    <p class="static-page-p">
+        The nominal amount value is multiplied by 10<b>n</b> where <b>n</b> is the currency exponent of the currency code sent in the field below the last n digits are used for decimals. <br>
+        Example An amount that should be displayed as <b>US$ 99,999.99</b> will be sent by the connectAPI as <b>9999999</b>.
+    </p>
+</div>

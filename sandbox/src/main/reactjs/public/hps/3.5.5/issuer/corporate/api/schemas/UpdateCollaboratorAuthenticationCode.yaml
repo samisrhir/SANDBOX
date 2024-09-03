@@ -1,0 +1,84 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateCollaboratorAuthenticationCode /V2
+  /UpdateCollaboratorAuthenticationCode/V2:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web services is aimed to consult or update the 3DS code during e-com purchases. It is important to note that the web service requires the corporate id, the employee id and the authentication code. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                    <img  src="./docs/updateCollaboratorAuthenticationCode.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update Collaborator Authentication Code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollaboratorAuthenticationCodeRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateCollaboratorAuthenticationCodeRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            
+            <tr><td>50013</td><td>Invalid Corporate Id</td></tr>
+            <tr><td>50014</td><td>Invalid Employee Id</td></tr>
+            <tr><td>50015</td><td>Invalid Authentication code</td></tr>
+  
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCollaboratorAuthenticationCodeRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateCollaboratorAuthenticationCodeRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import UpdateCollaboratorAuthenticationCode request and response
+    UpdateCollaboratorAuthenticationCodeRq:
+      $ref: 'request.yaml#/UpdateCollaboratorAuthenticationCodeRq'
+    UpdateCollaboratorAuthenticationCodeRs:
+      $ref: 'response.yaml#/UpdateCollaboratorAuthenticationCodeRs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,148 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  /customer-management/v4.0/customers/{customerId}/emails:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerEmail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                             The aim of this web service is to set or update the customer email address part of the principal address. The email address supplied by the agent of the customer himself must be a valid address. It must include both the alias (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...). <br>
+                             The request could be rejected if the provided email address fails to comply with what was explained before.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerEmail.png" />
+            summary:    Update the customer principal email address.
+            parameters:
+              - in: path
+                name: customerId
+                schema:
+                  type: integer
+                required: true
+                example : "0358649690"
+                description: Represent the customer identifier
+            tags:
+              - Update Customer Email
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV4Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                    <p>Technical Error Codes &#58;</p>
+                                    <table>
+                                    <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                    </tr>
+                                    <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                    </tr>
+                                    <tr>
+                                    <td>99999</td>
+                                    <td>System error</td>
+                                    </tr>
+                                    <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00002</td>
+                                    <td> Forbidden you don't have permission to access for this api</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00007</td>
+                                    <td>Authorization header is empty</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00008</td>
+                                    <td>Authorization header is missing</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00009</td>
+                                    <td>Malformat Authorization content</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00010</td>
+                                    <td>Bearer is required in the token</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00011</td>
+                                    <td>Token expired</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00012</td>
+                                    <td>Invalid token</td>
+                                    </tr>
+                                      <tr>
+                                      <td>00014</td>
+                                      <td>Invalid business date</td>
+                                      </tr>
+                                    </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>     		
+                                    <tr>
+                                       <td>000085</td>
+                                       <td>Invalid Customer Id</td>
+                                    </tr>
+                                    <tr>
+                                       <td>000034</td>
+                                       <td>Invalid Email pattern</td>
+                                    </tr>                                                                                                                                                                                           				
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV4Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV4Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV4Rq'
+      UpdateCustomerEmailV4Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV4Rs'
+security:
+  - bearerAuth: []

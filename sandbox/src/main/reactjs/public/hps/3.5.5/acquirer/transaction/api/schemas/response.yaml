@@ -1,0 +1,77 @@
+# ---- TokenAuthenticationResponse response definition
+TokenAuthenticationResponse:
+  type: object
+  properties:
+    token:
+      type: string
+      description: <p>The access JWT Token </p>
+    responseInfo:
+      type: object
+      $ref: 'aggregate.yaml#/ResponseInfo'
+
+
+
+
+MerTransSettlementRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    maxRowNbr:
+      type: integer
+      description: Maximum number of rows that can be included in the response message.
+        Used to limit the number of transactions in one call.
+    merchantTransaction:
+      type: array
+      items:
+        $ref: aggregate.yaml#/MerchantTransaction
+      description: List of transactions meeting the criteria outlined in the request.
+#--------------------
+
+MerchantBatchInfoRs:
+  type: object
+  required:
+    - responseInfo
+    - merchantBatchList
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    merchantBatchList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/MerchantBatchInfo
+      description: Details concerning a given transaction remittance.
+
+
+
+GetMerchantBatchDetailsRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    merchantBatchInfo:
+      $ref: aggregate.yaml#/GetMerchantBatchDetailsRsMerchantBatchInfo
+
+
+
+
+GenerateMerchantQRCodeRs:
+  type: object
+  required:
+    - responseInfo
+  properties:
+    responseInfo:
+      $ref: aggregate.yaml#/ResponseInfo
+    merchantQRCodeInfoList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/MerchantQRCodeInfo
+    merchantCurrencyQRCodeList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/MerchantCurrencyQRCode
+

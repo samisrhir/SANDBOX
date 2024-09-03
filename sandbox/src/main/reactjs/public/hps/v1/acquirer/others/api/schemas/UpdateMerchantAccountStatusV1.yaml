@@ -1,0 +1,102 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantAccountStatus
+  /UpdateMerchantAccountStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. For instance, this web service helps users to update the status of merchant Billing account. By doing so, users might for example cancel a given merchant billing account</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAccountStatus.png" />
+                  
+      tags:
+        - Update Merchant Account Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMerchantAccountStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateMerchantAccountStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>10601</td>
+                                <td>Invalid merchant</td>
+                              </tr>
+                              <tr> 
+                                <td>10602</td>
+                                <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                              </tr>
+                              <tr> 
+                                <td>10603</td>
+                                <td>Invalid account number </td>
+                              </tr>	
+                              <tr> 
+                                <td>10604</td>
+                                <td>Update not allowed for this account due to dependencies </td>
+                              </tr>	
+                              <tr> 
+                                <td>10605</td>
+                                <td>Invalid status code, account should have one of the following statuses N Normal, C Closed </td>
+                              </tr>	
+                              <tr> 
+                                <td>10606</td>
+                                <td>Update not allowed for this account, it's closed </td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateMerchantAccountStatusRs'                                                                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import updateMerchantAccountStatus request and response 
+      updateMerchantAccountStatusRq:
+               $ref: 'request.yaml#/updateMerchantAccountStatusRq'
+      updateMerchantAccountStatusRs:
+               $ref: 'response.yaml#/updateMerchantAccountStatusRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

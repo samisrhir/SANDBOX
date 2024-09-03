@@ -1,0 +1,110 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- searchClaims
+  /SearchClaims/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>After creating a claim in PowerCARD, users are allowed to follow the status of their claims. PowerCARD offer, through its native web service interface, the possibility to search for a claim and ask for its status. The service is intended to give the last update of the claim as well as the description of the action performed by the financial institution agent. For more details, refer to the next sections.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchClaims.png" />
+                  
+      summary: After creating a claim in PowerCARD, users are allowed to follow the status of their claims.
+      tags:
+        - Search Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchClaimsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchClaimsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07301</td>
+                                  <td>Merchant Identification is required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07302</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>07303</td>
+                                  <td>Invalid Claim Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07304</td>
+                                  <td>Invalid merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07305</td>
+                                  <td>Invalid ISO Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07306</td>
+                                  <td>Invalid VAR Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07307</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchClaimsRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchClaimsRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SearchClaims request and response 
+      SearchClaimsRq:
+               $ref: 'request.yaml#/SearchClaimsRq'
+      SearchClaimsRs:
+               $ref: 'response.yaml#/SearchClaimsRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

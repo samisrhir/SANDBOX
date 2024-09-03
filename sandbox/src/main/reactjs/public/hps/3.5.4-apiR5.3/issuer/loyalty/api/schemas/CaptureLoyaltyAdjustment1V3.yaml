@@ -1,0 +1,118 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ---CaptureLoyaltyAdjustment
+  /CaptureLoyaltyAdjustment/V3 :
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers. By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc…
+        
+        Capture loyalty adjustment web service enables customers, agents or any third party for manual capture of loyalty point's exceptional debit and credit transaction linked to valid loyalty programs. <p>This is used mainly to capture adjustments of Loyalty account points' balances.</p>
+        
+        <p>PowerCARD allows the capture of manual transaction (Credit / Debit) and is posted to the respective loyalty account in real time after validating the request.</p>
+        
+        <p>The system run some controls on the input data and may reject the operation in case of any data inconsistency</p>
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/CaptureLoyaltyAdjustment.PNG" />
+      summary:   Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.
+      tags:
+        - CaptureLoyaltyAdjustment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaptureLoyaltyAdjustmentV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CaptureLoyaltyAdjustmentV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>11801</td>
+            <td>Invalid bank code </td>
+            </tr>
+            <tr>
+            <td>11802</td>
+            <td>Invalid account owner type</td>
+            </tr>
+            <tr>
+            <td>11803</td>
+            <td>Invalid account owner Id </td>
+            </tr>
+            <tr>
+            <td>11804</td>
+            <td>Invalid loyalty program Id </td>
+            </tr>
+            <td>11806</td>
+            <td>Invalid loyalty account number </td>
+            </tr>
+            </tr>
+            <td>11808</td>
+            <td>Invalid transaction sign  </td>
+            </tr>
+            </tr>
+            <td>11809</td>
+            <td>Invalid transaction code   </td>
+            </tr>
+            </tr>
+            <td>11810</td>
+            <td>Invalid reason code    </td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaptureLoyaltyAdjustmentV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CaptureLoyaltyAdjustmentV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import CreateLoyaltyAccountV35 request and response
+    CaptureLoyaltyAdjustmentV35Rq:
+                  $ref: 'request.yaml#/CaptureLoyaltyAdjustmentV35Rq'
+    CaptureLoyaltyAdjustmentV35Rs:
+                  $ref: 'response.yaml#/CaptureLoyaltyAdjustmentV35Rs'
+security:
+  - bearerAuth: []

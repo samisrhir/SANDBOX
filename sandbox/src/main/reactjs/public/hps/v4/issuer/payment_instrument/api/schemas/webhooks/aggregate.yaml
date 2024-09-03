@@ -1,0 +1,31 @@
+EventInfo:
+  type: object
+  properties:
+    eventUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p> Event Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.</p>
+
+      type: string
+      example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+    eventDate:
+      description: Date when the request was submitted.
+      type: string
+      example: '2020-02-05T00:00:00'
+    eventType:
+      description: Describes the type of the event, e.g., "connect_api-card_created"
+      type: string
+      example: connect_api-card_created
+  required:  [eventUID,eventDate,eventType]
+Event:
+  type: object
+  properties:
+    id:
+      type: string
+      description : Card Event Identifier. It is sent to the webhooks as a universally unique identifier for the event.
+      example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+    object:
+      type: string
+      description: String representing the object’s type. Objects of the same type share the same value.
+      example: "issuing_card"

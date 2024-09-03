@@ -1,0 +1,95 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantStatus
+  /UpdateMerchantStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Since the merchant status can vary during the whole life cycle of the merchant, the Update Merchant Status API lets you update the merchant status by providing a status code as well as a status reason used for that change. It also accepts a range date fields that indicate the dates from when and till when the status will be effective</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantStatus.png" />
+                  
+      summary: Since the merchant status can vary during the whole life cycle...
+      tags:
+        - Update Merchant Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06301</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>06302</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>06303</td>
+                                  <td>Error while updating merchant status </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06304</td>
+                                  <td>Invalid status code and reason code </td>
+                                </tr>							
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantStatusRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateMerchantStatus request and response 
+      UpdateMerchantStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantStatusRq'  
+      UpdateMerchantStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantStatusRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,99 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- /voiceAuthorizationRequest/V2
+  /VoiceAuthorizationRequest/V2:
+    post:
+      description:  <h3>API Overview</h3>
+        <p>Voice authorization request allow you to get authorizations using any touch-tone telephone in case the merchant is unable to get an authorization using a point-of sale (POS) system. The merchant is required to provide information including the card number, merchant number… prior to receiving an approval code or decline. The approval code can then be keyed into the POS system when ready.</b></p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/voiceAuthorizationRequest.PNG" />
+      summary: The verify PIN web service is used to verify if the Personal Identification Number (PIN)...
+      tags:
+        - Voice authorization request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voiceAuthorizationRequestV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/voiceAuthorizationRequestV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>07701</td>
+            <td>Invalid Card Number/Token ID</td>
+            </tr>
+            <tr>
+            <td>07702</td>
+            <td>Invalid Outlet Number</td>
+            </tr>
+            <tr>
+            <td>07703</td>
+            <td>Invalid Transaction Amount</td>
+            </tr>
+            <tr>
+            <td>07704</td>
+            <td>Invalid Expiry Date</td>
+            </tr>
+            <tr>
+            <td>07705</td>
+            <td>Invalid AuthorizationMotoInd</td>
+            </tr>
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/voiceAuthorizationRequestV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/voiceAuthorizationRequestV35Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import VerifyPin request and response
+    voiceAuthorizationRequestV35Rq:
+      $ref: 'request.yaml#/voiceAuthorizationRequestV35Rq'
+    voiceAuthorizationRequestV35Rs:
+      $ref: 'response.yaml#/voiceAuthorizationRequestV35Rs'
+security:
+    - bearerAuth: []

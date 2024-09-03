@@ -1,0 +1,87 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /validateMerchantContract /V3
+  /ValidateMerchantContract/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          The validate merchant contract API provides functionality to validate a created merchant contract item. The API is responsible of moving the contract details from the application tables to the final contract database. Any missing or wrong information provided during the initial process may case a rejection of the application. Users are then required to modify the wrong data and submit for a further validation.        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/validateMerchantContract .PNG" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Validate Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantContractRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantContractRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>61200</td><td>An error has occured during merchant contract validation</td></tr>
+            <tr><td>61201</td><td>Merchant contract already Validated</td></tr>
+            <tr><td>61202</td><td>Contract Element ID invalid</td></tr>
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateMerchantContractRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ValidateMerchantContractRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import ValidateMerchantContractRq request and response
+    ValidateMerchantContractRq:
+      $ref: 'request.yaml#/ValidateMerchantContractRq'
+    ValidateMerchantContractRs:
+      $ref: 'response.yaml#/ValidateMerchantContractRs'
+security:
+  - bearerAuth: []

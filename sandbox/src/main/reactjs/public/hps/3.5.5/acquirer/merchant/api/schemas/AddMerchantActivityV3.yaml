@@ -1,0 +1,98 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /AddMerchantActivity/V3
+  /AddMerchantActivity/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The add merchant activity API provides functionality to add a merchant activity during the enrollment process of a given merchant.The add merchant activity API provides functionality to add a merchant activity during the enrollment process of a given merchant.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/addMerchantActivity.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Add Merchant Activity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</b></td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>60400</td><td>Invalid Activity MCC</td></tr>
+            <tr><td>60401</td><td>Invalid Activity Type</td></tr>
+            <tr><td>60402</td><td>Invalid Banking Activity Code</td></tr>
+            <tr><td>60407</td><td>Invalid Activity Opening Date</td></tr>
+            <tr><td>60409</td><td>Error while inserting merchant activity</td></tr>
+            <tr><td>60410</td><td>Bank addendum not found</td></tr>
+            <tr><td>60412</td><td>Only main activity is allowed</td></tr>
+            <tr><td>60413</td><td>Error while generating merchant activity id</td></tr>
+            <tr><td>60414</td><td>Only One primary Activity is Allowed</td></tr>
+            <tr><td>60416</td><td>Activity with same MCC defined more than once</td></tr>
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantActivityRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AddMerchantActivityRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    AddMerchantActivityRq:
+      $ref: 'request.yaml#/AddMerchantActivityRq'
+    AddMerchantActivityRs:
+      $ref: 'response.yaml#/AddMerchantActivityRs'
+security:
+  - bearerAuth: []

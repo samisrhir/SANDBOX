@@ -1,0 +1,285 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Switch",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Activate Contactless",
+          "file": "ActivateContactLessV2.yaml",
+          "subApiList": [
+            {
+              "file": "ActivateContactLessV2.yaml",
+              "name": "Activate Contactless V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Autho Reversal Request",
+          "file": "AuthoReversalRequestV2.yaml",
+          "subApiList": [
+            {
+              "file": "AuthoReversalRequestV2.yaml",
+              "name": "Autho Reversal Request V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Change PIN",
+          "file": "ChangePinV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "ChangePINV2GET.yaml",
+              "name": "Change PIN V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "ChangePinV2POST.yaml",
+              "name": "Change PIN V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Authorization Details",
+          "file": "GetAuthorizationDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetAuthorizationDetailsV2.yaml",
+              "name": "Get Authorization Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card Characteristics",
+          "file": "GetCardCharacteristicsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardCharacteristicsV2.yaml",
+              "name": "Get Card Characteristics V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card CVC2",
+          "file": "GetCardCVC2V2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardCVC2V2GET.yaml",
+              "name": "Get Card CVC2 V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "SecuredInOutGetCardCVC2V2.yaml",
+              "name": "Secured Get Card CVC2 V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "GetCardCVC2V2POST.yaml",
+              "name": "Get Card CVC2 V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card Domain",
+          "file": "GetCardDomainV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardDomainV2GET.yaml",
+              "name": "Get Card Domain V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetCardDomainV2POST.yaml",
+              "name": "Get Card Domain V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Card Limits",
+          "file": "GetCardLimitsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetCardLimitsV2GET.yaml",
+              "name": "Get Card Limits V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetCardLimitsV2POST.yaml",
+              "name": "Get Card Limits V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Pending Authorization List",
+          "file": "GetPendingAuthorizationListV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetPendingAuthorizationListV2.yaml",
+              "name": "Get Pending Authorization List V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Pin History",
+          "file": "GetPinHistoryV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetPinHistoryV2.yaml",
+              "name": "Get Pin History V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Pin Over Web",
+          "file": "PinOverWebV2.yaml",
+          "subApiList": [
+            {
+              "file": "PinOverWebV2.yaml",
+              "name": "Pin Over Web V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Release Authorization Hold",
+          "file": "ReleaseAuthorizationHoldV2.yaml",
+          "subApiList": [
+            {
+              "file": "ReleaseAuthorizationHoldV2.yaml",
+              "name": "Release Authorization Hold V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Reset Pin Try Counter",
+          "file": "ResetPinTryCounterV2.yaml",
+          "subApiList": [
+            {
+              "file": "ResetPinTryCounterV2.yaml",
+              "name": "Reset Pin Try Counter V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Authorization",
+          "file": "SearchAuthorizationV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchAuthorizationV2.yaml",
+              "name": "Search Authorization V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Set Card Domain",
+          "file": "SetCardDomainV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "SetCardDomainV2GET.yaml",
+              "name": "Set Card Domain V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SetCardDomainV2POST.yaml",
+              "name": "Set Card Domain V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Card Characteristics",
+          "file": "UpdateCardCharacteristicsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCardCharacteristicsV2.yaml",
+              "name": "Update Card Characteristics V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Card Limit",
+          "file": "UpdateCardLimitsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCardLimitsV2POST.yaml",
+              "name": "Update Card Limits V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Verify Pin",
+          "file": "VerifyPinV2.yaml",
+          "subApiList": [
+            {
+              "file": "VerifyPinV2.yaml",
+              "name": "Verify Pin V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Voice Authorization Request",
+          "file": "VoiceAuthorizationRequestV2.yaml",
+          "subApiList": [
+            {
+              "file": "VoiceAuthorizationRequestV2.yaml",
+              "name": "Voice Authorization Request V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

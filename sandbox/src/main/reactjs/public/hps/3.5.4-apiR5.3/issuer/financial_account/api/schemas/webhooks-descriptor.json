@@ -1,0 +1,26 @@
+{
+  "modules":[
+    {
+      "moduleName":"Payment-instrument",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Card created event",
+          "file": "card_create_event.yaml",
+          "relatedEvents": [
+            {
+              "file": "",
+              "name": "Card activated",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "",
+              "name": "Customer created",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+#CardCreatedEventRq:
+CardCreatedEventRq:
+  type: object
+  properties:
+    eventInfo:
+      type: object
+      $ref: 'aggregate.yaml#/EventInfo'
+    eventObject:
+      type: object
+      $ref: 'aggregate.yaml#/EventObject'
+  required: [eventInfo,eventObject]

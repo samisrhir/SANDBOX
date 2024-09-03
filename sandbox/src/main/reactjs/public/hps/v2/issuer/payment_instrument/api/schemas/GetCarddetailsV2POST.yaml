@@ -1,0 +1,86 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- GetCardDetails API
+  /GetCardDetails/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a selection of web services with regards to cards maintenance, the get card details web services is one of those services that can be used by both agents and customers in order to retrieve more details regarding the concerned card being sent in the request message.</p>
+                    <p>Card details can include the cardholder’s full name, mailing address, phone number, date of birth, the card type, card number, expiration date.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCardDetails.png" />
+      summary: Retrieve more details regarding the concerned card being sent in the request message.
+      tags:
+        - Get Card details.
+      requestBody:
+        description: Retrieve more details regarding the concerned card being sent in the request message.	
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetCardDetailsV35Rq'
+      responses:  
+         200:
+          description: 
+                   <div>
+                          <h6>Successful</h6>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                            <tr>
+                               <th>Error code</th>
+                               <th>Error Description</th>
+                            </tr>
+                            <tr> 
+                               <td>21301</td>
+                                <td>Invalid Card Number/Token Id</td>
+                            </tr>
+                           </table>
+                    </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCardDetailsV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/GetCardDetailsV35Rs'                  
+
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+security:
+  - bearerAuth: []

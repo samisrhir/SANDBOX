@@ -1,0 +1,251 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"OAuth Authentication",
+          "file": "oauth2Authentication.yaml",
+          "subApiList": [
+            {
+              "file": "oauth2Authentication.yaml",
+              "name": "OAuth Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Create user authorization",
+          "file": "createUserAuthorization.yaml",
+          "subApiList": [
+            {
+              "file": "createUserAuthorization.yaml",
+              "name": "Create user authorization",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Encryption and signature",
+          "file": "security.html",
+          "staticContent": true,
+          "subApiList": [
+            {
+              "file": "./security/jweEncryption.yaml",
+              "name": "JWE encryption",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jweDecryption.yaml",
+              "name": "JWE decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsEncryption.yaml",
+              "name": "JWS encryption and signature ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsDecryption.yaml",
+              "name": "JWS verify signature and decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            }
+          ]
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Customer-management",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Change customer status",
+          "file": "changeCustomerStatus_put.yaml",
+          "subApiList": [
+            {
+              "file": "changeCustomerStatus_put.yaml",
+              "name": "Change customer status",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "changeCustomerStatus_cancel_patch.yaml",
+              "name": "Cancel customer status",
+              "HttpVerb": "PATCH"
+            }
+            ]
+        },
+        {
+          "name":"Set Customer Details",
+          "file": "setCustomerDetails_post.yaml",
+          "subApiList": [
+            {
+              "file": "setCustomerDetails_post.yaml",
+              "name": "Create new customer",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "setCustomerDetails_put.yaml",
+              "name": "Update customer",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "setCustomerDetails_patch.yaml",
+              "name": "Apply a patch to a customer",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "cancelCustomer_delete_deprecated.yaml",
+              "name": "Cancel ustomer",
+              "HttpVerb": "DELETE",
+              "deprecated": true
+            }
+          ]
+        },
+        {
+          "name": "Get customer details",
+          "file": "getCustomerDetails.yaml",
+          "subApiList": [
+            {
+              "file": "getCustomerDetails.yaml",
+              "name": "Get customer details",
+              "HttpVerb": "GET"
+            }]
+        },
+        {
+          "name": "Update customer primary address",
+          "file": "updateCustomerPrimaryAddress.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerPrimaryAddress.yaml",
+              "name": "Update customer primary address",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Update customer secondary address",
+          "file": "updateCustomerSecondaryAddress.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerSecondaryAddress.yaml",
+              "name": "Update customer secondary address",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Update customer phone number",
+          "file": "updateCustomerPhoneNumber.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerPhoneNumber.yaml",
+              "name": "Update customer phone number",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Update customer email",
+          "file": "updateCustomerEmail.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerEmail.yaml",
+              "name": "Update customer email",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Update customer category",
+          "file": "updateCustomerCategory.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerCategory.yaml",
+              "name": "Update customer category",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Update customer name",
+          "file": "updateCustomerName.yaml",
+          "subApiList": [
+            {
+              "file": "updateCustomerName.yaml",
+              "name": "Update customer name",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name": "Event notification management",
+          "file": "activateClientEventNotification.yaml",
+          "subApiList": [
+            {
+              "file": "activateClientEventNotification.yaml",
+              "name": "Activate customer event notification",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "activateClientChannelNotification.yaml",
+              "name": "Activate customer channel notification",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "getCustomerEventNotificationList.yaml",
+              "name": "Get customer event notification",
+              "HttpVerb": "GET"
+            }
+          ]
+        },
+        {
+          "name": "Check Customer Custom Field Value",
+          "file": "checkCustomerCustomField.yaml",
+          "subApiList": [
+            {
+              "file": "checkCustomerCustomField.yaml",
+              "name": "Check Customer Custom Field Value",
+              "HttpVerb": "POST"
+            }]
+        }
+      ]
+    }
+  ]
+}

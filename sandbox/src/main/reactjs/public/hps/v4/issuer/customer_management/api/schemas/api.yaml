@@ -1,0 +1,2472 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://connect-api-f421ce7420d03b16.elb.eu-north-1.amazonaws.com
+    description: Development server
+paths:
+
+  # ------- TokenAuthentication API
+  /compliance/v4.0/tokens/authentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials.
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                     <td>00000</td>
+                                     <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00001</td>
+                                      <td>Bad Credentials Invalid login and/or password</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00003</td>
+                                      <td>User Blocked</td>
+                                  <tr>
+                                       <td>00005</td>
+                                       <td>Invalid Password configuration</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00006</td>
+                                      <td>User Password expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System Error</td>
+                                  </tr>
+                            </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/TokenAuthenticationResponse'
+  
+  # CreateUserAuthorization
+  /compliance/v4.0/users/{userCode}/authorizations:
+    post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The CreateUserAuthorization web service used to grant access and authorization for different web service to a user. 
+                    </p>
+        summary: Create User Authorization
+        parameters:
+          - in: path
+            name: userCode
+            schema:
+              type: string
+            required: true
+            example : "ISS004"
+            description: Represent the user code.
+        tags:
+          - Create User Authorization
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserAuthorizationV4Req'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateUserAuthorizationV4Req'
+        responses:
+          200:
+            description:
+              <div>
+                          Successful
+              </div>
+
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateUserAuthorizationV4Res'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CreateUserAuthorizationV4Res'
+
+  #SetCustomerDetails 
+  /customer-management/v4.0/customers:
+    post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary: Create new customer
+        tags:
+          - Set Customer Details
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerDetailV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerDetailV4Rq'
+        responses:
+          200:
+            description:
+                  <div>
+                          <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                        </table>
+                          <p>Business Error Codes &#58;</p>
+                          <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+                           <table>
+                                 <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                  </tr>	  
+                                <tr>
+                                    <td>000223</td>
+                                    <td>Bank Code is not valid</td>
+                                </tr> 
+                                <tr>
+                                    <td>000083</td>
+                                    <td>Invalid branch code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000068</td>
+                                    <td>Invalid VIP level</td>
+                                </tr>   
+                                <tr>
+                                    <td>000069</td>
+                                    <td>Invalid language code</td>
+                                </tr>   
+                                <tr>
+                                    <td>000070</td>
+                                    <td>Invalid title code</td>
+                                </tr>  
+                                <tr>
+                                    <td>000079</td>
+                                    <td>Invalid owner code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000080</td>
+                                    <td>Invalid socio prof code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000081</td>
+                                    <td>Invalid activity code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000050</td>
+                                    <td>Invalid customer segement</td>
+                                </tr>   
+                                <tr> 
+                                    <td>000082 <b>[deprecated]</b></td>
+                                    <td>Invalid lodging mode</td>
+                                </tr>
+                                <tr>
+                                    <td>000332</td>
+                                    <td>Invalid client code</td>
+                                </tr>
+                                <tr>
+                                  <td>000037</td>
+                                  <td>Client already exist</td>
+                                </tr>
+                                <tr>
+                                    <td>000218</td>
+                                    <td>Invalid Field Name In Custom Fields</td>
+                                </tr>
+                                <tr>
+                                    <td>000230</td>
+                                    <td>Invalid Phone Type</td>
+                                </tr>
+                                <tr>
+                                  <td>000223</td>
+                                  <td>Invalid bank code</td>    
+                                </tr>
+                                <tr>
+                                  <td>000219</td>
+                                  <td>Invalid nationality code</td>
+                                </tr>
+                                <tr>
+                                  <td>000053</td>
+                                  <td>Invalid document code</td>
+                                </tr>
+                                <tr>
+                                  <td>000130</td>
+                                  <td>Invalid address type</td>
+                                </tr>
+                                <tr>
+                                  <td>000128</td>
+                                  <td>Invalid sending mode</td>
+                                </tr>
+                                <tr>
+                                  <td>000147</td>
+                                  <td>Invalid zip code</td>
+                                </tr>
+                                <tr>
+                                  <td>000141</td>
+                                  <td>Invalid city code</td>
+                                </tr>
+                                <tr>
+                                  <td>000149</td>
+                                  <td>Invalid region code</td>
+                                </tr>
+                                <tr>
+                                  <td>000136</td>
+                                  <td>Invalid country code</td>
+                                </tr>
+                                <tr>
+                                  <td>000210</td>
+                                  <td>document ExpiryDate should be greater than business date</td>
+                                </tr>
+                                <tr>
+                                  <td>000211</td>
+                                  <td>document Issue date should be less than business date</td>
+                                </tr>
+                                <tr>
+                                    <td>003009</td>
+                                    <td>Free city text not allowed</td>
+                                </tr>
+                                <tr>
+                                    <td>003010</td>
+                                    <td>Free region text not allowed</td>
+                                </tr>
+                                <tr>
+                                    <td>000227</td>
+                                    <td>Duplicated address provided</td>
+                                </tr>
+                                <tr>
+                                    <td>000238</td>
+                                    <td>Address startDate greater than endDate</td>
+                                </tr>
+                                <tr>
+                                   <td>000240</td>
+                                   <td>Invalid birthCountry</td>
+                                </tr>
+                         </table>
+                     </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CreateCustomerDetailV4Rs'
+  /customer-management/v4.0/customers/{customerId}:
+    put:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary:  Update the customer informations.
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: integer
+            required: true
+            example : "0358649690"
+            description: Represent the customer identifier.
+        tags:
+          - Set Customer Details
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rq'
+        responses:
+          200:
+            description:
+                  <div>
+                        <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                        </table>
+                         <p>Business Error Codes &#58;</p>
+                          <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+                           <table>                        
+                                <tr>
+                                    <td>000083</td>
+                                    <td>Invalid branch code</td>
+                                </tr>  
+                                <tr>
+                                    <td>000068</td>
+                                    <td>Invalid VIP level</td>
+                                </tr>   
+                                <tr>
+                                    <td>000069</td>
+                                    <td>Invalid language code</td>
+                                </tr>   
+                                <tr>
+                                    <td>000070</td>
+                                    <td>Invalid title code</td>
+                                </tr>  
+                                <tr>
+                                    <td>000079</td>
+                                    <td>Invalid owner code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000080</td>
+                                    <td>Invalid socio prof code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000081</td>
+                                    <td>Invalid activity code</td>
+                                </tr> 
+                                <tr>
+                                    <td>000050</td>
+                                    <td>Invalid customer segement</td>
+                                </tr>    
+                                <tr>
+                                    <td>000085</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>                             
+                                <tr>
+                                    <td>000053</td>
+                                    <td>Invalid document code</td>
+                                </tr>  
+                                <tr>
+                                    <td>000088</td>
+                                    <td>Invalid Field Name In Custom Fields</td>
+                                </tr>
+                                <tr>
+                                    <td>000095</td>
+                                    <td>documentIssueDate should be less than businessDate</td>
+                                </tr>
+                                <tr>
+                                    <td>000240</td>
+                                    <td>Invalid birthCountry</td>
+                                </tr>
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+    patch:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary: Update the customer branch
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: integer
+            required: true
+            example : "0358649690"
+            description: Represent the customer identifier
+        tags:
+          - Set Customer Details
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailPatchV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailPatchV4Rq'
+        responses:
+          200:
+            description:
+                  <div>
+                           <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                        </table>
+                        <p>Business Error Codes &#58;</p>
+                          <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+                           <table>                      
+                                <tr>
+                                    <td>000085</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr>
+                                    <td>000083</td>
+                                    <td>Invalid branch code</td>
+                                </tr>
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+    delete:
+        deprecated: true
+        description:
+                    <p id="deprecated-label">Since version PWC-4.1.0 !</p>
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones. 
+                    </p>
+                    <p>
+                       The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+                    </p>
+                    <p>
+                       As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/setCustomerDetails.png" />
+        summary: Change the status of the customer to cancel
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: integer
+            required: true
+            example : "0358649690"
+            description: Represent the customer identifier
+        tags:
+          - Set Customer Details
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+        responses:
+          200:
+            description:
+                  <div>
+                           <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                        </table>
+                         <p>Business Error Codes &#58;</p>
+                          <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+                           <table>    
+                                <tr>
+                                    <td>000085</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr>
+                                    <td>000125</td>
+                                    <td>Change already present</td>
+                                </tr>
+                                 <tr>
+                                    <td>000109</td>
+                                    <td>Invalid status reason</td>
+                                </tr>                                                                                                                                                                                                                                                                    
+                           </table>
+                  </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+    get:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:   Get information details of an existing contact
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: integer
+            required: true
+            example : "0358649690"
+            description: The customer id
+          - in: query
+            name: requestUID
+            schema:
+              type: string
+            required: true
+            example : "6948DF80-14BD-4E04-8842-7668D9C001F5"
+            description: The request unique id
+          - in: query
+            name: bankCode
+            schema:
+              type: string
+            required: true
+            example : "ISS004"
+            description: bankCode of customer
+          - in: query
+            name: requestDate
+            schema:
+              type: string
+            required: false
+            example : "2020-02-05T00:00:005"
+            description: The request date
+          - in: query
+            name: userID
+            schema:
+              type: string
+            required: false
+            example : "user001"
+            description: The user id
+        tags:
+          - Get Customer Details
+        responses:
+          200:
+            description:
+                   <div>
+                          <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                        </table>
+                         <p>Business Error Codes &#58;</p>
+                          <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+                          <table>                  
+                                <tr>
+                                    <td>000085</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr>
+                                    <td>000223</td>
+                                    <td>Invalid bankCode</td>
+                                </tr>
+                           </table>
+                    </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV4Rs'
+  #Change customer status
+  /customer-management/v4.0/customers/{customerId}/change_status:
+    put:
+      description:
+        <h3>API Overview</h3>
+        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+        <p>
+        The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones.
+        </p>
+        <p>
+        The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+        </p>
+        <p>
+        As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/setCustomerDetails.png" />
+      summary:  Change the status of the customer
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: integer
+          required: true
+          example : "0358649690"
+          description: Represent the customer identifier
+      tags:
+        - Change customer status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCustomerStatusV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangeCustomerStatusV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+            <table>
+            <tr>
+            <td>000099</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000125</td>
+            <td>Change already present</td>
+            </tr>
+            <tr>
+            <td>000110</td>
+            <td>Invalid status code</td>
+            </tr>
+            <tr>
+            <td>000111</td>
+            <td>Transition of status code and status reason is invalid</td>
+            </tr>
+            <tr>
+            <td>000027</td>
+            <td>Error changing client status</td>
+            </tr>
+            <tr>
+            <td>000109</td>
+            <td>Invalid status reason</td>
+            </tr>
+            <tr>
+            <td>000225</td>
+            <td>StatusCode or reasonCode is invalid</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+  /customer-management/v4.0/customers/{customerId}/cancel_status:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+        <p>
+        The setCustomerDetails web service can be used by both agents and customers in order to update details regarding the concerned customer being sent in the request message. it also allows the creation of a new ones.
+        </p>
+        <p>
+        The setCustomerDetails web service includes the the demographic information of the client such as names, professional activity, job details …
+        </p>
+        <p>
+        As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/setCustomerDetails.png" />
+      summary:  Change the status of the customer to cancel
+      parameters:
+            - in: path
+              name: customerId
+              schema:
+                type: integer
+              required: true
+              example : "0358649690"
+              description: Represent the customer identifier
+      tags:
+        - Change customer status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SetCustomerDetailDeleteV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+            <table>
+            <tr>
+            <td>000099</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000125</td>
+            <td>Change already present</td>
+            </tr>
+            <tr>
+            <tr>
+            <td>000109</td>
+            <td>Invalid status reason</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SetCustomerDetailV4Rs'
+  #Update customer primary Address
+  /customer-management/v4.0/customers/primary_address:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the primary address of an existing customer.
+            tags:
+              - Update Customer Primary Address
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV4Rq'
+            responses:
+              200:
+                description:
+                  <div>
+                          <p>Technical Error Codes &#58;</p>
+                          <table>
+                          <tr>
+                          <th>Error code</th>
+                          <th>Error Description</th>
+                          </tr>
+                          <tr>
+                          <td>00000</td>
+                          <td>Success</td>
+                          </tr>
+                          <tr>
+                          <td>99999</td>
+                          <td>System error</td>
+                          </tr>
+                          <tr>
+                          <td>90009</td>
+                          <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                          </tr>
+                          <tr>
+                          <td>00002</td>
+                          <td> Forbidden you don't have permission to access for this api</td>
+                          </tr>
+                          <tr>
+                          <td>00007</td>
+                          <td>Authorization header is empty</td>
+                          </tr>
+                          <tr>
+                          <td>00008</td>
+                          <td>Authorization header is missing</td>
+                          </tr>
+                          <tr>
+                          <td>00009</td>
+                          <td>Malformat Authorization content</td>
+                          </tr>
+                          <tr>
+                          <td>00010</td>
+                          <td>Bearer is required in the token</td>
+                          </tr>
+                          <tr>
+                          <td>00011</td>
+                          <td>Token expired</td>
+                          </tr>
+                          <tr>
+                          <td>00012</td>
+                          <td>Invalid token</td>
+                          </tr>
+                          </table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>                               
+                                <tr>
+                                    <td>000099</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr>
+                                    <td>000047</td>
+                                    <td>Error updating customer address</td>
+                                </tr>   
+                                <tr>
+                                    <td>000131 <b>[deprecated]</b></td>
+                                    <td>Missing address type in the address</td>
+                                </tr>   
+                                <tr>
+                                    <td>000129 <b>[deprecated]</b></td>
+                                    <td>Missing sending mode in the address</td>
+                                </tr>   
+                                <tr>
+                                    <td>000127 <b>[deprecated]</b></td>
+                                    <td>Missing first line in the address</td>
+                                </tr> 
+                                <tr>
+                                    <td>000135 <b>[deprecated]</b></td>
+                                    <td>Missing country code in the address</td>
+                                </tr>  
+                                <tr>
+                                    <td>000130</td>
+                                    <td>Invalid address type</td>
+                                </tr>  
+                                <tr>
+                                    <td>000136</td>
+                                    <td>Invalid country code</td>
+                                </tr> 
+                                 <tr>
+                                    <td>000128</td>
+                                    <td>Invalid sending mode</td>
+                                </tr>
+                                <tr>
+                                    <td>000144</td>
+                                    <td>Invalid city code</td>
+                                </tr>
+                                <tr>
+                                    <td>000145</td>
+                                    <td>Invalid region code</td>
+                                </tr>
+                           </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV4Rs'
+  #Update customer secondary Address
+  /customer-management/v4.0/customers/secondary_addresses:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                        <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateAddress/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The aim of this web service is to update the address of an existing customer or card, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that customer or card will take the new address being shared in the request into consideration.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateAddressWebService.png" />
+            summary:  Update the secondary address of an existing customer.
+            tags:
+              - Update Customer Secondary Address
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateAddressV4Rq'
+            responses:
+              200:
+                description:
+                  <div>
+                          <p>Technical Error Codes &#58;</p>
+                          <table>
+                          <tr>
+                          <th>Error code</th>
+                          <th>Error Description</th>
+                          </tr>
+                          <tr>
+                          <td>00000</td>
+                          <td>Success</td>
+                          </tr>
+                          <tr>
+                          <td>99999</td>
+                          <td>System error</td>
+                          </tr>
+                          <tr>
+                          <td>90009</td>
+                          <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                          </tr>
+                          <tr>
+                          <td>00002</td>
+                          <td> Forbidden you don't have permission to access for this api</td>
+                          </tr>
+                          <tr>
+                          <td>00007</td>
+                          <td>Authorization header is empty</td>
+                          </tr>
+                          <tr>
+                          <td>00008</td>
+                          <td>Authorization header is missing</td>
+                          </tr>
+                          <tr>
+                          <td>00009</td>
+                          <td>Malformat Authorization content</td>
+                          </tr>
+                          <tr>
+                          <td>00010</td>
+                          <td>Bearer is required in the token</td>
+                          </tr>
+                          <tr>
+                          <td>00011</td>
+                          <td>Token expired</td>
+                          </tr>
+                          <tr>
+                          <td>00012</td>
+                          <td>Invalid token</td>
+                          </tr>
+                          </table>
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                 <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                  </tr>	                         
+                                <tr>
+                                    <td>000048</td>
+                                    <td>Error updating Secondary address</td>
+                                </tr>
+                                <tr>
+                                    <td>000132</td>
+                                    <td>No Available secondary addresses</td>
+                                </tr>   
+                                <tr>
+                                    <td>00099</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>                                
+                                <tr>
+                                    <td>000131</td>
+                                    <td>Missing address type in the address</td>
+                                </tr>   
+                                <tr>
+                                    <td>000129</td>
+                                    <td>Missing sending mode in the address</td>
+                                </tr>   
+                                <tr>
+                                    <td>000127</td>
+                                    <td>Missing first line in the address</td>
+                                </tr> 
+                                <tr>
+                                    <td>000135</td>
+                                    <td>Missing country code in the address</td>
+                                </tr>  
+                                <tr>
+                                    <td>000130</td>
+                                    <td>Invalid address type</td>
+                                </tr>  
+                                <tr>
+                                    <td>000136</td>
+                                    <td>Invalid country code</td>
+                                </tr> 
+                                 <tr>
+                                    <td>000127</td>
+                                    <td>Invalid sending mode</td>
+                                </tr>                  
+                           </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAddressV4Rs'
+  # --- UpdateCustomerPhoneNumber
+  /customer-management/v4.0/customers/phones:
+        put:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerPhoneNumber/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                                This web service serves to update the phone number of an existing principal customer. The phone numbers entered by the agent or the customer must be formatted properly and could be entered in international format. More details are given in the request specification section.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerPhoneNumber.png" />
+            summary:    This web service serves to update the phone number of an existing principal customer.
+            tags:
+              - Update Customer Phone Number
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV4Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                <p>Technical Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                <td>00000</td>
+                                <td>Success</td>
+                                </tr>
+                                <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                                </tr>
+                                <tr>
+                                <td>90009</td>
+                                <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                                </tr>
+                                </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>                   
+                                      <tr>
+                                          <td>000099</td>
+                                          <td>Invalid Customer Id</td>
+                                      </tr>
+                                      <tr>
+                                          <td>000026</td>
+                                          <td>Customer id is required</td>
+                                      </tr>   
+                                      <tr>
+                                          <td>000038</td>
+                                          <td>Phone list is required</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>000044</td>
+                                          <td>Phone list contains duplicate phone number</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>000039</td>
+                                          <td>Invalid phone type</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>000040</td>
+                                          <td>Invalid phone number format</td>
+                                      </tr> 
+                                      <tr>
+                                          <td>000041</td>
+                                          <td>No available phone type matching with provided one </td>
+                                      </tr>  
+                                      <tr>
+                                          <td>000042</td>
+                                          <td>Error updating customer phone</td>
+                                      </tr>   
+                                      <tr>
+                                          <td>000043</td>
+                                          <td>Phone list exceed max 4 phone numbers </td>
+                                      </tr>                                                                                                                                                                                                                                                                                                                                    
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerPhoneV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerPhoneV4Rs'
+  /customer-management/v4.0/customers/{customerId}/categories:
+        patch:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerCategory/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              The current web service could be used as a way to change some characteristics of an existing customer in PowerCARD system. It is mainly used by the agent in the bank desiring to apply a change a customer characteristic like its customer category.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerCategory.png" />
+            summary:    Update the category of an existing customer.
+            parameters:
+              - in: path
+                name: customerId
+                schema:
+                  type: integer
+                required: true
+                example : "0358649690"
+                description: Represent the customer identifier
+            tags:
+              - Update Customer Category
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerCategoryV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerCategoryV4Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                <p>Technical Error Codes &#58;</p>
+                                <table>
+                                <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                                </tr>
+                                <tr>
+                                <td>00000</td>
+                                <td>Success</td>
+                                </tr>
+                                <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                                </tr>
+                                <tr>
+                                <td>90009</td>
+                                <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                </tr>
+                                <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                                </tr>
+                                <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                                </tr>
+                                <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                                </tr>
+                                <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                                </tr>
+                                <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                                </tr>
+                                <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                                </tr>
+                                <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                                </tr>
+                                </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>                    
+                                    <tr>
+                                        <td>000099</td>
+                                        <td>Invalid Customer Id</td>
+                                    </tr>  
+                                    <tr>
+                                        <td>000051</td>
+                                        <td>Error updating customer segment</td>
+                                    </tr>
+                                    <tr>
+                                        <td>000049</td>
+                                        <td>Customer segment is required</td>
+                                    </tr>
+                                    <tr>
+                                        <td>000050</td>
+                                        <td>Invalid customer segment</td>
+                                    </tr>                                                                                                                            
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerCategoryV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerCategoryV4Rs'
+  # --- UpdateCustomerEmail
+  /customer-management/v4.0/customers/{customerId}/email:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerEmail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                             The aim of this web service is to set or update the customer email address part of the principal address. The email address supplied by the agent of the customer himself must be a valid address. It must include both the alias (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...). <br>
+                             The request could be rejected if the provided email address fails to comply with what was explained before.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerEmail.png" />
+            summary:    Update the customer email address part of the principal address.
+            parameters:
+              - in: path
+                name: customerId
+                schema:
+                  type: integer
+                required: true
+                example : "0358649690"
+                description: Represent the customer identifier
+            tags:
+              - Update Customer Email
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV4Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                    <p>Technical Error Codes &#58;</p>
+                                    <table>
+                                    <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                    </tr>
+                                    <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                    </tr>
+                                    <tr>
+                                    <td>99999</td>
+                                    <td>System error</td>
+                                    </tr>
+                                    <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00002</td>
+                                    <td> Forbidden you don't have permission to access for this api</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00007</td>
+                                    <td>Authorization header is empty</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00008</td>
+                                    <td>Authorization header is missing</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00009</td>
+                                    <td>Malformat Authorization content</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00010</td>
+                                    <td>Bearer is required in the token</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00011</td>
+                                    <td>Token expired</td>
+                                    </tr>
+                                    <tr>
+                                    <td>00012</td>
+                                    <td>Invalid token</td>
+                                    </tr>
+                                    </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>     		
+                                    <tr>
+                                       <td>000099</td>
+                                       <td>Invalid Customer Id</td>
+                                    </tr>  
+                                    <tr>
+                                       <td>000026</td>
+                                       <td>Client code is required</td>
+                                    </tr>  
+                                    <tr>
+                                       <td>000033</td>
+                                       <td>Email is required</td>
+                                    </tr> 
+                                    <tr>
+                                       <td>000027</td>
+                                       <td>Error changing client status</td>
+                                    </tr> 
+                                    <tr>
+                                       <td>000034</td>
+                                       <td>Invalid Email pattern</td>
+                                    </tr>                                                                                                                                                                                           				
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV4Rs'
+  # --- UpdateCustomerName
+  /customer-management/v4.0/customers/{customerId}/name:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerName/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                              Connect’API offers a selection of web services with regards to customer detail maintenance, the update person name web services is one of those services that can be used by both agents and customers in order to change the person name of an existing customer in the system.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerName.png" />
+            summary:    This web service could be used as a way to change person name of an existing customer.
+            tags:
+              - Update Customer Name
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerNameV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerNameV4Rq'
+            responses:
+              200:
+                description:
+                        <div>
+                                      <p>Technical Error Codes &#58;</p>
+                                      <table>
+                                      <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                      <td>00000</td>
+                                      <td>Success</td>
+                                      </tr>
+                                      <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                      </tr>
+                                      <tr>
+                                      <td>90009</td>
+                                      <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                      </tr>
+                                      <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                      </tr>
+                                      </table>
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>	            		
+                                    <tr>
+                                       <td>000099</td>
+                                       <td>Invalid Customer Id</td>
+                                    </tr>
+                                    <tr>
+                                       <td>000032</td>
+                                       <td>Invalid Title code</td>
+                                    </tr>
+                                    <tr>
+                                       <td>000026</td>
+                                       <td>Client code is required</td>
+                                    </tr>  
+                                    <tr>
+                                       <td>000028</td>
+                                       <td>Title code is required</td>
+                                    </tr> 
+                                    <tr>
+                                       <td>000029</td>
+                                       <td>FirstName is required</td>
+                                    </tr>   
+                                    <tr>
+                                       <td>000030</td>
+                                       <td>Family name is required</td>
+                                    </tr>                                                                           
+                                    <tr>
+                                       <td>000031</td>
+                                       <td>Error updating client name</td>
+                                    </tr>                                                                                                                                                                                                                            			
+                                </table>
+                        </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerNameV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerNameV4Rs'
+  # updateClientEventNotification
+  /customer-management/v4.0/customers/update_event_notification:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          This web service is used activate/deactivate a communication event/channel as well as set communication event channel preferences.
+          The following sections are intended to highlight the process as well as the technical specification of the request and response messages.        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateEventNotification.png" />
+      summary: Update client event notification
+      tags:
+        - Update event notification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEventNotificationV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateEventNotificationV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+            <table>
+            <tr>
+            <td>000099</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000174</td>
+            <td>strategyId is required</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+  /customer-management/v4.0/customers/activate_event_notification:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web service is used activate/deactivate a communication event.
+        The following sections are intended to highlight the process as well as the technical specification of the request and response messages.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateEventNotification.png" />
+      summary: Activate client event notification
+      tags:
+        - Update event notification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateEventNotificationV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateEventNotificationV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+            <table>
+            <tr>
+            <td>000099</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000174</td>
+            <td>strategyId is required</td>
+            </tr>
+            <tr>
+            <td>000241</td>
+            <td>communication setup not found</td>
+            </tr>
+            <tr>
+            <td>000242</td>
+            <td>communication events not found</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+  /customer-management/v4.0/customers/activate_channel_notification:
+    patch:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        This web service is used activate/deactivate a communication channel.
+        The following sections are intended to highlight the process as well as the technical specification of the request and response messages.
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/updateEventNotification.png" />
+      summary: Activate client channel notification
+      tags:
+        - Update event notification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateChannelNotificationV4Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateChannelNotificationV4Rq'
+      responses:
+        200:
+          description:
+            <div>
+            <p>Technical Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>00000</td>
+            <td>Success</td>
+            </tr>
+            <tr>
+            <td>99999</td>
+            <td>System error</td>
+            </tr>
+            <tr>
+            <td>90009</td>
+            <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+            </tr>
+            <tr>
+            <td>00002</td>
+            <td> Forbidden you don't have permission to access for this api</td>
+            </tr>
+            <tr>
+            <td>00007</td>
+            <td>Authorization header is empty</td>
+            </tr>
+            <tr>
+            <td>00008</td>
+            <td>Authorization header is missing</td>
+            </tr>
+            <tr>
+            <td>00009</td>
+            <td>Malformat Authorization content</td>
+            </tr>
+            <tr>
+            <td>00010</td>
+            <td>Bearer is required in the token</td>
+            </tr>
+            <tr>
+            <td>00011</td>
+            <td>Token expired</td>
+            </tr>
+            <tr>
+            <td>00012</td>
+            <td>Invalid token</td>
+            </tr>
+            </table>
+            <p>Business Error Codes &#58;</p>
+            <h6><b>*</b> The full details of the error will be available in the error description field of the responseInfo</h6>
+            <table>
+            <tr>
+            <td>000099</td>
+            <td>Invalid Customer Id</td>
+            </tr>
+            <tr>
+            <td>000174</td>
+            <td>strategyId is required</td>
+            </tr>
+            <tr>
+            <td>000241</td>
+            <td>communication setup not found</td>
+            </tr>
+            <tr>
+            <td>000242</td>
+            <td>communication events not found</td>
+            </tr>
+            <tr>
+            <td>000243</td>
+            <td>communication channels not found</td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateEventNotificationV4Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      # ---- Import TokenAuthentication request and response definition
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq'
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq'
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs'
+    # --- Import SetCustomerDetailV35 request and response definition
+      CreateUserAuthorizationV4Req:
+            $ref: 'request.yaml#/CreateUserAuthorizationV4Req'
+      CreateUserAuthorizationV4Res:
+            $ref: 'response.yaml#/CreateUserAuthorizationV4Res'
+      CreateCustomerDetailV4Rq:
+            $ref: 'request.yaml#/CreateCustomerDetailV4Rq'
+      CreateCustomerDetailV4Rs:
+            $ref: 'response.yaml#/CreateCustomerDetailV4Rs'
+      SetCustomerDetailV4Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV4Rq'
+      SetCustomerDetailV4Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV4Rs'
+      SetCustomerDetailPatchV4Rq:
+            $ref: 'request.yaml#/SetCustomerDetailPatchV4Rq'
+      SetCustomerDetailDeleteV4Rq:
+            $ref: 'request.yaml#/SetCustomerDetailDeleteV4Rq'
+      ChangeCustomerStatusV4Rq:
+        $ref: 'request.yaml#/ChangeCustomerStatusV4Rq'
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'
+    # --- Import SetCustomerDetailV35 request and response definition
+      SecuredInSetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SecuredInSetCustomerDetailV35Rq'
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV4Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV4Rq'
+      GetCustomerDetailV4Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV4Rs'
+
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV4Rq:
+           $ref: 'request.yaml#/UpdateAddressV4Rq'
+      UpdateAddressV4Rs:
+           $ref: 'response.yaml#/UpdateAddressV4Rs'
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs'
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV4Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV4Rq'
+      UpdateCustomerNameV4Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV4Rs'
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV4Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV4Rq'
+      UpdateCustomerEmailV4Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV4Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV4Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV4Rq'
+      UpdateCustomerPhoneV4Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneV4Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV4Rq:
+                      $ref: 'request.yaml#/GetParameterListV4Rq'
+      GetParameterListV4Rs:
+                       $ref: 'response.yaml#/GetParameterListV4Rs'
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq:
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq'
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs'
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs'
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs'
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq'
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs'
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'
+    # --- Import ImportCollaborators request and response
+      ImportCollaboratorsV35Rq:
+               $ref: 'request.yaml#/ImportCollaboratorsV35Rq'
+      ImportCollaboratorsV35Rs:
+               $ref: 'response.yaml#/ImportCollaboratorsV35Rs'
+    # --- Import SearchCollaborators request and response
+      SearchCollaboratorsV35Rq:
+               $ref: 'request.yaml#/SearchCollaboratorsV35Rq'
+      SearchCollaboratorsV35Rs:
+               $ref: 'response.yaml#/SearchCollaboratorsV35Rs'
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV4Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV4Rq'
+      UpdateCustomerCategoryV4Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV4Rs'
+    # --- Import UpdateAlertServiceV35 request and response
+      UpdateAlertServiceV35Rq:
+               $ref: 'request.yaml#/UpdateAlertServiceV35Rq'
+      UpdateAlertServiceV35Rs:
+               $ref: 'response.yaml#/UpdateAlertServiceV35Rs'
+    # --- Import CheckCorporateContactInformationV35Rq request and response
+      CheckCorporateContactInformationV35Rq:
+               $ref: 'request.yaml#/CheckCorporateContactInformationV35Rq'
+      CheckCorporateContactInformationV35Rs:
+               $ref: 'response.yaml#/CheckCorporateContactInformationV35Rs'
+    # --- Import GetCorporateHierarchyV35Rq request and response
+      GetCorporateHierarchyV35Rq:
+               $ref: 'request.yaml#/GetCorporateHierarchyV35Rq'
+      GetCorporateHierarchyV35Rs:
+               $ref: 'response.yaml#/GetCorporateHierarchyV35Rs'
+    # --- Import getCorporateSelectedProductsV35Rq request and response
+      GetCorporateSelectedProductsV35Rq:
+               $ref: 'request.yaml#/getCorporateSelectedProductsV35Rq'
+      GetCorporateSelectedProductsV35Rs:
+               $ref: 'response.yaml#/GetCorporateSelectedProductsV35Rs'
+
+    # --- Import UpdateEventNotificationV35Rq request and response
+      UpdateEventNotificationV35Rq:
+               $ref: 'request.yaml#/UpdateEventNotificationV35Rq'
+      UpdateEventNotificationV35Rs:
+               $ref: 'response.yaml#/GetEventNotificationV35Rs'
+      # --- Import UpdateEventNotificationV4Rq request and response
+      UpdateEventNotificationV4Rq:
+               $ref: 'request.yaml#/UpdateEventNotificationV4Rq'
+      UpdateEventNotificationV4Rs:
+               $ref: 'response.yaml#/UpdateEventNotificationV4Rs'
+      ActivateEventNotificationV4Rq:
+        $ref: 'request.yaml#/ActivateEventNotificationV4Rq'
+      ActivateChannelNotificationV4Rq:
+        $ref: 'request.yaml#/ActivateChannelNotificationV4Rq'
+
+security:
+  - bearerAuth: []

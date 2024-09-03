@@ -1,0 +1,163 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- LostStolenDeclaration
+  /LostStolenDeclaration/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                              <p>
+                                This web services is used to initiate and update a lost stolen case. The lost and stolen cases can be initiated in two states. Confirmed or Waiting for confirmation. Unconfirmed cases can be subsequently confirmed or canceled. Based on the lost and stolen case reason authorizations can be rejected and transaction posting can be suspended for the concerned PAN. 
+                              </p>
+                              <p>
+                                Note that updating the declaration is only authorized if the declaration is awaiting confirmation.
+                              </p>
+                              <p>
+                                In case of replacement the new PAN and expiry date will be returned on the response.
+                              </p>
+                              <p>
+                                As output the web service returns the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                              </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/LostStolenDeclaration.png" />
+            summary:   This web services is used to initiate and update a lost stolen case...
+            tags:
+              -  Lost Stolen Declaration
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/LostStolenDeclarationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/LostStolenDeclarationV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>22001</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>22102</td>
+                                  <td>Card Expired</td>
+                                </tr>
+                                <tr> 
+                                  <td>22103</td>
+                                  <td>Invalid Declaration Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>22104</td>
+                                  <td>Declaration update not allowed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>22105</td>
+                                  <td>Invalid Range Date</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22106</td>
+                                  <td>Invalid City Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22107</td>
+                                  <td>Invalid Country Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22108</td>
+                                  <td>Invalid Police declaration Indicator</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22109</td>
+                                  <td>Invalid Replace Pan Flag</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22110</td>
+                                  <td>Invalid Action Type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22111</td>
+                                  <td>Invalid Declaration Status</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22112</td>
+                                  <td>When Action Is U, a lost and stolen Case With Status W Must Be Existing For The Pan</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22113</td>
+                                  <td>Card Account Link Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22114</td>
+                                  <td>Multi Cards Account Link Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22115</td>
+                                  <td>Invalid Card Status Reason</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22116</td>
+                                  <td>Police Declaration Date Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22117</td>
+                                  <td>Location Police Declaration Not Founded</td>
+                                </tr>		
+                                <tr> 
+                                  <td>22118</td>
+                                  <td>Invalid Bank Code Customer</td>
+                                </tr>											
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/LostStolenDeclarationV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/LostStolenDeclarationV35Rs'      
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+      LostStolenDeclarationV35Rq:
+                     $ref: 'request.yaml#/LostStolenDeclarationV35Rq'
+      LostStolenDeclarationV35Rs:
+                     $ref: 'response.yaml#/LostStolenDeclarationV35Rs'         
+security:
+  - bearerAuth: []

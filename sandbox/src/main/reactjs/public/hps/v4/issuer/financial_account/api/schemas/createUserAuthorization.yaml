@@ -1,0 +1,153 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+
+  /compliance/v4.0/users/{userCode}/authorizations:
+    post:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/SetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                         The CreateUserAuthorization web service used to grant access and authorization for different web service to a user. 
+                    </p>
+        summary: Create User Authorization
+        parameters:
+          - in: path
+            name: userCode
+            schema:
+              type: string
+            required: true
+            example : "ISS004"
+            description: Represent the user code.
+        tags:
+          - Create User Authorization
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserAuthorizationV4Req'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateUserAuthorizationV4Req'
+        responses:
+          200:
+            description:
+              <div>
+                <p>Technical Error Codes &#58;</p>
+                <table>
+                  <tr>
+                    <th>Error code</th>
+                    <th>Error Description</th>
+                  </tr>
+                  <tr>
+                    <td>00000</td>
+                    <td>Success</td>
+                  </tr>
+                  <tr>
+                    <td>99999</td>
+                    <td>System error</td>
+                  </tr>
+                  <tr>
+                    <td>90009</td>
+                    <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                  </tr>
+                  <tr>
+                    <td>00002</td>
+                    <td> Forbidden you don't have permission to access for this api</td>
+                  </tr>
+                  <tr>
+                    <td>00007</td>
+                    <td>Authorization header is empty</td>
+                  </tr>
+                  <tr>
+                    <td>00008</td>
+                    <td>Authorization header is missing</td>
+                  </tr>
+                  <tr>
+                    <td>00009</td>
+                    <td>Malformat Authorization content</td>
+                  </tr>
+                  <tr>
+                    <td>00010</td>
+                    <td>Bearer is required in the token</td>
+                  </tr>
+                  <tr>
+                    <td>00011</td>
+                    <td>Token expired</td>
+                  </tr>
+                  <tr>
+                    <td>00012</td>
+                    <td>Invalid token</td>
+                  </tr>
+                  <tr>
+                    <td>00014</td>
+                    <td>Invalid business date</td>
+                  </tr>
+                </table>
+                <p>Business Error Codes &#58;</p>
+                <table>
+                  <tr>
+                    <th>Error code</th>
+                    <th>Error Description</th>
+                  <tr>
+                    <td>90007</td>
+                    <td>Invalid User Code</td>
+                  </tr>
+                  <tr>
+                    <td>00004</td>
+                    <td>Invalid profileId</td>
+                  </tr>
+                  <tr>
+                    <td>90008</td>
+                    <td>Scope should not be duplicated</td>
+                  </tr>
+                  <tr>
+                    <td>00003</td>
+                    <td>User blocked</td>
+                  </tr>
+                </table>
+              </div>
+
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateUserAuthorizationV4Res'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/CreateUserAuthorizationV4Res'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      CreateUserAuthorizationV4Req:
+            $ref: 'request.yaml#/CreateUserAuthorizationV4Req'
+      CreateUserAuthorizationV4Res:
+            $ref: 'response.yaml#/CreateUserAuthorizationV4Res'
+security:
+  - bearerAuth: []

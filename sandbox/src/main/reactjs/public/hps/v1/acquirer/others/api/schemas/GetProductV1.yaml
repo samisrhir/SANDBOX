@@ -1,0 +1,84 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- getProduct
+  /GetProduct/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a rich product database structure to its customers. This structure includes a variety of components that allow users to map their existing business easily and within a limited time in PowerCARD. For example, PowerCARD allows storing and maintaining the product in the database.</p>
+                    <p>The current web service is intended to send a result that shares the list of products that belong to a pre-defined bank and compatible with a pre-defined merchant. At least one input parameter should be sent in the request message, otherwise the request will be rejected.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getProduct.png" />
+                  
+      summary: PowerCARD offers a rich product database structure to its customers.
+      tags:
+        - Get Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetProductRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetProductRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08001</td>
+                                  <td>Invalid Product Type</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductRs'                                                                                      
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetProduct request and response 
+      GetProductRq:
+               $ref: 'request.yaml#/GetProductRq' 
+      GetProductRs:
+               $ref: 'response.yaml#/GetProductRs'                                                                                      
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,94 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+ #addSupplementaryCard  
+  /AddSupplementaryCard/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          This web service is intended to be used by both agents and customers to set up an additional cardholder like a family member on an existing card. 
+                          </p>
+                          <p>
+                          Any new supplementary card created in the system is issued under the same account as the primary cardholder. They will together share the same account balance.
+                          </p>
+                          <p>
+                           Supplementary cardholders have no legal liability to pay the charges that they incur when they use their cards. However, the primary account holder is responsible for paying all the charges posted to his account.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/addSupplementaryCard.png" />
+            summary: Any new supplementary card created in the system is issued under the same account...
+            tags:
+              - Add Supplementary Card
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AddSupplementaryCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/AddSupplementaryCardV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>19101</td>	
+                                        <td>Invalid Card Number / Card Token ID</td>
+                                      </tr>
+                                      <tr>
+                                        <td>19102</td>	
+                                        <td>Operation Not Permitted</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/AddSupplementaryCardV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/AddSupplementaryCardV35Rs'          
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      AddSupplementaryCardV35Rq:
+                     $ref: 'request.yaml#/AddSupplementaryCardV35Rq'
+      AddSupplementaryCardV35Rs:
+                     $ref: 'response.yaml#/AddsupplementaryCardV35Rs'         
+security:
+  - bearerAuth: []

@@ -1,0 +1,121 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:                         
+#ChangeCardProduct
+  /ChangeCardProduct/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>PowerCARD offers a service to downgrade or upgrade a card. This operation is done by changing the card product of the card. Moving a card from product to a new one can be performed by providing a set of data including the card number, the product code as well as some other additional fields like fee amount…
+                    </p>
+                    <p>A product change lets you maintain your existing account, while enjoying the benefits and terms of a different plastic that could have different limits, services… the new card will be produced then shipped to the address specified by the customer.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/changeCardProduct.png" />
+        summary: PowerCARD offers a service to downgrade or upgrade a card.
+        tags:
+          - Change Card Product.
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeCardProductV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ChangeCardProductV35Rq'
+        responses:  
+          200:
+            description:
+                    <div>
+                            <h6>Successful</h6>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>17101</td>
+                                <td>Invalid card number</td>
+                              </tr>
+                              <tr> 
+                                <td>17102</td>
+                                <td>Invalid Expiry date</td>
+                              </tr>
+                              <tr> 
+                                <td>17105</td>
+                                <td>Invalid Fee amount/Currency</td>
+                              </tr>
+                              <tr> 
+                                <td>17106</td>
+                                <td>Invalid Fee option</td>
+                              </tr>
+                              <tr> 
+                                <td>17107</td>
+                                <td>Operation is not permitted for the target product</td>
+                              </tr>
+                              <tr> 
+                                <td>17108</td>
+                                <td>An error occurred while inserting a product change request</td>
+                              </tr>
+                              <tr> 
+                                <td>17119</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>
+                               <tr> 
+                                <td>17120</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>
+                             <tr> 
+                                <td>17121</td>
+                                <td>Invalid Catalogue Account Product</td>
+                              </tr>
+                              <tr> 
+                                <td>17122</td>
+                                <td>Invalid Catalogue Account Product Version</td>
+                              </tr>							
+                            </table>
+                    </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ChangeCardProductV35Rs'
+              application/xml:
+                      schema:
+                          $ref: '#/components/schemas/ChangeCardProductV35Rs'            
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import ChangeCardProduct request and response
+      ChangeCardProductV35Rq:
+               $ref: 'request.yaml#/ChangeCardProductV35Rq'
+      ChangeCardProductV35Rs:
+                $ref: 'response.yaml#/ChangeCardProductV35Rs'
+security:
+  - bearerAuth: []

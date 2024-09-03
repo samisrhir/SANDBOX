@@ -1,0 +1,82 @@
+      # ---- TokenAuthentication definition            
+      TokenAuthentication:
+          type: object
+          properties: 
+            providerLogin: 
+                type: string
+                example: 'firstUser'
+            providerPassword: 
+                type: string
+                example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+            userLanguage:
+                type: string
+                example: 'en_US'
+            requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+      #SearchAtmRq:
+      SearchAtmRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                          
+                countryCode:
+                    type: string
+                    description:
+                         <p>
+                            Country Code
+                            The code of the Country where the ATM is located.
+                            Valid values must be retrieved from PowerCARD <b>COUNTRY</b> table using the Web Service getReferentialList
+                         </p>
+                stateCode:
+                    type: string
+                    description:
+                        <p>
+                            State Code
+                            The code of the state where the ATM is located
+                            Valid values must be retrieved from PowerCARD <b>REGION</b> table using the Web Service getReferentialList
+                        </p>  
+                cityCode:
+                    type: string
+                    description: 
+                         <p>
+                            City Code
+                            The code of the city where the ATM is located
+                            Valid values must be retrieved from PowerCARD <b>CITY</b> table using the Web Service getReferentialList
+                         </p> 
+                latitude:
+                    type: string
+                    description: <p>Reserved for future use</p>
+                longitude:
+                    type: string
+                    description: <p>Reserved for future use</p>                                                                                     
+                atmAcronym:
+                    type: string
+                    description: <p>This is the acronym of the ATM</p>    
+                atmGrouping:
+                    type: string
+                    description: 
+                       <p>
+                            The ATM grouping code. Used to group ATMs in different groups.
+                            Valid values must be retrieved from PowerCARD <b>TERMINAL_ATM_GROUP</b> table using the Web Service getReferentialList
+                       </p>                         

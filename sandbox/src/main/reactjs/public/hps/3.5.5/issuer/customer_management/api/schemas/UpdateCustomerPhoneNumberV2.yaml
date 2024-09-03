@@ -1,0 +1,94 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- UpdateCustomerPhoneNumber
+  /UpdateCustomerPhoneNumber/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerPhoneNumber/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                                This web service serves to update the phone number of an existing principal customer. The phone numbers entered by the agent or the customer must be formatted properly and could be entered in international format. More details are given in the request specification section.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerPhoneNumber.png" />
+            summary: Update the phone number of an existing principal customer.
+            tags:
+              - Update Customer Phone Number.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerPhoneNumberV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>00801</td>
+                                        <td>Invalid Customer Id</td>
+                                      </tr>	
+                                      <tr> 
+                                        <td>00802</td>
+                                        <td>Invalid Phone Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>00803</td>
+                                        <td>Invalid Phone type</td>
+                                      </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'                                               
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SetCustomerDetailV35 request and response definition
+      UpdateCustomerPhoneNumberV35Rq:
+            $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerEmailV35Rs:
+            $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'    
+security:
+  - bearerAuth: []

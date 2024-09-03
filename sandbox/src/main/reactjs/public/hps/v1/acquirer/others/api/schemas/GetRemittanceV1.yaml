@@ -1,0 +1,87 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- getRemittance
+  /GetRemittance/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The following web service was introduced in PowerCARD to offer to its users through the web service interface the possibility to retrieve details regarding a given remittance. Each remittance is identified in the system by an internal identification and should contain a list of transactions</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getRemittance.png" />
+                  
+      summary: The following web service was introduced to retrieve details ...
+      tags:
+        - Get Remittance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRemittanceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetRemittanceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07101</td>
+                                  <td>Linkup Code, Batch Number & Remitance Id are all required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07102</td>
+                                  <td>Invalid remittance Identification</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRemittanceRs'                                                                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetRemittance request and response 
+      GetRemittanceRq:
+               $ref: 'request.yaml#/GetRemittanceRq'
+      GetRemittanceRs:
+               $ref: 'response.yaml#/GetRemittanceRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,316 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  # --- CreateDebitCardV4
+  /payment-instrument/v4.1-beta/cards/create_debit_card:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   Allows the cardholder to create a client and/or its debit card.
+            tags:
+              - Create Debit Card
+            requestBody:
+              required: true
+              description:
+                    <img id="select-case-img" src="./docs/exclamation.png" />
+                    <label id="select-case">When we use this Api with the aggregate <b>Existing Client</b> (clientCode and bankCode not empty) , all the other customer details aggregates are ignored. </label>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV4Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                      <p>Technical Error Codes &#58;</p>
+                        <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                              <td>00000</td>
+                              <td>Success</td>
+                            </tr>
+                            <tr>
+                                <td>99999</td>
+                                <td>System error</td>
+                            </tr>
+                            <tr>
+                              <td>90009</td>
+                              <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>                  
+                            <tr>
+                                <td>00002</td>
+                                <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                                <td>00007</td>
+                                <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                                <td>00008</td>
+                                <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                                <td>00009</td>
+                                <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                                <td>00010</td>
+                                <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                                <td>00011</td>
+                                <td>Token expired</td>
+                            </tr>
+                            <tr>
+                                <td>00012</td>
+                                <td>Invalid token</td>
+                            </tr>
+                            <tr>
+                            <td>00014</td>
+                            <td>Invalid business date</td>
+                            </tr>
+                   <table>
+                      <p>Business Error Codes &#58;</p>
+                      <table>
+                        <tr>
+                          <th>Error code</th>
+                          <th>Error Description <b>*</b></th>
+                        </tr>                               
+                          <tr>
+                            <td>000332</td>
+                            <td>Client code is not valid</td>
+                          </tr>
+                          <tr>
+                          <td>000037</td>
+                          <td>Client code already exist</td>
+                          </tr>
+                          <tr>
+                            <td>000220</td>
+                            <td>BranchCode is not valid</td>
+                          </tr>
+                          <tr>
+                              <td>000068</td>
+                              <td>VipLevel is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000219</td>
+                              <td>NationalityCode is not valid</td>
+                          </tr>     
+                          <tr>
+                              <td>000211</td>
+                              <td>Language is not valid</td>
+                          </tr>  
+                          <tr>
+                              <td>000212</td>
+                              <td>Title code is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000079</td>
+                              <td>OwnerCode is not valid</td>
+                          </tr>  
+                          <tr>
+                              <td>000080</td>
+                              <td>SocioProfessionalCode is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000081</td>
+                              <td>Activity code is not valid</td>
+                          </tr>   
+                          <tr>
+                              <td>000050</td>
+                              <td>CustomerSegment is not valid</td>
+                          </tr>
+                            <tr>
+                                <td>000082</td>
+                                <td>LodgingMode is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>000139</td>
+                              <td>PhoneType is not valid </td>
+                          </tr>
+                            <tr>
+                              <td>000130</td>
+                              <td>Address type is not valid</td>
+                            </tr>
+                              <tr>
+                              <td>000128</td>
+                              <td>Sending mode is not valid</td>
+                              </tr>
+                            <tr>
+                              <td>03017</td>
+                              <td>ZipCode is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>03011</td>
+                              <td>CityCode is not valid</td>
+                            </tr>
+                          <tr>
+                          <td>03019</td>
+                          <td>Region is not valid</td>
+                          </tr>
+                          <tr>
+                          <td>000136</td>
+                          <td>Invalid country code</td>
+                          </tr>
+                         <tr>
+                              <td>000053</td>
+                              <td>DocumentCode is not valid</td>
+                          </tr>   
+                          <tr>
+                              <td>000054 <b>[deprecated]</b> </td>
+                              <td>DocumentId is not valid</td>
+                          </tr>                                                                                                                                                                                                                                                                       
+                          <tr>
+                              <td>000218</td>
+                              <td>FieldName is not valid</td>
+                          </tr>    
+                          <tr>
+                              <td>000179</td>
+                              <td>CatPIProduct or catPIProductVersion is not valid</td>
+                          </tr>
+                            <tr>
+                                <td>000164</td>
+                                <td>Account type is not valid</td>
+                            </tr>
+                            <tr>
+                                <td>000165</td>
+                                <td>Invalid Account Type Category</td>
+                            </tr>
+                            <tr>
+                              <td>000156</td>
+                              <td>Currency code is not valid</td>
+                            </tr>
+                            <tr>
+                                <td>000185</td>
+                                <td>DefaultAccount is not valid</td>
+                            </tr>
+                            <tr>
+                              <td>000175</td>
+                              <td>Invalid Strategy id in Communication event</td>
+                            </tr>
+                              <tr>
+                                <td>001177</td>
+                                <td>EventCode is not valid</td>
+                              </tr>
+                              <tr>
+                                <td>001178 <b>[deprecated]</b> </td>
+                                <td>Event activation status is not valid</td>
+                              </tr>
+                              <tr>
+                                  <td>001179</td>
+                                  <td>ChannelActivationStatus is not valid</td>
+                              </tr>
+                              <tr>
+                                <td>000210</td>
+                                <td>Channel type is not valid</td>
+                              </tr> 
+                              <tr>
+                                <td>001211</td>
+                                <td>Document Issue date should be less than business date</td>
+                              </tr>
+                              <tr>
+                                <td>001210</td>
+                                <td>Document ExpiryDate should be greater than business date  </td>
+                              </tr>
+                              <tr>
+                                <td>003009</td>
+                                <td>Free city text not allowed</td>
+                              </tr>
+                              <tr>
+                                  <td>003010</td>
+                                  <td>Free region text not allowed</td>
+                              </tr>
+                              <tr>
+                                  <td>000327</td>
+                                  <td>Duplicated address provided</td>
+                              </tr>
+                              <tr>
+                                  <td>000238</td>
+                                  <td>Address startDate greater than endDate</td>
+                              </tr>
+                              <tr>
+                                  <td>000222</td>
+                                  <td>Operation not permitted, cancelled client</td>
+                              </tr>
+                              <tr>
+                                  <td>000240</td>
+                                  <td>invalid birthCountry</td>
+                              </tr>
+                              <tr>
+                              <td>000247</td>
+                              <td>Invalid priorityCode</td>
+                              </tr>
+                              <tr>
+                              <td>000168</td>
+                              <td>Invalid catalogue product [catPIProduct]</td>
+                              </tr>
+                              <tr>
+                              <td>002109</td>
+                              <td>Invalid statusReason</td>
+                              </tr>
+                              <tr>
+                              <td>000404</td>
+                              <td>No more card number available in the card range</td>
+                              </tr>
+                  </table>
+                  </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV4Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV4Rs'   
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas: 
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateDebitCardV4Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV4Rq'
+      CreateDebitCardV4Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV4Rs'
+security:
+  - bearerAuth: []

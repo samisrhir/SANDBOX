@@ -1,0 +1,96 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /GetProductDetails/V3
+  /GetProductDetails/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        PowerCARD offers the acquirer institutions to define an offer catalogue to the market, the catalogue consists in a set of different products from where the merchant contract is derived.
+        Tree types of product can be defined in PowerCARD:<br>
+        •	Acceptance Product <br>
+        •	Equipment product<br>
+        •	Servicing product<br>
+        The aim purpose of this Web Service is to provide acquirer bank a tool to retrieve the details of product defined in PowerCARD.
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/GetProductDetails.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Get Product Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetProductDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetProductDetailsRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error Code</th>
+            <th>Description</th>
+            </tr>
+            <tr><td>40100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>40136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td></tr>
+            <tr><td>40200</td><td>Merchant not found</td></tr>
+            <tr><td>40790</td><td>Invalid Product Code</td></tr>
+            <tr><td>40791</td><td>An error has occured while getting product details</td></tr>
+            <tr><td>40792</td><td>BankCode in request not matching the bankCode of product</td></tr>
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductDetailsV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetProductDetailsV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import GetProductDetailsRq request and response
+    GetProductDetailsRq:
+      $ref: 'request.yaml#/GetProductDetailsRq'
+    GetProductDetailsV35Rs:
+      $ref: 'response.yaml#/GetProductDetailsV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,169 @@
+openapi: "3.0.3"
+info:
+  title: Customer Management API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management. </p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  /customer-management/v4.0/customers/{customerId}:
+    get:
+        description:
+                    <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/GetCustomerDetail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a> 
+                    <p>
+                        Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                        The service could be used to get more details regarding a card member based on the card number.
+                    </p>
+                    <p>
+                       Get or find contact information is a web service that might be used by both customers and agents with the aim of getting more information details regarding an existing contact in the system.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetCustomerDetail.png" />
+        summary:   Get information details of an existing contact
+        parameters:
+          - in: path
+            name: customerId
+            schema:
+              type: integer
+            required: true
+            example : "0358649690"
+            description: The customer id
+          - in: query
+            name: requestUID
+            schema:
+              type: string
+            required: true
+            example : "6948DF80-14BD-4E04-8842-7668D9C001F5"
+            description: The request unique id
+          - in: query
+            name: bankCode
+            schema:
+              type: string
+            required: true
+            example : "ISS004"
+            description: bankCode of customer
+          - in: query
+            name: requestDate
+            schema:
+              type: string
+            required: false
+            example : "2020-02-05T00:00:005"
+            description: The request date
+          - in: query
+            name: userID
+            schema:
+              type: string
+            required: false
+            example : "user001"
+            description: The user id
+        tags:
+          - Get Customer Details
+        responses:
+          200:
+            description:
+                   <div>
+                          <p>Technical Error Codes &#58;</p>
+                        <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                  <tr>
+                                    <td>00000</td>
+                                    <td>Success</td>
+                                  </tr>
+                                  <tr>
+                                      <td>99999</td>
+                                      <td>System error</td>
+                                  </tr>
+                                  <tr>
+                                    <td>90009</td>
+                                    <td>Generic error for request validation (check size,format,mandatory etc..)</td>
+                                  </tr>                  
+                                  <tr>
+                                      <td>00002</td>
+                                      <td> Forbidden you don't have permission to access for this api</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00007</td>
+                                      <td>Authorization header is empty</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00008</td>
+                                      <td>Authorization header is missing</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00009</td>
+                                      <td>Malformat Authorization content</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00010</td>
+                                      <td>Bearer is required in the token</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00011</td>
+                                      <td>Token expired</td>
+                                  </tr>
+                                  <tr>
+                                      <td>00012</td>
+                                      <td>Invalid token</td>
+                                  </tr>
+                                  <tr>
+                                  <td>00014</td>
+                                  <td>Invalid business date</td>
+                                  </tr>
+                        </table>
+                         <p>Business Error Codes &#58;</p>
+                          <table>
+                                  <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                  </tr>
+                                <tr>
+                                    <td>000085</td>
+                                    <td>Invalid Customer Id</td>
+                                </tr>
+                                <tr>
+                                    <td>000223</td>
+                                    <td>Invalid bankCode</td>
+                                </tr>
+                           </table>
+                    </div>
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/GetCustomerDetailV4Rs'
+              application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetCustomerDetailV4Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+      GetCustomerDetailV4Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV4Rq'
+      GetCustomerDetailV4Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV4Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,305 @@
+      # ---- TokenAuthentication definition            
+      TokenAuthentication:
+          type: object
+          properties: 
+            providerLogin: 
+                type: string
+                example: 'firstUser'
+            providerPassword: 
+                type: string
+                example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+            userLanguage:
+                type: string
+                example: 'en_US'
+            requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+      #ReplaceDeviceRq:
+      ReplaceDeviceRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                  
+                posCode:
+                  type: string
+                  description: <p>Must contain the terminal identification number as stored in PowerCARD</p>
+                NewPosBrand:
+                  type: string
+                  description: 
+                      <p>
+                        Refers to the device brand
+                        Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                      </p> 
+                newSerialNumber:
+                  type: string
+                  description: <p>Refers to the device Serial number</p> 
+                returnReasonCode:
+                  type: string
+                  description: 
+                        <p>
+                            Refers to the device brand
+                            Valid values must be retrieved from PowerCARD <b>POS_REASON_BACK</b> table using the Web Service getReferentialList
+                        </p>    
+
+      #GetDeviceRq:
+      GetDeviceRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                  
+                PosBrandCode:
+                    type: string
+                    description: 
+                        <p>
+                            Refers to the device brand
+                            Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                        </p>
+                SerialNumber:
+                    type: string
+                    description:
+                        <p>
+                        Refers to the device Serial number
+                        </p>                  
+      #AllocateDeviceRq:
+      AllocateDeviceRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'  
+                terminalPosNumber:
+                    type: string
+                    description:
+                            <p>
+                               Must contain the terminal identification number as stored in PowerCARD
+                            </p>  
+                serialNumber:
+                    type: string
+                    description:
+                            <p>
+                            Refers to the device Serial number
+                            </p>  
+                posBrandCode:
+                    type: string
+                    description:
+                            <p>
+                             Refers to the device brand
+                             Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                            </p> 
+                pinPadSerialNumber:
+                    type: string
+                    description:
+                            <p>
+                             Refers to the PIN Pad Serial number
+                            </p>                                                                                                         
+
+      #CreateDeviceRq:
+      CreateDeviceRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo' 
+                device:
+                    type: object
+                    $ref: 'aggregate.yaml#/Device'
+                operationType:
+                    type: string
+                    description: 
+                        <p>
+                            The operation type, possible values are <br>
+                            <b>ADD</b> used to create a new device. <br>
+                            <b>UPD</b> Used to update an existing device
+                        </p>
+
+      #ReturnDeviceRq:
+      ReturnDeviceRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo' 
+                posCode:
+                    type: string
+                    description: 
+                       <p>
+                          Must contain the terminal identification number as stored in PowerCARD.
+                       </p>   
+                returnReasonCode:
+                    type: string
+                    description: 
+                       <p>
+                          Refers to the device brand
+                          Valid values must be retrieved from PowerCARD <b>POS_REASON_BACK</b> table using the Web Service getReferentialList
+                       </p>   
+                posBankCode:
+                    type: string
+                    description: 
+                       <p>
+                         Code identifying the pos bank.
+                         It is a 6-digit code must be stored in the PowerCARD <b>BANK</b> table under the general parameter section.
+                         Use the Web Service getReferentialList to retrieve the possible values.
+                       </p>                                                                
+
+      #CreateTerminalRq:
+      CreateTerminalRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo' 
+                operationType:
+                   type: string
+                   description: 
+                       <p>
+                           The operation type, possible values are <br>
+                            <b>ADD</b> used to create a new POS terminal.  <br>
+                            <b>UPD</b> Used to update an existing POS terminal
+                       </p>
+                terminalPos:
+                    type: object
+                    $ref: 'aggregate.yaml#/Terminal'   
+
+      #SearchTerminalRq:
+      SearchTerminalRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo' 
+                    

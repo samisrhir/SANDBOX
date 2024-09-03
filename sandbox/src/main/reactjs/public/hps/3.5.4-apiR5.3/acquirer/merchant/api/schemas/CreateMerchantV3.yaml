@@ -1,0 +1,183 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /CreateMerchant/V3
+  /CreateMerchant/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Using this API, you can create merchant in the system. In the request message, you need to provide different details that are required to create then manage a merchant in PowerCARD. For instance, users are requested to send merchant demographic data, list of merchant accounts, list of sites where the merchant might operate, list of merchant activities and then the details of the owner and any contact details that can used to contact the merchant for different purposes...
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/CreateMerchant.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - CreateMerchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateMerchantRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr><td>1</td><td>40100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>2</td><td>40101</td><td>Invalid Merchant Branch Code</td></tr>
+            <tr><td>3</td><td>40102</td><td>Invalid Merchant LegalId</td></tr>
+            <tr><td>4</td><td>40103</td><td>Invalid Merchant LegalId Type</td></tr>
+            <tr><td>5</td><td>40105</td><td>Invalid Merchant Opening Date</td></tr>
+            <tr><td>6</td><td>40106</td><td>Invalid Merchant Closing Date</td></tr>
+            <tr><td>7</td><td>40107</td><td>Invalid Merchant Country Code</td></tr>
+            <tr><td>8</td><td>40108</td><td>Invalid Merchant Region Code</td></tr>
+            <tr><td>9</td><td>40109</td><td>Merchant Contract Reference Already used</td></tr>
+            <tr><td>10</td><td>40110</td><td>Merchant External ID 1 Already used</td></tr>
+            <tr><td>11</td><td>40115</td><td>Invalid Merchant Chain Code</td></tr>
+            <tr><td>12</td><td>40116</td><td>Invalid Merchant Pay Facilitator</td></tr>
+            <tr><td>13</td><td>40117</td><td>Invalid Merchant Legal form</td></tr>
+            <tr><td>14</td><td>40118</td><td>Invalid Merchant Language Code</td></tr>
+            <tr><td>15</td><td>40119</td><td>Invalid Merchant Verification Value</td></tr>
+            <tr><td>16</td><td>40120</td><td>Invalid Merchant Risk Indicator</td></tr>
+            <tr><td>17</td><td>40121</td><td>Invalid Merchant Trans Indicator</td></tr>
+            <tr><td>18</td><td>40122</td><td>Invalid MerchantOnId Identifier</td></tr>
+            <tr><td>19</td><td>40123</td><td>Invalid MerchantOnId Value</td></tr>
+            <tr><td>20</td><td>40125</td><td>Merchant Id already used</td></tr>
+            <tr><td>21</td><td>40126</td><td>Wrong legal id format</td></tr>
+            <tr><td>22</td><td>40127</td><td>Merchant Contract number already exists</td></tr>
+            <tr><td>23</td><td>40128</td><td>Merchant External ID 1 already exists</td></tr>
+            <tr><td>24</td><td>40129</td><td>Network on id Identifier defined more than once</td></tr>
+            <tr><td>25</td><td>40130</td><td>Error while generating merchant ID</td></tr>
+            <tr><td>26</td><td>40131</td><td>An error has occured during merchant validation</td></tr>
+            <tr><td>27</td><td>40132</td><td>Invalid Value DisableAutomaticValidation</td></tr>
+            <tr><td>28</td><td>40133</td><td>Error while generating merchant contract number</td></tr>
+            <tr><td>29</td><td>40134</td><td>Merchant owner is mandatory you should at least define one contact with Function (01=Owner)</td></tr>
+            <tr><td>30</td><td>40135</td><td>Merchant contact is mandatory you should at least define one contact with Function (different than 01=Owner)</td></tr>
+            <tr><td>31</td><td>40137</td><td>Error while inserting merchant informations</td></tr>
+            <tr><td>32</td><td>40300</td><td>Invalid Address default flag</td></tr>
+            <tr><td>33</td><td>40301</td><td>Invalid Address Type</td></tr>
+            <tr><td>34</td><td>40302</td><td>Invalid Address Default Usage</td></tr>
+            <tr><td>35</td><td>40303</td><td>Invalid Address Sending Mode</td></tr>
+            <tr><td>36</td><td>40305</td><td>Invalid Address Status Start Date</td></tr>
+            <tr><td>37</td><td>40306</td><td>Invalid Address Status End Date</td></tr>
+            <tr><td>38</td><td>40307</td><td>Invalid Address Country Code</td></tr>
+            <tr><td>39</td><td>40308</td><td>Invalid Address Zip Code</td></tr>
+            <tr><td>40</td><td>40309</td><td>Invalid Address Region Code</td></tr>
+            <tr><td>41</td><td>40310</td><td>Invalid Address City Code</td></tr>
+            <tr><td>42</td><td>40311</td><td>Invalid Address Phone Type</td></tr>
+            <tr><td>43</td><td>40312</td><td>Address Fax is required when sending mode is "Fax"</td></tr>
+            <tr><td>44</td><td>40313</td><td>Address email is required when sending mode is "Email"</td></tr>
+            <tr><td>45</td><td>40314</td><td>Invalid Address URL</td></tr>
+            <tr><td>46</td><td>40315</td><td>Invalid address email</td></tr>
+            <tr><td>47</td><td>40318</td><td>Bank param not found</td></tr>
+            <tr><td>48</td><td>40320</td><td>Force ZIPCode not allowed on bank addendum params</td></tr>
+            <tr><td>49</td><td>40322</td><td>Invalid address city name</td></tr>
+            <tr><td>50</td><td>40323</td><td>Address careof is required</td></tr>
+            <tr><td>51</td><td>40324</td><td>The merchant must have a primary address</td></tr>
+            <tr><td>52</td><td>40326</td><td>Error while inserting address information’s</td></tr>
+            <tr><td>53</td><td>40400</td><td>Invalid Activity MCC</td></tr>
+            <tr><td>54</td><td>40401</td><td>Invalid Activity Type</td></tr>
+            <tr><td>55</td><td>40402</td><td>Invalid Banking Activity Code</td></tr>
+            <tr><td>56</td><td>40405</td><td>Invalid Activity Status Start Date</td></tr>
+            <tr><td>57</td><td>40406</td><td>Invalid Activity Status End Date</td></tr>
+            <tr><td>58</td><td>40407</td><td>Invalid Activity Opening Date</td></tr>
+            <tr><td>59</td><td>40409</td><td>Error while inserting merchant activity</td></tr>
+            <tr><td>60</td><td>40410</td><td>Bank addendum not found</td></tr>
+            <tr><td>61</td><td>40412</td><td>Only main activity is allowed</td></tr>
+            <tr><td>62</td><td>40413</td><td>Error while generating merchant activity id</td></tr>
+            <tr><td>63</td><td>40414</td><td>Only One primary Activity is Allowed</td></tr>
+            <tr><td>64</td><td>40415</td><td>The merchant must have a principal activity</td></tr>
+            <tr><td>65</td><td>40416</td><td>Activity with same MCC defined more than once</td></tr>
+            <tr><td>66</td><td>40501</td><td>Invalid Account Type</td></tr>
+            <tr><td>67</td><td>40502</td><td>Invalid Account category</td></tr>
+            <tr><td>68</td><td>40503</td><td>Invalid Account Bank code</td></tr>
+            <tr><td>69</td><td>40504</td><td>Invalid Account Branch code</td></tr>
+            <tr><td>70</td><td>40505</td><td>Invalid Account chain bank code</td></tr>
+            <tr><td>71</td><td>40506</td><td>Invalid Account chain code</td></tr>
+            <tr><td>72</td><td>40507</td><td>Invalid Account Number</td></tr>
+            <tr><td>73</td><td>40508</td><td>Invalid Account Currency</td></tr>
+            <tr><td>74</td><td>40510</td><td>Invalid Account  Remittance Grouping</td></tr>
+            <tr><td>75</td><td>40511</td><td>Invalid Account Fees Grouping</td></tr>
+            <tr><td>76</td><td>40512</td><td>Invalid Account  Chargeback Grouping</td></tr>
+            <tr><td>77</td><td>40513</td><td>Invalid Account  Billable Element Grouping</td></tr>
+            <tr><td>78</td><td>40514</td><td>Error while inserting account informations</td></tr>
+            <tr><td>79</td><td>40516</td><td>Error while generating iban</td></tr>
+            <tr><td>80</td><td>40517</td><td>The merchant must have a principal account</td></tr>
+            <tr><td>81</td><td>40519</td><td>Account number already exist</td></tr>
+            <tr><td>82</td><td>40600</td><td>Invalid Site Type</td></tr>
+            <tr><td>83</td><td>40601</td><td>Invalid Site Opening date</td></tr>
+            <tr><td>84</td><td>40605</td><td>Invalid Site Status Start date</td></tr>
+            <tr><td>85</td><td>40606</td><td>Invalid Site Status End date</td></tr>
+            <tr><td>86</td><td>40607</td><td>Error while generating merchant acquiring site id</td></tr>
+            <tr><td>87</td><td>40610</td><td>The merchant already has a primary site</td></tr>
+            <tr><td>88</td><td>40611</td><td>The merchant must have a main site</td></tr>
+            <tr><td>89</td><td>40612</td><td>Error while inserting site information’s</td></tr>
+            <tr><td>90</td><td>40700</td><td>Invalid Contact Title Code</td></tr>
+            <tr><td>91</td><td>40701</td><td>Invalid Contact Gender Code</td></tr>
+            <tr><td>92</td><td>40702</td><td>Invalid Contact Document Code</td></tr>
+            <tr><td>93</td><td>40703</td><td>Invalid Contact Language Code</td></tr>
+            <tr><td>94</td><td>40704</td><td>Invalid Contact Fonction</td></tr>
+            <tr><td>95</td><td>40705</td><td>Invalid Contact Ownership type</td></tr>
+            <tr><td>96</td><td>40706</td><td>Invalid Contact Citizenship</td></tr>
+            <tr><td>97</td><td>40707</td><td>Invalid Contact Guarantee</td></tr>
+            <tr><td>98</td><td>40708</td><td>Invalid Authorized Signatory Flag</td></tr>
+            <tr><td>99</td><td>40710</td><td>Error while inserting merchant contact</td></tr>
+            <tr><td>100</td><td>40141</td><td>merchant ID manual entry not allowed</td></tr>
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CreateMerchantRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    CreateMerchantRq:
+      $ref: 'request.yaml#/CreateMerchantRq'
+    CreateMerchantRs:
+      $ref: 'response.yaml#/CreateMerchantRs'
+security:
+  - bearerAuth: []

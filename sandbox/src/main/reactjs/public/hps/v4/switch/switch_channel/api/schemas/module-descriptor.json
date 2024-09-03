@@ -1,0 +1,231 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"OAuth Authentication",
+          "file": "oauth2Authentication.yaml",
+          "subApiList": [
+            {
+              "file": "oauth2Authentication.yaml",
+              "name": "OAuth Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Get card from token",
+          "file": "getCardFromToken.yaml",
+          "subApiList": [
+            {
+              "file": "getCardFromToken.yaml",
+              "name": "Get card from token",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Encryption and signature",
+          "file": "security.html",
+          "staticContent": true,
+          "subApiList": [
+            {
+              "file": "./security/jweEncryption.yaml",
+              "name": "JWE encryption",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jweDecryption.yaml",
+              "name": "JWE decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsEncryption.yaml",
+              "name": "JWS encryption and signature ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsDecryption.yaml",
+              "name": "JWS verify signature and decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            }
+          ]
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Switch-channel",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Card status management",
+          "file": "stopList.yaml",
+          "subApiList": [
+            {
+              "file": "stopList.yaml",
+              "name": "Place card in stop list",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "activateCard.yaml",
+              "name": "Activate and deactivate card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "deliverCard.yaml",
+              "name": "Deliver card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "changeCardStatus.yaml",
+              "name": "Change Card Status",
+              "HttpVerb": "PUT"
+            }
+          ]
+        },
+        {
+          "name":"Change card contactless",
+          "file": "changeContactLess.yaml",
+          "subApiList": [
+            {
+              "file": "changeContactLess.yaml",
+              "name": "Change card contactless",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Card PIN management",
+          "file": "changePin.yaml",
+          "subApiList": [
+            {
+              "file": "changePin.yaml",
+              "name": "Change card PIN",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "restPinTryCounter.yaml",
+              "name": "Reset PIN try counter",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "verifyPin.yaml",
+              "name": "Verify card PIN",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "dynamicPIN.yaml",
+              "name": "Dynamic PIN",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Card CVC2 management",
+          "file": "getCardCvv2.yaml",
+          "subApiList": [
+            {
+              "file": "getCardCvv2.yaml",
+              "name": "Get card CVV2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "resetCvv2tTryCounter.yaml",
+              "name": "Reset card CVV2 try counter",
+              "HttpVerb": "PUT"
+            },
+            {
+              "file": "getCardDynamicCVV2.yaml",
+              "name": "Get card dynamic CVV2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Authorization management",
+          "file": "requestAuthorization.yaml",
+          "subApiList": [
+            {
+              "file": "requestAuthorization.yaml",
+              "name": "Request authorization",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "authorizationRequestMoto.yaml",
+              "name": "Authorization Request Moto",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "reversalRequest.yaml",
+              "name": "Reversal request",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Address verification",
+          "file": "verifyAddress.yaml",
+          "subApiList": [
+            {
+              "file": "verifyAddress.yaml",
+              "version": "Address verification",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Account verification",
+          "file": "accountVerificationRequest.yaml",
+          "subApiList": [
+            {
+              "file": "accountVerificationRequest.yaml",
+              "name": "Account verification",
+              "HttpVerb": "POST"
+            }]
+        }
+      ]
+    }
+  ]
+}

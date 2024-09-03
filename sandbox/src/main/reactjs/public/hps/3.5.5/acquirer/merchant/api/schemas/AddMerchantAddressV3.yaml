@@ -1,0 +1,184 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /AddMerchantAddress/V3
+  /AddMerchantAddress/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        TThe add merchant address API provides functionality to add a merchant address during a merchant enrollment process. The merchant address must contain information like address, city, region, zip code, country…
+        
+        </p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/addMerchantAdresse.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Add Merchant Address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAdressRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAdressRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>60100</td>
+            <td>Invalid Merchant Bank Code</td>
+            </tr>
+            <tr>
+            <td>60136</td>
+            <td>You should specify at least one on this fields:<b> Merchant ID or legal ID</td>
+            </tr>
+            <tr>
+            <td>60200</td>
+            <td>Merchant not found</td>
+            </tr>
+            <tr>
+            <td>60300</td>
+            <td>Invalid Address default flag</td>
+            </tr>
+            <tr>
+            <td>60301</td>
+            <td>Invalid Address Type</td>
+            </tr>
+            <tr>
+            <td>60302</td>
+            <td>Invalid Address Default Usage</td>
+            </tr>
+            <tr>
+            <td>60303</td>
+            <td>Invalid Address Sending Mode</td>
+            </tr>
+            <tr>
+            <td>60305</td>
+            <td>Invalid Address Status Start Date</td>
+            </tr>
+            <tr>
+            <td>60306</td>
+            <td>Invalid Address Status End Date</td>
+            </tr>
+            <tr>
+            <td>60307</td>
+            <td>Invalid Address Country Code</td>
+            </tr>
+            <tr>
+            <td>60308</td>
+            <td>Invalid Address Zip Code</td>
+            </tr>
+            <tr>
+            <td>60309</td>
+            <td>Invalid Address Region Code</td>
+            </tr>
+            <tr>
+            <td>60310</td>
+            <td>Invalid Address City Code</td>
+            </tr>
+            <tr>
+            <td>60311</td>
+            <td>Invalid Address Phone Type</td>
+            </tr>
+            <tr>
+            <td>60312</td>
+            <td>Address Fax is required when sending mode is "Fax"</td>
+            </tr>
+            <tr>
+            <td>60313</td>
+            <td>Address email is required when sending mode is "Email"</td>
+            </tr>
+            <tr>
+            <td>60314</td>
+            <td>Invalid Address URL</td>
+            </tr>
+            <tr>
+            <td>60315</td>
+            <td>Invalid address email</td>
+            </tr>
+            <tr>
+            <td>60318</td>
+            <td>Bank param not found</td>
+            </tr>
+            <tr>
+            <td>60320</td>
+            <td>Force ZIPCode not allowed on bank addendum params</td>
+            </tr>
+            <tr>
+            <td>60322</td>
+            <td>Invalid address city name</td>
+            </tr>
+            <tr>
+            <td>60323</td>
+            <td>Address careof is required</td>
+            </tr>
+            <tr>
+            <td>60325</td>
+            <td>The merchant must have only one principal address(default address_flag 'Y') in case multi address, secondary address should have (default address_flag 'N')</td>
+            </tr>
+            <tr>
+            <td>60326</td>
+            <td>Error while inserting address information’s</td>
+            </tr>
+            
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantAdressRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AddMerchantAdressRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+    AddMerchantAdressRq:
+      $ref: 'request.yaml#/AddMerchantAdressRq'
+    AddMerchantAdressRs:
+      $ref: 'response.yaml#/AddMerchantAdressRs'
+security:
+  - bearerAuth: []

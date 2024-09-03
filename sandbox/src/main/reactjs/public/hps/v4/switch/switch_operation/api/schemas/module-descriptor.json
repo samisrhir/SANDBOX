@@ -1,0 +1,154 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"OAuth Authentication",
+          "file": "oauth2Authentication.yaml",
+          "subApiList": [
+            {
+              "file": "oauth2Authentication.yaml",
+              "name": "OAuth Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Get Card from token",
+          "file": "getCardFromToken.yaml",
+          "subApiList": [
+            {
+              "file": "getCardFromToken.yaml",
+              "name": "Get Card from token",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Encryption and signature",
+          "file": "security.html",
+          "staticContent": true,
+          "subApiList": [
+            {
+              "file": "./security/jweEncryption.yaml",
+              "name": "JWE encryption",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jweDecryption.yaml",
+              "name": "JWE decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsEncryption.yaml",
+              "name": "JWS encryption and signature ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            },
+            {
+              "file": "./security/jwsDecryption.yaml",
+              "name": "JWS verify signature and decryption ",
+              "HttpVerb": "POST",
+              "staticContent": true
+            }
+          ]
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Switch-operation",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Search authorization",
+          "file": "searchAuthorization.yaml",
+          "subApiList": [
+            {
+              "file": "searchAuthorization.yaml",
+              "name": "Search authorization V4.0",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Card domain",
+          "file": "getCardDomain.yaml",
+          "subApiList": [
+            {
+              "file": "getCardDomain.yaml",
+              "name": "Get card domain",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "setCardDomain.yaml",
+              "name": "Set card domain",
+              "HttpVerb": "PUT"
+            }
+          ]
+        },
+        {
+          "name":"Card limit management",
+          "file": "getCardLimit.yaml",
+          "versioning": [
+            {
+              "file": "getCardLimit.yaml",
+              "name": "Get card limit",
+              "version": "Get card limit V4.0",
+              "HttpVerb": "POST",
+              "deprecated": true
+            },
+            {
+              "file": "setCardLmit.yaml",
+              "name": "Set card limit",
+              "version": "Set card limit V4.0",
+              "HttpVerb": "PUT",
+              "deprecated": true
+            }
+
+          ]
+        }
+      ]
+    }
+  ]
+}

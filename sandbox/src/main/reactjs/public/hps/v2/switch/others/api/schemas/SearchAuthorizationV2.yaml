@@ -1,0 +1,109 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- SearchAuthorization
+  /SearchAuthorization/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              This web service is used to search for authorizations in the system. Third paties applications developers may use different criteria to search and display authorizations performed by customer, card…. Criteria’s could include amount ranges, dates, Account id, transaction types, network… for more details, please refer the the technical section of this API.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/SearchAuthorization.png" />
+            summary:   This web service is used to search for authorizations in the system. 
+            tags:
+              - Search Authorization
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchAuthorizationV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchAuthorizationV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>18401</td>
+                                  <td>Invalid Range Date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>18402</td>
+                                  <td>Invalid Data Source</td>
+                                </tr>
+                                <tr> 
+                                  <td>18404</td>
+                                  <td>Invalid Action Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>18405</td>
+                                  <td>Invalid Processing Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>18406</td>
+                                  <td>Invalid Transaction Amount</td>
+                                </tr>	
+                                <tr> 
+                                  <td>18407</td>
+                                  <td>Invalid Message Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>18408</td>
+                                  <td>Invalid Authorization Type</td>
+                                </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchAuthorizationV35Rs'
+                  application/xml:
+                        schema:
+                            $ref: '#/components/schemas/SearchAuthorizationV35Rs'   
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+  security:
+  - bearerAuth: []

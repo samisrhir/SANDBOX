@@ -1,0 +1,112 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- searchMerchantTransactions 
+  /SearchMerchantTransactions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>
+                    The current web service is used to search and retrieve transaction data for an acquiring entity in the system. An acquiring entity may include a VAR, a Chain; a Merchant or a point of sale. Both agent and merchants representatives may use different criteria to search and display transactions posted to the merchant account. Criteria’s could include amount ranges, dates, Account id, transaction types, network…More details regarding the list of criteria is shared bellow.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchMerchantTransactions.png" />
+                  
+      summary: The current web service is used to search and retrieve transaction data... 
+      tags:
+        - Search Merchant Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchMerchantTransactionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchMerchantTransactionRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07301</td>
+                                  <td>Merchant Identification is required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07302</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>07303</td>
+                                  <td>Invalid Claim Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07304</td>
+                                  <td>Invalid merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07305</td>
+                                  <td>Invalid ISO Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07306</td>
+                                  <td>Invalid VAR Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07307</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchMerchantTransactionRs'  
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchMerchantTransactionRs'                                                                                             
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SearchMerchantTransaction request and response 
+      SearchMerchantTransactionRq:
+               $ref: 'request.yaml#/SearchMerchantTransactionRq'
+      SearchMerchantTransactionRs:
+               $ref: 'response.yaml#/SearchMerchantTransactionRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

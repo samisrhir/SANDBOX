@@ -1,0 +1,309 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/approveCardProvisioning
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/approveCardProvisioning:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            TSP will invoke this API call to PowerCARD-Tokenization to assess the legitimacy of the token provisioning request and authenticate the cardholder and approve the tokenizing through the identification and verification (ID&V) attributes. The PowerCARD ID&V process has 3 stages(Request, Verification and Result).
+                          </p>
+                          <p>
+                            The decision paths are typically identified by 3 colors-path
+                          </p>
+                          <p>
+                            Green path indicates that token request has been approved.
+                            Red path indicates that the token request is declined and TSP and issuer may allow additional requests to be made.
+                            Yellow path indicates that the cardholder is subject to additional authentication requirements called step-up authentication.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/approveCardProvisioning.png" />
+            summary:  Approve the tokenizing through the identification and verification.
+            tags:
+              - Approve Card Provisioning
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ApproveCardProvisioningV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/ApproveCardProvisioningV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                    </tr>
+                                    <tr>
+                                    <td>T0201</td>
+                                    <td>Invalid Wallet ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0202</td>
+                                    <td>Missing Wallet ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0203</td>
+                                    <td>Invalid Token Requestor ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0204</td>
+                                    <td>Missing Token Requestor ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0205</td>
+                                    <td>Invalid Correlation Id </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0206</td>
+                                    <td>Missing Correlation Id </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0207</td>
+                                    <td>Invalid Pan </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0208</td>
+                                    <td>Missing Pan </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0209</td>
+                                    <td>Invalid Card holder Name </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0210</td>
+                                    <td>Missing Card holder Name </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0211</td>
+                                    <td>Invalid Expiry Month Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0212</td>
+                                    <td>Invalid Expiry Year Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0213</td>
+                                    <td>Missing Expiry Month Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0214</td>
+                                    <td>Missing Expiry Year Date </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0215</td>
+                                    <td>Expiry Month Date must not be in the past </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0216</td>
+                                    <td>Expiry Year Date must not be in the past </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0217</td>
+                                    <td>Invalid CVV2 </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0218</td>
+                                    <td>Invalid Consumer Wallet Account ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0219</td>
+                                    <td>Missing Consumer Wallet Account ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0220</td>
+                                    <td>Invalid Wallet Account Email Address </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0221</td>
+                                    <td>Invalid Terms and Conditions ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0222</td>
+                                    <td>Invalid Terms and Conditions Status </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0223</td>
+                                    <td>Invalid Terms and Conditions Accepted Time </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0224</td>
+                                    <td>Invalid address line 1. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0225</td>
+                                    <td>Invalid country code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0226</td>
+                                    <td>Invalid region code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0227</td>
+                                    <td>Invalid city code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0228</td>
+                                    <td>Invalid zip code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0229</td>
+                                    <td>Invalid Device ID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0230</td>
+                                    <td>Invalid Device IMEI </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0231</td>
+                                    <td>Invalid Device Type </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0232</td>
+                                    <td>Invalid Device OS </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0233</td>
+                                    <td>Invalid language code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0234</td>
+                                    <td>Invalid Device Location Source </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0235</td>
+                                    <td>Invalid Wallet Provider Account Score </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0236</td>
+                                    <td>Invalid Wallet Provider Device Score </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0237</td>
+                                    <td>Invalid Wallet Provider Reason Codes </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0238</td>
+                                    <td>Invalid device Time Zone </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0239</td>
+                                    <td>Invalid Account Holder Card Holder Match value </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0240</td>
+                                    <td>Invalid Account to Device Binding Age </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0241</td>
+                                    <td>Invalid Consumer Account Age </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0242</td>
+                                    <td>Invalid Wallet Account Age </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0243</td>
+                                    <td>Invalid provisioning Attempts in 24H </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0244</td>
+                                    <td>Invalid distinct Card holder Names </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0245</td>
+                                    <td>Invalid device Country </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0246</td>
+                                    <td>Invalid wallet Account Country </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0247</td>
+                                    <td>Invalid suspended Cards in Account </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0248</td>
+                                    <td>Invalid number of ActiveTokens </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0249</td>
+                                    <td>Invalid device with ActiveTokens </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0250</td>
+                                    <td>Invalid risk Assessment score </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0251</td>
+                                    <td>Invalid number of Transactions in last 12 minutes </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0252</td>
+                                    <td>Invalid bank code. </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0253</td>
+                                    <td>Missing Bank code </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0254</td>
+                                    <td>Invalid TokenReferenceID </td>
+                                    <tr/>
+                                    <tr>
+                                    <td>T0255</td>
+                                    <td>Missing TokenReferenceID </td>
+                                    <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/ApproveCardProvisioningV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/ApproveCardProvisioningV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import ApproveCardProvisioningV35 request and response
+      ApproveCardProvisioningV35Rq:
+               $ref: 'request.yaml#/ApproveCardProvisioningV35Rq'
+      ApproveCardProvisioningV35Rs:
+               $ref: 'response.yaml#/ApproveCardProvisioningV35Rs'
+security:
+  - bearerAuth: []

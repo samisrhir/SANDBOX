@@ -1,0 +1,91 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- deleteMerchantOwner
+  /DeleteMerchantOwner/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service aims to delete the merchant business owner' personal information. It works by providing the unique identification of the owner as stored in PowerCARD database. Any wrong identification provided in the request will result in a rejection.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/deleteMerchantOwner.png" />
+                  
+      summary: The present web service aims to delete the merchant business owner' personal information.
+      tags:
+        - Delete Merchant Owner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantOwnerRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantOwnerRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>06401</td>
+                                <td>Invalid Merchant </td>
+                              </tr>	
+                              <tr> 
+                                <td>06402</td>
+                                <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                              </tr>	
+                              <tr> 
+                                <td>06403</td>
+                                <td>Invalid representative id </td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMerchantOwnerRs'                                                                                                  
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import DeleteMerchantOwner request and response 
+      DeleteMerchantOwnerRq:
+               $ref: 'request.yaml#/DeleteMerchantOwnerRq'
+      DeleteMerchantOwnerRs:
+               $ref: 'response.yaml#/DeleteMerchantOwnerRs'                                                                                         
+security:
+  - bearerAuth: []
+
+
+

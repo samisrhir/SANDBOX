@@ -1,0 +1,89 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  # --- CreateDebitCardV4
+  /payment-instrument/v4.0/cards/create_debit_card:
+        post:
+            description:
+            summary:
+            tags:
+              -  REQUEST BODY
+            requestBody:
+              required: true
+              description:
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CardCreatedEventRq'
+            responses:  
+              200:
+                description:
+                  <div>
+                     <p>The connectApi expect the following HTTP Status code as a response of the event pushed to the registred webhooks endpoints. </p>
+                        <table>
+                            <tr>
+                            <th>WEBHOOK STATUS</th>
+                            <th>Description</th>
+                            </tr>
+                            <tr>
+                              <td id="webhook-status-td">(Unable to connect) ERR</td>
+                              <td>We’re unable to establish a connection to the destination server.</td>
+                            </tr>
+                            <tr>
+                                <td>(302) ERR (or other 3xx status)</td>
+                                <td>The destination server attempted to redirect the request to another location. We consider redirect responses to webhook requests as failures.</td>
+                            </tr>
+                            <tr>
+                                <td>(400) ERR (or other 4xx status)</td>
+                                <td>The destination server can’t or won’t process the request. This might occur when the server detects an error (400,401,403,404)</td>
+                            </tr>
+                            <tr>
+                            <td>(500) ERR (or other 5xx status)</td>
+                            <td>The destination server encountered an error while processing the request.</td>
+                            </tr>
+                            <tr>
+                            <td>(TLS error) ERR</td>
+                            <td>We couldn’t establish a secure connection to the destination server. These errors are usually caused by an issue with the SSL/TLS certificate.</td>
+                            </tr>
+                              <tr>
+                              <td>(Timed out) ERR</td>
+                              <td>The destination server took too long to respond to the webhook request.</td>
+                              </tr>
+                        </table>    
+                  </div>
+                content:
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas: 
+    CardCreatedEventRq:
+                     $ref: 'request.yaml#/CardCreatedEventRq'
+    CreateDebitCardV4Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV4Rs'
+security:
+  - bearerAuth: []

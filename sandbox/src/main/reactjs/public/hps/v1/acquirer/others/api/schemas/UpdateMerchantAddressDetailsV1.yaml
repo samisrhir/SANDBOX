@@ -1,0 +1,128 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantAddressDetails
+  /UpdateMerchantAddressDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Using the present web service, users are able to change a merchant address details</p>
+                    <p>In PowerCARD, a merchant can have multiple addresses. a mandatory one, also referred to as principal address, also he can have additional addresses for any other delivery purpose. Hence users need then to specify which address is being updated by providing much more details in the request message. In case of any control fail, because for example the postal code is not defined in the system, or because the identification of the address is not found or any other control listed below, the call should be rejected and a specific error code is returned back to the caller for further analysis and correction.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAddressDetails.png" />
+                  
+      summary: Using the present web service, users are able to change a merchant address details
+      tags:
+        - Update Merchant Address Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08401</td>
+                                  <td>Merchant not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08402</td>
+                                  <td>Default usage not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08403</td>
+                                  <td>The values provided in Country, region, city and postal code are not coherent</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08404</td>
+                                  <td>The values provided in Region, city and postal code are not coherent</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08405</td>
+                                  <td>Invalid Address type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08406</td>
+                                  <td>Invalid Address list</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08407</td>
+                                  <td>Invalid Address detail</td>
+                                </tr>
+                                <tr> 
+                                  <td>08408</td>
+                                  <td>Invalid Phone type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08409</td>
+                                  <td>Invalid Sending mode </td>
+                                </tr>
+                                <tr> 
+                                  <td>08410</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>08411</td>
+                                  <td>Invalid Address indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08412</td>
+                                  <td>The values provided in Country and city are not coherent</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantAddressDetailsRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateMerchantAddressDetails request and response 
+      UpdateMerchantAddressDetailsRq:
+               $ref: 'request.yaml#/UpdateMerchantAddressDetailsRq' 
+      UpdateMerchantAddressDetailsRs:
+               $ref: 'response.yaml#/UpdateMerchantAddressDetailsRs'                                                                                        
+security:
+  - bearerAuth: []
+
+
+

@@ -1,0 +1,195 @@
+/* Add fonts */
+@font-face {
+    font-family: "f1";
+    src: url("../fonts/MontBlanc-Trial-SemiBold.ttf");
+  }
+  
+  @font-face {
+    font-family: "ff3";
+    src: url("../fonts/Utendo-Bold.ttf");
+  }
+  
+  /* Body styles */
+  .light body {
+    background-image: url('../img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  
+  /* Container styles */
+  .conteer {
+    justify-content:flex-start; /* Corrected */
+    flex-wrap: wrap;
+    display: flex;
+    column-gap: 30px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Card styles */
+  .cardd {
+    width: 100%; /* Adjust the width as needed */
+    background-color: #141b2e;
+    font-family: "ff3";
+    border-radius: 0.7rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.322);
+    padding: 1rem;
+  }
+  
+  @media (min-width: 955px) {
+    .conte {
+      margin-left: 0;
+      justify-content: flex-start; /* Reset margin for larger screens */
+    }
+    .conteer {
+      margin-left: 0; /* Reset margin for larger screens */
+    }
+    .cardd {
+      width: 100%; /* Adjust the width for larger screens */
+      max-width: 330px; /* Remove max-width restriction */
+      margin: 0px; /* Adjust margin for spacing between cards */
+    }
+  }
+  
+  @media (max-width: 955px) {
+    .conte {
+      margin-left: 0;
+      justify-content: center; /* Reset margin for larger screens */
+    }}
+  .cardd:hover {
+    transform: translateY(-0.5px);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.644);
+    border-width: 1px 1px 1px 1px;    
+
+    border-style: solid rgb(0, 0, 0);
+
+
+
+  }
+  
+  /* Header styles */
+  .headerr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    height: 40Px;
+    width: 35%;
+    margin-top: -46px;
+    margin-right: -7px;
+    color:white;
+    box-shadow: #00000070 2px 10px 20px 0px;
+    background: #ffffff;
+    background: radial-gradient(circle, rgb(255, 10, 10) 0%, rgb(133, 28, 28) 120%);
+  }
+  
+  .headerr p {
+    font-size: 14px;
+    padding:2px;
+    margin: 4px;
+    font-family: f1;
+    color: #ffffff;
+  }
+  
+  /* Info section styles */
+  .info {
+    border-radius: 18px;
+    width: 98%;
+    
+    margin-left: 8px;
+    padding: 1px;
+    font-size: 12px;
+    line-height: 1.8rem;
+    color: white;
+  }
+  
+  /* Title styles */
+  .title {
+    color: rgb(255, 255, 255);
+    font-family: f1;
+
+  }
+  
+  /* Footer styles */
+  .footer {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+    justify-content: center;
+    background-color: rgba(19, 160, 255, 0);
+  }
+  
+  /* Action button styles */
+  .actionn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    letter-spacing: 2px;
+    user-select: none;
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 1px -0px rgba(255, 0, 0, 0.4), 0 2px 4px -2px rgba(33, 150, 243, 0.4);
+    color: rgb(0, 0, 0);
+    background: #bb281b;
+    background: radial-gradient(circle, rgb(178, 3, 3) 0%, rgb(255, 49, 49) 100%);
+    border-radius: 20px;
+    padding: 0.6rem 1rem;
+    color: #ffffff;
+    font-family: "f1";
+    word-spacing: 6px;
+  }
+  
+  .actionn:hover {
+    background: #bb281b;
+    background: radial-gradient(circle, rgb(253, 0, 0) 0%, rgb(255, 49, 49) 100%);
+    box-shadow: 0 2px 2px -0px rgba(255, 0, 0, 0.4), 2px 0px 0px -2px rgba(0, 0, 0, 0.4);
+    background: rgb(255, 4, 0);
+    background: linear-gradient(90deg, rgb(120, 17, 16) 2%, rgb(251, 8, 8) 52%, rgb(156, 7, 5) 95%);
+    box-shadow: 0 2px 2px -0px rgb(255, 0, 0), 0 0px 0px -2px rgb(0, 0, 0);
+  }
+  
+  /* Light mode styles */
+  .light .card {
+    background-color: #ffffff;
+    color: #ffffff;
+  }
+  
+  .light .card .desc {
+    color: #000000;
+  }
+  
+  .light .card .title {
+    color: #ffffff;
+  }
+  
+  /* Dark mode styles */
+
+  .dark h1 {
+    color: #ffffff;
+  }
+  
+  /* Image styles */
+  .imagee{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .titleupp{
+    border-radius: 10px;
+    justify-content: center;
+  }
+
+  .light .cardd {
+    background-color: #ffffff;
+  }
+
+  .dark .cardd{
+    box-shadow: 4px 2px  rgba(255, 255, 255, 0.473);
+  
+    /* ark mode  */
+    background-color: #161a25  ;
+    color: #ffffff;
+  }

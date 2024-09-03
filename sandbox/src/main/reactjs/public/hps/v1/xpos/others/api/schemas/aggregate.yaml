@@ -1,0 +1,709 @@
+# ---- KeyValueV35
+      KeyValueV35:
+         type: object
+         properties:
+            key: 
+              type: string
+            data:
+               type: string
+            type:
+               type: string
+# ----CurAmt
+      CurAmt:
+         type: object
+         properties:
+            amt:
+                type: number
+                description: 
+                    <p>
+                        Amount.
+                        The nominal amount value is multiplied by 10n; where n is the currency exponent of the currency code sent in the field below; the last n digits are used for decimals.
+                        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.
+                    </p>
+            curCode:
+                type: string
+                description: 
+                    <p>
+                        Currency code.
+                        <b>ISO currency</b> code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+
+                    </p>                  
+    #Response  
+      Response :
+          type: object
+          properties: 
+                RqUID:
+                    type: string
+                    example: UUID
+                    description:
+                            <p>
+                                Request Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                                This value must be used to match response with request messages
+                                The generation mask should be the following
+                                <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX </b>
+                            </p>
+                ResultId:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the result of processing in PowerCARD. 
+                            The possible values are <br>
+                            <b>ProceedWithSuccess</b> Call was ended successfully. <br>
+                            <b>ProceedWithSuccessMC</b> Call made successfully, however the request will be inserted in a Maker Checker queue for further analysis. <br>
+                            <b>Error</b> An error has occurred during the processing. <br>
+                            <b>SystemError</b> An unknown system error occurred during the process. <br>
+                        </p>
+                ErrorCode:
+                    type: string
+                    description:
+                        <p>
+                             Indicate the error code used by the PowerCARD to tell you that the program was experiencing a particular problem during the processing of the request.
+                             They are defined in the "General error Definition” table or in the “business rules” section of each specific web service.
+                        </p>
+                ErrorDesc:
+                    type: string
+                    description: If present, this field must contain the description of the error encountered                  
+      # ---- RequestInfo definition
+      RequestInfo:
+          type: object
+          properties:
+                      requestUID:
+                          description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                          type: string
+                          example: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+                      requestDate:
+                          description: Date when the request was submitted.
+                          type: string
+                          example: '2020-02-05T00:00:00'
+                      userID:
+                          description: Represents the user Id who made the request.
+                          type: string
+                          example: user001
+          required:  [userID,requestUID,requestDate]
+      # ---- ResponseInfo definition
+      ResponseInfo:
+          type: object
+          properties:
+                      responseUID:
+                        description: Response Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.
+                        type: string
+                      resultID:
+                        description: Refers to the result of processing in PowerCARD.
+                        type: string
+                      errorCode:
+                        description: Indicate the error code used by the PowerCARD to tell you that program was experiencing a particular problem during the processing of the request.
+                        type: string 
+                      errorDescription:
+                        description: If present, this field must contain the description of the error encountered
+                        type: string
+                      keyValues: 
+                        type: array
+                        items:
+                            type: object   
+                            $ref: 'aggregate.yaml#/KeyValueV35'
+          required:  [responseUID,resultID,errorCode]  
+    #AddUsrIdentif 
+      AddUsrIdentif :
+          type: object
+          properties: 
+              userId:
+                    type: string
+                    description:
+                            <p>
+                            Represents the user Id who made the request.
+                            </p>
+              requestDate:
+                    type: string
+                    description:
+                            <p>
+                            Date when the request was submitted
+                            </p>  
+              userLanguage:
+                    type: string
+                    description:
+                            <p>
+                                 The language used by the current user. This language is taken into consideration while preparing the answer.
+                                The possible values are the following <br>
+                                <b>en_US</b> for English <br>
+                                <b>es_ES</b> for Spanish <br>
+                                <b>fr_FR</b> for French  <br>
+                            </p> 
+              financialInstitution:
+                    type: string
+                    description:
+                            <p>
+                                This is a 6 alphanumeric code representing the financial institution to which belongs the user.
+                                This code must be previously defined in the PowerCARD <b>BANK</b> table under the general parameter section
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              products:
+                    type: array
+                    items:
+                         type: string
+                         description: <p>A card product list, this is used as a criteria in a request. All responses must belong to these products if provided within a request.</p>
+              providerLogin:
+                    type: string
+                    description:
+                            <p>
+                              Provider login is used to secure communication and data. If the user is not authorized, the request must be rejected
+                            </p> 
+              providerPasswd:
+                    type: string
+                    description:
+                            <p>
+                               The secret word of to the user that allow him to log in the system
+                            </p>   
+      #CustInfo 
+      CustInfo :
+          type: object
+          properties: 
+              customerId:
+                    type: string
+                    description:
+                            <p>
+                                  Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                                  If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table
+                            </p>
+              orgId:
+                    type: string
+                    description:
+                            <p>
+                                The organization/corporate identifier. If this field is mentioned, all data returned must belong to this organization.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              orgDepth:
+                    type: string
+                    example: 12
+                    description:
+                            <p>
+                                 The organization/corporate depth. The organization depth determines how many hierarchy levels will be returned.
+                                If present in the message, this code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                            </p> 
+              contractId:
+                    type: string
+                    description:
+                            <p>
+                                The contract id. If a contract id is specified all results must validate that criteria.
+                                For issuing request, this field must be equal to the card number that should be previously defined in the PowerCARD CARD table.
+                                The field is also used in case of SearchMerchantTransaction to specify the card number for which the request is being sent. Users may also send a part of the card number, for instance the first six digits of the card number followed by %, in that case the list of transactions returned back in the response message should belong to all cards starting with this six digits.   
+                            </p>   
+     #MerchantInfo 
+      MerchantInfo :
+          type: object
+          properties: 
+              chainId:
+                    type: string
+                    description:
+                            <p>
+                                This code identifies the chain from where the request is coming.
+                                All the data returned are supposed to belong only to the provided chain.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>CHAIN</b> table
+                            </p>
+              merchantId:
+                    type: string
+                    description:
+                            <p>
+                                This code identifies the merchant from where the request is coming.
+                                All the data returned are supposed to belong only to the concerned merchant.
+                                The Chain Id must be valid and must be defined in the PowerCARD <b>MERCHANT</b> table.
+                                A payment Facilitator is also considered as a Merchant in PowerCARD database. Hence, for any request with regards to a payment facilitator, the caller must include its identification in this field
+
+                            </p> 
+              posId:
+                    type: string
+                    description:
+                            <p>
+                                 This code identifies the point of sale from where the request is coming.
+                                 All the data returned are supposed to belong only to the concerned point of sale.
+                                 The Chain Id must be valid and must be defined in the PowerCARD <b>MER_ACCEPTOR_POINT</b> table
+                            </p>       
+     #AgentInfo 
+      AgentInfo :
+          type: object
+          properties: 
+              oedInstitutionId:
+                    type: string
+                    description:
+                            <p>
+                                Refers to the code identifying a financial institution in PowerCARD. This is 6 alphanumeric characters that must be previously defined in the PowerCARD <b>BANK</b> table.
+                                Data returned in the response must belong only to this institution.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>  
+              branchId:
+                    type: string
+                    description:
+                            <p>
+                                 Refer to the branch where is working the agent. 
+                                Users must ensure that this code is a valid value defined in the PowerCARD <b>BRANCH</b> table under the general parameter section.
+                                Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                            </p>   
+              agentId:
+                    type: string
+                    description:
+                            <p>
+                               Represent the agent identifier who is making the request.
+                            </p>  
+     #Device 
+      Device :
+          type: object
+          properties: 
+              posBrandCode:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the device brand
+                            Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                        </p>
+              serialNumber:
+                    type: string
+                    description:
+                        <p>
+                        Refers to the device Serial number
+                        </p>   
+              pinpadSerialNumber:
+                    type: string
+                    description:
+                        <p>
+                        PINPAD serial number
+                        </p>
+              powerSupplySerialNumber:
+                    type: string
+                    description:
+                        <p>
+                        Power supply serial number
+                        </p>  
+              maintStartDate:
+                    type: string
+                    description:
+                        <p>
+                        Maintenance start date
+                        </p>
+              maintEndDate:
+                    type: string
+                    description:
+                        <p>
+                        Maintenance end date
+                        </p> 
+              machineStatus:
+                    type: string
+                    description:
+                        <p>
+                            Machine status
+                            Possible values are the following <br>
+                            <b>00</b> In stock <br>
+                            <b>01</b> In lend (Test / Démo.) <br>
+                            <b>02</b> In repair <br>
+                            <b>03</b> Installed with the bank charge <br>
+                            <b>04</b> Installed with the merchant charge <br>
+                            <b>05</b> Broken down <br>
+                        </p>   
+              statusDate:
+                    type: string
+                    description:
+                        <p>
+                        Refers to the date when the last status of that device was changed.
+                        </p>  
+              purchaseAmount:
+                    type: object   
+                    $ref: 'aggregate.yaml#/CurAmt' 
+              purchaseDate:
+                    type: string
+                    description:
+                        <p>
+                        If available, it should contain the device purchase amount & currency
+                        </p>   
+              guarendDate:
+                    type: string
+                    description:
+                        <p>
+                        Refers to the guarantee end date
+                        </p>                                                                                                     
+     #TerminalCurAmt 
+      TerminalCurAmt :
+          type: object
+          properties: 
+              terminalCurAmtId:
+                    type: string
+                    description:
+                        <p>
+                        </p>
+              currencyCode:
+                    type: string
+                    description:
+                        <p>
+                        </p> 
+              minimumAmount:
+                    type: number
+                    description:
+                        <p>
+                        </p> 
+              floorLimit:
+                    type: number
+                    description:
+                        <p>
+                        </p>
+              ceilingLimit:
+                    type: number
+                    description:
+                        <p>
+                        </p>                                                                                                     
+     #TerminalPos 
+      TerminalPos :
+          type: object
+          properties: 
+              terminalPosNumber:
+                    type: string
+                    description:
+                        <p>
+                            Must contain the terminal identification number as stored in PowerCARD.
+                        </p>
+              masterPosIndicator:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the pos indicator. Possible values are <br>
+                            <b>M</b> Master  <br>
+                            <b>S</b> Slave   <br>
+                            <b>A</b> Autonomous
+                        </p>
+              masterPosNumber:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the Pos number of the master POS.
+                            This field is mandatory only in case the field above is set to <b>S</b> (Slave)
+                        </p> 
+              outletNumber:
+                    type: string
+                    description:
+                        <p>
+                            Must contain the code of the Acceptor point to which this POS belong
+                        </p>
+              terminalPosGrouping:
+                    type: string
+                    description:
+                        <p>
+                             It should contain the code of the group to which belong the terminal.
+                             Those codes are defined for grouping reason to simplify the search and monitoring of terminals
+                            Valid values must be retrieved from PowerCARD <b>TERMINAL_POS_GROUPING</b> table using the Web Service getReferentialList
+                        </p>
+              posAcronym:
+                    type: string
+                    description:
+                        <p>
+                        Must contain the terminal acronym
+                        </p>
+              posLocation:
+                    type: string
+                    description:
+                        <p>
+                        Refers to the POS location
+                        </p> 
+              cityCode:
+                    type: string
+                    description:
+                        <p>
+                            This field contains the code of the city where the terminal is located.
+                            Valid values must be retrieved from PowerCARD <b>CITY</b> table using the Web Service getReferentialList
+                        </p> 
+              regionCode:
+                    type: string
+                    description:
+                        <p>
+                          This field contains the code of the state where the terminal is located.
+                          Valid values must be retrieved from PowerCARD <b>REGION</b> table using the Web Service getReferentialList
+                        </p>
+              countryCode:
+                    type: string
+                    description:
+                        <p>
+                             This field contains the code of the country where the terminal is located.
+                             Valid values must be retrieved from PowerCARD <b>COUNTRY</b> table using the Web Service getReferentialList
+                        </p> 
+              posBrandCode:
+                    type: string
+                    description:
+                        <p>
+                         Pos Brand Code
+                         Valid values must be retrieved from PowerCARD <b>POS_BRAND</b> table using the Web Service getReferentialList
+                        </p> 
+              protocolIndex:
+                    type: string
+                    description:
+                        <p>
+                            Terminal Protocol
+                            Valid values must be retrieved from PowerCARD <b>PROTOCOL_LIST</b> table using the Web Service getReferentialList
+                        </p>
+              posProfileCode:
+                    type: string
+                    description:
+                        <p>
+                            Terminal profile code
+                             Valid values must be retrieved from PowerCARD <b>POS_PROFILE</b> table using the Web Service getReferentialList
+                        </p> 
+              transactionProcessingMode:
+                    type: string
+                    description:
+                        <p>
+                             Transaction processing mode.
+                            Possible values are <br>
+                            <b>SM</b> Single message without reconciliation <br>
+                            <b>DM</b> Double message with reconciliation <br>
+                            <b>TD</b> Double message with transaction download <br>
+                        </p>    
+              serialNumber:
+                    type: string
+                    description:
+                        <p>
+                           Pos Serial number
+                        </p> 
+              serialNumberPinPad:
+                    type: string
+                    description:
+                        <p>
+                          Pinpad serial number
+                        </p>
+              installationDate:
+                    type: string
+                    description:
+                        <p>
+                        Installation date
+                        </p> 
+              terminalModeStatus:
+                    type: string
+                    description:
+                        <p>
+                            Terminal mode status.
+                            Possible values are <br>
+                            <b>T</b>Test mode <br>
+                            <b>L</b> Live mode <br>
+                            <b>F</b> Forbidden mode <br>
+                            <b>C</b> Cancelled mode <br>
+                        </p>
+              dateStatus:
+                    type: string
+                    description:
+                        <p>
+                        Last update status date
+                        </p>
+              terminalCurAmtList:
+                    type: array
+                    items:
+                       type: object                                                
+                       $ref: 'aggregate.yaml#/TerminalCurAmt' 
+              creditnoteflag:
+                    type: string
+                    description:
+                        <p>
+                            This field indicates if the POS must be refunded to the merchant in case the POS is removed from the outlet location.<br>
+                            <b>Y</b> Yes <br>
+                            <b>N</b> No  <br>
+                        </p>   
+              dialHour:
+                    type: string
+                    description:
+                        <p>
+                          Dial hour. Date format HH24:MI
+                        </p> 
+              downLoadUser:
+                    type: string
+                    description:
+                        <p>
+                           This field indicates the user who downloaded the POS data to the terminal
+                        </p>
+              dialPrefixe:
+                    type: string
+                    description:
+                        <p>
+                        This field indicates the prefix that needs to be dialed before the actual server number
+                        </p>
+              tonepulseFlag:
+                    type: string
+                    description:
+                        <p>
+                            This field indicates in the POS uses the tone or pulse standard
+                            <b>T </b> Tone <br>
+                            <b>P </b> Pulse <br>
+                        </p>
+              pinKeyNumber:
+                    type: string
+                    description:
+                        <p>
+                           PIN key number
+                        </p> 
+              transPortPinKeyNumber:
+                    type: string
+                    description:
+                        <p>
+                           Transport PIN key number
+                        </p> 
+              mackeyNumber:
+                    type: string
+                    description:
+                        <p>
+                        MAC key number
+                        </p>
+              masterKeyNumber:
+                    type: string
+                    description:
+                        <p>
+                           Master key number
+                        </p>
+              userPassword:
+                    type: string
+                    description:
+                        <p>
+                           User password for configuration change at terminal level
+                        </p>   
+              languageCode1:
+                    type: string
+                    description:
+                        <p>
+                            This field indicates which 1st language code to be used by the terminal.
+                            Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                        </p> 
+              languageCode2:
+                    type: string
+                    description:
+                        <p>
+                            This field indicates which 2nd language code to be used by the terminal.
+                            Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                        </p> 
+              languageCode3:
+                    type: string
+                    description:
+                        <p>
+                            This field indicates which 3rd language code to be used by the terminal.
+                            Valid values must be retrieved from PowerCARD <b>LANGUAGE_LIST</b> table using the Web Service getReferentialList
+                        </p> 
+              idleLoopDisplay:
+                    type: string
+                    description:
+                        <p>
+                        Idle loop display on terminal
+                        </p>   
+              terminalApplicationCode:
+                    type: string
+                    description:
+                        <p>
+                        Terminal application code
+                        </p>
+              currentSoftwareVersion:
+                    type: string
+                    description:
+                        <p>
+                          Terminal application code
+                        </p>  
+              lastUploadSoftwareDate:
+                    type: string
+                    description:
+                        <p>
+                           Date of last upload successfully of current software
+                        </p>
+              posCardsNumber:
+                    type: string
+                    description:
+                        <p>
+                           Pos cards number
+                        </p>  
+              equipmentFeeCode:
+                    type: string
+                    description:
+                        <p>
+                            Fee code related to the rental of this equipment
+                            Must exist in the equipment table
+                        </p>  
+              stopListCode:
+                    type: string
+                    description:
+                        <p>
+                        </p>
+     #TerminalService 
+      TerminalService :
+          type: object
+          properties: 
+                terminalServiceName:
+                    type: string
+                    description:
+                        <p>   
+                        </p>
+                terminalServiceActivationStatus:
+                    type: string
+                    description:
+                        <p>   
+                        </p> 
+                terminalServiceDesc:
+                    type: string
+                    description:
+                        <p>   
+                        </p>                                                                            
+     #TerminalObjInfo 
+      TerminalObjInfo :
+          type: object
+          properties: 
+                terminalName:
+                    type: string
+                    description:
+                        <p>   
+                        </p>
+                terminalManufacturer:
+                    type: string
+                    description:
+                        <p>   
+                        </p>  
+                terminalModel:
+                    type: string
+                    description:
+                        <p>   
+                        </p>
+                terminalProcessingMode:
+                    type: string
+                    description:
+                        <p>   
+                        </p>  
+                terminalApplication:
+                    type: string
+                    description:
+                        <p>   
+                        </p> 
+                terminalDesc:
+                    type: string
+                    description:
+                        <p>   
+                        </p> 
+                terminalServiceList:
+                    type: array
+                    items:
+                      type: object
+                      $ref: 'aggregate.yaml#/TerminalService' 
+
+     #TerminalObjStatus 
+      TerminalObjStatus :
+          type: object
+          properties: 
+                terminalObjStatusCode:
+                    type: string
+                    description:
+                        <p>   
+                        </p>
+                statusDesc:
+                    type: string
+                    description:
+                        <p>   
+                        </p>                          
+     #Terminal 
+      Terminal :
+          type: object
+          properties: 
+                terminalId:
+                    type: string
+                    description:
+                        <p>   
+                        </p> 
+                terminalObjInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/TerminalObjInfo' 
+                terminalObjStatus:
+                    type: object
+                    $ref: 'aggregate.yaml#/TerminalObjStatus'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

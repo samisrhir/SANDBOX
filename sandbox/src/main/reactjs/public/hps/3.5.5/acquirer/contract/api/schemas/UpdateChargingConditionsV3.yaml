@@ -1,0 +1,117 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /UpdateChargingConditions /V3
+  /UpdateChargingConditions/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+          The present web service is aimed to be used whenever any user would like to update data of existing charging Conditions related to specific contract item for existing merchant in System        <h3>Functional Description</h3>
+        <img  src="./docs/UpdateChargingConditionsV3.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Update Charging Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateChargingConditionsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateChargingConditionsRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> <b>Merchant ID or legal ID</b></td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>61310</td><td>Invalid Contract Element ID</td></tr>
+            <tr><td>61003</td><td>Billable element not found</td></tr>
+            <tr><td>61004</td><td>Service not found</td></tr>
+            <tr><td>61950</td><td>Invalid Charging ID</td></tr>
+            <tr><td>61951</td><td>Invalid Period ID</td></tr>
+            <tr><td>61952</td><td>Invalid First Period ID</td></tr>
+            <tr><td>61953</td><td>Invalid charging rate</td></tr>
+            <tr><td>61954</td><td>Invalid Grace Amount</td></tr>
+            <tr><td>61955</td><td>Invalid Grace Amount currency</td></tr>
+            <tr><td>61956</td><td>Invalid Fixed Amount</td></tr>
+            <tr><td>61957</td><td>Invalid Fixed Amount currency</td></tr>
+            <tr><td>61958</td><td>Invalid Minimum Amount</td></tr>
+            <tr><td>61959</td><td>Invalid Minimum Amount currency</td></tr>
+            <tr><td>61960</td><td>Invalid Maximum Amount</td></tr>
+            <tr><td>61961</td><td>Invalid Maximum Amount currency</td></tr>
+            <tr><td>61962</td><td>Invalid Threshold Amount</td></tr>
+            <tr><td>61963</td><td>Invalid Threshold Amount currency</td></tr>
+            <tr><td>61966</td><td>Invalid Perso Flag</td></tr>
+            <tr><td>61967</td><td>Invalid Fee Generation Mode</td></tr>
+            <tr><td>61968</td><td>Invalid Fee Transaction Code</td></tr>
+            <tr><td>61969</td><td>Invalid Fee Reversal Flag</td></tr>
+            <tr><td>61970</td><td>Invalid Fee Generation Currency</td></tr>
+            <tr><td>61971</td><td>Invalid Tax Calculation Flag</td></tr>
+            <tr><td>61972</td><td>Invalid Invoice Generation Flag</td></tr>
+            <tr><td>61973</td><td>Invalid Rule Identifier</td></tr>
+            <tr><td>61974</td><td>Invalid Rounded Method Identifer</td></tr>
+            <tr><td>61975</td><td>Invalid Contract External Charging Code</td></tr>
+            <tr><td>61976</td><td>Invalid Catalogue External Charging Code</td></tr>
+            <tr><td>61977</td><td>Invalid Scheme Fees rate</td></tr>
+            <tr><td>61978</td><td>Invalid Scheme Fees Amount</td></tr>
+            <tr><td>61979</td><td>Invalid Scheme Fees Amount currency</td></tr>
+            <tr><td>61980</td><td>An error has occurred on Update charging condition</td></tr>
+            <tr><td>61981</td><td>Invalid elements on charging Rule data</td></tr>
+            
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateChargingConditionsRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateChargingConditionsRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import UpdateChargingConditions request and response
+    UpdateChargingConditionsRq:
+      $ref: 'request.yaml#/UpdateChargingConditionsRq'
+    UpdateChargingConditionsRs:
+      $ref: 'response.yaml#/UpdateChargingConditionsRs'
+security:
+  - bearerAuth: []

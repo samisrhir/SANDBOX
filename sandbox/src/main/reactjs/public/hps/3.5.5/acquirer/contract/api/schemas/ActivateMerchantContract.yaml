@@ -1,0 +1,94 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+  # --- /ActivateMerchantContract /V3
+  /ActivateMerchantContract/V3:
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        The present web service is aimed to be used whenever any user would like to activate merchant contract item for specific merchant.         <h3>Functional Description</h3>
+        <img  src="./docs/ActivateMerchantContract.png" />
+      summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+      tags:
+        - Activate Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateMerchantContractRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ActivateMerchantContractRq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            
+            <tr><td>60100</td><td>Invalid Merchant Bank Code</td></tr>
+            <tr><td>60136</td><td>You should specify at least one on this fields:<b> Merchant ID or legal ID</b></td></tr>
+            <tr><td>60200</td><td>Merchant not found</td></tr>
+            <tr><td>61310</td><td>Invalid Contract Element ID</td></tr>
+            <tr><td>61311</td><td>Invalid Contract Status Start date</td></tr>
+            <tr><td>61312</td><td>Invalid Contract Status end date</td></tr>
+            <tr><td>61313</td><td>Invalid Contract Status range date</td></tr>
+            <tr><td>61314</td><td>Normal, suspended, under surveillance are the status needed to allow updating on merchant</td></tr>
+            <tr><td>61315</td><td>Error while updating merchant contract status</td></tr>
+            <tr><td>61316</td><td>This contract is already activated</td></tr>
+            <tr><td>61317</td><td>Activation can be applied only on deactivated contract</td></tr>
+            <tr><td>61318</td><td>Operation not allowed on closed contract</td></tr>
+            
+            
+            
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActivateMerchantContractRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ActivateMerchantContractRs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+
+    # --- Import ActivateMerchantContractRq request and response
+    ActivateMerchantContractRq:
+      $ref: 'request.yaml#/ActivateMerchantContractRq'
+    ActivateMerchantContractRs:
+      $ref: 'response.yaml#/ActivateMerchantContractRs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,91 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/getTokenDetails:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The getTokenDetails API enables the Issuer to retrieve the details for a particular Token including device information.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/getTokenDetails.png" />
+            summary: Retrieve the details of a particular Token.
+            tags:
+              - Get Token Details
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetTokenDetailsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetTokenDetailsV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0801</td>
+                                        <td>Invalid bank code. </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0802</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T0803</td>
+                                        <td>Invalid Token Reference ID </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetTokenDetailsV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetTokenDetailsV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        GetTokenDetailsV35Rq:
+               $ref: 'request.yaml#/GetTokenDetailsV35Rq'
+        GetTokenDetailsV35Rs:
+               $ref: 'response.yaml#/GetTokenDetailsV35Rs'
+security:
+  - bearerAuth: []

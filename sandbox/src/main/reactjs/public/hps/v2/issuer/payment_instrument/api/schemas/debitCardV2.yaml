@@ -1,0 +1,253 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+                  
+  # --- DebitCards
+  /DebitCards/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A debit card allows the cardholder access to a source of funding that is linked to his/her card, typically a saving or a checking account. Users may use this service to send a request to PowerCARD in order to ask for the creation of a client and its debit card. 
+                          </p>
+                          <p>
+                              Many details with regards to the card are shared within the request. Those data includes information related to the card. All are then checked by the system before it will proceed by the creation of the debit card.
+                          </p>
+                          <p>
+                           As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code for investigation.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/DebitCards.png" />
+            summary:   A debit card allows the cardholder access to a source of funding that is linked to his/her card.
+            tags:
+              - Create Debit Card
+            parameters:
+                  - in: query
+                    name: requestUID 
+                    example: 08e53e10-a6e8-44b4-b4cf-df75235df515
+                    schema:
+                        type: string
+                    required: true
+                    description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                  - in: query
+                    name: requestDate 
+                    example: '2020-07-07T03:13:01.853Z'
+                    schema:
+                        type: string
+                    required: true
+                    description: Date when the request was submitted.
+                  - in: query
+                    name: userID 
+                    example: PwcUserJmeter
+                    schema:
+                        type: string
+                    required: false
+                    description: Represents the user Id who made the request.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CreateDebitCardV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>29604</td>
+                                  <td>Invalid Client Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29605</td>
+                                  <td>Error while generating the Client Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29606</td>
+                                  <td>Invalid Bank Code in Customer Details segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29607</td>
+                                  <td>Invalid Branch Code in Customer Details Segment</td>
+                                </tr>
+                                <tr> 
+                                  <td>29608</td>
+                                  <td>Invalid Family Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>29610</td>
+                                  <td>Invalid Cardholder’s Gender</td>
+                                </tr>
+                                <tr> 
+                                  <td>29614</td>
+                                  <td>Invalid Cardholder’s Birth Date</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29617</td>
+                                  <td>Invalid VIP Level</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29618</td>
+                                  <td>Invalid Nationality Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29619</td>
+                                  <td>Invalid Language Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29620</td>
+                                  <td>Invalid Title Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29626</td>
+                                  <td>Invalid Owner Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29627</td>
+                                  <td>Invalid Socio-Professional Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29628</td>
+                                  <td>Invalid Activity Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29629</td>
+                                  <td>Invalid Customer Segment</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29633</td>
+                                  <td>Invalid Lodging Mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29634</td>
+                                  <td>Invalid Channel Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29635</td>
+                                  <td>Invalid Phone Type 1</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29637</td>
+                                  <td>Invalid Phone Type 2</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29639</td>
+                                  <td>Invalid Phone Type 3</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29641</td>
+                                  <td>Invalid Phone Type 4</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29645</td>
+                                  <td>Invalid Primary Address Type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29646</td>
+                                  <td>Invalid Primary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29655</td>
+                                  <td>Invalid Client Primary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29657</td>
+                                  <td>Invalid Client Primary Address Region Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29659</td>
+                                  <td>Invalid Client Primary Address Country Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29667</td>
+                                  <td>City Code or City Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29668</td>
+                                  <td>Region Code or Region Free Text is required for Card Primary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29675</td>
+                                  <td>Invalid Client Secondary Address Type</td>
+                                </tr>
+                                <tr> 
+                                  <td>29676</td>
+                                  <td>Invalid Client Secondary Address Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>29685</td>
+                                  <td>Invalid Client Secondary Address City Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>29687</td>
+                                  <td>Invalid Client Secondary Address Region Code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>29689</td>
+                                  <td>Invalid Client Secondary Address Country Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>29690</td>
+                                  <td>Validity Start Date must not be in the past in case Client Secondary Address</td>
+                                </tr>
+                                <tr> 
+                                  <td>29691</td>
+                                  <td>Validity Start Date cannot be greater than Validity End Date in case Client Secondary Address </td>
+                                </tr>								
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CreateDebitCardV35Rs'
+                  application/xml:
+                            schema:
+                              $ref: '#/components/schemas/CreateDebitCardV35Rs'                        
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      EncryptedCreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/EncryptedCreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'         
+security:
+  - bearerAuth: []

@@ -1,0 +1,190 @@
+/* Add fonts */
+@font-face {
+    font-family: "f1";
+    src: url("../fonts/MontBlanc-Trial-SemiBold.ttf");
+  }
+  
+  @font-face {
+    font-family: "ff3";
+    src: url("../fonts/Utendo-Bold.ttf");
+  }
+  
+  /* Body styles */
+  .light body {
+    background-image: url('../img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+  }
+  
+  /* Container styles */
+  .conte {
+    display: flex;
+    margin-left: 200px;
+    column-gap: 40px;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  
+/* Card styles */
+.card {
+  width: 100%; /* Adjust the width as needed */
+  max-width: 420px; /* Maximum width for larger screens */
+  height: auto; /* Let the height adjust according to content */
+  background-color: #141b2e;
+  font-family: "ff3";
+  border-radius: 0.7rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.322);
+  padding: 1rem;
+  margin: 11px; /* Adjust margin for spacing between cards */
+}
+
+@media (min-width: 300px) {
+  .conte {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+  
+  .card {
+    width: 100%; /* Adjust the width for larger screens */
+    max-width: 420px; /* Maximum width for larger screens */
+  }
+}
+
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 3px 5px black;
+  }
+  
+  /* Header styles */
+  .header {
+    align-items: center;
+    justify-content: center;
+    border-radius: 88px;
+    padding: 1px;
+    letter-spacing: 1px;
+    margin-top: 1px;
+    color:white;
+    height: 40PX;
+    background: #ffffff;
+    background: radial-gradient(circle, rgb(143, 11, 11) 0%, rgba(255, 0, 0, 0.596) 120%);
+  }
+  
+  .header p {
+    font-size: 14px;
+    padding: 5px;
+    margin: 5px;
+    font-family: f1;
+    color: #ffffff;
+  }
+  
+  /* Info section styles */
+  .info {
+    border-radius: 18px;
+    width: 98%;
+    
+    margin-left: 8px;
+    padding: 1px;
+    font-size: 12px;
+    line-height: 1.8rem;
+    color: white;
+  }
+  
+  /* Title styles */
+  .title {
+    color: rgb(255, 255, 255);
+    font-family: f1;
+  }
+  
+  /* Footer styles */
+  .footer {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+    justify-content: center;
+    background-color: rgba(19, 160, 255, 0);
+  }
+  
+  /* Action button styles */
+  .action {
+    width: 700px;
+  bottom: 40px; /* Adjust as needed */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: none;
+    outline: none;
+    margin-top: 20px;
+    box-shadow: 0 2px 1px -0px rgba(255, 0, 0, 0.4), 0 2px 4px -2px rgba(33, 150, 243, 0.4);
+    color: rgb(0, 0, 0);
+    background: #bb281b;
+    background: radial-gradient(circle, rgb(178, 3, 3) 0%, rgb(255, 49, 49) 100%);
+    border-radius: 2px;
+    padding: 0.6rem 1rem;
+    color: #ffffff;
+    font-family: "f1";
+    word-spacing: 3.6px;
+    letter-spacing: 1.7px;
+  }
+  
+  .action:hover {
+    background: #bb281b;
+    background: radial-gradient(circle, rgb(253, 0, 0) 0%, rgb(255, 49, 49) 100%);
+    box-shadow: 0 2px 2px -0px rgba(255, 0, 0, 0.4), 2px 0px 0px -2px rgba(0, 0, 0, 0.4);
+    background: rgb(255, 4, 0);
+    background: linear-gradient(90deg, rgb(120, 17, 16) 2%, rgb(251, 8, 8) 52%, rgb(156, 7, 5) 95%);
+    box-shadow: 0 2px 2px -0px rgb(255, 0, 0), 0 0px 0px -2px rgb(0, 0, 0);
+  }
+  
+  /* Light mode styles */
+  .light .card {
+    background-color: #ffffff;
+    color: #ffffff;
+  }
+  
+  .light .card .desc {
+    color: #000000;
+  }
+  
+  .light .card .title {
+    color: #ffffff;
+  }
+  
+  /* Dark mode styles */
+  .dark .card {
+    box-shadow: 7px 5px rgba(255, 255, 255, 0.473);
+    background-color: #161a25;
+    color: #ffffff;
+  }
+  
+  .dark h1 {
+    color: #ffffff;
+  }
+  
+  /* Image styles */
+  .image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+      padding: 0%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titleup{
+    background-color: #e6dddd8f;
+    border-radius: 20px;
+  }
+  .dark .titleup {
+    background-color: #161a25;
+    color: #ffffff;
+  }
+
+  .light .titleup {
+    background-color: #e6dddd8f;
+    color: #000000;
+  }

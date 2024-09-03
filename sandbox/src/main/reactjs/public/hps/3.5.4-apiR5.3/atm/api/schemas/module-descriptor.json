@@ -1,0 +1,58 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml"
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Encryption and signature",
+          "file": "security.html",
+          "staticContent": true,
+          "subApiList": [
+          ]
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Payment-tokenization",
+      "expanded": true,
+      "apis":[
+       
+      ]
+    }
+  ]
+}

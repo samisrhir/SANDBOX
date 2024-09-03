@@ -1,0 +1,251 @@
+@font-face {
+  font-family: "ff3";
+  src: url("../fonts/Utendo-Bold.ttf");
+}
+
+.btnn-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-left: 10%;
+  flex-wrap: wrap;
+}
+
+
+
+.version-sep {
+  margin-top: 1rem; /* Removed duplicate declaration */
+}
+
+  .register {
+    background-size: cover;
+    display: flex;
+    justify-content: SPACE-BETWEEN;
+    background-image: url(/src/assets/img/bg-register-old.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 88vh;
+    color: #ffffff;
+    font-family: "ff3";
+}
+  
+.wrapperr{
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  justify-content:space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.portal-logo-container {
+  display: flex;
+  margin-top: 20px;
+  width: fit-content;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.portal-logo-text {
+  margin-left: -100px;
+  margin-top: 78px;
+  font-weight: bold;
+  word-spacing: 2px;
+  letter-spacing: 1px;
+  font-size: 2.5rem;
+  text-shadow: 4px 1px 1px #000000;
+  font-family: "ff3";
+
+}
+
+.portal-logo-sub-text {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+
+.btn-wrapper btnn {
+  color: #ffffff;
+  cursor: pointer;
+  
+}
+
+
+.icon {
+  margin-left: 12px;
+  width: 20px;
+  height: 30px;
+  transition: all 0.5s ease-in-out;
+  color: #ffc107;
+}
+
+.btnn:hover {
+  transform: scale(1.05);
+  border-color: #b9babd;
+}
+
+.btnn:hover .icon {
+  transform: translate(3px);
+  color: #ffffff;
+}
+
+.btnn:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.btnn::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 0, 0, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 1;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+  60% {
+    left: 100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+.lastupdate {
+ display: flex;
+ font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ background-color: #feb200;
+ font-size: 12px;
+ font-weight: 500;
+ letter-spacing:2px;
+ justify-content: center;
+ align-items: center;
+ color: #04051d;
+ padding: 10px;
+}
+
+.dark .btnn {
+  margin: 15px;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.2rem;
+  background-color: rgb(0 107 179);
+  align-items: center;
+  justify-content: center;
+  border-radius: 99999PX;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  text-align: center;
+  font-family: "ff4";
+  overflow: hidden;
+  font-size: 16px;
+  box-shadow: 3px 9px 15px rgba(255, 255, 255, 0.295);
+}
+.light .btnn {
+  margin: 15px;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.2rem;
+  background-color: rgb(0 107 179);
+  align-items: center;
+  justify-content: center;
+  border-radius: 99999PX;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  text-align: center;
+  font-family: "ff4";
+  overflow: hidden;
+  font-size: 16px;
+  box-shadow: 3px 9px 15px rgba(255, 255, 255, 0.295);
+}
+@media screen and (min-width: 412) {
+  .light .btnn {
+    padding: 10px;
+    position: relative;
+  }
+  .dark .btnn {
+    
+    padding: 10px;
+    position: sticky;
+
+  }
+
+.descc{
+  width: 10%;
+  line-height: 10px;
+  margin: 10px;
+  display: flex;
+
+}}
+
+
+
+.descc{
+  width: 50%;
+  margin-top: -50Px;
+  line-height: 36px;
+  font-family:monospace;
+  background: rgb(50, 58, 69);
+background: radial-gradient(circle, rgb(55, 19, 99) 0%, rgba(24, 36, 76, 0.552) 71%);
+  color: #39a3ef;
+  font-weight: 500;
+  padding: 19px;
+  box-shadow: rgb(3, 2, 36) 0px 1px 4px, rgb(70, 42, 172) 0px 0px 0px 3px;  
+  border-radius: 36px;
+  font-size: 16px;
+  margin-left: 60px;
+
+}
+
+  .last-update{
+      letter-spacing: 1px;
+      word-spacing: 1px;
+      font-size: 10px;
+      color:rgb(151, 55, 55);
+    }
+   
+    
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  /* Adjust btnn width and padding for smaller screens */
+  .light .btnn,
+  .dark .btnn {
+    margin: 10px;
+  }
+
+
+  /* Adjust margin for smaller screens */
+  .portal-logo-container {
+    margin-top: 0  px;
+  }
+
+  /* Adjust margin for last update */
+
+  /* Adjust font size for subtext */
+  .portal-logo-sub-text {
+    font-size:12px;
+    display: none;
+    
+  }
+  .portal-logo{
+    
+margin-left: -50px;  }
+  .portal-logo-text {
+    font-size: 23px;
+  }
+  /* Adjust width for description */
+  .descc {
+    width: 73vw;
+    font-size: 14px;
+    line-height: 1.9rem;
+  }
+}

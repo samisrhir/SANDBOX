@@ -1,0 +1,76 @@
+      # ---- TokenAuthenticationResponse response definition  
+        TokenAuthenticationResponse:
+                type: object
+                properties:
+                        responseInfo:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- ReplaceDeviceRs
+        ReplaceDeviceRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'
+        # --- GetDeviceRs
+        GetDeviceRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response' 
+                        device:
+                                type: object
+                                $ref: 'aggregate.yaml#/Device'  
+                        terminalPos:
+                                type: object
+                                $ref: 'aggregate.yaml#/TerminalPos'   
+        # --- AllocateDeviceRs
+        AllocateDeviceRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'  
+        # --- CreateDeviceRs
+        CreateDeviceRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'  
+        # --- ReturnDeviceRs
+        ReturnDeviceRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'  
+        # --- CreateTerminalRs
+        CreateTerminalRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'  
+        # --- SearchTerminalRs
+        SearchTerminalRs:
+                type: object
+                properties:                                 
+                        response:
+                                type: object
+                                $ref: 'aggregate.yaml#/Response'
+                        terminalList:
+                           type: array
+                           $ref: 'aggregate.yaml#/Terminal :
+' 
+                                                                                                                                                                                                                                                                                          
+        # --- DemoV35Rs
+        DemoV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+                                
+                                

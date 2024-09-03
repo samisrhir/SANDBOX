@@ -1,0 +1,644 @@
+# ---- KeyValue
+KeyValue:
+  type: object
+  properties:
+    key:
+      type: string
+    data:
+      type: string
+    type:
+      type: string
+
+# ---- RequestInfo definition
+RequestInfo:
+  type: object
+  properties:
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/KeyValue'
+    requestUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p id="field-description">Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.</p>
+      type: string
+      example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+    requestDate:
+      description:
+        <p id="field-description">Date when the request was submitted.</p>
+      type: string
+      example: '2020-02-05T00:00:00'
+    userID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(15)</p>
+        <p id="field-description">Represents the user Id who made the request.</p>
+      type: string
+      example: user001
+  required:  [userID,requestUID,requestDate]
+# ---- ResponseInfo definition
+ResponseInfo:
+  type: object
+  properties:
+    responseUID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(36)</p>
+        <p id="field-description">Response Identifier. Echoed back by PowerCARD to the requester. It should contain the same value as the one sent in the request message.</p>
+      type: string
+    resultID:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">ClosedEnum</p>
+        <p id="field-description">Refers to the result of processing in PowerCARD.</p>
+      type: string
+    errorCode:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(5)</p>
+        <p id="field-description">Indicate the error code used by the PowerCARD to tell you that program was experiencing a particular problem during the processing of the request.</p>
+      type: string
+    errorDescription:
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(250)</p>
+        <p id="field-description">If present, this field must contain the description of the error encountered</p>
+      type: string
+    keyValues:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/KeyValue'
+  required:  [responseUID,resultID,errorCode]
+
+ValidityRangeDateLimitV4:
+  type: object
+  description: <p> to indicate start and end date for the temporary limit,becomes mandatory when temporaryLimit field =Y </p>
+  properties:
+    startDate:
+      description:
+        <p>The Start date of temporary limit</p>
+      type: string
+      example: "2023-02-01 00:00:00.000"
+    endDate:
+      description:
+        <p>The End date of temporary limit</p>
+      type: string
+      example: "2023-02-28 00:00:00.000"
+  required:  [startDate,endDate]
+
+#TransactionCriteriaV41
+TransactionCriteriaV41:
+  type: object
+  properties:
+    sequenceNumber:
+      type: string
+      example: "1"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(9)</p>
+        <p id="field-description">Code used to identify the limit that will be assigned to the card.</p>
+        <p id="field-description">It is mandatory only when productFlag=Y</p>
+    limitID:
+      type: string
+      example: "1"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">Code used to identify the limit that will be assigned to the card.</p>
+    wording:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(32)</p>
+        <p id="field-description">A brief description of the limit.</p>
+      example: "purchase"
+    processingCode:
+      type: string
+      example: "00"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(2)</p>
+        <p id="field-description">
+        Transaction type related Processing Code applicable to this Transaction limit.
+        Values are defined in the PowerCARD <b>PROCESSING_LIST</b> table.
+        </p>
+    functionCode:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        Transaction type related Function Code applicable to this Transaction limit.
+        Values are defined in the PowerCARD <b>FUNCTION_LIST</b> table.
+        </p>
+    countryCode:
+      type:  string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        The Country code is a numerical code identifying a country.
+        Values are defined in the PowerCARD <b>COUNTRY</b> table .
+        </p>
+    mcc:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">
+        The Merchant Category Code distinct number used to classify the merchant business based on the type of services or products it provides.
+        Values are defined in the PowerCARD <b>MCC</b> table
+        </p>
+      example: ""
+    mccGroup:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">
+        ISO currency code of the transaction amount as defined in the PowerCARD <b>MCC_RANGE</b> table under the general parameters section.
+        </p>
+    paymentType:
+      type: object
+      $ref: 'aggregateV41.yaml#/PaymentTypeV4'
+    minAmountPerTransaction:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    maxAmountPerTransaction:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    cardEntryMode:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Field indicating the method by which a point-of-transaction terminal obtains and transmits the cardholder information necessary to complete a transaction
+        Valid values are <br>
+        <b>0</b>  - Unknown or terminal not used<br>
+        <b>1</b>   - Manual (key entry)<br>
+        <b>2</b>   - Magnetic stripe read<br>
+        <b>3</b> - Integrated circuit card read<br>
+        <b>4</b> - Contactless device-read
+        </p>
+    cardPresent:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Flag indicating whether the Card is present during the transaction or not,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    authorizationType:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Indicat the type of transaction,Possible values are:<br>
+        <b>D</b> - Debit<br>
+        <b>C</b> - Credit</p>
+    financialAuthorization:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating the financial Authorization,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    mit:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating the initiated Merchant,Possible values are:<br>
+        <b>Y</b> - Yes<br>
+        <b>N</b> - No</p>
+    productFlag:
+      type: string
+      example: "Y"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">	Flag indicating if is a product limit or not,Possible values are:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product</p>
+  required: [productFlag,wording]
+PaymentTypeV4:
+  type: object
+  properties:
+    operator:
+      type: string
+      example: "IN"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">ClosedEnum</p>
+        <p id="field-description">Flag that you use to check or combine values. <br>
+        <b>IN</b>  Allows users to specify one or multiple values in ValueList <br>
+        <b>NOT IN</b> To exclude a list of values from the ValueList<br>
+        <b>it becomes mandatory when proccessingCode=payment</b>
+    values:
+      type: array
+      items:
+        type: string
+        example: "PP"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(2)</p>
+  required: [operator,values]
+#UpdateCardLimitV41
+UpdateCardLimitV41:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(4)</p>
+        <p id="field-description">limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(64)</p>
+        <p id="field-description">Description of the limit.</p>
+    limitAbrvWording:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(32)</p>
+        <p id="field-description">A brief description of the limit.</p>
+      example: "Cash"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    productFlag:
+      type: string
+      example: "N"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    currencyCode:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description"> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+      example: "840"
+    hostScenarioProcessing:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+    validityRangeDate:
+      type: object
+      description: <p> to indicate start and end date for the temporary limit,becomes mandatory when temporaryLimit field =Y </p>
+      $ref: 'aggregate.yaml#/ValidityRangeDateLimitV4'
+    periods:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/PeriodV41'
+  required: [limitID,limitAbrvWording,currencyCode,hostScenarioProcessing,productFlag,temporaryLimit,periods]
+
+#GetCardLimitV4
+GetCardLimitV4:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description: "<p>Description of the limit.</p>"
+      example: "Purchase"
+    limitAbrvWording:
+      type: string
+      description: <p>A brief description of the limit.</p>
+      example: "Purchase"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description: <p> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    validityRangeDate:
+      type: object
+      $ref: 'aggregate.yaml#/ValidityRangeDateLimitV4'
+    productFlag:
+      type: string
+      example: "Y"
+      description: <p> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    CurrencyCode:
+      type: string
+      example: "840"
+      description: <p> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+    hostscenarioprocessing:
+      type: string
+      example: "R"
+      description: <p>This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+
+    period:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregate.yaml#/PeriodV4'
+  required: [limitAbrvWording,hostscenarioprocessing]
+GetCardLimitSearchV41:
+  type: object
+  properties:
+    limitID:
+      type: string
+      description: <p>limitID is used to identify the limit that will be assigned to the card.</p>
+      example: "1"
+    limitDescription:
+      type: string
+      description: "<p>Description of the limit.</p>"
+      example: "Purchase"
+    limitAbrvWording:
+      type: string
+      description: <p>A brief description of the limit.</p>
+      example: "Purchase"
+    temporaryLimit:
+      type: string
+      example: "N"
+      description: <p> To specifit is a temporary limit or not,possible values are:<br>
+        <b>Y</b> - Temporary limit<br>
+        <b>N</b> - Permanent limit<br>
+        <b>N</b> - Default value
+        </p>
+    validityRangeDate:
+      type: object
+      $ref: 'aggregateV41.yaml#/ValidityRangeDateLimitV4'
+    productFlag:
+      type: string
+      example: "Y"
+      description: <p> To specifit is a product limit or not. possible values:<br>
+        <b>Y</b> - Product<br>
+        <b>N</b> - Not product<br>
+        <b>Y</b> - Default value
+        </p>
+    CurrencyCode:
+      type: string
+      example: "840"
+      description: <p> Currency code of the limit as defined in the PowerCARD CURRENCY_TABLE table.</p>
+    hostscenarioprocessing:
+      type: string
+      example: "R"
+      description: <p>This is a flag indicating the delegation mode scenario related to the host of the issuer bank as per the following possible values:<br>
+        <b>'R'</b> - If the On-Host limit is exceeded, the request shall not be directed towards HOST and shall be declined, otherwise the request shall be directed towards the Host<br>
+        <b>'H'</b> - If the On-Host limit is exceeded, the request shall be directed towards the Host, otherwise it shall be processed in Stand-In mode at the server level..</p>
+
+    period:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/PeriodSearchV41'
+  required: [limitID,limitAbrvWording,CurrencyCode,hostscenarioprocessing]
+
+#PeriodV4
+PeriodV41:
+  properties:
+    periodType:
+      type: string
+      example: "C"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">To indicate period type,possible values are:<br>
+        <b>C</b> - Fixed period<br>
+        <b>S</b> - Sliding period
+        </p>
+    periodDayOff:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(2)</p>
+        <p id="field-description">Period 'day-of' indicates the start day (Or month) in the period (1 to 7 for Weekly period, 1 to 31 for Monthly period and 1 to 12 for Yearly period).</p>
+    periodicityFlag:
+      type: string
+      example: "D"
+      description :
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Must contain one of the following values:<br>
+        <b>D</b> - for daily<br>
+        <b>W</b> - for Weekly<br>
+        <b>M</b> - for Monthly<br>
+        <b>Y</b> - for Yearly
+        </p>
+    periodicityNumber:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Number of periodicityFlag in the period (Example:periodicityFlag :Weekly and periodicityNumber field=2, indicates a period of 2 weeks)</p>
+      example: "1"
+    totalTransactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    totalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">total number of transaction's limit not to be exceeded for the concerned transaction type</p>
+    territoriality:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/TerritorialityV41'
+  required: [periodType,periodDayOff,periodicityFlag,periodicityNumber]
+PeriodSearchV41:
+  properties:
+    periodType:
+      type: string
+      example: "C"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">To indicate period type,possible values are:<br>
+        <b>C</b> - Fixed period<br>
+        <b>S</b> - Sliding period
+        </p>
+    periodDayOff:
+      type: string
+      example: ""
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(2)</p>
+        <p id="field-description">Period 'day-of' indicates the start day (Or month) in the period (1 to 7 for Weekly period, 1 to 31 for Monthly period and 1 to 12 for Yearly period).</p>
+    periodicityFlag:
+      type: string
+      example: "D"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">
+        Must contain one of the following values:<br>
+        <b>D</b> - for daily<br>
+        <b>W</b> - for Weekly<br>
+        <b>M</b> - for Monthly<br>
+        <b>Y</b> - for Yearly
+        </p>
+    periodicityNumber:
+      type: string
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(1)</p>
+        <p id="field-description">Number of periodicityFlag in the period (Example:periodicityFlag :Weekly and periodicityNumber field=2, indicates a period of 2 weeks)</p>
+      example: "1"
+    totalTransactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    totalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">total number of transaction's limit not to be exceeded for the concerned transaction type</p>
+    maxTotalTransactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    maxTotalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">the max number of transaction of the product setting.</p>
+    territoriality:
+      type: array
+      items:
+        type: object
+        $ref: 'aggregateV41.yaml#/TerritorialitySearchV41'
+  required: [ periodType,periodDayOff,periodicityFlag,periodicityNumber ]
+#TerritorialitySearchV41
+TerritorialitySearchV41:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: "ONS"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        To indicate territoriality type,possible values are:<br>
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer.<br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country.<br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country.
+        </p>
+    transactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    numberOfTransactions:
+      type: string
+      example: "3"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description"> total number limit not to be exceeded for the concerned transaction type.</p>
+    maxTotalTransactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    maxTotalNumberOfTransactions:
+      type: string
+      example: "5"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description">the max number of transaction of the product setting.</p>
+  required: [territorialityType]
+
+#TerritorialityV41
+TerritorialityV41:
+  type: object
+  properties:
+    territorialityType:
+      type: string
+      example: "ONS"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">C(3)</p>
+        <p id="field-description">
+        To indicate territoriality type,possible values are:<br>
+        <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer.<br>
+        <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country.<br>
+        <b>INT</b> - International, apply only to transactions that took place outside the cardholder country.
+        </p>
+    transactionAmount:
+      type: object
+      $ref: 'aggregateV41.yaml#/CurrencyAmountV41'
+    numberOfTransactions:
+      type: string
+      example: "3"
+      description:
+        <p id="field-size">size</p>
+        <p id="field-size-value">Number(4)</p>
+        <p id="field-description"> total number limit not to be exceeded for the concerned transaction type.</p>
+  required: [territorialityType]
+CurrencyAmountV41:
+  type: object
+  properties:
+    amount:
+      type: number
+      example: '100'
+      description: <p>The nominal amount value is multiplied or divided by 10n where n is the currency exponent of the currency code sent in the field below the last n digits are used for decimals.
+        Example An amount displayed as <b>US$ 99,999.99</b> should be sent as <b>9999999</b>.<br>For more details please refer to <q>API Basic / Currency management </q> section.</p>
+    currencyCode:
+      type: string
+      example: '480'
+      description: <p>Currency code. ISO alpha/numeric code of the transaction amount as defined in the PowerCARD <b>CURRENCY_TABLE</b> table under the general parameters section.</p>
+
+
+                        
+          
+
+                   
+
+
+
+                 
+               
+                           

@@ -1,0 +1,127 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- addMerchantSite
+  /AddMerchantSite/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant site API provides functionality to add a merchant site details during a merchant enrollment process. The merchant site details must contain information like site name and location…Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantSite.png" />
+                  
+      summary: The add merchant site API provides functionality to add a merchant site details...
+      tags:
+        - Add Merchant Site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantSiteRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantSiteRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05001</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05002</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05003</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05004</td>
+                                  <td>Invalid site</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05005</td>
+                                  <td>Invalid site type</td>
+                                </tr>
+                                <tr> 
+                                  <td>05006</td>
+                                  <td>Invalid site name</td>
+                                </tr>
+                                <tr> 
+                                  <td>05007</td>
+                                  <td>The merchant already has a main site</td>
+                                </tr>
+                                <tr> 
+                                  <td>05008</td>
+                                  <td>The merchant must have a main site</td>
+                                </tr>
+                                <tr> 
+                                  <td>05009</td>
+                                  <td>Invalid zip code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05010</td>
+                                  <td>Invalid city code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05011</td>
+                                  <td>Invalid Country code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05012</td>
+                                  <td>Invalid Region code</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantSiteRs'                                                                                                  
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import AddMerchantSiteRq request and response 
+      AddMerchantSiteRq:
+               $ref: 'request.yaml#/AddMerchantSiteRq'
+      AddMerchantSiteRs:
+               $ref: 'response.yaml#/AddMerchantSiteRs'                                                                                    
+security:
+  - bearerAuth: []
+
+
+

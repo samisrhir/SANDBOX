@@ -1,0 +1,191 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # Cards/v2
+  /Cards/v2:
+    get:
+      description:  <h3>API Overview</h3>
+                    <P>When a search card web service is used, agents and customers can include several options in the query message. PowerCARD is then responsible of looking for all the cards in the cardholder database that meets the combination of the input criteria being sent within the request.</P>
+                    <p>Input criteria can include for instance card number, customer identification, card status, card product code, cardholder name…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchCard.png" />
+      summary: The search card web service is used, agents and customers can include several options in the query message.
+      tags:
+        - Search Card
+      parameters:
+                  - in: query
+                    name: clientCode
+                    schema:
+                      type: string
+                    required: false
+                    description: The clientCode value.
+                  - in: query
+                    name: aliasPAN 
+                    example: '4250A38B18906430'
+                    schema:
+                      type: string
+                    required: false
+                    description: The aliasPAN value.
+                  - in: query
+                    name: corporateId 
+                    schema:
+                      type: string
+                    required: false
+                    description: The corporateId value.
+                  - in: query
+                    name: catPIProduct 
+                    example: null
+                    schema:
+                      type: string
+                    required: false
+                    description: The catPIProduct value.
+                  - in: query
+                    name: catPIProductVer
+                    schema:
+                      type: string
+                    required: false
+                    description: The catPIProductVer value.
+                  - in: query
+                    name: cardStatus 
+                    schema:
+                      type: string
+                    required: false
+                    description: The cardStatus value.
+                  - in: query
+                    name: firstName 
+                    schema:
+                      type: string
+                    required: false
+                    description: The firstName value.
+                  - in: query
+                    name: lastName 
+                    schema:
+                      type: string
+                    required: false
+                    description: The lastName value.
+                  - in: query
+                    name: lastName2 
+                    schema:
+                      type: string
+                    required: false
+                    description: The lastName2 value.
+                  - in: query
+                    name: pageSize 
+                    example: 10
+                    schema:
+                      type: string
+                    required: false
+                    description: The pageSize value.
+                  - in: query
+                    name: pageIndex 
+                    example: 1
+                    schema:
+                      type: string
+                    required: false
+                    description: The pageIndex value.
+                  - in: query
+                    name: requestUID 
+                    example: 6948DF80-14BD-4E04-8842-7668D9C001F5
+                    schema:
+                      type: string
+                    required: true
+                    description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+                  - in: query
+                    name: requestDate 
+                    example: '2020-02-05T00:00:00'
+                    schema:
+                      type: string
+                    required: true
+                    description: Date when the request was submitted.
+                  - in: query
+                    name: userID 
+                    example: user001
+                    schema:
+                      type: string
+                    required: false
+                    description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>20501</td>
+                                <td>Invalid Card Number/Token Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20502</td>
+                                <td>One of the three fields (CardNumber, ClientCode, CorporateId) must be completed</td>
+                              </tr>	
+                              <tr> 
+                                <td>20503</td>
+                                <td>Invalid Customer Id  M20503_INVALID_CUSTOMER_ID</td>
+                              </tr>	
+                              <tr> 
+                                <td>20504</td>
+                                <td>Invalid Catalogue Payment Istrument Product</td>
+                              </tr>	
+                              <tr> 
+                                <td>20505</td>
+                                <td>Invalid Catalogue Payment Instrument Product Version</td>
+                              </tr>	
+                              <tr> 
+                                <td>20506</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>	
+                              <tr> 
+                                <td>20507</td>
+                                <td>Invalid Card Status Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>20508</td>
+                                <td>No data found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCardV35Rs'
+            application/xml:
+                          schema:
+                              $ref: '#/components/schemas/SearchCardV35Rs'         
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      SearchCardV35Rs:
+                     $ref: 'response.yaml#/SearchCardV35Rs'         
+security:
+  - bearerAuth: []

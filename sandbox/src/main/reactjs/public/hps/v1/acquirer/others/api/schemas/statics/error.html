@@ -1,0 +1,78 @@
+<style>
+    .static-page-title{
+        font-family: "Open Sans", sans-serif;
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 4px;
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        margin-bottom: 28px;
+        left: 15px;
+    }
+    .div-padding{
+        padding: 12px;
+    }
+    .static-page-p{
+        font-family: "Open Sans", sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 25px;
+        border-radius: 10px;
+        color: rgb(162, 252, 162);
+    }
+    .padding{
+        padding: 5px;
+    }
+    table{
+        display: table;
+        box-sizing: border-box;
+        text-indent: initial;
+        border-color: #4e5d69;
+        border: 1px solid;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    thead{
+        background: #F3F6F9;
+    }
+    td,th{
+        border: 1px solid;
+        border-collapse: collapse;
+        padding: 2px;
+        text-align: left;
+        color: #00041e;
+        font-family: "Open Sans", sans-serif;
+        font-size: 11pt;
+        line-height: 24px;
+        padding-left: 12px;
+    }
+</style>
+<div class="div-padding">
+    <h2 class="static-page-title">Error in Connect'API</h2>
+    <p class="static-page-p padding"> This page provides a comprehensive reference of Core API error codes. You can use this information to diagnose failed transactions and fine-tune your exception-handling capabilities.</p>
+    <h5 class="static-page-title">HTTP response codes</h5>
+    <p class="static-page-p">The Connect API uses standard HTTP response codes to indicate the status of requests:
+    </p>
+    <ul>
+        <li class="static-page-p"> Codes in the <b class="static-page-b">2xx</b> range typically indicate success.
+        </li>
+        <li class="static-page-p"> Codes in the  <b class="static-page-b">4xx</b> range typically indicate an error in the request.
+        </li>
+        <li class="static-page-p"> Codes in the  <b class="static-page-b">5xx</b> range typically indicate an error at the PowerCard platform.
+        </li>
+    </ul>
+</div>
+

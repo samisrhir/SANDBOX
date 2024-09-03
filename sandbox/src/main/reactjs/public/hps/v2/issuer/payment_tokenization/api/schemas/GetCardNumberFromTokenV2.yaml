@@ -1,0 +1,92 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #getCardNumberFromToken  
+  /GetCardNumberFromToken/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            When used in credit, debit or prepaid card transactions, tokens, sometimes referred to as surrogate value are created to replace the card number. A token, rather than the actual credit/debit card number, would be used to complete the purchases a customer is making with its card. In this context, this web service is mainly used to retrieve the clear card number when providing a token value. PowerCARD is in fact a tokenization system that accepts as entry a token value and proceeds by the reverse process of redeeming a token for its associated PAN value.
+                          </p>
+                          <p>
+                             Users are also required to pass the card expiry date in the list of input data to process the de-tokenization process and return back the clear card number.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/getCardNumberFromToken.png" />
+            summary: Retrieve the clear card number when providing a token value
+            tags:
+              - Get Card Number From Token.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCardNumberFromTokenV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCardNumberFromTokenV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>17901</td>
+                                         <td>No card number found for this request, please send a valid Token value</td>
+                                      </tr>
+                                      <tr>
+                                         <td>17902</td>
+                                         <td>Invalid expiry date</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCardNumberFromTokenV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetCardNumberFromTokenV35Rs' 
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetCardNumberFromTokenV35Rq request and response
+      GetCardNumberFromTokenV35Rq:
+               $ref: 'request.yaml#/GetCardNumberFromTokenV35Rq'
+      GetCardNumberFromTokenV35Rs:
+               $ref: 'response.yaml#/GetCardNumberFromTokenV35Rs' 
+security:
+  - bearerAuth: []

@@ -1,0 +1,116 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #TransferLoyaltyPoints
+  /TransferLoyaltyPoints/V3 :
+    post:
+      description:
+        <h3>API Overview</h3>
+        <p>
+        Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers. By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc…
+        </p>
+        <P>Transfer Loyalty points web service enables customers, agents or any third party to transfer loyalty points instantly from a given account to another account belonging to the same customer. The service can be enabled by providing a limited but important set of details including the source account, destination account, points to transfer…  </p>
+        <p>The operation will debit the source account and credit the destination account with the transferred points. </p>
+        <p>The system run some controls on the input data and may reject the operation in case of any data inconsistency</p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/TransferLoyaltyPoints .PNG" />
+      summary:   Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers.
+      tags:
+        - TransferLoyaltyPoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferLoyaltyPointsV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TransferLoyaltyPointsV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>11601</td>
+            <td>Invalid bank code </td>
+            </tr>
+            <tr>
+            <td>11602 </td>
+            <td>Invalid Account Owner type </td>
+            </tr>
+            <tr>
+            <td>11603</td>
+            <td>Invalid account owner Id </td>
+            </tr>
+            <tr>
+            <td>11604</td>
+            <td>Invalid loyalty program Id  </td>
+            </tr>
+            <tr>
+            <td>11106</td>
+            <td>Invalid loyalty account number   </td>
+            </tr>
+            <tr>
+            <td>11611</td>
+            <td>Transfer Points should not exceed the actual loyalty account balance   </td>
+            </tr>
+            <tr>
+            <td>11612</td>
+            <td>Transfer can be done only between account of same customer   </td>
+            </tr>
+            <tr>
+            <td>11613</td>
+            <td>Operation not allowed for account with cancelled status    </td>
+            </tr>
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferLoyaltyPointsV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TransferLoyaltyPointsV35Rs'
+  # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import TransferLoyaltyPointsV35 request and response
+    TransferLoyaltyPointsV35Rq:
+      $ref: 'request.yaml#/TransferLoyaltyPointsV35Rq'
+    TransferLoyaltyPointsV35Rs:
+      $ref: 'response.yaml#/TransferLoyaltyPointsV35Rs'
+security:
+  - bearerAuth: []

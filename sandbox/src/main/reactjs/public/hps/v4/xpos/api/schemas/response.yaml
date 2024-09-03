@@ -1,0 +1,617 @@
+      # ---- TokenAuthenticationResponse response definition  
+        TokenAuthenticationResponse:
+                type: object
+                properties:
+                        token:
+                          type: string
+                          description: "The JWT Access token"
+                        responseInfo:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- UpdateInterestRateIndexV35Rs response definition  
+        UpdateInterestRateIndexV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- GetCardDetailsV35Rs response definition   
+        GetCardDetailsV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'  
+                        cardDemog:
+                                type: object
+                                $ref: 'aggregate.yaml#/CardDemogV35'
+                        primaryAddress:
+                                type: object
+                                $ref: 'aggregate.yaml#/CardPrimaryAddressV35'
+                        secondaryAddress:
+                                type: object
+                                $ref: 'aggregate.yaml#/SecondaryAddressV35'
+                        addressPurpose:
+                                type: object
+                                $ref: 'aggregate.yaml#/AddressPurposeV35'
+                        auxiliaryProduct:
+                                type: object
+                                $ref: 'aggregate.yaml#/CardAuxiliaryProductV35'
+                        bankAccount:
+                                type: object
+                                $ref: 'aggregate.yaml#/BankAccountV35'
+                        cardCustomFields:
+                                type: object
+                                $ref: 'aggregate.yaml#/CustomFieldsV35'
+                        secondaryAddressLength:
+                                type: string
+                        auxiliaryProductLength:
+                                type: string
+                        bankAccountLength:
+                                type: string
+                        cardCustomFieldsLength:
+                                type: string      
+        # ---- ActivateContactLessV35Rs response definition  
+        ActivateContactLessV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- ChangeCardProductV35Rs response definition
+        ChangeCardProductV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- ChangePinV35Rs
+        ChangePinV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- CreateAccountTransactionV35Rs
+        CreateAccountTransactionV35Rs:
+                type: object
+                properties:
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # ---- GetAccountBalanceV35Rs
+        GetAccountBalanceV35Rs:
+                type: object
+                properties:
+                        AccountBalanceV35:
+                            type: array
+                            $ref: 'aggregate.yaml#/AccountBalanceV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- RequestPinV35Rs :
+        RequestPinV35Rs:
+                type: object
+                properties:
+                        pin:
+                          type: string
+                          description: 
+                                        <p>
+                                                This field contains the current <b>PIN</b>. It is encrypted and formatted as a block of 16 hexadecimal digits. 
+                                                The PIN Block is transmitted encrypted under the <b>ZPK (Zone PIN key)</b>.
+                                                This key should be shared between PowerCARD and the other party.
+                                                This field is reserved for future use.
+                                        </p>
+                        pinBlockFormat:
+                          type: string
+                          enum: ['01','03']
+                          description:
+                                        <p>
+                                                PIN Block Format ,this field indicates the format of the PIN block,select one valid value from the list.<br>
+                                                <b>01</b> - Format is based on the PIN, the PIN length, the selected rightmost digits of the account number, and the pad characters 0 and F—combined through an exclusive OR operation.<br>
+                                                <b>03</b> - Format is based on the PIN and the F pad character.
+                                        </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- SetCustomerDetailV35Rs
+        SetCustomerDetailV35Rs:
+                type: object
+                properties:
+                        customerId:
+                                type: string
+                                description: <p>
+                                                Customer identifier,Refers to the unique customer identification auto generated by the system in case of PersonId aggregate not passed in the request.
+                                                </p>  
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- GetCustomerDetailV35Rs
+        GetCustomerDetailV35Rs:
+                type: object
+                properties:
+                        customerDetail:
+                                type: object
+                                $ref: 'aggregate.yaml#/CustomerDetailsV35'                            
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- GetLoyaltyAccountsV35Rs
+        GetLoyaltyAccountsV35Rs:
+                type: object
+                properties:
+                        bankCode:
+                           type: string
+                           description:
+                                       <p>Represents the loyalty account owner bank code.</p>
+                        accountLoyalty:
+                            type: object
+                            $ref: 'aggregate.yaml#/AccountLoyaltyV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+       # --- UpdateAddressV35Rs
+        UpdateAddressV35Rs : 
+               type: object
+               properties:
+                      responseInfo:
+                          type: object
+                          $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- UpdateBankAccountRs 
+        UpdateBankAccountV35Rs : 
+               type: object
+               properties:
+                      responseInfo:
+                          type: object
+                          $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- UpdateCardLimitsV35Rs 
+        UpdateCardLimitsV35Rs : 
+               type: object
+               properties:
+                      responseInfo:
+                          type: object
+                          $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- CreateCreditCardV35Rs
+        CreateCreditCardV35Rs : 
+                type: object
+                properties:
+                      responseInfo:
+                          type: object
+                          $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- GetCardCVC2V35Rs
+        GetCardCVC2V35Rs : 
+                type: object
+                properties:
+                        cVC2:
+                                type: string
+                                description:
+                                                <p>
+                                                        The three-digit security code that is printed on the back of credit cards.
+                                                        Clear Value will be provided, no encryption.
+                                                </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- GetCardDomainV35Rs
+        GetCardDomainV35Rs : 
+                type: object
+                properties:
+                      responseInfo:
+                          type: object
+                          $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- GetCardLimitsV35Rs
+        GetCardLimitsV35Rs:
+                type: object
+                properties:
+                        cardLimit:
+                          type: array
+                          items:
+                             type: object
+                             $ref: 'aggregate.yaml#/CardLimitV35'
+                        transactionCriteria:
+                                type: array
+                                items:
+                                   type: object
+                                   $ref: 'aggregate.yaml#/TransactionCriteriaV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- GetEventNotificationV35Rs
+        GetEventNotificationV35Rs:
+                type: object
+                properties:
+                        communicationEvents:
+                                type: array
+                                items:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/CommunicationEventV35'
+                        responseInfo:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/ResponseInfo'                
+        # --- GetLoyaltyAccTrxsV35Rs
+        GetLoyaltyAccTrxsV35Rs:
+                type: object
+                properties:
+                        maxRowNbr:
+                           type: string
+                           description: 
+                               <p>
+                                  This will depict the maximum number of row that can be included in the response message.
+                                  Note that if the result exceeds this number, only this number of loyalty transactions  will be returned.
+                                  This mechanism is used to limit the number of transactions that can be fetched in the request.
+                               </p>
+                        accountOwnerType:
+                           type: string
+                           description:
+                               <p>
+                                Indicates the type of the entity that owns the loyalty account.
+                                Possible values are the following<br>
+                                <b>CH</b> = Cardholder.<br>
+                                <b>SA</b> = Shadow Account<br>
+                                The value transmitted in the next field is based on the value of that one.
+                               </p>
+                        accountOwnerId: 
+                           type: string
+                           description:
+                               <p>
+                                  It refers to the identification of the entity that owns the loyalty account.
+                                  Based on the value in the previous field, this field may contain
+                                  The shadow account (SA)
+                               </p>
+                        pointExpiryDate:
+                           type: date
+                           description:
+                                <p>
+                                        Expiry date of the gained points.
+                                        Format<br>
+                                        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+                                        The value will be in GMT.
+                                </p>
+                        originalTrans:
+                           type: object
+                           $ref: 'aggregate.yaml#/OriginalTransV35' 
+                        loyaltyTransactions:
+                           type: array
+                           items:
+                                type: object
+                                $ref: 'aggregate.yaml#/LoyaltyTransactionV35' 
+                        responseInfo:
+                                        type: object
+                                        $ref: 'aggregate.yaml#/ResponseInfo'           
+
+        # --- RenewCardV35Rs
+        RenewCardV35Rs:
+                type: object
+                properties:
+                        expiryDt:
+                                type: date
+                                description:
+                                        <p>
+                                                Refers to the expiry date of the card being returned back in the response message.Format<br>
+                                                <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+                                                The value will be in GMT.
+                                        </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- ReplaceCardV35Rs
+        ReplaceCardV35Rs:
+                type: object
+                properties:
+                        cardNumber:
+                             type: string
+                             description: 
+                                   <p>
+                                        Card Number represents the card number generated by PowerCARD in case of successful replacement with a new card number.
+                                   </p>
+                        expiryDt:
+                                type: date
+                                description:
+                                        <p>
+                                                Refers to the expiry date of the card being returned back in the response message.Format<br>
+                                                <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+                                                The value will be in GMT.
+                                        </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'  
+        # --- UpdateCardStatusV35Rq
+        UpdateCardStatusV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo'  
+
+        # --- UpdateCardStatusReasonV35Rs
+        UpdateCardStatusReasonV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo'  
+
+        # --- UpdateCustomerCategoryV35Rs
+        UpdateCustomerCategoryV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- UpdateCustomerNameV35Rs
+        UpdateCustomerNameV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- UpdateCustomerEmailV35Rs
+        UpdateCustomerEmailV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- UpdateCustomerPhoneNumberV35Rs
+        UpdateCustomerPhoneNumberV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- TransferAccountToAccountV35Rs
+        TransferAccountToAccountV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- GetParameterListV35Rs
+        GetParameterListV35Rs:
+                type: object
+                properties:
+                  parameterResultList:
+                      type: array
+                      items: 
+                         type: object
+                         $ref: 'aggregate.yaml#/ParameterResultV35'
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- SearchAuthorizationV35Rs
+        SearchAuthorizationV35Rs:
+                type: object
+                properties:
+                  authorizations:
+                      type: array
+                      items: 
+                         type: object
+                         $ref: 'aggregate.yaml#/BasicAuthorizationV35'
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- UpdateCollaboratorSubscriptionStatusV35Rs
+        UpdateCollaboratorSubscriptionStatusV35Rs:
+                type: object
+                properties:
+                  responseInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- CreateDebitCardV35Rs
+        CreateDebitCardV35Rs:
+                type: object
+                properties:
+                        cardNumber:
+                                type: string
+                                description:
+                                        <p>
+                                        Represents the Card Number or the Card Token Id generated by PowerCARD in case of successful processing. The Card Token ID is returned if the  complex KeyValue with key <b>“TOKEN”</b> is included in the WS call.
+                                        </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- CreateLoyaltyAccountV35Rs
+        CreateLoyaltyAccountV35Rs:
+                type: object
+                properties:
+                        loyaltyAccountNbr:
+                            type: string
+                            description:
+                                <p>
+                                    This field refers to a unique internal identification of the loyalty account liked to the card, channel….
+                                    Returned back in the response only if the response code is Succes.
+                                </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo' 
+
+        # --- GetCollaboratorInitiatedSubscriptionV35Rs
+        GetCollaboratorInitiatedSubscriptionV35Rs:
+                type: object
+                properties:
+                        subscriptionRequest:
+                            type: object
+                            $ref: 'aggregate.yaml#/SubscriptionRequestV35'
+                        cardLimitSRVAddendum:
+                            type: array
+                            items:
+                               type: object
+                               $ref: 'aggregate.yaml#/CardLimitSRVAddendumV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- GetStatementHistoryV35Rs
+        GetStatementHistoryV35Rs:
+                type: object
+                properties:
+                        maxRowNbr: 
+                           type: string
+                           description: 
+                               <p>
+                                   This will depict the maximum number of row that can be included in the response message.
+                                   Note that if the result exceeds this number, only this number of statement will be returned.
+                                   This mechanism is used to limit the number of statement that can be fetched in one call.
+                               </p>
+                        statement:
+                           type: array
+                           items:
+                              type: object
+                              $ref: 'aggregate.yaml#/StatementV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+         # --- GetStockCardsOverviewV35Rs
+        GetStockCardsOverviewV35Rs:
+                type: object
+                properties:
+                        batchStockRecord:
+                           type: array
+                           items:
+                              type: object
+                              $ref: 'aggregate.yaml#/BatchStockRecordV35'
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'     
+
+         # --- LostStolenDeclarationV35Rs
+        LostStolenDeclarationV35Rs:
+                type: object
+                properties:
+                        cardNumber:
+                                type: string
+                                description: <p>Card Number Represents the card number generated by PowerCARD in case of the lost / stolen declaration is confirmed and the status reason chosen allows the replacement of the card.</p>
+                        expirydt:
+                            type: string
+                            description:
+                                <p>
+                                        Refers to the expiry date of the card being returned back in the response message.
+                                        Format<br>
+                                        <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+                                        The value will be in GMT.
+                                </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'  
+
+         # --- OrderStockCardsV35Rs
+        OrderStockCardsV35Rs:
+                type: object
+                properties:
+                        batchNumber:
+                                type: string
+                                description:
+                                    <p>
+                                        Must contain the batch number generated internally by PowerCARD and assigned to the order being sub litted by the agent.
+                                        This number could be used later on for follow up purpose.
+                                    </p>
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'  
+
+         # --- SearchTransactionsV35Rs
+        SearchTransactionsV35Rs:
+                type: object
+                properties:
+                        maxRowNbr:
+                            type: string
+                            description:
+                                  <p>
+                                       This will depict the maximum number of row that can be included in the response message.
+                                        Note that if the result exceeds this number, only this number of cards will be returned.
+                                        This mechanism is used to limit the number of cards that can be fetched in one call.
+                                  </p>
+                        transaction:
+                                type: array
+                                items:
+                                   type: object
+                                   $ref: 'aggregate.yaml#/TransactionV35'
+                        transactionTotal:
+                                type: array
+                                items:
+                                   type: object
+                                   $ref: 'aggregate.yaml#/TransactionTotalV35'                                   
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+         # --- SetCardDetailsV35Rs
+        SetCardDetailsV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+         # --- FeeInQuiryV35Rs
+        FeeInQuiryV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # ---- SearchCardV35Rs response definition  
+        SearchCardV35Rs:
+                type: object
+                properties:
+                        maxRowNbr:
+                           type: string
+                           description: 
+                               <p>
+                                  This will depict the maximum number of row that can be included in the response message.
+                                  Note that if the result exceeds this number, only this number of cards will be returned.
+                                  This mechanism is used to limit the number of cards that can be fetched in one call.
+                               </p>
+                        card:
+                          type: array
+                          items:
+                             type: object
+                             $ref: 'aggregate.yaml#/CreditCardDetailsV35' 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'                    
+
+         # --- UpdateCustomerDemogV35Rs
+        UpdateCustomerDemogV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- UpdateLoyaltyAccStatusV35Rs
+        UpdateLoyaltyAccStatusV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+
+        # --- SetCardDomainV35Rs
+        SetCardDomainV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+        # --- DemoV35Rs
+        DemoV35Rs:
+                type: object
+                properties:                                 
+                        responseInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/ResponseInfo'
+                                
+                                

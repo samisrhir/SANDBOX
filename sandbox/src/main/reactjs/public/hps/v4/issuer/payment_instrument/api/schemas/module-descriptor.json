@@ -1,0 +1,280 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"OAuth Authentication",
+          "file": "oauth2Authentication.yaml",
+          "subApiList": [
+            {
+              "file": "oauth2Authentication.yaml",
+              "name": "OAuth Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Create user authorization",
+          "file": "createUserAuthorization.yaml",
+          "subApiList": [
+            {
+              "file": "createUserAuthorization.yaml",
+              "name": "Create user authorization",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Get Parameter List",
+          "file": "getParameterList.yaml",
+          "subApiList": [
+            {
+              "file": "getParameterList.yaml",
+              "name": "Get Parameter List",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Get Card From Token",
+          "file": "getCardFromToken.yaml",
+          "subApiList": [
+            {
+              "file": "getCardFromToken.yaml",
+              "name": "Get Card From Token",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Currency management",
+          "file": "currency.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        },
+        {
+          "name":"Date Formats",
+          "file": "dateFormat.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Payment-instrument",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Create debit card",
+          "file": "createDebitCard.yaml",
+		   "versioning": [
+            {
+              "file": "createDebitCard.yaml",
+              "version": "Create debit card V4.0",
+              "HttpVerb": "POST",
+              "deprecated": true
+            }
+          ]
+        },
+        {
+          "name":"Get card details",
+          "file": "getCardDetails.yaml",
+          "subApiList": [
+            {
+              "file": "getCardDetails.yaml",
+              "name": "Get card details",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Renew card",
+          "file": "renewCard.yaml",
+          "subApiList": [
+            {
+              "file": "renewCard.yaml",
+              "name": "Renew card",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Replace card",
+          "file": "replaceCardV40.yaml",
+          "versioning": [
+            {
+              "file": "replaceCardV40.yaml",
+              "version": "ReplaceCard V4.0",
+              "HttpVerb": "POST",
+              "deprecated": true
+            }
+          ]
+        },
+        {
+          "name":"Set card details",
+          "file": "setCardDetails.yaml",
+          "subApiList": [
+            {
+              "file": "setCardDetails.yaml",
+              "name": "Set card details",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Request card PIN",
+          "file": "requestPin.yaml",
+          "subApiList": [
+            {
+              "file": "requestPin.yaml",
+              "name": "Request card PIN",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Search card",
+          "file": "searchCard.yaml",
+          "subApiList": [
+            {
+              "file": "searchCard.yaml",
+              "name": "Search card",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Card status management",
+          "file": "activateDeactivateCard.yaml",
+          "subApiList": [
+            {
+              "file": "activateDeactivateCard.yaml",
+              "name": "Activate and deactivate Card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "stopRenewUnstopRenewCard.yaml",
+              "name": "Stop Renew and unstop renew Card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "deliverUnDeliverCard.yaml",
+              "name": "Deliver and unDeliver Card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "cancelCard_deprecated.yaml",
+              "name": "Cancel card",
+              "HttpVerb": "DELETE",
+              "deprecated": true
+            },
+            {
+              "file": "cancelCard.yaml",
+              "name": "Cancel card",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "changeCardStatus.yaml",
+              "name": "Change card status",
+              "HttpVerb": "PUT"
+            }
+          ]
+        },
+        {
+          "name":"Update card primary address",
+          "file": "updateCardPrimdaryAddress.yaml",
+          "subApiList": [
+            {
+              "file": "updateCardPrimdaryAddress.yaml",
+              "name": "Update card primary address",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name":"Update card secondary address",
+          "file": "updateCardSecondaryAddress.yaml",
+          "subApiList": [
+            {
+              "file": "updateCardSecondaryAddress.yaml",
+              "name": "Update card secondary address",
+              "HttpVerb": "PUT"
+            }]
+        },
+        {
+          "name":"Check card custom field",
+          "file": "checkCardCustomField.yaml",
+          "subApiList": [
+            {
+              "file": "checkCardCustomField.yaml",
+              "name": "Check card custom field",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Event notification management",
+          "file": "getCardEventNotificationList.yaml",
+          "subApiList": [
+           {
+              "file": "getCardEventNotificationList.yaml",
+              "name": "Get Card event notification list",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "activateChannelNtoficationCard.yaml",
+              "name": "Activate card channel notification",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "activateEventNotificationCard.yaml",
+              "name": "Activate card event notification",
+              "HttpVerb": "PATCH"
+            }
+            ]
+        },
+        {
+          "name":"Search transactions",
+          "file": "searchTransactions.yaml",
+          "subApiList": [
+            {
+              "file": "searchTransactions.yaml",
+              "name": "Search transactions",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Supplementary Card",
+          "file": "addSupplementaryCard.yaml",
+          "subApiList": [
+            {
+              "file": "addSupplementaryCard.yaml",
+              "name": "Add Supplementary Card",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- /AuthoReversalRequest/V2
+  /AuthoReversalRequest/V2:
+    post:
+      description:  <h3>API Overview</h3>
+        <p>The present web service is aimed to be used to reverse an authorization. The authorization reversal releases the hold that the authorization placed on the customer's credit card funds. </p>
+        <p>You can reverse an authorization after you void the associated capture. </p>
+        <p>For each authorization, the response defines an action taken as a result of the request. a Code is also used to indicate approval or decline of a transaction.</p>
+        <h3>Functional Description</h3>
+        <img  src="./docs/authoReversalRequest.PNG" />
+      summary: The verify PIN web service is used to verify if the Personal Identification Number (PIN)...
+      tags:
+        - Authorization Reversal request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthoReversalRequestV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AuthoReversalRequestV35Rq'
+      responses:
+        200:
+          description:
+            <div>
+            Successful
+            <p>Business Error Codes &#58;</p>
+            <table>
+            <tr>
+            <th>Error code</th>
+            <th>Error Description</th>
+            </tr>
+            <tr>
+            <td>30601</td>
+            <td>Invalid Point of sale Identification</td>
+            </tr>
+            <tr>
+            <td>30602</td>
+            <td>Invalid Card Expiry Date</td>
+            </tr>
+            <tr>
+            <td>30603</td>
+            <td>Invalid Transaction Amount</td>
+            </tr>
+            <tr>
+            <td>30604</td>
+            <td>Invalid Transaction Date</td>
+            </tr>
+            <tr>
+            <td>30605</td>
+            <td>Invalid Reason Code</td>
+            </tr>
+            <td>30606</td>
+            <td>Invalid Authorization Code</td>
+            </tr>
+            <tr>
+            <td>30607</td>
+            <td>Invalid Currency code</td>
+            </tr>
+            <tr>
+            <td>30608</td>
+            <td>Invalid external Trace Audit Number</td>
+            </tr>
+            <tr>
+            <td>30609</td>
+            <td>Invalid MCC</td>
+            </tr>
+            <tr>
+            <td>30610</td>
+            <td>Invalid message type</td>
+            </tr>
+            
+            </table>
+            </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthoReversalRequesttV35Rs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AuthoReversalRequesttV35Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description:
+        <div>
+        <h5>Api key authorization</h5>
+        <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+        <table>
+        <tr>
+        <td>Name &#8282;</td>
+        <td>Authorization</td>
+        </tr>
+        <tr>
+        <td>In &#8282;</td>
+        <td>Header</td>
+        </tr>
+        </table>
+        </div>
+  schemas:
+    # --- Import VerifyPin request and response
+    AuthoReversalRequestV35Rq:
+      $ref: 'request.yaml#/AuthoReversalRequestV35Rq'
+    AuthoReversalRequesttV35Rs:
+      $ref: 'response.yaml#/AuthoReversalRequesttV35Rs'
+security:
+    - bearerAuth: []

@@ -1,0 +1,102 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateMerchantAddressStatus
+  /UpdateMerchantAddressStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant information’s in the system. For instance, the present web service is aimed to change the status and validity date of an existing temporary merchant address. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAddressStatus.png" />
+                  
+      tags:
+        - Update Merchant Address Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06101</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>06102</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>06103</td>
+                                  <td>Invalid address list id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06104</td>
+                                  <td>Invalid validity range date </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06105</td>
+                                  <td>Invalid address id </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06106</td>
+                                  <td>Invalid status code, address should have one of the following statuses N Normal, c Closed </td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantAddressStatusRs'                                                                                            
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateMerchantAddressStatus request and response 
+      UpdateMerchantAddressStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantAddressStatusRq' 
+      UpdateMerchantAddressStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantAddressStatusRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

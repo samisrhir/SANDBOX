@@ -1,0 +1,147 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Loyalty",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Create Loyalty Account",
+          "file": "CreateLoyaltyAccount1V3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateLoyaltyAccount1V3.yaml",
+              "name": "Create Loyalty Account V3",
+              "HttpVerb": "POST"
+            }
+
+          ]
+        },
+        {
+          "name":"Get Loyalty Accounts",
+          "file": "GetLoyaltyAccountsV3POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoyaltyAccountsV3POST.yaml",
+              "name": "Get Loyalty Accounts V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Loyalty Account Transactions",
+          "file": "GetLoyaltyAccountTransactionsV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoyaltyAccountTransactionsV3.yaml",
+              "name": "Get Loyalty Account Transactions V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Loyalty Account Statements ",
+          "file": "GetLoyaltyAccountStatements1V3.yaml",
+          "subApiList": [
+            {
+              "file": "GetLoyaltyAccountStatements1V3.yaml",
+              "name": "Get Loyalty Account Statements V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Transfer Loyalty Points ",
+          "file": "TransferLoyaltyPointsV3.yaml",
+          "subApiList": [
+            {
+              "file": "TransferLoyaltyPointsV3.yaml",
+              "name": "Transfer Loyalty Points V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Loyalty Accounts Status",
+          "file": "UpdateLoyaltyAccStatusV3POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateLoyaltyAccStatusV3POST.yaml",
+              "name": "Update Loyalty Accounts Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Capture Loyalty Adjustment",
+          "file": "CaptureLoyaltyAdjustment1V3.yaml",
+          "subApiList": [
+            {
+              "file": "CaptureLoyaltyAdjustment1V3.yaml",
+              "name": "Capture Loyalty Adjustment V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Capture Loyalty Cashback",
+          "file": "CaptureLoyaltyCashback1V3.yaml",
+          "subApiList": [
+            {
+              "file": "CaptureLoyaltyCashback1V3.yaml",
+              "name": "Capture Loyalty Cashback V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Capture Loyalty Gift",
+          "file": "CaptureLoyaltyGift1V3.yaml",
+          "subApiList": [
+            {
+              "file": "CaptureLoyaltyGift1V3.yaml",
+              "name": "Capture Loyalty Gift V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

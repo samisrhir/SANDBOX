@@ -1,0 +1,139 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- createBasicMerchant
+  /CreateBasicMerchant/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The create basic merchant API provides functionality to add a merchant application record during a merchant enrollment process. The merchant details that must be submitted must contain information like merchant acronym, legal identification, annual turnover, Tax Id …Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant database. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createBasicMerchant.png" />
+                  
+      summary: The create basic merchant API provides functionality to add a merchant application...
+      tags:
+        - Create Basic Merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBasicMerchantRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateBasicMerchantRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05201</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05202</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05203</td>
+                                  <td>Invalid branch code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05204</td>
+                                  <td>Invalid legal ID type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05205</td>
+                                  <td>Wrong legal ID type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05206</td>
+                                  <td>Invalid legal ID</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05207</td>
+                                  <td>Invalid location</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05208</td>
+                                  <td>Invalid country code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05209</td>
+                                  <td>Invalid region code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05210</td>
+                                  <td>Invalid legal form</td>
+                                </tr>
+                                <tr> 
+                                  <td>05211</td>
+                                  <td>Invalid merchant verification value</td>
+                                </tr>
+                                <tr> 
+                                  <td>05212</td>
+                                  <td>Invalid risk indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>05213</td>
+                                  <td>Invalid transactions indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>05214</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05215</td>
+                                  <td>Invalid acronym</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBasicMerchantRs'                                                                                               
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import CreateBasicMerchant request and response 
+      CreateBasicMerchantRq:
+               $ref: 'request.yaml#/CreateBasicMerchantRq'
+      CreateBasicMerchantRs:
+               $ref: 'response.yaml#/CreateBasicMerchantRs'                                                                                       
+security:
+  - bearerAuth: []
+
+
+

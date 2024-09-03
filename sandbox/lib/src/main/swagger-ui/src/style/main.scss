@@ -1,0 +1,39 @@
+.swagger-ui
+{
+    @import '~tachyons-sass/tachyons.scss';
+    @import 'mixins';
+    @import 'variables';
+    @import 'type';
+    @import 'layout';
+    @import 'buttons';
+    @import 'form';
+    @import 'modal';
+    @import 'models';
+    @import 'servers';
+    @import 'table';
+    @import 'topbar';
+    @import 'information';
+    @import 'authorize';
+    @import 'errors';
+    @include text_body();
+    @import 'split-pane-mode';
+    @import 'markdown';
+    @import '../core/plugins/json-schema-2020-12/components/all';
+    @import '../core/plugins/oas31/components/all';
+    color: white;
+    font-family: "f1";
+}
+.opblock-body {
+    color: rgb(0, 0, 0); /* White font color */
+    font-family: "f1";
+    font-size: 16px;
+    letter-spacing: 0.1px;
+  }
+  
+ 
+  @font-face {
+    font-family: "f1";
+    src: url("./Roboto-Black.ttf");
+  }
+  
+  

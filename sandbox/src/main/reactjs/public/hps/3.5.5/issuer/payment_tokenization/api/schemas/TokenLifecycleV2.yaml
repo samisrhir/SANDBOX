@@ -1,0 +1,143 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /v2/tokenRequestors/{tokenRequestorID}/wallets/{waletID}/tokenLifeCycle:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            The tokenLifeCycle API is used by the Issuer to update the status of all tokens associated to a card on every device or to a specific token. The issuer can use the API gettokenbypan and gettokendetails to retrieve the identifier of the card and token information in order to call tokenLifecycle. The status of operation is notified to the issuer through tokenNotificationService.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/tokenLifeCycle.png" />
+            summary: Update the status of all tokens associated...
+            tags:
+              - Token Life Cycle
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/TokenLifeCycleV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/TokenLifeCycleV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                        <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1501</td>
+                                        <td>Invalid Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1502</td>
+                                        <td>Invalid Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1503</td>
+                                        <td>Invalid Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1504</td>
+                                        <td>Invalid Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1505</td>
+                                        <td>Invalid Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1506</td>
+                                        <td>Invalid Bank Code ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1507</td>
+                                        <td>Invalid Operation </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1508</td>
+                                        <td>Invalid operation reason </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1509</td>
+                                        <td>Missing Wallet ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1510</td>
+                                        <td>Missing Token Requestor ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1511</td>
+                                        <td>Missing Correlation ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1512</td>
+                                        <td>Missing Token Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1513</td>
+                                        <td>Missing Pan Reference ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1514</td>
+                                        <td>Missing Bank Code ID </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1515</td>
+                                        <td>Missing Operation </td>
+                                        <tr/>
+                                        <tr>
+                                        <td>T1516</td>
+                                        <td>Missing operation reason </td>
+                                        <tr/>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/TokenLifeCycleV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/TokenLifeCycleV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+        TokenLifeCycleV35Rq:
+               $ref: 'request.yaml#/TokenLifeCycleV35Rq'
+        TokenLifeCycleV35Rs:
+               $ref: 'response.yaml#/TokenLifeCycleV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,159 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch Operation API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second.
+  version: PowerCARD V4 
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:
+  /switch-operation/v4.1/cards/search_authorizations:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                              Used to search for authorizations in the system. Third paties applications developers may use different criteria to search and display authorizations performed by customer, card…. Criteria’s could include amount ranges, dates, Account id, transaction types, network… for more details, please refer the the technical section of this API.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/SearchAuthorization.png" />
+            summary:   This web service is used to search for authorizations in the system. 
+            tags:
+              - Search Authorization V41
+            requestBody:
+              required: true
+              description:
+                <img id="select-case-img" src="./docs/exclamation.png" />
+                  <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                  <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y ... &#58; </label>
+                  <code id="key-value-token">
+                        {
+
+                            ...
+
+                            "keyValues" &#58; [{
+
+                                "key" &#58; "token",
+
+                                "data" &#58; "y"
+
+                            }],
+                            ...
+
+                        }
+
+                  </code>
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchAuthorizationV41Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchAuthorizationV41Rq'
+            responses:  
+              200:
+                description:  
+                          <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <tr>
+                            <td>00014</td>
+                            <td>Invalid business date</td>
+                            </tr>
+                            <table>
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr>
+                                <td>021301</td>
+                                <td>Invalid cardNumber /TokenID</td>
+                              </tr>
+                              <tr>
+                                <td>021302</td>
+                                <td>Invalid BankCode</td>
+                              </tr>
+                            </table>
+                          </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchAuthorizationV41Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SearchAuthorizationV41Rs'
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      SearchAuthorizationV41Rq:
+                       $ref: 'request.yaml#/SearchAuthorizationV41Rq'
+      SearchAuthorizationV41Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV41Rs'
+security:
+  - bearerAuth: []
+  

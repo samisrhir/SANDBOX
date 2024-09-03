@@ -1,0 +1,142 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-xPos API documentation
+  description: <p>HPS’ PowerCARD-xPOS solution can help payments providers, retailers and banks overcome these challenges, and rapidly roll out new services and simply global device deployment, while keeping maintenance and administration costs to a minimum. </p>
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: http://196.12.238.134:12080/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- allocateDevice
+  /allocateDevice/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present API provides functionality to allocate a device to a terminal in the system.</p>
+                    <p>While invoking this API, the system assigns a device serial number as well as a brand identification code to the logical terminal. It is worth to note that one device can be assigned to only one terminal, attempting to assign the same device to another terminal will be followed by a rejection with a specific error code. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/allocateDevice.png" />
+                  
+      summary: The present API provides functionality to allocate a device to a terminal in the system.
+      tags:
+        - Allocate Device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocateDeviceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AllocateDeviceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05501</td>
+                                  <td>Invalid Terminal Pos Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05502</td>
+                                  <td>Invalid bank Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05503</td>
+                                  <td>Invalid Serial Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05504</td>
+                                  <td>Device is already allocated to this terminal</td>
+                                </tr>
+                                <tr> 
+                                  <td>05505</td>
+                                  <td>Device not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>05506</td>
+                                  <td>Not used</td>
+                                </tr>
+                                <tr> 
+                                  <td>05507</td>
+                                  <td>Invalid device Status</td>
+                                </tr>
+                                <tr> 
+                                  <td>05508</td>
+                                  <td>Error occurred during allocation, please contact the administrator</td>
+                                </tr>														
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocateDeviceRs'                                                                    
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>
+  schemas:
+
+    # --- Import AllocateDevice request and response
+      AllocateDeviceRq:
+               $ref: 'request.yaml#/AllocateDeviceRq'
+      AllocateDeviceRs:
+               $ref: 'response.yaml#/AllocateDeviceRs'       
+         
+security:
+  - bearerAuth: []
+  

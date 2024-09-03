@@ -1,0 +1,794 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Acquirer",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Activate Merchant Contract Services",
+          "file": "ActivateMerchantContractServicesV2.yaml",
+          "subApiList": [
+            {
+              "file": "ActivateMerchantContractServicesV2.yaml",
+              "name": "Activate Merchant Contract Services V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Activate Merchant Contract",
+          "file": "ActivateMerchantContractV2.yaml",
+          "subApiList": [
+            {
+              "file": "ActivateMerchantContractV2.yaml",
+              "name": "Activate Merchant Contract V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Addcharging Conditions",
+          "file": "AddchargingConditionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddchargingConditionsV2.yaml",
+              "name": "Addcharging Conditions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Activity",
+          "file": "AddMerchantActivityV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantActivityV2.yaml",
+              "name": "Add Merchant Activity V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Address",
+          "file": "AddMerchantAddressV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantAddressV2.yaml",
+              "name": "Add Merchant Address V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Bank Account",
+          "file": "AddMerchantBankAccountV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantBankAccountV2.yaml",
+              "name": "Add Merchant Bank Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Contact Details",
+          "file": "AddMerchantContactDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantContactDetailsV2.yaml",
+              "name": "Add Merchant Contact Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Contract Services",
+          "file": "AddMerchantContractServicesV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantContractServicesV2.yaml",
+              "name": "Add Merchant Contract Services V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Site",
+          "file": "AddMerchantSiteV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantSiteV2.yaml",
+              "name": "Add Merchant Site V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Posting Conditions",
+          "file": "AddPostingConditionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddPostingConditionsV2.yaml",
+              "name": "Add Posting Conditions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Merchant Exist",
+          "file": "CheckMerchantExistV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckMerchantExistV2.yaml",
+              "name": "Check Merchant Exist V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Close Case",
+          "file": "CloseCaseV2.yaml",
+          "subApiList": [
+            {
+              "file": "CloseCaseV2.yaml",
+              "name": "Close Case V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Close Event",
+          "file": "CloseEventV2.yaml",
+          "subApiList": [
+            {
+              "file": "CloseEventV2.yaml",
+              "name": "Close Event V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Acceptor Point",
+          "file": "CreateAcceptorPointV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateAcceptorPointV2.yaml",
+              "name": "Create Acceptor Point V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Basic Merchant",
+          "file": "CreateBasicMerchantV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateBasicMerchantV2.yaml",
+              "name": "Create Basic Merchant V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Case Action",
+          "file": "CreateCaseActionV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateCaseActionV2.yaml",
+              "name": "Create Case Action V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Case Event",
+          "file": "CreateCaseEventV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateCaseEventV2.yaml",
+              "name": "Create Case Event V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Case",
+          "file": "CreateCaseV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateCaseV2.yaml",
+              "name": "Create Case V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Claim",
+          "file": "CreateClaimV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateClaimV2.yaml",
+              "name": "Create Claim V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Merchant Contract",
+          "file": "CreateMerchantContractV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantContractV2.yaml",
+              "name": "Create Merchant Contract V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Merchant",
+          "file": "CreateMerchantV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantV2.yaml",
+              "name": "Create Merchant V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Deactivate Merchant Contract Services",
+          "file": "DeactivateMerchantContractServicesV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeactivateMerchantContractServicesV2.yaml",
+              "name": "Deactivate Merchant Contract Services V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Deactivate Merchant Contract",
+          "file": "DeactivateMerchantContractV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeactivateMerchantContractV2.yaml",
+              "name": "Deactivate Merchant Contract V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Delete Merchant Contact",
+          "file": "DeleteMerchantContactV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeleteMerchantContactV2.yaml",
+              "name": "Delete Merchant Contact V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Delete Merchant Owner",
+          "file": "DeleteMerchantOwnerV2.yaml",
+          "subApiList": [
+            {
+              "file": "DeleteMerchantOwnerV2.yaml",
+              "name": "Delete Merchant Owner V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Case Action",
+          "file": "GetCaseActionV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCaseActionV2.yaml",
+              "name": "Get Case Action V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Case Event",
+          "file": "GetCaseEventV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCaseEventV2.yaml",
+              "name": "Get Case Event V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Case",
+          "file": "GetCaseV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetCaseV2.yaml",
+              "name": "Get Case V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Chain Hierarchy",
+          "file": "GetChainHierarchyV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetChainHierarchyV2.yaml",
+              "name": "Get Chain Hierarchy V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Last Info Claims",
+          "file": "GetLastInfoClaimsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetLastInfoClaimsV2.yaml",
+              "name": "Get Last Info Claims V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Chargebacks",
+          "file": "GetMerchantChargebacksV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantChargebacksV2.yaml",
+              "name": "Get Merchant Chargebacks V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Contract Detail",
+          "file": "GetMerchantContractDetailV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantContractDetailV2.yaml",
+              "name": "Get Merchant Contract Detail V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Detail",
+          "file": "GetMerchantDetailV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantDetailV2.yaml",
+              "name": "Get Merchant Detail V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Funding Details",
+          "file": "GetMerchantFundingDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantFundingDetailsV2.yaml",
+              "name": "Get Merchant Funding Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Outlet Details",
+          "file": "GetOutletDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetOutletDetailsV2.yaml",
+              "name": "Get Outlet Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Product Recap",
+          "file": "GetProductRecapV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetProductRecapV2.yaml",
+              "name": "Get Product Recap V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Product",
+          "file": "GetProductV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetProductV2.yaml",
+              "name": "Get Product V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Remittance",
+          "file": "GetRemittanceV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetRemittanceV2.yaml",
+              "name": "Get Remittance V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Reserve Rolling",
+          "file": "GetReserveRollingV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetReserveRollingV2.yaml",
+              "name": "Get Reserve Rolling V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Cases",
+          "file": "SearchCasesV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchCasesV2.yaml",
+              "name": "Search Cases V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Claims",
+          "file": "SearchClaimsV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchClaimsV2.yaml",
+              "name": "Search Claims V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Merchant Funding",
+          "file": "SearchMerchantFundingV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchMerchantFundingV2.yaml",
+              "name": "Search Merchant Funding V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Rejected Transactions",
+          "file": "SearchRejectedTransactionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchRejectedTransactionsV2.yaml",
+              "name": "Search Rejected Transactions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Remittances",
+          "file": "SearchRemittancesV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchRemittancesV2.yaml",
+              "name": "Search Remittances V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Acceptor Point Status",
+          "file": "UpdateAcceptorPointStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAcceptorPointStatusV2.yaml",
+              "name": "Update Acceptor Point Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Case Event",
+          "file": "UpdateCaseEventV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCaseEventV2.yaml",
+              "name": "Update Case Event V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Case",
+          "file": "UpdateCaseV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateCaseV2.yaml",
+              "name": "Update Case V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Charging Conditions",
+          "file": "UpdateChargingConditionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateChargingConditionsV2.yaml",
+              "name": "Update Charging Conditions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Account Status",
+          "file": "UpdateMerchantAccountStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantAccountStatusV2.yaml",
+              "name": "Update Merchant Account Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Activity Status",
+          "file": "UpdateMerchantActivityStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantActivityStatusV2.yaml",
+              "name": "Update Merchant Activity Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Activity",
+          "file": "UpdateMerchantActivityV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantActivityV2.yaml",
+              "name": "Update Merchant Activity V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Address Details",
+          "file": "UpdateMerchantAddressDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantAddressDetailsV2.yaml",
+              "name": "Update Merchant Address Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Address Status",
+          "file": "UpdateMerchantAddressStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantAddressStatusV2.yaml",
+              "name": "Update Merchant Address Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Bank Account",
+          "file": "UpdateMerchantBankAccountV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantBankAccountV2.yaml",
+              "name": "Update Merchant Bank Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contact Details",
+          "file": "UpdateMerchantContactDetailsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContactDetailsV2.yaml",
+              "name": "Update Merchant Contact Details V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contract Characteristics",
+          "file": "UpdateMerchantContractCharacteristicsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContractCharacteristicsV2.yaml",
+              "name": "Update Merchant Contract Characteristics V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contract Service Characteristics",
+          "file": "UpdateMerchantContractServiceCharacteristicsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContractServiceCharacteristicsV2.yaml",
+              "name": "Update Merchant Contract Service Characteristics V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contract Status",
+          "file": "UpdateMerchantContractStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContractStatusV2.yaml",
+              "name": "Update Merchant Contract Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contract",
+          "file": "UpdateMerchantContractV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContractV2.yaml",
+              "name": "Update Merchant Contract V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Description",
+          "file": "UpdateMerchantDescriptionV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantDescriptionV2.yaml",
+              "name": "Update Merchant Description V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Site Status",
+          "file": "UpdateMerchantSiteStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantSiteStatusV2.yaml",
+              "name": "Update Merchant Site Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Site",
+          "file": "UpdateMerchantSiteV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantSiteV2.yaml",
+              "name": "Update Merchant Site V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Status",
+          "file": "UpdateMerchantStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantStatusV2.yaml",
+              "name": "Update Merchant Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Posting Conditions",
+          "file": "UpdatePostingConditionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdatePostingConditionsV2.yaml",
+              "name": "Update Posting Conditions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Rejected Transactions",
+          "file": "UpdateRejectedTransactionsV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateRejectedTransactionsV2.yaml",
+              "name": "Update Rejected Transactions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Remittances",
+          "file": "UpdateRemittancesV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateRemittancesV2.yaml",
+              "name": "Update Remittances V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Validate Merchant Contract",
+          "file": "ValidateMerchantContractV2.yaml",
+          "subApiList": [
+            {
+              "file": "ValidateMerchantContractV2.yaml",
+              "name": "Validate Merchant Contract V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Validate Merchant",
+          "file": "ValidateMerchantV2.yaml",
+          "subApiList": [
+            {
+              "file": "ValidateMerchantV2.yaml",
+              "name": "Validate Merchant V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

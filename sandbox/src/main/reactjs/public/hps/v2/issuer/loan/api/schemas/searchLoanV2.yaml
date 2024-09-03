@@ -1,0 +1,81 @@
+openapi: "3.0.3"
+info:
+  title: Loan API documentation
+  description: <p> PowerCARD Connect’API offers through APIs specific functions to access to the Loan function. This function is used to view the details of Loan’s operations including Loan Search ,Loan Cancellation...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #searchLoan  
+  /searchLoan/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The search loan web service is an API that can be used to retrieve all the loans provided by the issuer to the customer. Whether it is an ongoing loan or an amortized one, this service provides the ability to search for all existing loans in the system using different criteria’s like Transaction Id, Account Id or also transaction date. For the last criteria, users must specify a range of dates values to get the list of loans submitted between those two dates, for instance search for the list of loans submitted today, last week, last months… 
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/searchLoan.png" />
+            summary: Retrieve all the loans provided by the issuer to the customer. 
+            tags:
+              - Search Loan.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoanV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/SearchLoanV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/SearchLoanV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/SearchLoanV35Rs'                
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import SearchLoanV35 request and response
+      SearchLoanV35Rq:
+               $ref: 'request.yaml#/SearchLoanV35Rq'
+      SearchLoanV35Rs:
+               $ref: 'response.yaml#/SearchLoanV35Rs' 
+security:
+  - bearerAuth: []

@@ -1,0 +1,159 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- addMerchantAddress
+  /AddMerchantAddress/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant address API provides functionality to add a merchant address during a merchant enrollment process. The merchant address must contain information like street, city, state, postal code, country…This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/addMerchantActivity.png" />
+                  
+      summary: The add merchant address API provides functionality to add a merchant address during... 
+      tags:
+        - Add Merchant Address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAddressRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAddressRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08751</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08752</td>
+                                  <td>Invalid Address indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08753</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08754</td>
+                                  <td>Invalid Bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08755</td>
+                                  <td>The merchant already has a principal address</td>
+                                </tr>
+                                <tr> 
+                                  <td>08756</td>
+                                  <td>The merchant must have a principal address</td>
+                                </tr>
+                                <tr> 
+                                  <td>08757</td>
+                                  <td>Invalid Address parameters</td>
+                                </tr>
+                                <tr> 
+                                  <td>08758</td>
+                                  <td>Invalid address list ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>08759</td>
+                                  <td>Invalid start date</td>
+                                </tr>
+                                <tr> 
+                                  <td>08760</td>
+                                  <td>Invalid address type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08761</td>
+                                  <td>Invalid default usage</td>
+                                </tr>
+                                <tr> 
+                                  <td>08762</td>
+                                  <td>Invalid sending mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08763</td>
+                                  <td>Invalid E-mail address</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08764</td>
+                                  <td>Invalid Fax number</td>
+                                </tr>
+                                <tr> 
+                                  <td>08765</td>
+                                  <td>Invalid Care Of</td>
+                                </tr>
+                                <tr> 
+                                  <td>08766</td>
+                                  <td>Invalid Zip code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08767</td>
+                                  <td>Invalid City code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08768</td>
+                                  <td>Invalid Country code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08769</td>
+                                  <td>Invalid phone type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08770</td>
+                                  <td>Invalid region code</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantAddressRs'                                                                                                 
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import AddMerchantAddress request and response
+      AddMerchantAddressRq:
+               $ref: 'request.yaml#/AddMerchantAddressRq'
+      AddMerchantAddressRs:
+               $ref: 'response.yaml#/AddMerchantAddressRs'                                                                                      
+security:
+  - bearerAuth: []
+
+
+

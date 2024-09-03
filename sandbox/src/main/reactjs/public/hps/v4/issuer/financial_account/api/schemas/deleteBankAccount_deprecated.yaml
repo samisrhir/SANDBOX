@@ -1,0 +1,176 @@
+openapi: "3.0.3"
+info:
+  title: Financial Account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account (used to view and update data related with the financial account) ,Account transactions.</p>
+                </div>
+               
+  version: PowerCARD-Issuer V4
+servers:
+  - url: https://api.wemeeting2023.pwcv4.com
+    description: Development server
+paths:                                       
+  #cards/delete_bank_account
+  /payment-instrument/v4.0/accounts/delete_bank_account:
+        delete:
+            deprecated: true
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web services is aimed to update bank account information. Agent as well as customers can ask to add, edit or delete one or multiple bank account in the system. It is important to note that the web service requires either the card number or the credit account number for which the adjustment will be performed. As output the web service send back the result of the processing that could be either successfully or unsuccessfully, in what case, the system will share an error code and description for more details.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccount.png" />
+            summary: Update bank account information. 
+            tags:
+              - Bank Account management
+            requestBody:
+              description: 
+                      <img id="select-case-img" src="./docs/exclamation.png" /> 
+                      <label  id="select-case">To make Connect'API protocol more extensible, an array of <b>key value</b> pairs is available in All object.</label>
+                      <label id="select-case"> for example to indicate to the PowerCARD Connect’API that the Alias PAN is being sent instead of the card number, the Client must include a key TOKEN with value Y &#58; </label>
+                      <code id="key-value-token"> 
+                          {
+                                ...
+                                "keyValues" &#58; [{
+                                    "key" &#58; "token",
+                                    "data" &#58; "y"
+                                }],
+                                ...
+                          }
+                      </code>              
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/DeleteBankAccountV4Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                            <p>Technical Error Codes &#58;</p>
+                            <table>
+                            <tr>
+                            <th>Error code</th>
+                            <th>Error Description</th>
+                            </tr>
+                            <tr>
+                            <td>00000</td>
+                            <td>Success</td>
+                            </tr>
+                            <tr>
+                            <td>99999</td>
+                            <td>System error</td>
+                            </tr>
+                            <tr>
+                            <td>90009</td>
+                            <td>Generic error for request validation failure (check size,format,mandatory etc..)</td>
+                            </tr>
+                            <tr>
+                            <td>00002</td>
+                            <td> Forbidden you don't have permission to access for this api</td>
+                            </tr>
+                            <tr>
+                            <td>00007</td>
+                            <td>Authorization header is empty</td>
+                            </tr>
+                            <tr>
+                            <td>00008</td>
+                            <td>Authorization header is missing</td>
+                            </tr>
+                            <tr>
+                            <td>00009</td>
+                            <td>Malformat Authorization content</td>
+                            </tr>
+                            <tr>
+                            <td>00010</td>
+                            <td>Bearer is required in the token</td>
+                            </tr>
+                            <tr>
+                            <td>00011</td>
+                            <td>Token expired</td>
+                            </tr>
+                            <tr>
+                            <td>00012</td>
+                            <td>Invalid token</td>
+                            </tr>
+                            <tr>
+                            <td>00014</td>
+                            <td>Invalid business date</td>
+                            </tr>
+                            <table>
+                                      <p>Business Error Codes &#58;</p>
+                                      <table>
+                                          <tr>
+                                            <th>Error code</th>
+                                            <th>Error Description</th>
+                                          </tr>
+                                          <tr>
+                                              <td>000154</td>
+                                              <td>Invalid Account Status Code</td>
+                                          </tr>	 
+                                          <tr>
+                                              <td>000152</td>
+                                              <td>Invalid Account Status Reason</td>
+                                          </tr>
+                                          <tr>
+                                              <td>000167</td>
+                                              <td>Bank Account Does Not Exist</td>
+                                          </tr>	 
+                                          <tr>
+                                              <td>001158</td>
+                                              <td>Error Delete A Default Account</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021301</td>
+                                          <td>Invalid CardNumber / TokenID</td>
+                                          </tr>
+                                          <tr>
+                                          <td>021302</td>
+                                          <td>Invalid bankCode</td>
+                                          </tr>
+                                          <tr>
+                                          <td>000111</td>
+                                          <td>Invalid status transition</td>
+                                          </tr>
+                                    </table>
+                      </div>
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateBankAccountV4Rs'               
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      UpdateBankAccountV4Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV4Rs'
+      # --- Import DeleteBankAccount request 
+      DeleteBankAccountV4Rq:
+          $ref: 'request.yaml#/DeleteBankAccountV4Rq'
+security:
+  - bearerAuth: []   

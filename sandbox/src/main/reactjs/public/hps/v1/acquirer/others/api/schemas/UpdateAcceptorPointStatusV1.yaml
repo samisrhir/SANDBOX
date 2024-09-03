@@ -1,0 +1,103 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- updateAcceptorPointStatus
+  /UpdateAcceptorPointStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant and all the entities linked to it in the system. For instance, the present web service can help to change the status of an acceptor point of a given merchant</p>
+                    <p>Users must specify the desired status as web as other information’s like the reason behind the change and optionally the starting/ending date of such status. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchRemittances.png" />
+                  
+      tags:
+        - Update Acceptor Point Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAcceptorPointStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateAcceptorPointStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10501</td>
+                                  <td>Invalid merchant</td>
+                                </tr>
+                                <tr> 
+                                  <td>10502</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>10503</td>
+                                  <td>Invalid acceptor point id and contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10504</td>
+                                  <td>Update not allowed for this acceptor point, it's closed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10505</td>
+                                  <td>Error while updating acceptor point status</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10506</td>
+                                  <td>Invalid status code and reason code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateAcceptorPointStatusRs'                                                                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import updateAcceptorPointStatus request and response 
+      updateAcceptorPointStatusRq:
+               $ref: 'request.yaml#/updateAcceptorPointStatusRq'
+      updateAcceptorPointStatusRs:
+               $ref: 'response.yaml#/updateAcceptorPointStatusRs'                                                                                         
+security:
+  - bearerAuth: []
+
+
+

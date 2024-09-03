@@ -1,0 +1,1795 @@
+      # ---- TokenAuthentication definition            
+      TokenAuthentication:
+          type: object
+          properties: 
+            providerLogin: 
+                type: string
+                example: 'firstUser'
+            providerPassword: 
+                type: string
+                example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+            userLanguage:
+                type: string
+                example: 'en_US'
+            requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+      # ---- UpdateInterestRateIndexV35Rq definition          
+      UpdateInterestRateIndexV35Rq:
+            type: object
+            properties:
+                    accountId:
+                      type: string
+                      example: '123206721'
+                      description: Should contain the credit account number subject to this interest rate change.
+                    interestRateIndex:
+                      description: Refers to the interest rate index as alredr defined in CR_INTEREST_SCHEDULE table. 
+                      example: AA22
+                      type: string
+                    effectiveDate:
+                      description: Effective date starting from wghen the new interest rate index will be applied.
+                      type: string
+                      example: '2020-12-22T00:00:00'
+                    requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [accountId,interestRateIndex,effectiveDate,requestInfo]  
+      # ---- GetCardDetailsV35Rq definition   
+      GetCardDetailsV35Rq:
+            type: object
+            properties:
+                    cardNumber:
+                      type: string
+                      example: '4250120656063430'
+                      description: The card number or the Card Token Id.
+                    requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo]  
+      # ---- ActivateContactLessV35Rq definition   
+      ActivateContactLessV35Rq:
+            type: object
+            properties:
+                    cardNumber:
+                      type: string
+                      example: '4250120438221785'
+                      description: The card number or the Card Token Id.
+                    expiryDate:
+                      type: date
+                      example: '2022-05-31T05:06:07.000Z'
+                      description:  Refers to the expiry date of the card
+                                    Format 
+                                    yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+                                    The value will be in GMT.
+                    activationFlag:
+                      type: string
+                      example: 'D'
+                      description:  This one character flag indicates whether the operation request concerns an activation or a deactivation.
+                                    Possible values are <br>
+                                    A -  Activation <br>
+                                    D -  Deactivation  <br>
+                    requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo,expiryDate] 
+ 
+      # ---  ChangeCardProductV35Rq
+      ChangeCardProductV35Rq:
+            type: object
+            properties:
+                cardNumber:
+                   type: string
+                   example: '5109990548545731'
+                   description: 'The cardNumber'
+                newCatPIProduct:
+                    type: string
+                    example: 'PANCV1'
+                    description: It is a 6 digit code identifying the payment instrument product code to ne assigned to the card.
+                                 Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P 
+                newCatPIProductVersion:
+                    type: string
+                    example: '1'
+                    description: It is a 10 caracter fields identifying the payment instrument version.
+                                 Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = P
+                newCatAccProduct:
+                    type: string
+                    example: 'ACCCA1'
+                    description: It is a 6 digit code identifying the account product code to ne assigned to the card’s account.
+                                 Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = A 
+                                 Required in case of <b>Credit/Prepaid/Charge</b> Card update.
+                newCatAccProductVersion:
+                    type: string
+                    example: '1'
+                    description:  It is a 10 caracter fields identifying the account version.
+                                  Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = A 
+                                  Required in case of <b>Credit/Prepaid/Charge</b> Card update.
+                expiryDT:
+                    type: date
+                    example: '2030-02-05T00:00:00'
+                    description:  Refers to the new expiry date of the card Format 
+                                  <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+                                  The value will be in GMT. 
+                deliveryBranch:
+                    type: string
+                    example: '078590'
+                    description: The delivery branch code. 6 digits code of the branch to which the new card will be delivered if the customer has requested so. Valid values must be downloaded from PowerCARD BRANCH table.
+                feesOption:
+                    type: string
+                    example: 'Y'
+                    description: The fees option used to set fees during the <b>PIN</b> request. Possible values are<br>
+                                 <b>Y<b/> - Apply fees <br>
+                                 <b>N</b> - Do not apply fees
+                feeAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/ChangeCardProductCurAmtV35'
+                    description: Used only if the FeesOption field is set to Y.
+                                 This aggregate contains the fee amount and currency.
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+      # ---  ChangePinV35Rq
+      ChangePinV35Rq:
+            type: object
+            properties:
+                cardNumber:
+                    type: string
+                    description:
+                                <p>The card number or the Card Token Id.It should contain a valid value</p>
+                pinBlockFormat:
+                    type: string
+                    description: <p>
+                                  PIN Block Format this field indicates the format of the PIN block for the two PIN blocks (Old and new).Valid values are <br>
+                                  <b>- 01</b> Format is based on the PIN, the PIN length, the selected rightmost digits of the account number, and the pad characters 0 and F—combined through an exclusive OR operation.<br>
+                                  <b>- 03</b> Format is based on the PIN and the F pad character
+                                  </p>
+                pinMethod:
+                    type: string
+                    description: <p>
+                                  Method of PIN validation
+                                  This operation is performed within a Host Security Module (HSM)
+                                  Valid values are <br>
+                                  <b>- PVV</b> Pin Verification Value<br>
+                                  <b>- OFS</b> Offset
+                                </p>
+                currentPin:
+                    type: string
+                    description: <p>
+                                  This field contains the current PIN. It is encrypted and formatted as a block of 16 hexadecimal digits. 
+                                  The PIN Block is transmitted encrypted under the <b>ZPK (Zone PIN key)</b>.
+                                  This key should be shared between PowerCARD and the other party.
+                                  This field is optional
+                                 </p>
+                currentPvv:
+                    type: string
+                    description: <p>
+                                      Refers to the current <b>PVV/Offset</b> value that resides in the track 2 of the card.
+                                      This value is mandatory only when the customer is aiming tyo change the existing PIN by a new one.
+                                      This field is used for PIN verification.
+                                 </p>
+                newPin:
+                    type: string
+                    description: <p>
+                                      This field contains a new PIN to replace an existing PIN. It is encrypted and formatted as a block of 16 hexadecimal digits. (A new PIN is chosen to replace the current PIN when the cardholder does not remember the current PIN, or the current PIN is compromised, or just wants a new PIN.).
+                                      The PIN block encrypted under the <b>ZPK (Zone PIN key)</b> and must conform to the PIN Block Format 01 
+                                      The ZPK key should be shared previously between PowerCARD and the other party.
+                                 </p>
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo,newPIN,pinMethod,pinBlockFormat] 
+      # ---  CreateAccountTransactionV35Rq
+      CreateAccountTransactionV35Rq:
+            type: object
+            properties:
+                accountTransaction:
+                    type: object
+                    $ref: 'aggregate.yaml#/AccountTransactionV35'
+                requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo] 
+      # --- GetAccountBalanceV35Rq
+      GetAccountBalanceV35Rq:
+            type: object
+            properties:
+                cardNumber:   
+                    type: string
+                    description: <p> 
+                                  The card number must contain the primary card number of the customer. The number should be valid and previously present in the PowerCARD CARD table under the cardholder section.
+                                  This field becomes mandatory when the shadow account number is not provided.
+                                </p>
+                clientCode:
+                    type: string
+                    description:
+                                <p>
+                                    ClientCode	C(24)	-	Optional (max  1)	The client code present in the table <b>CLIENT</b> in PowerCARD.
+                                </p>
+                accountId:
+                    type: string
+                    description: <p>
+                                    The account identifier  It refers to the internal account number. This value should be already defined in the PowerCARD <b>SHADOW_ACCOUNT</b> table.
+                                    This field is mandatory if the card number is not provided.
+                                  </p>  
+                accountType: 
+                    type: string
+                    description:  <p>
+                                        Account type refers to the type of the account.Possible values can be downloaded from the PowerCARD <b>ACCOUNT_TYPE_LIST</b> table.
+                                  </p>
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [requestInfo] 
+      # --- RequestPinV35Rq
+      RequestPinV35Rq:
+            type: object
+            properties:
+                cardNumber:   
+                    type: string
+                    example: "4250120656063430"
+                    description: <p> 
+                                  The card number must contain the primary card number of the customer. The number should be valid and previously present in the PowerCARD CARD table under the cardholder section.
+                                  This field becomes mandatory when the shadow account number is not provided.
+                                </p>
+                sendingMode:
+                    type: string
+                    example: "SMS"
+                    enum: [WBS,VEW,EML,SMS,PML,BRC]
+                    description:
+                       <p>
+                       Mode of re-sending the PIN select one value from the following list
+                          <b>WBS - </b>Returns the new PIN value in the response<br>
+                          <b>VEW - </b> Returns the old PIN (For future use)<br>
+                          <b>EML - </b> Send the PIN using the customer email address (For future use)<br>
+                          <b>SMS - </b>Send the PIN by SMS (For future use)<br>
+                          <b>PML - </b>Send the PIN by  Postal address<br>
+                          <b>BRC - </b>Send the PIN mailer to <br>
+                       </p> 
+                       <p>the branch (For future use) For the time being, only the options WBS and PML are supported. </p>
+                feesOption:
+                    type: string
+                    example: "Y"
+                    description:
+                        <p>
+                            The fees option used to set fees during the PIN request. Possible values are 
+                             <b>Y</b> - Apply fees 
+                             <b>N</b> - Do not apply fees
+                        </p>
+                feeAmount:
+                     type: object
+                     $ref: 'aggregate.yaml#/RequestPinCurAmtV35'
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [requestInfo] 
+      # --- SetCustomerDetailV35Rq
+      SetCustomerDetailV35Rq:
+            type: object
+            properties:
+                actionCode: 
+                  type: string
+                  description: 
+                              <p>
+                                  Action Code Valid values are <br>
+                                  <b>C</b> - Create<br>
+                                  <b>U</b> - Update<br>
+                                  <b>D</b> - Cancel<br>
+                                  <b>B</b> - Assign New branch to customer (Valid only in case of CustomerDetail)<br>
+                              </p>
+                customerId:
+                    type: string
+                    description: <p>
+                                  Customer identifier,Refers to the unique customer identification auto generated by the system in case of PersonId aggregate not passed in the request.
+                                </p>  
+                customerDetail:
+                      type: object
+                      description: 
+                                <p>
+                                    Refers to the demographic information of the client such as names, professional activity, job details …
+                                      This aggregate is Mandatory if ExistingClient block is not provided
+                                </p>
+                      $ref: 'aggregate.yaml#/CustomerDetailsV35'
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [requestInfo]
+      # --- SetCustomerDetailV35Rq
+      GetCustomerDetailV35Rq:
+            type: object
+            properties: 
+                clientCode:
+                    type: string
+                    example: 00097032
+                    description: <p>
+                                    Should contain the customer identification number in PowerCARD.
+                                    This value must be previously defined in the PowerCARD <b>CLIENT</b> table.
+                                    Required if CorporateId is empty.
+                                </p>  
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [requestInfo] 
+      # --- GetLoyaltyAccountsV35Rq
+      GetLoyaltyAccountsV35Rq:
+              type: object
+              properties:
+                  bankCode:
+                      type: string
+                      description:  <p>Represent the bankcode of the account owner.</p>
+                  accountOwnerType:
+                      type: string
+                      description: 
+                                  <p>
+                                      Indicates the type of the entity that owns the loyalty account.
+                                      Possible values are the following<br>
+                                      <b>CH</b> = Cardholder.<br>
+                                      <b>SA</b> = Shadow Account<br>
+                                      The value transmitted in the next field is based on the value of that one.
+                                  </p>
+                  accountOwnerId:
+                      type: string
+                      description: 
+                                  <p>
+                                      It refers to the identification of the entity that owns the loyalty account.
+                                      Based on the value in the previous field, this field may contain 
+                                  </p> 
+                  requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+              required:  [requestInfo,bankCode,accountOwnerType,accountOwnerId]                
+      # --- UpdateAddressV35Rq
+      UpdateAddressV35Rq:
+             type: object
+             properties: 
+                  clientCode:
+                     type:  string
+                     description: <p>To provide the client code.
+                                    This field is mandatory in case of <b>EntityType is ‘CL’</b>
+                                    </p>
+                  entityType:
+                      type: string
+                      enum: [CH,CL,CO]
+                      description: 
+                                  <p>
+                                        Concerned entity code. Possible values are<br>
+                                        <b>CH</b> - Card<br>
+                                        <b>CL</b> -  Client<br>
+                                        <b>CO</b> -  Corporate<br>
+                                  </p>
+                  cardNumber:
+                         type: string
+                         description: 
+                              <p>
+                                  To provide the CardNumber or the Token ID.
+                                  This field is mandatory in case of <b>EntityType is ‘CH’</b>
+                              </p>
+                  corporateId:
+                         type: string
+                         description:  
+                             <p>
+                                  To provide the Corporate Id.
+                                  This field is mandatory in case of <b>EntityType is ‘CO’</b>
+                             </p>
+                  addressPurpose:
+                         type: object
+                         $ref: 'aggregate.yaml#/AddressPurpose2V35'
+                  address:
+                         type: object
+                         $ref: 'aggregate.yaml#/AddressV35'
+                  requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+      # --- UpdateBankAccountRq
+      UpdateBankAccountV35Rq:
+               type: object
+               properties:
+                    actionCode: 
+                      type: string
+                      example: "A"
+                      description:  
+                              <p> 
+                                  Refers to the desired action, possible values are <br>
+                                  <b>A</b> - Add Bank Account <br>
+                                  <b>U</b> - Update Bank Account <br>
+                                  <b>D</b> - Delete Bank Account <br>
+                              </p>
+                    cardNumber:
+                       type: string
+                       example: "4250120656063430"
+                       description: 
+                              <p>
+                                    Card Number this field must hold the card number to which, 1) the bank account will be added, 2) the bank account information ned to be updated, or 3) the bank account must be deleted.
+                              </p>
+                    accountId:
+                       type: string
+                       example: "198443230"
+                       description: 
+                              <p>
+                                  Account Number this field must hold the credit account number to which, 1) the bank account will be added, 2) the bank account information ned to be updated, or 3) the bank account must be deleted.
+                                  Note that, one of the two fields, Card number and Account number is mandatory.
+                              </p>
+                    bankAcctRec: 
+                       type: array
+                       items:
+                          type: object
+                          $ref: 'aggregate.yaml#/BankAcctRecV35'
+                    requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+      # --- UpdateCardLimitsV35Rq
+      UpdateCardLimitsV35Rq:
+              type: object
+              properties: 
+                  cardNumber:
+                        type: string
+                        description: 
+                            <p>
+                                Refers to the card number for which the requester is asking to update the limit.
+                            </p> 
+                        example: "4250120656063430"
+                  cardLimit:
+                      type: array
+                      items:
+                         type: object
+                         $ref: 'aggregate.yaml#/CardLimitUpdateV35'
+                  transactionCriteria:
+                      type: array
+                      items:
+                        type: object
+                        $ref: 'aggregate.yaml#/TransactionCriteriaV35'
+                  requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+              required: [cardNumber]                        
+      # --- CreateCreditCardV35Rq
+      CreateCreditCardV35Rq:
+              type: object
+              properties: 
+                    customerDetails:
+                        type: object
+                        $ref: 'aggregate.yaml#/CustomerDetailsV35'
+                    cardDetails:
+                       type: object
+                       $ref: 'aggregate.yaml#/CreditCardDetailsV35'
+                    requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+              required: [customerDetails,requestInfo]
+      # --- CreateCreditCardV3V35Rq
+      CreateCreditCardV3V35Rq:
+        type: object
+        properties:
+          customerDetails:
+            type: object
+            $ref: 'aggregate.yaml#/CustomerDetailsV35'
+          cardDetails:
+              $ref: 'aggregate.yaml#/CreditCardDetailV35'
+          creditAccount:
+            type: object
+            $ref: 'aggregate.yaml#/CreditAccountV35'
+          requestInfo:
+            type: object
+            $ref: 'aggregate.yaml#/RequestInfo'
+        required: [customerDetails,requestInfo]
+      # --- GetCardCVC2V35Rq
+      GetCardCVC2V35Rq:
+          type: object
+          properties:
+              cardNumber:
+                  type: string
+                  example: '4250120088972067'
+                  description: <p>The card number or the Card Token Id.</p>
+              requestInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/RequestInfo'
+          required:  [cardNumber,requestInfo]
+
+      # --- GetCardDomainV35Rq
+      GetCardDomainV35Rq:
+          type: object
+          properties:
+                cardNumber:
+                    type: string
+                    example: '4250120088972067'
+                    description: <p>The card number or the Card Token Id.</p>
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+          required:  [cardNumber,requestInfo]
+      # --- GetCardLimitsV35Rq
+      GetCardLimitsV35Rq:
+          type: object
+          properties:
+                cardNumber:
+                    type: string
+                    example: '4250120656063430'
+                    description: <p>The card number or the Card Token Id.</p>
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+          required:  [cardNumber,requestInfo]
+      # --- GetEventNotificationV35Rq
+      GetEventNotificationV35Rq:
+            type: object
+            properties:
+                  entityCode:
+                      type: string
+                      description: 
+                             <p>
+                                Indicate the entity code to which the communication strategy is linked. The possible values are <br>
+                                  <b>‘CL’</b> Client<br>
+                                  <b>‘CH</b> PAN<br>
+                                  <b>‘SA’</b>Financial account
+                             </p>
+                  entityId:
+                      type: string
+                      description: 
+                             <p>
+                               Indicate the entity identification to which the communication strategy is linked. The possible values are<br>
+                                - Should provide the client code where entity code is.<br>
+                                - Should provide PAN when entity Code is.<br>
+                                - Should provide the financial account where the entity code is SA.<br>
+                             </p>
+                  requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'
+            required:  [cardNumber,requestInfo]
+      # --- GetLoyaltyAccTrxsV35Rq
+      GetLoyaltyAccTrxsV35Rq:
+          type: object
+          properties:
+                bankCode:
+                    type: string
+                    description:
+                         <p>
+                            Represents the bank code of the loyalty account owner.
+                         </p>
+                accountOwnerType:
+                    type: string
+                    description: 
+                             <p>
+                                Indicates the type of the entity that owns the loyalty account.
+                                Possible values are the following<br>
+                                <b>CH</b> = Cardholder.<br>
+                                <b>SA</b> = Shadow Account<br>
+                                The value transmitted in the next field is based on the value of that one.<br>
+                             </p>
+                accountOwnerId:
+                    type: string
+                    description:
+                           <p>
+                                It refers to the identification of the entity that owns the loyalty account.
+                                Based on the value in the previous field, this field may contain <br>
+                                - The shadow account <b>(SA)</b><br>
+                                - The card number <b>(CH)</b>
+                           </p>
+                loyaltyAccountNbr:
+                    type: string
+                    description:
+                            <p>
+                              This field refers to a unique internal identification of the loyalty account liked to the card, channel….
+                              This field must contain the  loyalty account subject to this cancellation.
+                            </p>
+                selRangeDt:
+                     type: object
+                     $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+                requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+          required:  [cardNumber,requestInfo]
+      # --- RenewCardV35Rq
+      RenewCardV35Rq:
+          type: object
+          properties:
+            cardNumber:
+                type: string
+                description: <p>The card number.</p>
+                example: "4250120555998199"
+            requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'    
+      # --- ReplaceCardV35Rq
+      ReplaceCardV35Rq:
+          type: object
+          properties:
+            cardNumber:
+                type: string
+                description: <p>The card number.</p>
+                example: '4250120656063430'
+            reasonCode:
+                type: string
+                example: '02'
+                description: 
+                    <p>
+                        Must contain the replacement reason code.
+                        This code must be previously defined in the PowerCARD <b>REPLACEMENT_REASON_CODE</b> table under the cardholder parameter section.
+                        Valid values must be downloaded from PowerCARD 
+                    </p>
+            deliveryBranch:
+                 type: string
+                 example: '078590'
+                 description:
+                       <p>
+                          The delivery branch code. 6 digits code of the branch to which the new card will be delivered   if the customer has requested so. 
+                          Valid values must be downloaded from PowerCARD <b>BRANCH</b> table
+                       </p>
+            priorityIndicator:
+                  type: string
+                  example: '001'
+                  description: 
+                       <p>
+                            Refer to the priority of card embossing
+                            The value must exist in the table <b>PRIORITY_INDICATOR</b>
+                      </p>
+            plasticDeliveryMethod:
+                  type: string
+                  example: '001'
+                  description: 
+                        <p>
+                            This field identifies the kind of mailing method used to deliver the card plastic (For example  Assured mail, Ordinary mail, Airmail…). When provided, it will be validated against the list defined at bank and product level. Otherwise, the field will be automatically defaulted from the default parameter at bank and product.
+                            Should be defined in the table <b>ELIGIBLE_DELIVERY_METHOD</b>.
+                        </p>
+            feesOption:
+                  type: string
+                  example: 'Y'
+                  description:
+                        <p>
+                          The fees option used to set fees during the replacement of the card. Possible values are <br>   
+                          <b>Y</b> -  Apply fees while replacing the card.<br>
+                          <b>N</b> -  Do not apply fees on replace card.
+                        </p>
+            feeAmount:
+                      type: object
+                      $ref: 'aggregate.yaml#/ReplaceCardCurAmtV35'
+            requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+      # --- UpdateCardStatusV35Rq
+      UpdateCardStatusV35Rq:
+          type: object
+          properties:
+              cardNumber:
+                type: string
+                example: "4250120088972067"
+                description: <p>The card number.</p>
+              operation:
+                type: string
+                example: "R"
+                description: 
+                     <p>
+                        Must indicate the type of operation being executed on the card. Possible values are <br>
+                          <b>A</b> - Activate the card<br>
+                          <b>L</b> - Deliver the card<br>
+                          <b>E</b>- Activate & Deliver the card<br>
+                          <b>D</b> - Deactivate the card<br>
+                          <b>B</b> - Block the card<br>
+                          <b>U</b> - Unblock the card queue.<br>
+                          <b>R</b> - Remove the card from the Stop list queue.<br>
+                          <b>S</b> - Place the card in stop list <br>
+                          <b>C</b>  -  Cancel the card<br>
+                          <b>T</b> - Stop renewing the card<br>
+                     </p>
+              reasonCode:
+                  type: string
+                  example: ""
+                  description:
+                      <p>
+                      Reason code 
+                      Refers to the reason why the agent or the customer is requesting to change the status of an existing card, required only if Operation is set to B, U , S and C.
+                      If operation is set to <b>B</b>, <b>C</b>  and <b>U</b>, this code must be a valid value that must previously defined in the <b>STATUS_REASON_LIST</b> table under the general parameter section.
+                      If operation is set to S, the reason code field must match one of the codes present in the <b>STOP_LIST_REASON_CODE</b> table
+
+                      Finally, If operation is set to R, the reason code field must match of the codes present in the <b>WITHDRAWAL_REASON_CODE</b> table.
+                      Note that reasons must be retrieved  from PowerCARD
+                      </p>
+              description:
+                   type: string
+                   example: ""
+                   description: 
+                        <p>
+                           Additional description. 
+                            May contain an additional comments or description of the operation that describes briefly the operation.
+                        </p>
+              rangeDate: 
+                     type: object
+                     $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+          required: [cardNumber,operation,reasonCode]
+      # --- UpdateCardStatusReasonV35Rq
+      UpdateCardStatusReasonV35Rq:
+          type: object
+          properties:
+              cardNumber:
+                  type: string
+                  description: 
+                      <p> The card number or the Card Token Id.
+                      It should contain a valid value
+                      .</p>
+                  example: "4250120728536108"
+              newStatusCode:
+                    type: string
+                    description: 
+                        <p>
+                           Must indicate the new Status Code of an existing Card.
+                        </p>
+                    example: "S"
+              statusReasonCode:
+                    type: string
+                    description: 
+                        <p>
+                            Status Reason code 
+                            Refers to the reason why the agent or the customer is requesting to change the status of an existing card.
+                            It must contain a valid value that is prevousely defined in the <b>STATUS_REASON_LIST</b> table under the general parameter section.
+                        </p>
+                    example: "SU"
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+
+      # --- UpdateCustomerCategoryV35Rq
+      UpdateCustomerCategoryV35Rq:
+          type: object
+          properties:
+              customerId:
+                 type: string
+                 description: 
+                        <p>
+                              Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                              If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table.
+                        </p>
+              customerSegment:
+                   type: string
+                   description: 
+                         <p>
+                              Specifies the customer segments to which the cardholder belongs. This field is used mainly for marketing segmentation purposes. 
+                              Assignable values must be previously defined in the PowerCARD <b>CUSTOMER SEGMENT</b> table under the general parameters section.
+                         </p>
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+
+      # --- UpdateCustomerNameV35Rq
+      UpdateCustomerNameV35Rq:
+          type: object
+          properties:
+              customerId:
+                 type: string
+                 description: 
+                        <p>
+                              Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                              If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table.
+                        </p>
+              titleCode:
+                 type: string
+                 description:
+                         <p>
+                            Prefix or suffix added to the customer’s name. Titles may refer to social honorifics, professional designations, or academic ranks.
+                            This code must be previously defined in the PowerCARD <b>TITLE LIST</b> table under the general parameters section.
+                         </p>
+              familyName:
+                  type: string
+                  description: 
+                         <p>
+                             Cardholder’s last name.
+                         </p>
+              secondFamilyName:
+                  type: string
+                  description: 
+                         <p>
+                            Cardholder’s second family name if compound names are in use 
+                         </p>
+              firstName:
+                   type: string
+                   description:
+                        <p>
+                           Cardholder’s given name.
+                        </p>
+              secondFirstName:
+                    type: string
+                    description:  
+                        <p>
+                           Cardholder’s second first name if compound names are in use.
+                        </p>
+              maidenName:
+                    type: string
+                    description: 
+                         <p>
+                             Mother’s Maiden name
+                         </p>
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+
+      # --- UpdateCustomerEmailV35Rq
+      UpdateCustomerEmailV35Rq:
+          type: object
+          properties:
+              customerId:
+                 type: string
+                 description: 
+                        <p>
+                              Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                              If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table.
+                        </p>
+              email:
+                   type: string
+                   description: 
+                         <p>
+                              Must contain a valid Email address.<br>
+                              It must include two parts (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...)
+                         </p>
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+
+      # --- UpdateCustomerPhoneNumberV35Rq
+      UpdateCustomerPhoneNumberV35Rq:
+          type: object
+          properties:
+              customerId:
+                 type: string
+                 description: 
+                        <p>
+                              Used to transmit the customer identification code in PowerCARD. If provided only data belonging to this customer will be returned.
+                              If present in the message, this code must be already defied in the PowerCARD <b>CLIENT</b> table.
+                        </p>
+              phoneNum:
+                 type: array
+                 items:
+                    type: object
+                    $ref: 'aggregate.yaml#/PhoneV35'   
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+
+      # --- TransferAccountToAccountV35Rq
+      TransferAccountToAccountV35Rq:
+          type: object
+          properties:
+              cardNumber:
+                 type: string
+                 description: 
+                       <p> The card number.
+                      It should contain a valid value
+                      .</p>
+              srcAccountNbr:
+                 type: string
+                 description: 
+                      <p>
+                          The source account number In case of credit Account, It should refer to the internal account number. This value should be already defined in the PowerCARD <b>SHADOW_ACCOUNT</b> table.
+                      </p>  
+              destAccountNbr:
+                 type: string
+                 description: 
+                     <p>
+                          The destination account number In case of credit Account, It should refer to the internal account number. This value should be already defined in the PowerCARD <p>SHADOW_ACCOUNT</p> table
+                     </p>
+              transferAmount:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmtV35'
+              transactionDate:
+                    type: string
+                    description : 
+                               <p> 
+                                    The transaction date.
+                                    Date and time when the transaction took place.
+                                    Format<br>
+                                    <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+                                    The value will be in GMT.
+                                  </p>
+              valueDate:
+                  type: string
+                  description: 
+                        <p>
+                             The transaction value date.
+                            Date when the transaction will be considered the accounts.
+                            Format<br>
+                            <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b><br>
+                            The value will be in GMT.
+                        </p>
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo'
+      # --- GetParameterListV35Rq
+      GetParameterListV35Rq:
+          type: object
+          properties:
+              parameterList:
+                  type: array
+                  items:
+                      type: object
+                      $ref: 'aggregate.yaml#/ParameterV35'
+              requestInfo:
+                      type: object
+                      $ref: 'aggregate.yaml#/RequestInfo' 
+          required: [parameterList]
+      #SearchAuthorizationV35Rq:
+      SearchAuthorizationV35Rq: 
+                   type: object
+                   properties:
+                          cardNumber:
+                              type: string
+                              description: 
+                                    <p>
+                                        The card number or the Card Token Id.
+                                        It should contain a valid value
+                                    </p>
+                          rangeDate:
+                               type: object
+                               $ref: 'aggregate.yaml#/ValidityRangeDateV35' 
+                          dataSource:
+                               type: object
+                               $ref: 'aggregate.yaml#/DataSourceV35' 
+                          sourceAccountId:
+                               type: string
+                               description: <p>Source Account Id</p>
+                          destinationAccountId:
+                               type: string
+                               description : <p>Destination Account Id</p>
+                          referencenumber:
+                               type: string
+                               description: <p>Contains the reference number as defined in <b>ISO-8583 norm
+                                            (Field 37)</b>
+                                            </p>
+                          internalStan:
+                               type: string
+                               description: 
+                                     <p>
+                                         Internal <b>STAN (System Trace Audit Number)</b>.
+                                     </p>
+                          externalStan:
+                               type: string
+                               description:
+                                    <p>
+                                        External <b>STAN (System Trace Audit Number)</b>. This number is generated by the sender. It is a unique identification of the transaction. This number should remain unchanged in all the messages related to this transaction.
+                                    </p>
+                          TransmissionTime:
+                                type: string
+                                description:
+                                      <p>
+                                          Transmission date sent by the initiator
+                                          Format<br> 
+                                          <b>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</b>
+                                          The value will be in GMT.
+                                      </p>
+                          messageType:
+                                 type: string
+                                 description : 
+                                      <p>
+                                          Message type as defined in the <b>ISO8583 protocol</b>. <br>
+                                          This code must be previously defined in the PowerCARD  <b>MESSAGE_LIST</b> table under the general parameter section.
+                                      </p>
+                          actionCode: 
+                                 type: string
+                                 description: 
+                                      <p>
+                                          Refers to the desired action, possible values are <br>
+                                              <b>A</b> - Add Bank Account<br>
+                                              <b>U</b> - Update Bank Account<br>
+                                              <b>D</b> - Delete Bank Account<br>
+                                      </p>
+                          processingCode:
+                                  type: string
+                                  description :
+                                      <p>
+                                          Must contains a code that identifies the cardholder transaction type
+                                          Any value in this field must be previously defined in the PowerCARD <b>PROCESSING_LIST</b> table under the general parameter section.
+                                      </p>
+                          amountFrom: 
+                                 type: object
+                                 $ref: 'aggregate.yaml#/CurAmtV35' 
+                          amountTo:
+                                 type: object
+                                 $ref: 'aggregate.yaml#/CurAmtV35'  
+                          authoType:
+                                 type: string
+                                 description:
+                                       <p>
+                                          Refers to the authorization type, possible values are <br>
+                                          <b>I</b> -  Issuing <br>
+                                          <b>A</b> -  Acquiring <br>
+                                          <b>B</b> -  Both issuing & acquiring <br>
+                                       </p>  
+                          requestInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/RequestInfo'  
+
+      #UpdateCollaboratorSubscriptionStatusV35Rq:
+      UpdateCollaboratorSubscriptionStatusV35Rq: 
+                   type: object
+                   properties:
+                        corporateId:
+                          type: string
+                          description: 
+                                   <p>
+                                       The organization/corporate identifier. This code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                                   </p>
+                        employeeId:
+                          type: string
+                          description: <p>The employee ID</p>
+                        subscriptionId:
+                           type: string
+                           description: <p>The generated subscription ID submitted by corporate portal contact person.</p>
+                        requestStatus: 
+                           type: string
+                           description:
+                                   <p>
+                                        This is the status of the subscription request that has been initiated by the corporate admin.<br>
+                                        <b>O</b> - Ongoing by the employee and not yet completed by him/her. This new status is allowed only in case of of request with status ‘S’ Submitted.<br>
+                                        <b>R</b> - Rejected by the employee. This new status is allowed only in case of request with status ‘S’ Submitted. <br>
+                                        <b>C</b> - Completed by the employee. This new status is allowed only in case of of request with status ‘O’ Ongoing.<br>
+                                   </p>
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo' 
+
+      #CreateDebitCardV35Rq:
+      CreateDebitCardV35Rq: 
+                    type: object
+                    properties: 
+                        customerDetails:
+                            type: object
+                            $ref: 'aggregate.yaml#/CustomerDetailsV35'
+                        cardDetails:
+                            type: object
+                            $ref: 'aggregate.yaml#/CardDebitDetailsCreateCardV35'
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo' 
+                    required: [customerDetails,requestInfo]
+      #CreateDebitCardV35Rq:
+      EncryptedCreateDebitCardV35Rq: 
+                   type: object
+                   properties: 
+                        encryptedData:
+                            type: string
+                            description: "The encrypted request"
+                            example: "eyJjdHkiOiJKV0UiLCJ0eXAiOiJKT1NFIiwiYWxnIjoiUFMyNTYifQ.ZXlKMGVYQWlPaUpLVDFORklpd2laVzVqSWpvaVFUSTFOa2REVFNJc0ltVjRjQ0k2SWpJd01qRXRNRFl0TVRKVU1URTZOVGs2TXpBdU16UXhXaUlzSW1saGRDSTZJakl3TWpFdE1EWXRNVEZVTVRFNk5UazZNekF1TXpReFdpSXNJbUZzWnlJNklsSlRRUzFQUVVWUUxUSTFOaUo5LmVCVlVYZGhUVGg1djRxWURvUUpvTTB5NUJldmY0Z0RsX3V3NFZBOVp3emNSZEpUa3loRUJhR25pM01DamtMM0FnYU9GdnlFV01saGN3aEVOUUo4a1E5ZDVZRUxmUzY5Z3ZLT2RoWlZtV3czZGJ0bVR0UVQwdjNScG1fRURhaFJjQ2xTRjV5WVBxOW5oSzAxMjNnLUZvdV9KX3JOT01YSlloOWxqcXUzOWwxQzg2MlNaWjN2c3ZvTmZuNkRtcGRHNU9OZXFQWGdlQnlkdENpWEM2NjlOcW1nbmJKN1dMelBFeWQzTmN1bzhpZnFoN0NmbGxQNFZBQ192aHNObTlXVjBDZDRGZkw3VXo3cl9VWmpuWDcwclpsR20tX2hQRW44TTRENGp1bXJ5TXRhaWFCRldDRUdmSXRVMFFOZGFCZ0VsS1IwcHB0SEx0cWV1X0RMeTYxcDVVQS42bi1VLUtjenJUWlFvaVZaLnpibzI5SVlGS2VGZE54NXg0ZTBFcnQ0SnR4NlBhaXBuNFdUcmF5eDFtSnNRemFHeEh5aEFYV1F4b2pKWW1hUkJSRnVSR09qYkpLanY1UElaYXgyUmpoT2w3aVY1Z2MxTW55dTBUZ3BTTUwzQVhmUzdWNjdUTnRnQUMzNWFNbjJQUTNmMzhfWXRMeHRZSTFwdlZMR2xBV0ZBV0hUQzNKTlNhY1BxcHJGT1I0QWhlQXQwRGZaME1jaEZ4eFRuU0h5bjJ5WjdubFVPTVJZNXdpSEI1OWlfamt5US1UZXpRVlJyUVhtdTNNR0hRMi00b253R1ljSm9TNjB2djBwdnBTNDBCcjRaQzFoUHNKNTEwQVFIV2tzMTN0ZmwtdndZM0lNbU1BTU9FNWFEWHdOYU1vbGxza3RyVVB0ekdUekg3OHNRUk5hT2ZTbGMxRVhIS3liN0l0dzVLTmFvY0RmcHN2cUhCdEZzckVfT2h1X0ZpWHgySGdSeWh4ZGxBc2tPeF9EZUpfYzNTTXk5UmpMS25GQTNPZDdiQnQycF9YaG1VemRUS2h5NUNTRkZpRVhIdG1XUUNKVi1PbFpyV2tlcU1uN3lfN203ODRJVHAzMFNmbFBndmJlVjZHNVF6UDVmS0JmbHpQNk4zMm55dGdyRldpbFZBVEk5bmllai1BZDd5cDc0ZHFaNVc0Z2Rwdm94b0VxdEo3SDQ4LVllWmJXSjBlZmJiQ0o4X1dTRFN1Q0pNNjlCcWlSR082OVFBdG5RMUk2aG1lczBRWWFtOTVIbmVDZnhvVlQ0Ykd4Q2RuYWhUSXljNVhJemZnMmxnZEItZUxLbW5oX3p6TTRBelAzZU42SzNZaVVIdlR2X2tuNVFLVjRfa1FBNkQxN0R5NGoxcUt3RThMeXFhUXpEei1nekFMY19yNnh2UzVEZVNzMzhWQzg4S1ZjX3B6UUZ6V1E0U3RDYzV2ZUx4Y1V5Nk81VVNyZUtWazlBeVhJYXJxeTVnZkNPZ3JXR0kzcmpmOHdyTkplVWVBNXlvZ25vSWFnNXNkZ0VWek9JelJZTV8xbnVsdWNaUUhreWw0UXpTQ2ROV0x4X1Jreko4TncybWVNeWZleTJhdXBEb0I0aldLME12bHBDcjIyVXMyLXdCM3pSbG9rSG02QktCcVJfVnF5U3RlR1lEQzVPaEFkX0cwWFNCY2JHbHlwTk83eXktcjdRT2dVaVlpUURIT0VLN2twR1N2SzBieE5LMmJEZEdxOElhV1VheFFNVDlBV3c1S0tZNlhTT1lremZFT0N4WWIxaXNJRzRUVkMtM0FWdXl6WU12R0ltbTJzS2FhYjN0djZWSF9pV1lEU1FXVFZpVl9NYUx0c2ViY2VZSVpwNmRBNjF6T1Jnc0Q1T2g1bjM5T3kxb2YwRXlXQml5TW5LVUlzZ2NDT3g2ejFEbkpiQy1vbVRHcURrLWlTRnZndWxHaVJQNEFSV0RZa2FCRVhVZ3MwdlEtQ0RDVzQzSG1hMFhWdlZrZFYzTHAtU2pMbnFrUkp0NXZBSzVNZFRyTzBxQ1FjdURYR25Bdmk4em5Eb3BWNmtfQ19adzdRTFNBd0pGUnJtX2w5Qm82MzhMVWJfenJyVW9DQUpReDdRYUZ3a05qczFyM2d5czdHZnBmT1hOZmlfb1FkMG95c2NKTUhrR3Z1RFU5TTJuNnFZVTNPOUFBQThkVnNHOExWaGs1cEJmcmNMSWF4R2RpZ2QycXoxT1o0TU5jODF0d2hGSmZRMklvdDFuUjl0OF9ER2tqdktQQ3ZwUXBYakNoaVpRZFZXWFpJYnU2aTY1V2RRSEF2bDlxeV8wUU5mTVFDZmVEbzhTb1pOSzE0NjdDVzktemd0X2IzMGFSdHQxbFNwY1hNc0RwVUxrRjdLSE9mZVhQaXl6ZGZtaC1KVW9XdGJ5d1FMNjFOZmhsV1JoRFFVaVNDSmozRVdSNzZtejVESHJjd3U4NS1qZ3dtNE5nN2x4b0dRV2xBZU5QMjQwYWVpb3lqWE5hU0ZwbzgzWFVaTGR0MFUxUW5lWTk2OHlUYzl3dWE0MU51Yy03UkxZd2ROM01ZbXpMME1yM3RfaWlZQTBIS2dYRXd1dnBHYlpncVBvcHFNc05yMWE2MUxKcVdSRTVwbDU4cUl5emFNU1lfNFhpd29JcjFqWm8yR0N6WlFnNVVraV93ZHZ6UFo2XzlaWkoydDlBNnh0WjdjZHFjVVVZVFVxVkhJN3ktQVlLSTZQazdqeWFlRENmaUlXRDlMSEtFVDhwTUxPdnhkUTA2RkgxbVY4RlMxak02NlJFWGdTUzVrZVJENnJpakJubm5XR3gyMVd5aWRNUmloSTk2WUlpaDV2UjktNjU1U1U5MFNUQmF2cUliMXFyV19Ndlp0cWlRRzNPMGsyVDZKbU0tamVuY2JqSHRjMEFKdWZ0aFgtYVBnRTFSTklQQ2hmU1JYWFgtaHZwR0hPeUhVcXdqbHhMaWpYSWRuSFJMaWFjT0l2Z2ZOdDFSVFVOSnVFUlZoY3JKQ1dwMlAzcE1JbHpkZ3RwWlBNdVI1Z09SVHI1bmp1dzQ1THJNU0M2cHpkSFhzZHVvMzBjenIxSlJPOExKdUlSM2NjLVRHbTVGaWRXbi04OVZqR3hVcmVNanNlOEtwSE9fWWpaRjJlU2ZwczM3YzAwUW1TYzhFTFVSbk1TUmkyaWl2QkFIRDlXVEEzZERwQmVjSmZNZTlZXzdYT3RZWUx6TXlDQVpid2ZMRWhSczFTR042d0xEc0JSS1pzMDNSd0Z4QVBKeHI2ZnBlRE1UVXdkRHY3WlhMa2o5YkhGLWoxc1AwakhXMjg4NGV3cnp2d2swang1S0E1R1JlelAxdXRDaHZlVlNOb1JGeFJtc1ZBeDlOeWRvaGI5Smo4VEZObndlYTZfZ2s1QTNmV2ZFU3B4SGRFQ3FjYXQ3Y0c2S1U5NzgzZFdEVVhHOUQ5R1JFWFJlZUZXbVIyZzJxMndVRkctaXJJZlNILV9KYVNZcVJRdTg0THhsOVpFMTFjdF9qbWVESUczWDhnVEpycmNVNlN3WTZ3ZkU1dFF1ZTBqblpaS3BoZFhPNnQ0RFRqSTZtNWk4Smd0YmFQZkIxNUtYdmZRQkZieTVxM1ZnU29hVzgyOVROTkhVamhvMEdxR05oZmpjVDlZQTFnRVRZeER1MFFmT1FVU3k0QkNGQm1jMEhZX2dCX3RGMVExYk1ULXlKWGt1TVhCVDg4WVQzWGpyYzlvWHJ5TUp1MzJiTXA2Rk05a1BQMjFLVXloXzRicmFBSTY2cWtkaWd0d0ZXWkcxbjVEY0FxMTdaV3EyVUlWS2duTGw4bWxTNkFpOFhFRVMzUWJiNGJubnMxTGYzeUYweFAxbURMNFJObExQeGpyeG5tMW9mLWx2STdOWnpPYUo4bE9aZHZPeW1iTTAyMlp6NUpoVjdlQW9QNXpxVlh2LXloR2RNVGY3MXBQTmVxc2JaZ3hkemhSV09jdUtubVVOOURHWHN4THY2WjVyMEFNUWRKZVE3S2pNYWRtVkVIZVNjTFdVWDVWUjhfWEttVUdCUTBiSzFsUS11eVpibDZHdzhDUE81M1lBQUJ5TGxyZlp1RTVsZlA3dS00VTBNd25KY21OU19rRUZidkQ5d3o1bU1kbHpZQmgycjZ1Ym9CNldxX3Q3NGozSHYtYmV0ZzJySmR5MlFhdUhScmVGeHRySklSbHJybll0cDNQSTJiZXlzdjRaeXhkSWtZaUZHRDdYUk50Z3FhOGlwdllaSW93OGoxaTZicGM3cEtmZ2NkU0l0eGpTSmh2XzNMX1FXWnYxUHdZRHI0c0I2dXZOZzkwS05NMXBkakExb3NNaFowT2FnemFFSS1DZk1hS3JZcy13VFNkcW85b1pvaGR2OFhtdmVydEdFMGxjTF9KNU5WdF9yMkhnWDFCSG96YWZva3k3UlhKQmJ6MUIzRnRSYlhYbkxteTY3WmdsY2pCQms2RnBYZi1sMzhJdlo1aWE5WE9Fa3lydGZId2NkMEFnNlhyOUE0YW50QnVHTWl0WWkyVGFPNWpGOVR0ODZ4aFdlV1A4MG9USDJZeDlxNlEwcE50b1VYa0lYb0xvVWFuc2RPLWtMRkhITE4yX1NRSU51UU50a2dmT0pWRGQwZEcxdW5UQUpVU0xhU2o1ckhBUjh0c2x0bDlseHYwcTlzanJneGRNZS14bDU1UXE0V3VRV0ctUnAyYTZTMnAtWDJZdHFzc0V4SHZ2emNqSXljUHRwekIxNUFjVTNtQWExbnZFZVNyTTFRV3hzYmNDWllydDNFNkprS2tNUDZDMC1mUHQ2Qm54aUtKTXc5Skc4cnZhSEl0ckwzWkU3aVBiUWhzU3pFeGNnaDFpTHNxSUNOWEhBbWxRT21TdVdNN0xrdml2OFlTbWU3Y1lET1ZpQVI3cHdTQlFPbVhSaUptQ2xiWW4tQjN4cE5tckxWcEVVNElCdlV2OTVpaFZHZE9lZDhwdWpPdy1jaktKaXc3QUYtcmxGVUpOUTNoX2tYMGY2Z1huQ1FaQ0lLNjRvOWNsd3ljdjNhenl5TFBkNnFZRUJPOS1hblZmYXA4NkNDYWxuUzZjaXJ5aVAwXzh3a1NwbEl6XzBreGk5VGtJZHVjNzNTNjBVdmRmY1l2Z3dvRUVjTDVBMUhsUEpWSVRlUlRZRWJfcm1CXzhDS1V2bnhEQjRHN3I1ck52ZFlRcURZWkNGWVJNRDd6S1hIeFA2NzFBdzB3Vnc0cFFzcG1CLThyNGQ0Ry1vSUF4MVJVNlVkbmh0VXQ3YWgwMnEtTzBmYVhoZ1dHNEVKOFpUYWVWM0RRME9GU0h2WXJ0RE1nYlVJUENzS0lXM09IdDFwN0dMQUxCZXl4b0pqcGUzUWo2RlE4V1haa2xSTGxnUlpxR2dIT2hmUzJqUnFvNnFvQzhQZUdTSHJLSHdjVlN6anIxb21hMG85MXhKMUhhYXJXZUpSZjM3amZ5RnhLTC1sNXZMNi1DV0dGZmNCSm0xNkk5OUdFSGc3aXNmTm1KWnpxcG03RVN3cmVzSHpqM1ZYYmVMbjdWZHB6dmJ6cEctUWpQRWdUUFNGbjJlZzhNN2ZxVy1hOTRqcGF2YVYteHhfZHI1S0hKZVFVR1lyRjB2M05Jc21HSTRaYzRONEl4cExUZlhpR0MxTXNRbE1TSUc5ZzIzZWJfYkx5Y1VIdjlISV91RkdRYVViSXgyQmZFdFJlR3BKemZGbzZ2MFNMWmlMV2pzZGRXREZKOURtUTFRaWRnbVg5YUFkWWN4NmJ4S0ozd0JqWFdEVEFxRlZjMmdaenNCRGpEOVZKeEJpcjZhMHpZbE1Sck5ZWmNDSDBoalNDa0Y0Zl92ZUJZUEJVbDE2T0pGMXV5dUFmQ0c1eE1ESk9KRm8ydGpPdWVKSWJUem92TlFxTDBiYnMxTW5MSVk3ZGFQem5DSmlJNVdrbEU2TmcxaHNVVzBUTXl2N0NwdkxLWHZ0NWI0cFZlMGlLRGw1UHhRMlpLYnBKMGcxR3NuLVVRNTVKWVVNM1JveVBXX1RLRkd3TzEyQkM3Z045c2VMX2dWVzF4bU1jM3k5ZC15ODhia0p6Zk5Fd1BWNGRXejJaSmpkOGNwUm1UYmpyOVBOLURvbW1lS29oSERVWUhlSENOcVR1bkRsSnJXSU1wZjFNUE5mVE1EaEJ5dTYwZktVZ1pHbjdvLVN5ZjFxSFp2bFdjTzJ4Uy12TEhBN1R0UmtkOHJDbktpNmNHU1k0UENVbVFpb0pQWEdMVFlHSzZfaHZMR1dyQVc0MEUxcVBkUzlkRkF0UHJVQlppajhyNDB2aVFzczJsbWk4MHZvd2h2bTlQMmwxNDhtNl80Yms3VjNJOTNWQmF0d0I3ZmFYaHFCV0E5UnBtcnpoa3RIUElNWWQ1ZFE3czh5bDk2OVBJWHlGaGZERi1QaTNkeXN6MEpXaXhYQ2ZCUk5jbC1sYjI4bzg0Rm1vcVlDdHE0bjJaNlFJYUttZmtpM2lVYnlhOVdhd2g4NlFER08zVWFqcnltSDRLQ2hDZUtuM2wtRDktc3oxVkUtenZDY3B3bnViWFRoUnBQeG01YVRTMW4tRHY4ekQ1R2lVZlg1bWxuTlYyY3JCR2U2WUkwZDI0S3c3Q3llSTRNRzVHS1hBSE9RLTI1MEdmeHcxT210d0xSb0NrQXllUHh5eWIxd2VMS1B4N2JvVGhMZFp1WmZYd2h4M1lCcFMzSGEyT3NCMExyRTdjY0RJWnk4SDBGUFFjaG0wbVJLUmVEd2c3bnRjcnZWc0ZYb25iSkhkR1RPZmw0T3JzOW9mZVhLbEhIOUFvZUd6aUZTTnhLRnRERk5sbGs4T2VXVjRUclgzcFRmX3hRXy1CSUlVSENzNFNUZF9QamlDV243Q2xJTEtaQkwxTC16MUlNdHJiUVBuMmJ5bUtXMUhZYWYtNHNicGxNWVVMSGxuVkQxcjR2eVp6R0FxYmIyd3M3ZlRnUTVkdm11ZHZyMXZVODdUdl85aHowNmppeUdYVkRzbHJtVVVOZXdldDRNMnNxOXRlTWZrSmNNZ2ZhYmdYQndMRmZaTnQ3QVdpbWJjbVo4dk02eG5GMV9zV1QzLUpvQnBpLTM4ZEExVnBXQnh0d2NJTHdsSE5hVV9LQ0JFX1BsM1ppY2xaNFFiR0VHWC1CLWhCTzRTTzBSRF9zTHU4NkhDYTRabmpjaFhvaFZELXRHSXFSeGtsMk5RNnNELV9mdzh2X0Jhazl1bmtVdkdfRkl1LUdkWXhMSnI4ZFlpX2V5d1B2ZmVjZVA2d3VEcEMwUWVLclVpajRaTGpjOGFJT0hxUEl2Zy16UE1vR00zLW80N1hEYUJJS3BtelJmNWU1Qm01S2x0cUVLdW1kRmEtQWZPYXVPMmlNZzVZWkRyMEd0WWk2Wm9KTWpqV0ZubnNsV0ozQ1UwdUdFa1JvUjgwZ2poLTJkSEk1RVlhOExJNC1taEFNU1RhR3JMMm1IeVpza2gyNEVkM1RsT25EdEpvUjNzTkRmbjR1MDZvb3REa3ZMY1c0VFpKZG9WTXNoWklseDM3TXY0NTNmM0w2ejJFRk04RmdXaXZLRUNfbnJ3a0M3eGJqc0EzTlJsYmotTHFFOTBQVTh1QjhBUjB0RW9rQnJxMjdDeDlkMURxeWNqaTh1c3RjMjBEdmoybmF1NVpRbjFPUnBSTEpzQjF5N2xMSjM0NDBCTjZHcm5ZRjljNEU1a29aUGRBdFRVcGtwR0NDanlXMkx0NWhteWd3ZmxNeWQ0OHdmbVdqd3JlLXk0NTRfcDhGd0xTbzRmVVpDbXJUWlNwdkpsV25HbGdMbFRLek1fa3g4dnNIT0Q5T3EtX25YeWdzQmVKdURQekRzbHJnMWR1TEIxZW91cmpnbkhxWkkyY0h3N0ZuajFrTERhUmJIbGZCQ2lDZFZiRWtrcjVYNGVlUHM4eElxWXFScDc0ZlpVRHp4WEdwN3cycEpLQVoyYWdPMWpMaWhPUUdqeTFJVVh4ZDNBSDhweDRId241VkRQQVFJaW80dmZjYlhrVjl0RWdZR0FRZm9sQ3BHMGdBcFRVWUc0YWtnN3hFM3RGU2tNNDAtTFVndjJST1JYOGxQcFVWXzNhVXZWWkJFdXRadlJJTWRCV00xY1oxdEpwZmo0YmU0T2ZZR3lPSnAyNWRuazhTUVVtTnhCTmx2RFJ6emVMVU5nRFFBWVdWWVd2WXhBWG1lMnJwaHJReDBodWk3WlNTdmtWVy02aFRCWlplSFFOMHBqRDZNQzhlT1RHb1JVVndpeVJ0MGZjYWtabDEyQ0k3STdJaHJkZEJFQ2gzS2dOY2hwQXY3RDZMN1ZnLUdIZzZPdG10eWhkVTM1V3hROWEwRG95MnE1OC13QXcxcVhzQzBLNHpSMVBaUV9ROEtFM1c4cS1aaTR5QW5lc1VZMlc0Tm9GTFdsSnkxcVltTW54dURkOURySXp1OHF6NDJIbXlDZGN4bzViWEVPMFBSWWFVZGVjTExiMnlMdzZaLWFsbUIwYWZTMXJTb3MwdVVYNVJZcDl4Rnc0SkdPT2VxSHVESHp4My15bWN2UnhrSllVdjJVajQ4VG5tU0YxcGlJZHl6ZFl5bFQ2azVJUXNqN2tWSmg2YS1scmd1TENKdmNmZl81TGNOMUd6aXJSUHE1WGZQbnFOeDNJSGxYc1d1LU44THptNkxJaFRBdnk4MEpDQ2hRb2xDRXJwVkFtUVZDcnExM1lCcUtyb21mengtemR2aGw5MnhKWDFSWXYwYWNuNjlEdXEtS0FnVmRQbURuWUtjaS10Nm9vS1c4dmdaelBMN05JV0Q5elJHQzVSNUkzUHhSaElFNFhxb2Z5LWc4ejZ3Q1JvSE5MTVItUWQtQy1vbFpObHVUaGZqNloxeWhXLWpFaHVNUkxzaEd4VzZjeEFQUlZSQlllMG56WUNFNXV3dVNKX00xQlNzM01sWG1pTXMtNFgzSjluMnlfNnF0OHh1d19pWTYtcGJNR2llTU1TbnBQa0xMeWpyU2ZfZnJIbnRRWnNjc3BxT1Q4b3IyUWRxMWU1Z3FiTm5QYzRILWhkaGc5dlM0Vk1UV1duZVhmUVVFQUlMNy1RN01uMnRpdGZOQ1FrdHVOSEdkNjNvUDkxN3ExWE1GZEhXRS1MaFhxS2FrWXEyU1ZkVUpXcWZkWXpMalNIcXhJdlNwZkpFVTF3a2tfZkZnS3lVQkZ4cDg5N2hYOG5uQmdvdHE3QTVQYk9CWlhrNkl5MU0yaW9EX25xQUpydEYtM3otREpYc2tSVjFVX2pESjBYRDdzV3M0bk9YMXU1UFQ5RnJMY1E1ZXdOTk9tZ0kycjVFMGlSY0h3Y3NKTUZ0MnI1dV8yTlc1ck9zQk4wOFptdjRuUUVCMGM2aE44VTBsY2RBOWltUHB5VkpGSDBVcnVJeGpEUlU3YkR4TnBWWWdzRkFrenFFV3JOYUJOMFB5WjR5cGxHZ1U4Nl93NjFQWTdXWTVuam5TUENERGdsdGRCZDJseHlpYVBwSl9zcEFyTE1Mc0Y4aUc2V0dLUnpVa0JpbElzNzJCRWFyQjNIdzlZTjFrVXRXcVQ0WlUxM0dnZi10S0pWcVZmLWlqTEdoUFJwQWM1N3ZkQUlkSm1wMWxRQTM3UWJrNjk4X2NDeUJpNmJqaV9kcFg1UWpneHBKd1JteGdWTjc1UFpvdjNwSTBfQlU4aDVRZnlESzlnTHMyMUZVem5nR3I3SlJPbzc5NVZDNUNCbUx3dlJwbE5LbjhtV3pXYWJiTXYwMGkyRHZXRVlKV2ZTS3hBQnI1OHJLUGNraFpib0JkMS1mOEM1ZTdQcjBEQWoxc3VVdzNZNFUtSFozNWVrMGZIdzBMTmxZVEF4SDZ4WGtab3dETkJBMFI2TVNyU2xOSTZ0ZnRJYjFlOGtsOWZhRk14VEdCVGJNWEp4eV9OVjk0ZWROWGhWeW9EOHFYU01qZWtYaTFoZ0htRmkxMDQzNU5zOG43RlRmRnVfRkRYWUpXeFBFcWhQczhkcVg2eUtTUnVIcUZHZ0xLcElwNFNnUTZJU1IwSG5iajlMbUZseXA4UFVzOVpMN2lwd0dsWTJWUXFCYS1ybzZHSEpqMmJrQ0hYQWpEUHhndUZvVWQ2N1FkbGV6VEJyNDA3bklfZVhXRGR0QXZrZ1YwYW90dUZ1LXhiTWt3R2dheTJxOERwd3FJWDktWjRHZVMtbDNuckxOUkNDZFA5WktKa2FsRkpXd2pLYWpxYjE5SWhObzlzdDB6WmFTbkxGTWMxTG1kVTZOR0xlUGtlYUdBcExPcnR1ZWJ6eFBYYXYxa1I1c1EwQzRtdURMU3hEc2dOZW8tdlJad3hjU29FTDkyTnNFRzRZNTJmek9pSUhLVlZ5MEJia2l1MF9wdmY1RWVycmN4SWF5SDdoYjctWnhocWwyd1JidkZpX2JvaFpmRFdLSnJmQ2xLZkxSSmtTRHp4MXZMOFhRNWNDRGxVa1BSY1VYY2VwQzFPVHl4WDRDcXV4MV8xWlpnREJMb3dYaUNzYjhUcllhM20zdm5SS3ROLWk3MzRtX3hTT3hRblhnLURCYmRkRElGVXJPLTJGTmhNajJheE1Hb2xSTFY3bHdRY183SlpORTNwMlE5dW9hVTAwQzNjM2lWSTF6MjBPZkNJRDZVYlZUeVRVaTR0emJJOEVVVHMtR1hhMDVwX3N3TGpfajh3QVl3djNVN2c2dXhUTzl2TElsa1VwNl9XREdqQjRqX0JoWkRRN1lrZ25DTjZ2dzFUeGdHQ3BvSTFqNzNwakJ5UEFNcnZvMDJ4OGEtNFVXbEhwLXZjVXppbzNlRWdpVElmcWJZMjlwdkFSTmxfRi01U1dyd3VMYnJMZXBVSXQzYllCNlR1cDVkRW9DVFZiR3llTXhQTGRSRWhHTVgwTjBOOTdQZWpJNkdlRnRldWQ1a0JEdGg1RDdOSDJLZmYzZEg1eE9ibERja2VINU84dkEwY3RhcGxiQXZtNnkzZnZabzZ6aXZvbWFPeHNnN01MQi01d1NRYVJFanVBLXBscmMxNC1KVUtjVEN5TVRqU1JsMzJPOWNzR1RKNkNNZ3JfRlJiWXdNbmVQS05tcVk1V3V2MU4tMjZnNzRNUkNFaE50bWlBOUtPbmg2UG1ycGNDSWNiU01SYXhhUDBjZ1hrQ1FXUTRCQk9hamNuOHgyNi1IOC0tbWw3LV9MRjNsWHhCcFZVZ0JWR3ljVEJCSkZzQ2dZMXRjeE5OSjlJUlBHQzZfZ3UtbVpjUllFZks3dXRIWlFKbkxaVHdzSXhxUkFKY1phdXR4UmVTQzdqMy1KM19ZWVZxMEMwajY4bkt5Z2wxQVNGNnF0TERuMGhkU09wRVBfRlNkLVRybVdNRkZYVWNodU1OVHV2TjVsRVNfYTZuWU1vUWRaS2twMXBBcjBpNW1QU3lMMkVpUll0ZEZfR1hRUlFTakpiSXNuUDEzWl9VMDE5S2hhWkJlcmp6WEpZN1VkZU91MTkwOHVfMy1QdkpiRE9XbjJpOC0wdEFlUVNhby1rQ2lCVXBsRDZBTloxV3dlN0pfOWdnRVAzQzVyZTlPeUo1dGJkeWVSLWRGZEtWSEo2RWVOSkFVdU1pYTJaOEFBWTVXNWtMMzBNZW9HQjFVdDhXSzJOdkExbXZSaGJlZnVaN0lTWTBRdVd1UmRHSlkxSUYwT2pjSFRueV9ZMllqUkxjdzlyWVBYc3RwUFdSNUM4WE4wdnJPbDZ0SXp4TTlNNW12ek9tUUEySTNyT3lZVDk3MFlvempsODBCQWN5dTdTN29RUzltUnIxdFkyUHdIQ2E0QUM1TWs5NVBRb1hremltUi1LeV9KbkFkVUpmVXpuUi00QlhNT1dQSlRSbjkxN2tjNDhEM0RraGw1aWdoMVgxZjRXQ1AwVE1COWdUVWNidzA0VG1qU0gzSllTTDBBWEZXSVFHUlRCTkFUVkNzcHNGb0NsMTd4d0hRSWRuU0NXV2k1XzdWRGpJbUpBMy13WlQxV2dPbkRHTENINXRjSW9NUTJWRWFUVFdLcG1DeHlVSGM0QXJCYkZpNnJpV0I5YnF2di1qWjdGS0ZuNF84MkVpTFdXSjBVNUVpZEtLb25hc1VTdTBsY19uRmJ5RGVhZXVKQVNwSTlhQWJsVVNBd2pra2VEa0FSdUxoa0FBRXYwRkRtdDc3UmdJTklYU1ZUVWpQSllPM1ZRa0QxdzJXeHRMeEY4aGFvLXh5NkxteGlDeUFGZTZreE5iaG9seFU4X0RMTVh2UERXZGl1M3hna0N3Z01wVmo0dlA1TW1oTmJTSlNwMFh6UXdaRnctS3BBOTZZWVJHSUJFaDgzb0JzcUlEWkVtaFdWSGpPaEFiWnVmNHJGQ3JURUJGRE5kNmhRTzdfd1JzeGJPV3drOUNiRDdOa09neXBDVEZLUkk3Z09LV2kxeXlwR1R1WUp0clA0T0lWME5PbVNqQmxxckZJZGIxR0NPSVROc1VORW1Ual93MG5BMU1LSkdrZ3pqVEJ4SUx1QnVYSnRVLVAxc3hUMFVEWVdtYjJuekk5ODNPMFNrTnBNY2hTYVNwVnpnOWROeWJudEhUSnZkcTlSejFKMFFFbWN2ZU56aDVYb2U5SFY5dWFLSGZZcmg5RHNqbnV2a3g4Z2VSSGdjVU5VamJGaTZmbERMSGhyVUhyTWk2T2RRMjZidVFJRjhuNXh5ZlQzREZFNDNSWGZaUV9tV2tlS25icU1sR1ZUZUI1UTJyU2wyU01tajNaOGdJcmtOaFVXREJFS2lBQUJWckxxMHE3c3diTlpPR1o3ZlFFdWNhSk8xN1ZHcjQtTWdmVGhTQVVnbUVIaXMxalRpbU5GbHl6SFVnMHZmZngzek9TdmM1VnczcjFJVjZiaXItT3Z0blNnQWFKSVNCazlDakxKd2Y3UExtbXRCN0c4R21aUFhNMmJBbmM3Z3BxZ2FsTzJaY0NXdS1uck9MV2xmbmhubFZJc0tzLUd4YU9Cay13b3dBTFo4SGNUemFfb05xeWxWOWYxQlVhY2ZTRjk2dmNZbnFvVkFRbWc3ZUpQNXdyVGozY3VHU3J0Tllqd2NfYjhwVmdWTFU2dGtBX0l3ampWNWFDaFRsLXJsdFdzYzZaLXZUQS1hM2tmeEdmYUNZTHY5Zl92Sy1hdGRLZy0wbmFGcnE3Q0tZWjcwWEhqUUI2bzI2XzRkSWctZ0R4X2I4OGw0b1Y4bnhYTVV2eWt4bk15Ul9FTUxJZlFrX3R5MnJnY21vbGF4N0paa0h3SVdITG5Pak1sMC5lN0R3NTN4SHE0T2pEMTdYc0FqazlB.CIcUn0wtcFujDJ_qTcNO7VddUiTD7ma7a7TQwYgs6tWWqR23ayQ1fumxg9lb6CwPs3zlIfX2-DpwJ2pWUotBMfFW1-q0eu5OmtJwa0dvUzuMoFMDoapAPMFsha_H8L0x1TdXHHyTVYoKupK9Cdmlg4aUfL9vRx1z_6rAv9COUAVrWol46NI-cXjEBhOjoF91gnHPGEGMUkFg39NMPA3UhcRprGMZ1GQikK5t0m1uCEEBw9SM9Bc2bbXqCDXSEwMm4OYXnjq7YeZ9u9E4dTcdVCrZNRPzzfkwKw27gPduvBPkewMmip-fuxAsb9_s0wk9dl5lmAPc3rvO3oJG6LDntA"                      
+      #CreateLoyaltyAccountV35Rq:
+      CreateLoyaltyAccountV35Rq: 
+                   type: object
+                   properties: 
+                        bankCode:
+                            type: string
+                            description: 
+                                        <p>
+                                                Represent the bank for the account owner.
+                                        </p>
+                        accountOwnerType:
+                            type: string
+                            description:
+                                <p>
+                                   Indicates the type of the entity that owns the loyalty account.
+                                    Possible values are the following <br>
+                                    <b>CH</b> = Cardholder. <br>
+                                    <b>SA</b> = Shadow Account <br>
+                                    The value transmitted in the next field is based on the value of that one. <br>
+                                </p>
+                        accountOwnerId:
+                             type: string
+                             description: 
+                                    <p>
+                                        It refers to the identification of the entity that owns the loyalty account.
+                                        Based on the value in the previous field, this field may contain <br>
+                                        <b>The shadow account (SA)</b><br>
+                                        <b>The card number (CH)</b>
+                                    </p>
+                        catalogLoyaltyProduct:
+                             type: string
+                             description: 
+                                   <p>
+                                        It is a 6 digit code identifying the loyalty product code.
+                                        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>Y </b>
+                                   </p>
+                        catalogLoyaltyProductVersion:
+                            type: string
+                            description:
+                                     <p>
+                                        It is a 6 digit code identifying the loyalty product code.
+                                        Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>Y</b>
+                                     </p>
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+
+      #GetCollaboratorInitiatedSubscriptionV35Rq:
+      GetCollaboratorInitiatedSubscriptionV35Rq: 
+                   type: object
+                   properties: 
+                        corporateId:
+                            type: string
+                            description: 
+                                  <p>
+                                     The organization/corporate identifier. This code must be already defied in the PowerCARD <b>CORPORATE</b> table
+                                  </p>
+                        employeeId:
+                            type: string
+                            description: <p>The employee ID</p>
+                        subscriptionId:
+                            type: string
+                            description: <p>The generated subscription ID submitted by corporate portal contact person.</p>
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo' 
+
+      #GetStatementHistoryV35Rq:
+      GetStatementHistoryV35Rq: 
+                   type: object
+                   properties:
+                        accountId:
+                            type: string
+                            example: '123410884'
+                            description: <p>The <b>CMS</b> account identifier as defined in PowerCARD.</p> 
+                        statSelRangeDt:
+                            type: object
+                            $ref: 'aggregate.yaml#/GetStatmentValidityRangeDateV35'
+                        requestInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/RequestInfo'
+      #GetStockCardsOverviewV35Rq:
+      GetStockCardsOverviewV35Rq: 
+                   type: object
+                   properties:
+                        batchNumber:
+                            type: string
+                            example: '0000000006'
+                            description: 
+                                  <p>
+                                      May contain the batch number generated internally by PowerCARD and assigned to the order being submitted by the agent.
+                                      A batch number is a identifying a set of cards requested in the same order.
+                                  </p> 
+                        branchCode:
+                            type: string
+                            example: '078590'
+                            description: <p>The branch id of the institution./p>
+                        requestedDate:
+                            type: object
+                            $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+                        requestInfo:
+                                type: object
+                                $ref: 'aggregate.yaml#/RequestInfo'
+
+      #LostStolenDeclarationV35Rq:
+      LostStolenDeclarationV35Rq: 
+                   type: object
+                   properties:
+                        cardNumber:
+                           type: string
+                           example: '4250120555998199'
+                           description: 
+                               <p>
+                                  This field indicates the card number of the Lost/Stolen declaration concerned card.
+                               </p>
+                        actionType:
+                           type: string
+                           example: 'A'
+                           description:
+                               <p>
+                                    <b>A</b>  -  Add a lost Stolen record <br>
+                                    <b>U</b>  - Update a lost and stolen record<br>
+                               </p>
+                        declarationStatus:
+                            type: string
+                            example: 'C'
+                            description:
+                                <p>
+                                    <b>C</b>  <b>“Confirmed”</b>. Can be used with action <b>A and U</b> (Add or Update).
+                                    The cardholder confirms that the card is lost/stolen. 
+                                    In this case the card status will be set to <b>‘Canceled’</b>.
+                                    When action is U (Update), a lost and stolen case with status W must be existing for the PAN.
+                                    <b>W</b>  <b>“Waiting confirmation”</b>. Can be used with action <b>A</b> (Add) only.
+                                    The cardholder is not sure that his card is lost or stolen..
+                                    In this case the card status will be set to <b>‘Suspended</b>
+                                    <b>D</b>  <b>“Cancelled”</b>. Can be used with action <b>U(Update)</b> only. A lost and stolen case with status W (Waiting for confirmation) must be existing for the PAN.
+                                </p>
+                                <p>
+                                The cardholder confirms back that the card is found, then the case is closed and cards are reinstated to the original status.
+                                </p>
+                        cardStatusReason:
+                            type: string
+                            example: 'ST'
+                            description:
+                                <p>
+                                    This field indicates the card status reason after submitting the declaration.
+                                    This code must be a valid value that must previously defined in the <b>STATUS_REASON_LIST</b> table under the general parameter section.
+                                </p>
+                        stopListRangeDate:
+                            type: object
+                            $ref: 'aggregate.yaml#/StopListValidityRangeDateV35'
+                        replacePanFlag:
+                            type: string
+                            example: 'N'
+                            description:
+                                 <p>
+                                     If the <b>“replacement option”</b> defined in <b>card status reason</b> is set to <b>“ALLOW”</b> (in the table <b>STATUS_REASON_LIST for the user reason</b> ), the value of this flag will specify whether a <b>new PAN</b> will be generated or not.
+                                    The possible values are<br>
+                                    <b>‘Y’</b>:Yes Replace PAN <br>
+                                    <b>‘N’</b> No Do not replace PAN<br>
+                                    This flag triggers replacement only when the declaration status is confirmed.
+                                   </p>
+                        incidentDate:
+                            type: string
+                            example: '2021-10-19T00:00:00'
+                            description: 
+                                <p>
+                                  This field indicates the date when the card has been lost or stolen.
+                                  If not specified this date gets systematically the business date as default date during the card Lost/Stolen case declaration
+                                </p>
+                        declarationDate:
+                             type: string
+                             example: '2021-10-19T00:00:00'
+                             description: 
+                                 <p>
+                                    This field indicates the date when the card has been declared as lost or stolen.
+                                    If not specified this date gets systematically the business date as default date during the card
+                                    Lost/Stolen case declaration.
+                                 </p>
+                        countryCode:
+                             type: string
+                             example: '170'
+                             description :
+                                 <p>
+                                    This field represents the country where the card has been lost or found.
+                                    This value must be present in the PowerCARD <b>COUNTRY</b> table under the general parameters section.
+                                 </p>
+                        city:
+                          type: string
+                          example: '25438'
+                          description: 
+                              <p>
+                                   This field represents the city where the card has been lost.
+                                   This is a free text city name
+                              </p>
+                        stateProvince:
+                           type: string
+                           example: 'Test'
+                           description:
+                              <p>
+                                  Free text indicating the state or the province where the card has been lost.
+                              </p>
+                        reportedByCardholder:
+                           type: string
+                           example: 'Y'
+                           description: 
+                                 <p>
+                                    A flag to indicate if the lost stolen declaration is done by the cardholder or not.
+                                    The possible values are <br>
+                                    <b>‘Y’</b> Yes <br>
+                                    <b>‘N’</b> No <br>
+                                 </p>
+                        reporterName:
+                           type: string
+                           example: 'ReporterTest'
+                           description:
+                                 <p>
+                                   The reporter name if the declaration isn’t done by the cardholder.
+                                 </p>
+                        reporterComment:
+                          type: string
+                          example: 'CommentTest'
+                          description:
+                                <p>
+                                     The reporter comment.
+                                </p>
+                        policeDeclarationInd:
+                          type: string
+                          example: 'N'
+                          description: 
+                                <p>
+                                    Y/N indicator <br>
+                                    <b>Y </b>Police declaration done <br>
+                                    <b>N </b> Police declaration not done.<br>
+                                </p>
+                        policeDeclaration:
+                              type: object
+                              $ref: 'aggregate.yaml#/PoliceDeclarationV35'
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+
+      #OrderStockCardsV35Rq:
+      OrderStockCardsV35Rq: 
+                   type: object
+                   properties:
+                        branchCode:
+                           type: string
+                           description: <p>Represent the branch of the financial institution.</p>
+                        catPIProduct:
+                            type: string
+                            description: 
+                                 <p>
+                                     It is a 6 digit code identifying the payment instrument product code being requested in the application.
+                                     Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+                                 </p>
+                        catPIProductVersion:
+                            type: string
+                            description:
+                                  <p>
+                                     It is a 10 caracter fields identifying the payment instrument version.
+                                     Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>. 
+                                  </p>
+                        catAccountProduct:
+                            type: string
+                            description: 
+                                            <p>
+                                                It is a 6 digit code identifying the account product code being requested in the application.
+                                                Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>
+                                            </p>
+                        catAccountProductVersion:
+                            type: string
+                            description: 
+                                        <p>
+                                                It is a 10 caracter fields identifying the account product version.
+                                                Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>A</b>. 
+                                        </p>
+                        plasticCode:
+                            type: string
+                            description:
+                                    <p>
+                                    It refers to the plastic of the card to be personalized.
+                                    Valid values must be previously defined in the PowerCARD <b>PLASTIC_LIST</b> table and could be populated using.
+                                    </p>
+                        nbrOfCards:
+                            type: string
+                            description: <p>This field indicates the number of cars to be personalized.</p>
+                        embossedName:
+                            type: string
+                            description: <p>This field indicates the embossed name of the cards.</p>
+                        preLoadedAmnt:
+                            type: object
+                            $ref: 'aggregate.yaml#/CurAmtV35'                        
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+      #SearchTransactionsV35Rq:
+      SearchTransactionsV35Rq: 
+                   type: object
+                   properties:
+                        cardNumber:
+                           type: string
+                           description: 
+                                <p>
+                                    Refers to the PowerCARD card number.
+                                    This value corresponds to the card to which the transaction is posted.
+                                </p>
+                        clientCode:
+                            type: string
+                            description:
+                                  <p>
+                                      Represent the customer identifier.
+                                  </p>
+                        rangeDate:
+                            type: object
+                            $ref: 'aggregate.yaml#/ValidityRangeDateV35'
+                        amountFrom:
+                             type: object
+                             $ref: 'aggregate.yaml#/CurAmtV35'
+                        amountTo:
+                             type: object
+                             $ref: 'aggregate.yaml#/CurAmtV35'
+                        trnType:
+                           type: string
+                           description: 
+                               <p>
+                                    Criteria of transactions codes that should be returned. If empty, any transaction can be returned.
+                                    Note that PowerCARD transactions can be grouped in different categories for reporting purpose.
+                                    This code must be previously defined in the PowerCARD <b>TRANSACTIONS_DEFINITION</b> table under the general parameter section.
+
+                               </p>
+                        corporateId:
+                            type: string
+                            description: 
+                                 <p>
+                                     Refers to the corporate identification.
+                                    Valid values must be populated from the PowerCARD <b>CORPORATE</b> table under the cardholder section.
+                                 </p>
+                        network:
+                            type: string
+                            description:
+                                <p>
+                                    The network field allows you to specify the network where transactions are made.
+                                    It is to mention that this code should be previously defined in the <b>NETWORK</b> table under the general parameter section.
+                                </p>
+                        territoriality:
+                            type: string
+                            description: 
+                                 <p>
+                                     Valid values <br> 
+                                    <b>ONS</b> - On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer. <br>
+                                    <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country.<br>
+                                    <b>INT</b> -  International, apply only to transactions that took place outside the cardholder country.<br>
+                                 </p>
+                        acquirerCountry:
+                            type: string
+                            description: 
+                                <p>
+                                    Refers to the ISO code of the country where the transaction took place.
+                                    It is 3 alphanumeric characters
+                                    The country code is a numerical code identifying nations over the globe. This code should be present in the PowerCARD <b>COUNTRY</b> table under the general parameter section.
+                                </p>
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+      #SetCardDetailsV35Rq:
+      SetCardDetailsV35Rq: 
+                   type: object
+                   properties: 
+                        cardNumber:
+                              type: string
+                              description: <p>The cardnumber</p>
+                              example: 4250120555998199
+                        cardDemog:
+                              type: object
+                              $ref: 'aggregate.yaml#/CardDemogSetCardV35'
+                        cardCustomFields:
+                             type: array
+                             items:
+                                type: object
+                                $ref: 'aggregate.yaml#/CustomFieldsV35' 
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'                     
+      #FeeInQuiryV35Rq:
+      FeeInQuiryV35Rq: 
+                   type: object
+                   properties: 
+                        operationType:
+                           type: string
+                           example: 'CF'
+                           description: <p></p>
+                        cardFees:
+                           type: object
+                           $ref: 'aggregate.yaml#/CardFeesV35'
+                        transactionFees: 
+                           type: object
+                           $ref: 'aggregate.yaml#/TransactionFeesV35'
+                        statementFees:
+                           type: object
+                           $ref: 'aggregate.yaml#/StatementFeesV35'                       
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'                        
+
+      #SearchCardV35Rq:
+      SearchCardV35Rq: 
+                   type: object
+                   properties: 
+                        keyValues: 
+                            type: array
+                            items: 
+                                $ref: 'aggregate.yaml#/SearchCard1KeyValueV35'
+                            example:
+                                - key: pageSize
+                                  data: 10
+                                - key: pageIndex
+                                  data: 1
+                        clientCode:
+                           type: string
+                           example: null
+                           description: 
+                               <p>
+                                  Represent the customer identifier.
+                                  This field is required if CorporateId and CardNumber are empty.
+                               </p>
+                        cardNumber:
+                           type: string
+                           example: 4250120656063430
+                           description: 
+                              <p>
+                                 The card number.
+                                 This field is required if ClientCode and CorporateId are empty
+                              </p>
+                        corporateId: 
+                           type: string
+                           example: null
+                           description:
+                               <p>
+                                   The corporate identifier.
+                                   This field is required if ClientCode and CardNumber are empty.
+                               </p>
+                        catPIProduct:
+                           type: string
+                           example: null
+                           description: 
+                               <p>
+                                   It is a 6 digit code identifying the payment instrument product code assigned to the card.
+                                   Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+                               </p>
+                        catPIProductVersion:
+                           type: string
+                           example: null
+                           description:
+                                <p>
+                                   It is a 10 caracter fields identifying the payment instrument version.
+                                    Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+                                </p>
+                        cardStatus:
+                           type: string
+                           example: null
+                           description:
+                                <p>
+                                    The card Status
+                                    This field refers to the card status as stored in the system. 
+                                    Possible values are <b>
+                                    <b>N</b> - Normal <br>
+                                    <b>M</b> Monitoring <br>
+                                    <b>S</b> Suspend <br>
+                                    <b>R</b> Replaced <br>
+                                    <b>C</b> Cancelled <br>
+                                    <b>P</b> Prospect <br>
+                                </p>  
+                        firstName:
+                           type: string
+                           example: null
+                           description: <p>The first name or given name.</p> 
+                        firstName2:
+                           type: string
+                           example: null
+                           description: <p>The first name , part 2 , if compound names are in use</p>
+                        lastName:
+                           type: string
+                           example: null
+                           description: <p>The last name</p> 
+                        lastName2:
+                           type: string
+                           example: null
+                           description: <p>The last name 2</p>  
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'                           
+
+      #UpdateCustomerDemogV35Rq:
+      UpdateCustomerDemogV35Rq: 
+                   type: object
+                   properties: 
+                        clientDemog:
+                           type: object
+                           $ref: 'aggregate.yaml#/ClientDemogV35'
+                        documents:
+                           type: array
+                           items:
+                             type: object
+                             $ref: 'aggregate.yaml#/DocumentsV35'
+                        clientCustomFields:
+                           type: array
+                           items:
+                             type: object
+                             $ref: 'aggregate.yaml#/CustomFieldsV35'
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+                        
+      #UpdateLoyaltyAccStatusV35Rq:
+      UpdateLoyaltyAccStatusV35Rq: 
+                   type: object
+                   properties: 
+                        bankCode:
+                            type: string
+                            description: 
+                                 <p>
+                                     Represent the bank code of the account owner.
+                                 </p>
+                        accountOwnerType:
+                            type: string
+                            description: 
+                                 <p>
+                                     Indicates the type of the entity that owns the loyalty account.
+                                    Possible values are the following<br>
+                                    <b>CH</b> = Cardholder. <br>
+                                    <b>SA</b> = Shadow Account. <br>
+                                    The value transmitted in the next field is based on the value of that one.
+                                 </p>
+                        accountOwnerId:
+                            type: string
+                            description: 
+                                 <p>
+                                     It refers to the identification of the entity that owns the loyalty account.
+                                        Based on the value in the previous field, this field may contain <br>
+                                        The shadow account <b>(SA)</b> <br>
+                                        The card number <b>(CH)</b> <br>
+                                 </p>
+                        loyaltyAccountNbr:
+                            type: string
+                            description:
+                                  <p>
+                                        This field refers to a unique internal identification of the loyalty account liked to the card, channel….
+                                        This field must contain the  loyalty account subject to this cancellation.
+                                  </p>
+                        statusCode:
+                           type: string
+                           description:
+                                  <p>
+                                        This field must contain the account status code.
+                                        Possible values are the following <br>
+                                        <b>N</b> = Normal.<br>
+                                        <b>C</b> = Cancelled.<br>
+                                  </p>
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'                         
+                       
+      #SetCardDomainV35Rq:
+      SetCardDomainV35Rq: 
+                   type: object
+                   properties: 
+                        cardNumber:
+                            type: string
+                            description: 
+                               <p>
+                                   The card number or the Card Token Id.
+                                   It should contain a valid value
+                               </p>
+                            example: "4250120656063430"
+                        domainControls:
+                            type: array
+                            items:
+                               $ref: 'aggregate.yaml#/DomainControlV35' 
+                            example: 
+                              - controlType: "CTR"
+                                controlOperator : "NOT IN"
+                                controlValues:
+                                  - controlValue: "380"
+                                  - controlValue: "239"
+                                  - controlValue: "304"
+                              - controlType: "MCC"
+                                controlOperator : "IN"
+                                controlValues:
+                                  - controlValue: "3159"
+                                  - controlValue: "3200"
+                                  - controlValue: "3252"
+                              - controlType: "CUR"
+                                controlOperator : "IN"
+                                controlValues:
+                                  - controlValue: "978"
+                                  - controlValue: "928"
+                                  - controlValue: "840"
+                        keyValues: 
+                            type: array
+                            items: 
+                                $ref: 'aggregate.yaml#/KeyValueV35'
+                            example:
+                                - key: "TOKEN"
+                                  data: "N"
+                        requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+      #DemoV35Rq:
+      DemoV35Rq: 
+            type: object
+            properties: 
+                 requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'  
+      #AddSupplementaryCardV35Rq:
+      AddSupplementaryCardV35Rq: 
+            type: object
+            properties: 
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+                supplementaryCard:
+                        type: object
+                        $ref: 'aggregate.yaml#/SupplementaryCardvV35'
+                cardActivationFlag:
+                        type: string
+                        example: 'Y'
+                        description: 
+                              <p>
+                                This field indicates whether the card will be activated or not. Possible values are the following <br>
+                                - <b>Y</b> Card activated <br>
+                                - <b>N</b> Card not activated <br>
+                                 If this information is not provided, by default, the card is not activated.
+                              </p>
+                #customerDetails:
+                        #type: object
+                        #$ref: 'aggregate.yaml#/CustomerDetailsV35'
+                cardDetails:
+                        type: object
+                        $ref: 'aggregate.yaml#/AddSuppCardDetailsV35'
+                #communicationEvents:
+                       # type: object  
+                        #$ref: 'aggregate.yaml#/CommunicationEventV35'
+      #UpdateCardCharacteristicsV35Rq:
+      UpdateCardCharacteristicsV35Rq: 
+            type: object
+            properties: 
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+                cardNumber:
+                        type: string
+                        description: <p>
+                                         The generated <b>PAN</b> number in when the status of the request status is <b>C</b> and Card createion status is <b>A</b>
+                                    </p>
+                PANProductDetails:
+                        type: object
+                        $ref: 'aggregate.yaml#/PANProductDetailsV35'  
+                ProductServices:
+                        type: object
+                        $ref: 'aggregate.yaml#/ProductServicesV35'
+                ServiceExpositionChannels:
+                        type: object
+                        $ref: 'aggregate.yaml#/ServiceExpositionChannelsV35'
+                DeffermentServiceAddendum:
+                        type: object
+                        $ref: 'aggregate.yaml#/DeffermentServiceAddendumV35'
+                DomainControlSRVAddendum:
+                        type: object
+                        $ref: 'aggregate.yaml#/DomainControlSRVAddendumV35'
+                CardLimitSRVAddendumV35:
+                        type: object
+                        $ref: 'aggregate.yaml#/CardLimitSRVAddendumcaractersticsV35'
+      #GetCardCharacteristicsV35Rq:
+      GetCardCharacteristicsV35Rq: 
+            type: object
+            properties: 
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+                CardNumber:
+                   type: string
+                   description: <p>
+                                     The generated PAN number in when the status of the request status is <b>C</b> and Card createion status is <b>A</b>
+                                </p>
+      #CheckCustomFieldValueV35Rq:
+      CheckCustomFieldValueV35Rq: 
+            type: object
+            properties: 
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+                EntityCode:
+                    type: string
+                    description: <p>
+                                Entity code <br>
+                                    <b>CH</b> - Card   <br>
+                                    <b>CL</b> - Client  <br>
+                                    <b>SA</b> - Account <br>
+                                    <b>CO</b> - Corporate <br>
+                                </p>
+                EntityID:
+                    type: string
+                    description: 
+                          <p>
+                               Request identifier depending on the entity code <br>
+                               <b>CH</b>  Card number (or token if TOKEN key value present with the value Y), must be present in <b>CARD</b> table <br>
+                               <b>CL</b>  Client code, must be present in <b>CLIENT</b> table <br>
+                               <b>SH</b>  Shadow account number, must be present in <b>SHADOW_ACCOUNT</b> table <br>
+                               <b>CO</b>  Corporate Id , must be present in <b>CORPORATE</b> table <br>
+                          </p>
+                FieldName:
+                    type: string
+                    description: <p>Custom field name, must be present in the table <b>USER_DEFINED_FIELDS_PARAM</b></p>
+                FieldValue:
+                    type: string
+                    description: <p>Custom field value to be checked</p>
+      #GetProductDetailsV35Rq:
+      GetProductDetailsV35Rq: 
+            type: object
+            properties: 
+                requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'  
+                catPIProduct:
+                    type: string
+                    example: 'PANAA2'
+                    description: <p>
+                               It is a 6 digit code identifying the payment instrument product code assigned to the card.<br>
+                               Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+                                </p>
+                catPIProductVersion:
+                    type: string
+                    example: '1'
+                    description: <p>
+                               It is a 10 digit code identifying the payment instrument product code assigned to the card.<br>
+                               Valid values must be retrieved from PowerCARD <b>CATALOGUE_PRODUCT</b> table with product type = <b>P</b>
+                                </p>
+                packCode:
+                    type: string
+                    example: 'Pack5'
+                    description: <p>
+                               It is a 6 digit code identifying the payment instrument product code assigned to the card.<br>
+                               Must be a valid value defined in <b>CATALOGUE_PACK</b>
+                               </p>
+            required: [catPIProduct,catPIProductVersion,packCode]

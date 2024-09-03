@@ -1,0 +1,3648 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- addMerchantActivity
+  /AddMerchantActivity/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant activity API provides functionality to add a merchant activity during the enrollment process of a given merchant. This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API</p>
+                    <h3>Functional Description</h3>
+                   <img  src="./docs/addMerchantActivity.png" />
+                  
+      summary: The add merchant activity API provides functionality to add a merchant activity during the enrollment process of a given merchan
+      tags:
+        - Add Merchant Activity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantActivityRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08601</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08602</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08603</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08604</td>
+                                  <td>Invalid activity indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08605</td>
+                                  <td>The merchant must have a primary activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08606</td>
+                                  <td>The merchant already has a primary activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08607</td>
+                                  <td>Invalid MCC</td>
+                                </tr>
+                                <tr> 
+                                  <td>08608</td>
+                                  <td>Invalid activity</td>
+                                </tr>
+                                <tr> 
+                                  <td>08609</td>
+                                  <td>The merchant already has this MCC</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantActivityRs'
+  # ------- addMerchantAddress
+  /AddMerchantAddress/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant address API provides functionality to add a merchant address during a merchant enrollment process. The merchant address must contain information like street, city, state, postal code, country…This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/addMerchantActivity.png" />
+                  
+      summary: The add merchant address API provides functionality to add a merchant address during a merchant enrollment process. 
+      tags:
+        - Add Merchant Address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAddressRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantAddressRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08751</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08752</td>
+                                  <td>Invalid Address indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08753</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08754</td>
+                                  <td>Invalid Bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08755</td>
+                                  <td>The merchant already has a principal address</td>
+                                </tr>
+                                <tr> 
+                                  <td>08756</td>
+                                  <td>The merchant must have a principal address</td>
+                                </tr>
+                                <tr> 
+                                  <td>08757</td>
+                                  <td>Invalid Address parameters</td>
+                                </tr>
+                                <tr> 
+                                  <td>08758</td>
+                                  <td>Invalid address list ID</td>
+                                </tr>
+                                <tr> 
+                                  <td>08759</td>
+                                  <td>Invalid start date</td>
+                                </tr>
+                                <tr> 
+                                  <td>08760</td>
+                                  <td>Invalid address type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08761</td>
+                                  <td>Invalid default usage</td>
+                                </tr>
+                                <tr> 
+                                  <td>08762</td>
+                                  <td>Invalid sending mode</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08763</td>
+                                  <td>Invalid E-mail address</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08764</td>
+                                  <td>Invalid Fax number</td>
+                                </tr>
+                                <tr> 
+                                  <td>08765</td>
+                                  <td>Invalid Care Of</td>
+                                </tr>
+                                <tr> 
+                                  <td>08766</td>
+                                  <td>Invalid Zip code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08767</td>
+                                  <td>Invalid City code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08768</td>
+                                  <td>Invalid Country code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08769</td>
+                                  <td>Invalid phone type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08770</td>
+                                  <td>Invalid region code</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantAddressRs'
+  # ------- AddMerchantBankAccountRq
+  /AddMerchantBankAccount/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant bank Account API provides functionality to add a merchant bank account during a merchant enrollment process. The merchant bank account must contain information like Bank Name, Account Type, A valid Bank Account Number…This action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantBankAccount.png" />
+                  
+      summary: The add merchant bank Account API provides functionality to add a merchant bank account during a merchant enrollment process.
+      tags:
+        - Add Merchant Bank Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantBankAccountRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08801</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08802</td>
+                                  <td>Invalid Account indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08803</td>
+                                  <td>Invalid Merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08804</td>
+                                  <td>Invalid Bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08805</td>
+                                  <td>Invalid Branch code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08806</td>
+                                  <td>Invalid Account type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08807</td>
+                                  <td>Invalid Account number</td>
+                                </tr>
+                                <tr> 
+                                  <td>08808</td>
+                                  <td>Invalid Account Currency code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08809</td>
+                                  <td>Merchant Account’s link not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08810</td>
+                                  <td>The merchant already has a primary account</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08811</td>
+                                  <td>The merchant must have a primary account</td>
+                                </tr>
+                                <tr> 
+                                  <td>08812</td>
+                                  <td>Account number already exist</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08813</td>
+                                  <td>Invalid batch Grouping indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08814</td>
+                                  <td>Invalid fees grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08815</td>
+                                  <td>Invalid chargeback grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08816</td>
+                                  <td>Invalid Billing element grouping indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>08817</td>
+                                  <td>Invalid Account length</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantBankAccountRs'
+  # ------- addMerchantContactDetails
+  /AddMerchantContactDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant contact details API provides functionality to add a merchant contact detail during a merchant enrollment process. The merchant contacts must contain information like Contact Name & Surname, Title, legal Identification, contact address…Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantContactDetails.png" />
+                  
+      summary: add merchant contact details API provides functionality to add a merchant contact detail during a merchant enrollment process.
+      tags:
+        - Add Merchant Contact Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantContactDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantContactDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>08901</td>
+                                <td>Invalid Operation type</td>
+                              </tr>	
+                              <tr> 
+                                <td>08902</td>
+                                <td>The address is mandatory</td>
+                              </tr>	
+                              <tr> 
+                                <td>08903</td>
+                                <td>Invalid merchant number</td>
+                              </tr>	
+                              <tr> 
+                                <td>08904</td>
+                                <td>Invalid representative Identification</td>
+                              </tr>	
+                              <tr> 
+                                <td>08905</td>
+                                <td>Invalid address list Identification</td>
+                              </tr>
+                              <tr> 
+                                <td>08906</td>
+                                <td>Invalid address details Identification</td>
+                              </tr>
+                              <tr> 
+                                <td>08907</td>
+                                <td>Invalid title code</td>
+                              </tr>
+                              <tr> 
+                                <td>08908</td>
+                                <td>Invalid last name</td>
+                              </tr>
+                              <tr> 
+                                <td>08909</td>
+                                <td>Invalid first name </td>
+                              </tr>
+                              <tr> 
+                                <td>08910</td>
+                                <td>Invalid document code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08911</td>
+                                <td>Invalid language code</td>
+                              </tr>
+                              <tr> 
+                                <td>08912</td>
+                                <td>Invalid country code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08913</td>
+                                <td>Invalid zip code</td>
+                              </tr>	
+                              <tr> 
+                                <td>08914</td>
+                                <td>Invalid region code</td>
+                              </tr>
+                              <tr> 
+                                <td>08915</td>
+                                <td>Invalid city code</td>
+                              </tr>
+                              <tr> 
+                                <td>08916</td>
+                                <td>Not used</td>
+                              </tr>
+                              <tr> 
+                                <td>08917</td>
+                                <td>Invalid position code</td>
+                              </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantContactDetailsRs'
+  # ------- addMerchantSite
+  /AddMerchantSite/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The add merchant site API provides functionality to add a merchant site details during a merchant enrollment process. The merchant site details must contain information like site name and location…Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant side. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/addMerchantSite.png" />
+                  
+      summary: The add merchant site API provides functionality to add a merchant site details during a merchant enrollment process.
+      tags:
+        - Add Merchant Site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMerchantSiteRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddMerchantSiteRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05001</td>
+                                  <td>Invalid Operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05002</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05003</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05004</td>
+                                  <td>Invalid site</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05005</td>
+                                  <td>Invalid site type</td>
+                                </tr>
+                                <tr> 
+                                  <td>05006</td>
+                                  <td>Invalid site name</td>
+                                </tr>
+                                <tr> 
+                                  <td>05007</td>
+                                  <td>The merchant already has a main site</td>
+                                </tr>
+                                <tr> 
+                                  <td>05008</td>
+                                  <td>The merchant must have a main site</td>
+                                </tr>
+                                <tr> 
+                                  <td>05009</td>
+                                  <td>Invalid zip code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05010</td>
+                                  <td>Invalid city code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05011</td>
+                                  <td>Invalid Country code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05012</td>
+                                  <td>Invalid Region code</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddMerchantSiteRs'
+  # ------- CheckMerchantExist
+  /CheckMerchantExist/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Check Merchant Exist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- closeCase
+  /CloseCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive case management module that enables users to create and maintain cases in the system. It helps also to make the follow up of any case created as well as performing some actions on it.</p>
+                    <p>The present web service aims to close a case of an existing case in the system. The message requires the case reference Identification subject to that closure. If not present, the request will be rejected, and a specific error code will be returned.</p>
+                    <h3>Functional Description</h3>
+                   <img  src="./docs/closeCase.png" />
+                  
+      summary: PowerCARD offers a comprehensive case management module that enables users to create and maintain cases in the system.
+      tags:
+        - Close Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseCaseRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CloseCaseRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00551</td>
+                                  <td>Case reference not provided in the request message</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00552</td>
+                                  <td>Case reference not found in the system</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00553</td>
+                                  <td>Case already closed</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseCaseRs'
+  # ------- closeEvent
+  /CloseEvent/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Using this web services, users can change the status of an existing event inside a case from any value to Closed. Users need to provide a valid event reference identification in the request message, otherwise the request will be rejected with a specific error code and users need then to correct and resubmit the request.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/closeEvent.png" />
+                  
+      summary: Using this web services, users can change the status of an existing event inside a case from any value to Closed.
+      tags:
+        - Close Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseEventRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CloseEventRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00601</td>
+                                  <td>Event reference not provided in the request message</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00602</td>
+                                  <td>Event reference not found</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00603</td>
+                                  <td>Event already closed</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseEventRs'
+  # ------- createAcceptorPoint
+  /CreateAcceptorPoint/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The create acceptor point API provides functionality to add or update an acceptor point application record during a merchant enrollment process. The details that must be submitted must contain information about that acceptor point like its acronym, legal identification, annual turnover, Tax Id …</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createAcceptorPoint.png" />
+                  
+      summary: The create acceptor point API provides functionality to add or update an acceptor point application record during a merchant enrollment process.
+      tags:
+        - Create Acceptor Point
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAcceptorPointRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateAcceptorPointRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05101</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05102</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05103</td>
+                                  <td>Invalid bank code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05104</td>
+                                  <td>Invalid acceptor point</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05105</td>
+                                  <td>Invalid merchant activity</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05106</td>
+                                  <td>Invalid site</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05107</td>
+                                  <td>Invalid contract element</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05108</td>
+                                  <td>Invalid acronym</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05109</td>
+                                  <td>Invalid location</td>
+                                </tr>										
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAcceptorPointRs'
+  # ------- createBasicMerchant
+  /CreateBasicMerchant/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The create basic merchant API provides functionality to add a merchant application record during a merchant enrollment process. The merchant details that must be submitted must contain information like merchant acronym, legal identification, annual turnover, Tax Id …Please note that this action needs to be followed by a merchant validation process to let the action be effective on the merchant database. For more details regarding the validation API, please refer to validateMerchant API. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createBasicMerchant.png" />
+                  
+      summary: The create basic merchant API provides functionality to add a merchant application record during a merchant enrollment process.
+      tags:
+        - Create Basic Merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBasicMerchantRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateBasicMerchantRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>05201</td>
+                                  <td>Invalid operation type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05202</td>
+                                  <td>Invalid bank code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>05203</td>
+                                  <td>Invalid branch code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05204</td>
+                                  <td>Invalid legal ID type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05205</td>
+                                  <td>Wrong legal ID type</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05206</td>
+                                  <td>Invalid legal ID</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05207</td>
+                                  <td>Invalid location</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05208</td>
+                                  <td>Invalid country code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>05209</td>
+                                  <td>Invalid region code</td>
+                                </tr>
+                                <tr> 
+                                  <td>05210</td>
+                                  <td>Invalid legal form</td>
+                                </tr>
+                                <tr> 
+                                  <td>05211</td>
+                                  <td>Invalid merchant verification value</td>
+                                </tr>
+                                <tr> 
+                                  <td>05212</td>
+                                  <td>Invalid risk indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>05213</td>
+                                  <td>Invalid transactions indicator</td>
+                                </tr>
+                                <tr> 
+                                  <td>05214</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>
+                                <tr> 
+                                  <td>05215</td>
+                                  <td>Invalid acronym</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBasicMerchantRs'
+  # ------- createCase
+  /CreateCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD Case Management module offers a comprehensive tool for users to organize their daily operations that can be grouped as follow:</p>
+                    <P>Automation case allocation and re allocation, Follow up of each case, History of processed cases, Statistics and Performances. </P>
+                    <p>Using the present web service, a case can be created automatically in the system with an open status, therefore, its status can be created to Referred, Closed or Queued. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createCase.png" />
+                  
+      summary: PowerCARD Case Management module offers a comprehensive tool for users to organize their daily operations ...
+      tags:
+        - Create Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCaseRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateCaseRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00401</td>
+                                  <td>Case type is required</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00402</td>
+                                  <td>Invalid case type Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00403</td>
+                                  <td>Invalid case entity code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00404</td>
+                                  <td>Case reason is required</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00405</td>
+                                  <td>Invalid case reason code</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00406</td>
+                                  <td>Queue code not defined</td>
+                                </tr>		
+                                <tr> 
+                                  <td>00407</td>
+                                  <td>Invalid Action code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCaseRs'
+  # ------- createCaseAction
+  /CreateCaseAction/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Case Action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- createCaseEvent
+  /CreateCaseEvent/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Case Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- createClaim
+  /CreateClaim/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The web service interface in PowerCARD offers a function for creating claims in the system for an existing ISO, Sub Iso, Var, merchant or a point of sale. A claim consists of passing different information that might be related to a transaction, like the transaction Id, the terminal identification number, the merchant Id…each claim must initiated using a valid reason. While created in the system, an internal process in PowerCARD is then executed to assign the case to the appropriate user, who is responsible for handling the case. End users can use the search claim service to check the status of their captured cases.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/createClaim.png" />
+                  
+      summary: The web service interface in PowerCARD offers a function for creating claims in the system for an existing ISO.
+      tags:
+        - Create Claim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClaimRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CreateClaimRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07201</td>
+                                  <td>Invalid Merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07202</td>
+                                  <td>Invalid Reason Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07203</td>
+                                  <td>Invalid Claim status</td>
+                                </tr>
+                                <tr> 
+                                  <td>07204</td>
+                                  <td>Invalid Transaction Identification</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07205</td>
+                                  <td>Invalid Terminal</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07206</td>
+                                  <td>Different Merchant identifications are present in the aggregate Claim & MerchantInformation</td>
+                                </tr>		
+                                <tr> 
+                                  <td>07207</td>
+                                  <td>Invalid Remittance Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07208</td>
+                                  <td>Missing Merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07209</td>
+                                  <td>Missing reason code in the request</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07210</td>
+                                  <td>Missing claims description</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07211</td>
+                                  <td>Missing claim status</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateClaimRs'
+  # ------- createMerchant
+  /CreateMerchant/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- createMerchantContract
+  /CreateMerchantContract/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Create Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- deleteMerchantContact
+  /DeleteMerchantContact/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service aims to delete the merchant business contacts' personal information. It works by providing the unique identification of the contact as stored in PowerCARD database.</p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/deleteMerchantContact.png" />
+                  
+      summary: The present web service aims to delete the merchant business contacts' personal information. 
+      tags:
+        - Delete Merchant Contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantContactRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantContactRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>06601</td>
+                                <td>Invalid Merchant </td>
+                              </tr>	
+                              <tr> 
+                                <td>06602</td>
+                                <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                              </tr>	
+                              <tr> 
+                                <td>06603</td>
+                                <td>Invalid representative id </td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMerchantContactRs'
+  # ------- deleteMerchantOwner
+  /DeleteMerchantOwner/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service aims to delete the merchant business owner' personal information. It works by providing the unique identification of the owner as stored in PowerCARD database. Any wrong identification provided in the request will result in a rejection.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/deleteMerchantOwner.png" />
+                  
+      summary: The present web service aims to delete the merchant business owner' personal information.
+      tags:
+        - Delete Merchant Owner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantOwnerRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteMerchantOwnerRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>06401</td>
+                                <td>Invalid Merchant </td>
+                              </tr>	
+                              <tr> 
+                                <td>06402</td>
+                                <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                              </tr>	
+                              <tr> 
+                                <td>06403</td>
+                                <td>Invalid representative id </td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMerchantOwnerRs'
+  # ------- getCase
+  /GetCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive case management module that enables users to create and maintain cases in the system. It helps also to make the follow up of any case created as well as performing some actions on it.</p>
+                    <p>The present web service aims to get the details of an existing case in the system. All the information with regards to the case including its status and dates are all returned in the response message.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getCase.png" />
+                  
+      summary: PowerCARD offers a comprehensive case management module that enables users to create and maintain cases in the system.
+      tags:
+        - Get Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getCaseRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/getCaseRq'
+      responses:  
+         200:
+          description: 
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00451</td>
+                                <td>Case reference not provided in the request message</td>
+                              </tr>		
+                              <tr> 
+                                <td>00452</td>
+                                <td>Case reference not found</td>
+                              </tr>									
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCaseRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/getCaseRs'                
+  # ------- getCaseAction
+  /GetCaseAction/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Case Action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getCaseEvent
+  /GetCaseEvent/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Case Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getChainHierarchy
+  /GetChainHierarchy/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>For display purpose, this current service might be used whenever a merchant or a financial institution representative would like to display the architecture of all the components linked to a given node. A node in PowerCARD could represent an ISO, a Sub ISO, a chain, a sub chain, a Payment Facilitator, a merchant or also a point of sale.</p>
+                    <P>PowerCARD offers a rich database structure for its customers allowing them to easily map their existing business in the PowerCARD database. Here after the architecture highlighting the various components that shapes the PowerCARD database. The levels included in this figure are not all mandatory. In fact, depending on the customer architecture, PowerCARD can offer the appropriate internal architecture that answers the customer needs in a best way </P>
+                    <img  src="./docs/getChainHierarchy1.png" />
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getChainHierarchy2.png" />
+                  
+      summary: For display purpose, this current service might be used whenever a merchant or a financial institution representative would like to display the architecture of all the components linked to a given node
+      tags:
+        - Get Chain Hierarchy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetChainHierarchyRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06501</td>
+                                  <td>Invalid Merchant </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06502</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06503</td>
+                                  <td>Invalid Merchant Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>06504</td>
+                                  <td>Invalid ISO code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06505</td>
+                                  <td>Invalid Sub ISO code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06506</td>
+                                  <td>Invalid VAR code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs' 
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetChainHierarchyRs'                 
+  # ------- getLastInfoClaims
+  /GetLastInfoClaims/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Last Info Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getMerchantChargebacks
+  /GetMerchantChargebacks/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Merchant Charge backs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getMerchantContractDetail
+  /GetMerchantContractDetail/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The aim of this Web service is to retrieve data related to a given merchant contract as defined under the PowerCARD merchant management system. Details are stored in multiple PowerCARD tables, they are all processed then returned back in the response message.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/GetMerchantContractDetail.jpg" />
+                  
+      summary: The aim of this Web service is to retrieve data related to a given merchant contract as defined under the PowerCARD merchant management system
+      tags:
+        - Get Merchant Contract Detail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMerchantContractDetailRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetMerchantContractDetailRq'
+      responses:  
+         200:
+          description: 
+                <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10801</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10802</td>
+                                  <td>Invalid contract id</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMerchantContractDetailRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetMerchantContractDetailRs'                
+  # ------- getMerchantDetail
+  /GetMerchantDetail/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The current web service is used to allow agents as well as merchants to get more details about an existing merchant in the merchant database.</p>
+                    <p>Merchant details can include Merchant category code (MCC), Merchant activities, Merchant sites, bank accounts, equipment’s, contacts info, subscribed services….
+                    This Web Service can be called by a Merchant or an Agent.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getMerchantDetail.png" />
+                  
+      summary: The current web service is used to allow agents as well as merchants to get more details about an existing merchant in the merchant database.
+      tags:
+        - Get Merchant Detail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMerchantDetailRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetMerchantDetailRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06701</td>
+                                  <td>Merchant required</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06702</td>
+                                  <td>The merchant ID is invalid</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMerchantDetailRs'
+            application/xml:
+               schema:
+                  $ref: '#/components/schemas/GetMerchantDetailRs'
+  # ------- GetMerchantFundingDetails
+  /GetMerchantFundingDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Merchant Funding Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getOutletDetails
+  /GetOutletDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>If any user is looking for information with regards to a point of sale (Outlet), he needs to use the current web service. The user is required to specify in the request message the point of sale identification number as defined internally in PowerCARD and as a result he will expect to receive a record containing all the information related to that point of sale. Information may include important demographic data for that point of sale, legal information, address, list of contacts, contracts…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getOutletDetails.png" />
+                  
+      summary: If any user is looking for information with regards to a point of sale (Outlet), he needs to use the current web service.
+      tags:
+        - Get Outlet Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetOutletDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetOutletDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06801</td>
+                                  <td>Point of sale Identification not provided</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06802</td>
+                                  <td>Invalid Point of sale Identification</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOutletDetailsRs'
+  # ------- getProduct
+  /GetProduct/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a rich product database structure to its customers. This structure includes a variety of components that allow users to map their existing business easily and within a limited time in PowerCARD. For example, PowerCARD allows storing and maintaining the product in the database.</p>
+                    <p>The current web service is intended to send a result that shares the list of products that belong to a pre-defined bank and compatible with a pre-defined merchant. At least one input parameter should be sent in the request message, otherwise the request will be rejected.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getProduct.png" />
+                  
+      summary: PowerCARD offers a rich product database structure to its customers.
+      tags:
+        - Get Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetProductRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetProductRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08001</td>
+                                  <td>Invalid Product Type</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductRs'
+  # ------- getProductRecap
+  /GetProductRecap/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Product Recap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- getRemittance
+  /GetRemittance/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The following web service was introduced in PowerCARD to offer to its users through the web service interface the possibility to retrieve details regarding a given remittance. Each remittance is identified in the system by an internal identification and should contain a list of transactions</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/getRemittance.png" />
+                  
+      summary: The following web service was introduced in PowerCARD to offer to its users through the web service interface the possibility to retrieve details ...
+      tags:
+        - Get Remittance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRemittanceRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/GetRemittanceRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07101</td>
+                                  <td>Linkup Code, Batch Number & Remitance Id are all required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07102</td>
+                                  <td>Invalid remittance Identification</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRemittanceRs'
+  # ------- getReserveRolling
+  /GetReserveRolling/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Get Reserve Rolling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- SearchCases
+  /SearchCases/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Search Cases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- searchMerchantTransactions 
+  /SearchMerchantTransactions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>
+                    The current web service is used to search and retrieve transaction data for an acquiring entity in the system. An acquiring entity may include a VAR, a Chain; a Merchant or a point of sale. Both agent and merchants representatives may use different criteria to search and display transactions posted to the merchant account. Criteria’s could include amount ranges, dates, Account id, transaction types, network…More details regarding the list of criteria is shared bellow.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchMerchantTransactions.png" />
+                  
+      summary: The current web service is used to search and retrieve transaction data for an acquiring entity in the system. 
+      tags:
+        - Search Merchant Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchMerchantTransactionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchMerchantTransactionRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07301</td>
+                                  <td>Merchant Identification is required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07302</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>07303</td>
+                                  <td>Invalid Claim Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07304</td>
+                                  <td>Invalid merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07305</td>
+                                  <td>Invalid ISO Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07306</td>
+                                  <td>Invalid VAR Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07307</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchMerchantTransactionRs'  
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchMerchantTransactionRs'                                 
+  # ------- searchClaims
+  /SearchClaims/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>After creating a claim in PowerCARD, users are allowed to follow the status of their claims. PowerCARD offer, through its native web service interface, the possibility to search for a claim and ask for its status. The service is intended to give the last update of the claim as well as the description of the action performed by the financial institution agent. For more details, refer to the next sections.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchClaims.png" />
+                  
+      summary: After creating a claim in PowerCARD, users are allowed to follow the status of their claims.
+      tags:
+        - Search Claims
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchClaimsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchClaimsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>07301</td>
+                                  <td>Merchant Identification is required</td>
+                                </tr>
+                                <tr> 
+                                  <td>07302</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>07303</td>
+                                  <td>Invalid Claim Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07304</td>
+                                  <td>Invalid merchant Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07305</td>
+                                  <td>Invalid ISO Identification Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>07306</td>
+                                  <td>Invalid VAR Identification Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>07307</td>
+                                  <td>Invalid Chain Identification Number</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchClaimsRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchClaimsRs'                
+  # ------- searchMerchantFunding
+  /SearchMerchantFunding/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Search Merchant Funding
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- searchRejectedTransactions
+  /SearchRejectedTransactions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Search Rejected Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- searchRemittances
+  /SearchRemittances/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service is intended to allow the end user to look for a detail of a set of transaction remittances in the system. For instance, a merchant or a point of sale can use the service to search for the submitted transaction remittances in a period of time.</p>
+                    <p>The output of the service may include the list of remittances submitted by the merchant/point of sale along with some details regarding each remittance. Those details should include the status of the remittance, the number of submitted transactions, the processing date, the remittance type…</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchRemittances.png" />
+                  
+      summary: The present web service is intended to allow the end user to look for a detail of a set of transaction remittances in the system.
+      tags:
+        - Search Remittances
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRemittancesRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchRemittancesRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>07001</td>
+                                    <td>Merchant and POS identification are both missing in the request message.</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>07002</td>
+                                    <td>Invalid Merchant Identification number</td>
+                                  </tr>
+                                  <tr> 
+                                    <td>07003</td>
+                                    <td>Invalid Point of sale Identification number</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07004</td>
+                                    <td>Invalid Range date</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07005</td>
+                                    <td>Invalid Chain Identification Number</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>07006</td>
+                                    <td>Value Added Reseller not defined in the system.</td>
+                                  </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchRemittancesRs'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SearchRemittancesRs'
+  # ------- updateAcceptorPointStatus
+  /UpdateAcceptorPointStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant and all the entities linked to it in the system. For instance, the present web service can help to change the status of an acceptor point of a given merchant</p>
+                    <p>Users must specify the desired status as web as other information’s like the reason behind the change and optionally the starting/ending date of such status. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/searchRemittances.png" />
+                  
+      summary: PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant ...
+      tags:
+        - Update Acceptor Point Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAcceptorPointStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateAcceptorPointStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10501</td>
+                                  <td>Invalid merchant</td>
+                                </tr>
+                                <tr> 
+                                  <td>10502</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>10503</td>
+                                  <td>Invalid acceptor point id and contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10504</td>
+                                  <td>Update not allowed for this acceptor point, it's closed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10505</td>
+                                  <td>Error while updating acceptor point status</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10506</td>
+                                  <td>Invalid status code and reason code</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateAcceptorPointStatusRs'
+  # ------- updateCase
+  /UpdateCase/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateCaseEvent
+  /UpdateCaseEvent/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Case Event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateMerchantAccountStatus
+  /UpdateMerchantAccountStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. For instance, this web service helps users to update the status of merchant Billing account. By doing so, users might for example cancel a given merchant billing account</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAccountStatus.png" />
+                  
+      summary: PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system.
+      tags:
+        - Update Merchant Account Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMerchantAccountStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateMerchantAccountStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>10601</td>
+                                <td>Invalid merchant</td>
+                              </tr>
+                              <tr> 
+                                <td>10602</td>
+                                <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                              </tr>
+                              <tr> 
+                                <td>10603</td>
+                                <td>Invalid account number </td>
+                              </tr>	
+                              <tr> 
+                                <td>10604</td>
+                                <td>Update not allowed for this account due to dependencies </td>
+                              </tr>	
+                              <tr> 
+                                <td>10605</td>
+                                <td>Invalid status code, account should have one of the following statuses N Normal, C Closed </td>
+                              </tr>	
+                              <tr> 
+                                <td>10606</td>
+                                <td>Update not allowed for this account, it's closed </td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateMerchantAccountStatusRs'
+  # ------- updateMerchantActivity
+  /UpdateMerchantActivity/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>A merchant activity is that which is performed by persons participating in the market to provide goods or services with a monetary value for the purpose of obtaining profit or earnings. This web service is intended to help any user to amend the details of activities of any predefined merchant in the PowerCARD Acquirer database by just providing the merchant activity identification.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantActivity.png" />
+                  
+      summary: A merchant activity is that which is performed by persons participating in the market to provide goods or services ...
+      tags:
+        - Update Merchant Activity
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMerchantActivityRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateMerchantActivityRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>08201</td>
+                                <td>Activity Identifier not found</td>
+                              </tr>
+                              <tr> 
+                                <td>08202</td>
+                                <td>MCC not found</td>
+                              </tr>
+                              <tr> 
+                                <td>08203</td>
+                                <td>MCC already linked to that merchant</td>
+                              </tr>	
+                              <tr> 
+                                <td>08204</td>
+                                <td>Merchant not found</td>
+                              </tr>	
+                              <tr> 
+                                <td>08205</td>
+                                <td>Update not allowed for this account, it's closed </td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateMerchantActivityRs'
+  # ------- updateMerchantActivityStatus
+  /UpdateMerchantActivityStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. For instance, this web service helps users to update a merchant activity status. By doing so, users might for example cancel a given merchant activity.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantActivityStatus.png" />
+                  
+      summary: PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system.
+      tags:
+        - Update Merchant Activity Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMerchantActivityStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/updateMerchantActivityStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06901</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>06902</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>06903</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06904</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06905</td>
+                                  <td>Activity is not secondary </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06906</td>
+                                  <td>Error while updating activity status </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06907</td>
+                                  <td>Invalid status code and reason code </td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateMerchantActivityStatusRs'
+  # ------- updateMerchantAddressDetails
+  /UpdateMerchantAddressDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Using the present web service, users are able to change a merchant address details</p>
+                    <p>In PowerCARD, a merchant can have multiple addresses. a mandatory one, also referred to as principal address, also he can have additional addresses for any other delivery purpose. Hence users need then to specify which address is being updated by providing much more details in the request message. In case of any control fail, because for example the postal code is not defined in the system, or because the identification of the address is not found or any other control listed below, the call should be rejected and a specific error code is returned back to the caller for further analysis and correction.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAddressDetails.png" />
+                  
+      summary: Using the present web service, users are able to change a merchant address details
+      tags:
+        - Update Merchant Address Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08401</td>
+                                  <td>Merchant not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08402</td>
+                                  <td>Default usage not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08403</td>
+                                  <td>The values provided in Country, region, city and postal code are not coherent</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08404</td>
+                                  <td>The values provided in Region, city and postal code are not coherent</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08405</td>
+                                  <td>Invalid Address type</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08406</td>
+                                  <td>Invalid Address list</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08407</td>
+                                  <td>Invalid Address detail</td>
+                                </tr>
+                                <tr> 
+                                  <td>08408</td>
+                                  <td>Invalid Phone type</td>
+                                </tr>
+                                <tr> 
+                                  <td>08409</td>
+                                  <td>Invalid Sending mode </td>
+                                </tr>
+                                <tr> 
+                                  <td>08410</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>08411</td>
+                                  <td>Invalid Address indicator</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08412</td>
+                                  <td>The values provided in Country and city are not coherent</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantAddressDetailsRs'  
+  # ------- updateMerchantAddressStatus
+  /UpdateMerchantAddressStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant information’s in the system. For instance, the present web service is aimed to change the status and validity date of an existing temporary merchant address. </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantAddressStatus.png" />
+                  
+      summary: PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchant information’s in the system.
+      tags:
+        - Update Merchant Address Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantAddressStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06101</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>06102</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>06103</td>
+                                  <td>Invalid address list id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>06104</td>
+                                  <td>Invalid validity range date </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06105</td>
+                                  <td>Invalid address id </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06106</td>
+                                  <td>Invalid status code, address should have one of the following statuses N Normal, c Closed </td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantAddressStatusRs'
+  # ------- updateMerchantBankAccount
+  /UpdateMerchantBankAccount/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service is aimed to be used whenever any user would like to change a detail of a merchant bank account information in the system. Whenever it is requested to do, users need to provide information with regards to the merchant account number, status… so that PowerCARD can proceed and change accordingly.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantBankAccount.png" />
+                  
+      summary: The present web service is aimed to be used whenever any user would like to change a detail of a merchant bank account information ...
+      tags:
+        - Update Merchant Bank Account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantBankAccountRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantBankAccountRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08301</td>
+                                  <td>Invalid Account Bank code </td>
+                                </tr>
+                                <tr> 
+                                  <td>08302</td>
+                                  <td>Invalid Account type code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08303</td>
+                                  <td>Remittance Grouping mode not defined</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08304</td>
+                                  <td>Fees grouping mode not defined</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08305</td>
+                                  <td>Chargeback grouping mode not defined </td>
+                                </tr>	
+                                <tr> 
+                                  <td>08306</td>
+                                  <td>Billing element grouping mode not defined</td>
+                                </tr>
+                                <tr> 
+                                  <td>08307</td>
+                                  <td>The length of the bank account number in not correct</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08308</td>
+                                  <td>Account link not found for that merchant</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08309</td>
+                                  <td>Invalid branch code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08310</td>
+                                  <td>Merchant number not found</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08311</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08312</td>
+                                  <td>Invalid IBAN code</td>
+                                </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantBankAccountRs' 
+  # ------- updateMerchantContactDetails
+  /UpdateMerchantContactDetails/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service is aimed to be used whenever any user would like to change a detail of a merchant contact details in the system. Whenever it is requested to do, users need to provide information with regards to the merchant contact details so that PowerCARD can proceed and change accordingly.</p>
+                    <h3>Functional Description</h3>
+                     <img  src="./docs/updateMerchantContactDetails.png" />
+                  
+      summary: The present web service is aimed to be used whenever any user would like to change a detail of a merchant contact details ...
+      tags:
+        - Update Merchant Contact Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContactDetailsRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContactDetailsRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08701</td>
+                                  <td>Invalid language code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08702</td>
+                                  <td>Invalid document code</td>
+                                </tr>
+                                <tr> 
+                                  <td>08703</td>
+                                  <td>Invalid Country code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08704</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08705</td>
+                                  <td>Invalid merchant representative Identification</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08706</td>
+                                  <td>Address list identification not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08707</td>
+                                  <td>Address detail not defined</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08708</td>
+                                  <td>First name is null</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08709</td>
+                                  <td>Last name is null</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08710</td>
+                                  <td>Invalid title code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08711</td>
+                                  <td>Invalid representative position</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08712</td>
+                                  <td>The values provided in Country, region, city and postal code are not coherent</td>
+                                </tr>
+                                <tr> 
+                                  <td>08713</td>
+                                  <td>The values provided in Country, region and city are not coherent</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08714</td>
+                                  <td>Invalid Address type </td>
+                                </tr>	
+                                <tr> 
+                                  <td>08715</td>
+                                  <td>Phone type not found</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08716</td>
+                                  <td>Invalid City code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08717</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateMerchantContract
+  /UpdateMerchantContract/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The present web service is aimed to be used whenever any user would like to change a detail of a contract in the system. Whenever it is requested to do, users need to provide information with regards to the contract details so that PowerCARD can proceed and change accordingly.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantContract.png" />
+                  
+      summary: The present web service is aimed to be used whenever any user would like to change a detail of a contract in the system.
+      tags:
+        - Update Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>00971</td>
+                                  <td>Invalid bank code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00972</td>
+                                  <td>Invalid branch code</td>
+                                </tr>
+                                <tr> 
+                                  <td>00973</td>
+                                  <td>Invalid contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00974</td>
+                                  <td>Contract element id already exists</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00975</td>
+                                  <td>Invalid product code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00976</td>
+                                  <td>Product code is mandatory</td>
+                                </tr>
+                                <tr> 
+                                  <td>00977</td>
+                                  <td>Invalid product code and contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00978</td>
+                                  <td>Error while checking characteristic list  </td>
+                                </tr>	
+                                <tr> 
+                                  <td>00979</td>
+                                  <td>Error while checking service option list</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00980</td>
+                                  <td>Invalid charging id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00981</td>
+                                  <td>Charging id is mandatory</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00982</td>
+                                  <td>Error while checking charging condition list</td>
+                                </tr>
+                                <tr> 
+                                  <td>00983</td>
+                                  <td>Error while checking settlement condition list</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00984</td>
+                                  <td>Invalid product context code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00985</td>
+                                  <td>Invalid posting id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>00986</td>
+                                  <td>Invalid context value</td>
+                                </tr>
+                                <tr> 
+                                  <td>00987</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantContractRs'
+  # ------- updateMerchantContractStatus
+  /UpdateMerchantContractStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. </p>
+                    <p>The present web service aims to update the status of a merchant contract element. The change in status of a Contract Element has no effect on the status of the merchant. However, change of an ELC status has an effect on all the attached services. Thus, the closing action of an ELC is reflected by deactivation on the attached services, and the actions of activation/deactivation of ELC are reflected by activation/deactivation on the attached services.</p>
+                    <p>Acceptance optional services are not affected by the status change of the ELC to which they are attached. An acceptance optional service may be in normal status and active independently of the ELC to which it is attached.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantContractStatus.png" />
+                  
+      summary: PowerCARD offers a comprehensive merchant management module that enables users to create and maintain merchants in the system. 
+      tags:
+        - Update Merchant Contract Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantContractStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>10701</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>10702</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>10703</td>
+                                  <td>Invalid contract element id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>10704</td>
+                                  <td>Update not allowed for this contract, it's closed </td>
+                                </tr>	
+                                <tr> 
+                                  <td>10705</td>
+                                  <td>Error while updating contract status </td>
+                                </tr>	
+                                <tr> 
+                                  <td>10706</td>
+                                  <td>Invalid status code and reason code </td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantContractStatusRs'
+  # ------- updateMerchantDescription
+  /UpdateMerchantDescription/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To update merchant information, users may use the current service. When using this service, the caller must send a valid merchant identification along with valid information to be updated, like Company name, location, legal identification…</p>
+                    <p>In case the request contains invalid data, PowerCARD will reject the call and sent back a specific error code in the response message highlighting the field causing the error.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantContractStatus.png" />
+      summary: To update merchant information, users may use the current service. 
+      tags:
+        - Update Merchant Description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantDescriptionRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantDescriptionRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08101</td>
+                                  <td>Invalid Merchant</td>
+                                </tr>
+                                <tr> 
+                                  <td>08102</td>
+                                  <td>State not defined in the system</td>
+                                </tr>
+                                <tr> 
+                                  <td>08103</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08104</td>
+                                  <td>Invalid Merchant location</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08105</td>
+                                  <td>Acronym not provided.</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08106</td>
+                                  <td>Invalid merchant on id indicator</td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantDescriptionRs'
+  # ------- updateMerchantSite
+  /UpdateMerchantSite/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Each merchant must have at least one valid merchant site in the system. By using this web service, users can change information with regards to an existing merchant site. Information to be transmitted must include, but not limited to, Site Identification, address details, status, dates…</p>
+                    <p>Invalid data in the request message may cause the rejection of the message with a specific error code. For more details, please refer to the sections bellow.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantSite.png" />
+
+      summary: Each merchant must have at least one valid merchant site in the system. By using this web service, users can change information ...
+      tags:
+        - Update Merchant Site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantSiteRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>08501</td>
+                                  <td>Site not found</td>
+                                </tr>
+                                <tr> 
+                                  <td>08502</td>
+                                  <td>The values provided in Country, region, city and postal code are not coherent</td>
+                                </tr>
+                                <tr> 
+                                  <td>08503</td>
+                                  <td>Update not allowed for this merchant, Merchant should have one of the following statues N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08504</td>
+                                  <td>Invalid Merchant Number</td>
+                                </tr>	
+                                <tr> 
+                                  <td>08505</td>
+                                  <td>Update not allowed for this site, Merchant should have one of the following statues P In progress
+                                      N Normal,S Suspended,C Closed
+                                  </td>
+                                </tr>							
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantSiteRs'
+  # ------- updateMerchantSiteStatus
+  /UpdateMerchantSiteStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Merchant Site Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateMerchantStatus
+  /UpdateMerchantStatus/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>Since the merchant status can vary during the whole life cycle of the merchant, the Update Merchant Status API lets you update the merchant status by providing a status code as well as a status reason used for that change. It also accepts a range date fields that indicate the dates from when and till when the status will be effective</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/updateMerchantStatus.png" />
+                  
+      summary: Since the merchant status can vary during the whole life cycle of the merchant...
+      tags:
+        - Update Merchant Status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantStatusRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateMerchantStatusRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>06301</td>
+                                  <td>Invalid merchant </td>
+                                </tr>
+                                <tr> 
+                                  <td>06302</td>
+                                  <td>Update not allowed for this merchant, merchant should have one of the following statuses N Normal, S Suspended, M Under Monitoring</td>
+                                </tr>
+                                <tr> 
+                                  <td>06303</td>
+                                  <td>Error while updating merchant status </td>
+                                </tr>	
+                                <tr> 
+                                  <td>06304</td>
+                                  <td>Invalid status code and reason code </td>
+                                </tr>							
+                           </table>
+                  </div>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMerchantStatusRs'
+  # ------- validateMerchant
+  /ValidateMerchant/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The validate merchant API provides functionality to validate a merchant application record created during a merchant enrollment process. The API is responsible of moving the merchant details from the application tables to the final merchant database. Any missing or wrong information provided during the initial process may case a rejection of the application. Users are then required to modify the wrong data and submit for a further validation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/validateMerchant.png" />
+                  
+      summary: The validate merchant API provides functionality to validate a merchant application record created during a merchant enrollment process
+      tags:
+        - Validate Merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>09101</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>
+                                <tr> 
+                                  <td>09102</td>
+                                  <td>Invalid bank code</td>
+                                </tr>						
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateMerchantRs'
+  # ------- activateMerchantContract
+  /ActivateMerchantContract/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Activate Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- activateMerchantContractServices
+  /ActivateMerchantContractServices/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Activate Merchant Contract Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- addchargingconditions
+  /Addchargingconditions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Add Charging Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- addMerchantContractServices
+  /AddMerchantContractServices/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Add Merchant Contract Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- addPostingConditions
+  /AddPostingConditions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Add Posting Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- deactivateMerchantContract
+  /DeactivateMerchantContract/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Deactivate Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- deactivateMerchantContractServices
+  /DeactivateMerchantContractServices/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Deactivate Merchant Contract Services
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateChargingConditions
+  /UpdateChargingConditions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Charging Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- updateMerchantContractCharacteristics
+  /UpdateMerchantContractCharacteristics/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Merchant Contract Characteristics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- updateMerchantContractServiceCharacteristics
+  /UpdateMerchantContractServiceCharacteristics/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Merchant Contract Service Characteristics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updateRejectedTransactions
+  /UpdateRejectedTransactions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Rejected Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- updatePostingConditions
+  /UpdatePostingConditions/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Posting Conditions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+  # ------- updateRemittances
+  /UpdateRemittances/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Update Remittances
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'
+  # ------- validateMerchantContract
+  /ValidateMerchantContract/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Validate Merchant Contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs'                                                                                                     
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'  
+    # --- Import DemoV35 request and response
+      GetMerchantContractDetailRq:
+               $ref: 'request.yaml#/GetMerchantContractDetailRq'
+      GetMerchantContractDetailRs:
+               $ref: 'response.yaml#/GetMerchantContractDetailRs'
+    # --- Import AddMerchantActivity request and response
+      AddMerchantActivityRq:
+               $ref: 'request.yaml#/AddMerchantActivityRq'
+      AddMerchantActivityRs:
+               $ref: 'response.yaml#/AddMerchantActivityRs'
+
+    # --- Import AddMerchantAddress request and response
+      AddMerchantAddressRq:
+               $ref: 'request.yaml#/AddMerchantAddressRq'
+      AddMerchantAddressRs:
+               $ref: 'response.yaml#/AddMerchantAddressRs'
+
+    # --- Import AddMerchantBankAccount request and response
+      AddMerchantBankAccountRq:
+               $ref: 'request.yaml#/AddMerchantBankAccountRq'
+      AddMerchantBankAccountRs:
+               $ref: 'response.yaml#/AddMerchantBankAccountRs'
+
+    # --- Import AddMerchantContactDetails request and response
+      AddMerchantContactDetailsRq:
+               $ref: 'request.yaml#/AddMerchantContactDetailsRq'
+      AddMerchantContactDetailsRs:
+               $ref: 'response.yaml#/AddMerchantContactDetailsRs'
+    # --- Import AddMerchantSiteRq request and response 
+      AddMerchantSiteRq:
+               $ref: 'request.yaml#/AddMerchantSiteRq'
+      AddMerchantSiteRs:
+               $ref: 'response.yaml#/AddMerchantSiteRs'
+
+    # --- Import CloseCase request and response 
+      CloseCaseRq:
+               $ref: 'request.yaml#/CloseCaseRq'
+      CloseCaseRs:
+               $ref: 'response.yaml#/CloseCaseRs'
+
+    # --- Import CloseEvent request and response 
+      CloseEventRq:
+               $ref: 'request.yaml#/CloseEventRq'
+      CloseEventRs:
+               $ref: 'response.yaml#/CloseEventRs'
+
+    # --- Import CreateAcceptorPoint request and response 
+      CreateAcceptorPointRq:
+               $ref: 'request.yaml#/CreateAcceptorPointRq'
+      CreateAcceptorPointRs:
+               $ref: 'response.yaml#/CreateAcceptorPointRs'
+
+    # --- Import CreateBasicMerchant request and response 
+      CreateBasicMerchantRq:
+               $ref: 'request.yaml#/CreateBasicMerchantRq'
+      CreateBasicMerchantRs:
+               $ref: 'response.yaml#/CreateBasicMerchantRs'
+
+    # --- Import createCase request and response 
+      CreateCaseRq:
+               $ref: 'request.yaml#/CreateCaseRq'
+      CreateCaseRs:
+               $ref: 'response.yaml#/CreateCaseRs'   
+
+    # --- Import CreateClaim request and response 
+      CreateClaimRq:
+               $ref: 'request.yaml#/CreateClaimRq'
+      CreateClaimRs:
+               $ref: 'response.yaml#/CreateClaimRs'   
+
+    # --- Import DeleteMerchantContactRq request and response 
+      DeleteMerchantContactRq:
+               $ref: 'request.yaml#/DeleteMerchantContactRq'
+      DeleteMerchantContactRs:
+               $ref: 'response.yaml#/DeleteMerchantContactRs'                
+
+    # --- Import DeleteMerchantOwner request and response 
+      DeleteMerchantOwnerRq:
+               $ref: 'request.yaml#/DeleteMerchantOwnerRq'
+      DeleteMerchantOwnerRs:
+               $ref: 'response.yaml#/DeleteMerchantOwnerRs'  
+
+    # --- Import GetChainHierarchy request and response 
+      GetChainHierarchyRq:
+               $ref: 'request.yaml#/GetChainHierarchyRq'
+      GetChainHierarchyRs:
+               $ref: 'response.yaml#/GetChainHierarchyRs'
+
+    # --- Import GetMerchantDetail request and response 
+      GetMerchantDetailRq:
+               $ref: 'request.yaml#/GetMerchantDetailRq' 
+      GetMerchantDetailRs:
+               $ref: 'response.yaml#/GetMerchantDetailRs'
+
+    # --- Import GetOutletDetails request and response 
+      GetOutletDetailsRq:
+               $ref: 'request.yaml#/GetOutletDetailsRq'
+      GetOutletDetailsRs:
+               $ref: 'response.yaml#/GetOutletDetailsRs'                
+
+    # --- Import GetProduct request and response 
+      GetProductRq:
+               $ref: 'request.yaml#/GetProductRq' 
+      GetProductRs:
+               $ref: 'response.yaml#/GetProductRs' 
+
+    # --- Import GetRemittance request and response 
+      GetRemittanceRq:
+               $ref: 'request.yaml#/GetRemittanceRq'
+      GetRemittanceRs:
+               $ref: 'response.yaml#/GetRemittanceRs' 
+
+    # --- Import SearchClaims request and response 
+      SearchClaimsRq:
+               $ref: 'request.yaml#/SearchClaimsRq'
+      SearchClaimsRs:
+               $ref: 'response.yaml#/SearchClaimsRs'
+    # --- Import SearchMerchantTransaction request and response 
+      SearchMerchantTransactionRq:
+               $ref: 'request.yaml#/SearchMerchantTransactionRq'
+      SearchMerchantTransactionRs:
+               $ref: 'response.yaml#/SearchMerchantTransactionRs'
+               
+
+    # --- Import SearchRemittancesRq request and response 
+      SearchRemittancesRq:
+               $ref: 'request.yaml#/SearchRemittancesRq'
+      SearchRemittancesRs:
+               $ref: 'response.yaml#/SearchRemittancesRs' 
+
+    # --- Import updateAcceptorPointStatus request and response 
+      updateAcceptorPointStatusRq:
+               $ref: 'request.yaml#/updateAcceptorPointStatusRq'
+      updateAcceptorPointStatusRs:
+               $ref: 'response.yaml#/updateAcceptorPointStatusRs'  
+
+    # --- Import updateMerchantAccountStatus request and response 
+      updateMerchantAccountStatusRq:
+               $ref: 'request.yaml#/updateMerchantAccountStatusRq'
+      updateMerchantAccountStatusRs:
+               $ref: 'response.yaml#/updateMerchantAccountStatusRs'
+
+    # --- Import updateMerchantActivity request and response 
+      updateMerchantActivityRq:
+               $ref: 'request.yaml#/updateMerchantActivityRq' 
+      updateMerchantActivityRs:
+               $ref: 'response.yaml#/updateMerchantActivityRs'
+
+    # --- Import updateMerchantActivityStatus request and response 
+      updateMerchantActivityStatusRq:
+               $ref: 'request.yaml#/updateMerchantActivityStatusRq'
+      updateMerchantActivityStatusRs:
+               $ref: 'response.yaml#/updateMerchantActivityStatusRs' 
+
+    # --- Import UpdateMerchantAddressDetails request and response 
+      UpdateMerchantAddressDetailsRq:
+               $ref: 'request.yaml#/UpdateMerchantAddressDetailsRq' 
+      UpdateMerchantAddressDetailsRs:
+               $ref: 'response.yaml#/UpdateMerchantAddressDetailsRs' 
+
+    # --- Import UpdateMerchantAddressStatus request and response 
+      UpdateMerchantAddressStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantAddressStatusRq' 
+      UpdateMerchantAddressStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantAddressStatusRs'
+
+    # --- Import updateMerchantBankAccount request and response 
+      UpdateMerchantBankAccountRq:
+               $ref: 'request.yaml#/UpdateMerchantBankAccountRq'
+      UpdateMerchantBankAccountRs:
+               $ref: 'response.yaml#/UpdateMerchantBankAccountRs'
+
+    # --- Import UpdateMerchantContactDetails request and response 
+      UpdateMerchantContactDetailsRq:
+               $ref: 'request.yaml#/UpdateMerchantContactDetailsRq'
+      UpdateMerchantContactDetailsRs:
+               $ref: 'response.yaml#/UpdateMerchantContactDetailsRs'
+
+    # --- Import UpdateMerchantContract request and response 
+      UpdateMerchantContractRq:
+               $ref: 'request.yaml#/UpdateMerchantContractRq' 
+      UpdateMerchantContractRs:
+               $ref: 'response.yaml#/UpdateMerchantContractRs' 
+
+    # --- Import UpdateMerchantContractStatus request and response 
+      UpdateMerchantContractStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantContractStatusRq'
+      UpdateMerchantContractStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantContractStatusRs'  
+
+    # --- Import UpdateMerchantDescription request and response 
+      UpdateMerchantDescriptionRq:
+               $ref: 'request.yaml#/UpdateMerchantDescriptionRq'
+      UpdateMerchantDescriptionRs:
+               $ref: 'response.yaml#/UpdateMerchantDescriptionRs'
+
+    # --- Import UpdateMerchantSite request and response 
+      UpdateMerchantSiteRq:
+               $ref: 'request.yaml#/UpdateMerchantSiteRq'  
+      UpdateMerchantSiteRs:
+               $ref: 'response.yaml#/UpdateMerchantSiteRs' 
+
+    # --- Import UpdateMerchantStatus request and response 
+      UpdateMerchantStatusRq:
+               $ref: 'request.yaml#/UpdateMerchantStatusRq'  
+      UpdateMerchantStatusRs:
+               $ref: 'response.yaml#/UpdateMerchantStatusRs'  
+
+    # --- Import ValidateMerchant request and response 
+      ValidateMerchantRq:
+               $ref: 'request.yaml#/ValidateMerchantRq'  
+      ValidateMerchantRs:
+               $ref: 'response.yaml#/ValidateMerchantRs'     
+    # --- Import ValidateMerchant request and response 
+      getCaseRq:
+               $ref: 'request.yaml#/getCaseRq'  
+      getCaseRs:
+               $ref: 'response.yaml#/getCaseRs'                                                                                         
+security:
+  - bearerAuth: []
+
+
+

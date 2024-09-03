@@ -1,0 +1,69 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.5.4-apiR5.3 
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- releaseAuthorizationHold
+  /releaseAuthorizationHold/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>To be defined</p>
+                    <h3>Functional Description</h3>
+                    <p>To be defined</p>
+                  
+      summary: To be defined
+      tags:
+        - Release Authorization Hold
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/demoV35Rq'
+      responses:  
+         200:
+          description: Successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/demoV35Rs' 
+            application/xml:
+                  schema:
+                      $ref: '#/components/schemas/demoV35Rs'     
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+  security:
+  - bearerAuth: []

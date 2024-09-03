@@ -1,0 +1,131 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+   #requestPIN
+  /RequestPin/V2:
+      post:
+        description:
+                    <h3>API Overview</h3>
+                    <p>
+                        The PIN request API allows the bank cardholders to request for the PIN .A PIN request is usually called when the cardholder request from the bank to send him the PIN associated with his card. The cardholder has the ability to choose the appropriate mode of PIN re-sending.
+                    </p>
+                    <p>
+                         Note that the cardholder PIN is never logged, not even in an encrypted form; the system will generate it again based on some data.
+                    </p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/requestPIN.png" />
+        summary:  The PIN request API allows the bank cardholders to request for the PIN .
+        tags:
+          - Request PIN
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestPinV35Rq'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/RequestPinV35Rq'
+        responses:  
+          200:
+            description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02201</td>
+                                  <td>Invalid Card Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02202</td>
+                                  <td>Invalid Sending Mode</td>
+                                </tr>
+                                <tr> 
+                                  <td>02203</td>
+                                  <td>Invalid Fees option</td>
+                                </tr>
+                                <tr> 
+                                  <td>02204</td>
+                                  <td>Invalid Product</td>
+                                </tr>
+                                <tr> 
+                                  <td>02205</td>
+                                  <td>Replace without fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02206</td>
+                                  <td>Replace with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02207</td>
+                                  <td>Renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02208</td>
+                                  <td>Manual renewal ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02209</td>
+                                  <td>Pin calculate with fees ex</td>
+                                </tr>
+                                <tr> 
+                                  <td>02210</td>
+                                  <td>Pin calculate ex</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02211</td>
+                                  <td>Pin not managed</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02212</td>
+                                  <td>Card in process</td>
+                                </tr>								
+                           </table>
+                  </div> 
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RequestPinV35Rs'
+              application/xml:
+                          schema:
+                              $ref: '#/components/schemas/RequestPinV35Rs'   
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      RequestPinV35Rq:
+                     $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+                     $ref: 'response.yaml#/RequestPinV35Rs'         
+security:
+  - bearerAuth: []

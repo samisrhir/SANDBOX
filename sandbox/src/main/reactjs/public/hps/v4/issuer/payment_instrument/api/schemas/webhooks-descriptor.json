@@ -1,0 +1,14 @@
+{
+  "modules":[
+    {
+      "moduleName":"Payment-instrument events",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"connect_api_card_created",
+          "file": "card_create_event.yaml"
+        }
+      ]
+    }
+  ]
+}

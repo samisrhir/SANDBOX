@@ -1,0 +1,219 @@
+@media screen and (max-width: 760px) {
+    .form {
+        display: flex;
+        top: 11vh;
+        flex-direction: column;
+        padding: 32px;
+      border-radius: 7px;
+        background-color: #1274c579;
+        color: #000000;
+ }
+    .title {
+      font-size: 1px;
+      text-align: center;
+    }
+  
+  }
+.dark .errormsg{
+  font-size: 10px;
+  color: rgb(255, 0, 0);
+  margin-left: 12%;
+  margin-top: 1%;
+}
+.light .errormsg{
+  font-size: 10px;
+  color: rgb(255, 128, 0);
+  margin-left: 12%;
+  margin-top: 1%;
+}
+
+.dark .errorms{
+  font-size: 10px;
+  color: rgb(255, 0, 0);
+  margin-top: 1%;
+}
+.light .errorms{
+  font-size: 10px;
+  color: rgb(255, 128, 0);
+  margin-top: 1%;
+}
+
+  .registerr {
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 87vh;
+    background-image: url(/src/assets/img/bg-register-old.jpg);
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: "ff3";
+    flex-wrap: wrap;
+    align-content:first baseline;
+    justify-content: center;
+  }
+  @media screen and (max-width: 1260px) {
+    .registerr{
+      align-content: center;
+    }
+  }
+@media screen and (min-width: 760px) {
+
+    .form {
+      display: flex;
+      margin-left: 20vw;
+      max-width: 370px;
+      width: 100%;
+      flex-direction: column;
+      padding: 12px;
+      border-radius: 19px;
+      background-color: #1274c579;
+      color: #ffffff;
+      border: 3px solid #ffffff37;       
+      }
+    }
+      .title {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-family: "ff3";
+        display: flex;
+        justify-content: center;
+        color: #ffffff;
+      }
+      
+    
+      
+
+      
+      .message, 
+      .signin {
+        font-size: 12.5px;
+        margin-top: 8%;
+        letter-spacing: 1PX;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      
+      .signin {
+        text-align: center;
+        
+        
+      }
+      
+      .signin a:hover {
+color: #085d79;     }
+      
+      .signin a {
+        color: #00bfff;
+      }
+      
+      .flex {
+        display: flex;
+        /* width: 100%; */
+        gap: 6px;
+      }
+      
+      .form label {
+        position: relative;
+        
+      }
+      
+      .dark .form label .input {
+        background-color: transparent;
+        color: #f8f8f8;
+        display: flex;
+        width: 80%;
+        margin-left: 10%;
+        padding: 18px 05px 05px 10px;
+        ;
+        border: 1px solid rgba(42, 73, 157, 0.764);
+        border-radius: 10px;
+      }
+      .light .form label .input {
+        background-color: #00000057;
+        color: #ffffff;
+        display: flex;
+        width: 80%;
+        margin-left: 10%;
+        padding: 18px 05px 05px 10px;
+        ;
+        border: 1px solid rgba(255, 255, 255, 0.764);
+        border-radius: 10px;
+      }
+      .form label .input + span {
+        color: rgba(255, 255, 255, 0.5);
+        position: absolute;
+        left: 10px;
+        top: 0px;
+        font-size: 0.9em;
+        cursor: text;
+        transition: 0.3s ease;
+      }
+      
+      .form label .input:placeholder-shown + span {
+        top: 12.5px;
+        font-size: 0.1em;
+      }
+      
+      .form label .input:focus + span,
+      .form label .input:valid + span {
+        color: #ff1677;
+        top: 0px;
+        font-size: 0.4em;
+        font-weight: 600;
+      }
+      
+      
+      .input {
+        font-size: 14px;
+
+      }
+      
+      .submit {
+        border: none;
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        margin-top: 9%;
+        border-radius: 10px;
+        color: #ffffff;
+        font-family: "ff3";
+        font-size: 11px;
+        letter-spacing: 6PX;
+        transform: .3s ease;
+        margin-left: 12px;
+        background-color: #00bfff96;
+
+      }
+      
+      .submit:hover {
+        background-color: #76ddff;
+        color: rgb(0, 0, 0);
+      }
+      
+      @keyframes pulse {
+        from {
+          transform: scale(0.9);
+          opacity: 1;
+        }
+      
+        to {
+          transform: scale(1.8);
+          opacity: 0;
+        }
+      }
+
+      .dark .form{
+        background-color: rgba(0, 0, 0, 0.575);
+        
+      }
+
+      .dark .form .input{
+        color: #ffffff;
+      }
+
+      .dark .form .input:focus{
+        color: #7dffff;
+      }
+     

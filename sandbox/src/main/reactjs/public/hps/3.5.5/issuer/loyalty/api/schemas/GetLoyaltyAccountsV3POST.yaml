@@ -1,0 +1,104 @@
+openapi: "3.0.3"
+info:
+  title: Loyalty API documentation
+  description: <p>Loyalty account APIs provides access from any loyalty account record to Loyalty transactions, Loyalty account statements...</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+#getLoyaltyAccounts  
+  /GetLoyaltyAccounts/V3:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                        <p>
+              Loyalty programs can help financial institution to increase their volume of card transaction because it builds a profitable relationship between the financial institutions and their customers. By using its card for shopping the customers can earn points that he can redeem later for gifts, miles, discounts, cash-back, coupons, etc…
+              </p>
+              <p>In loyalty programs, for each dollar amount spent, the cardholder can earn a number of points. He can for instance use those points as credit against future purchases.  </p>
+              <p>This web service was introduced to help customers as well as agent to display all the loyalty accounts linked to a given card. It also helps checking their loyalty account balance. The response will include for reach loyalty account, the name of the subscribed loyalty program, the number of outstanding points in the account, and some more details.  </p>
+              <p>Needless to mention that, the loyalty balance takes into consideration the earned points and also the redeemed ones.  </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/GetLoyaltyAccounts.png" />
+            summary: Display all the loyalty accounts linked to a given card.
+            tags:
+              - Get LoyaltyAccounts.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountsV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetLoyaltyAccountsV35Rq'
+            responses:  
+              200:
+                description:
+                    <div>
+                            Successful
+                            <p>Business Error Codes &#58;</p>
+                            <table>
+                                  <tr>
+                                    <th>Error code</th>
+                                    <th>Error Description</th>
+                                  </tr>
+                                  <tr> 
+                                    <td>11201</td>
+                                    <td>Invalid bank code </td>
+                                  </tr>
+                                  <tr> 
+                                    <td>11202</td>
+                                    <td>Invalid account owner type</td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>11203</td>
+                                    <td>Invalid account owner Id </td>
+                                  </tr>	
+                                  <tr> 
+                                    <td>11204</td>
+                                    <td>Invalid client code </td>
+                                  </tr>
+                                  <tr>
+                                  <td>11205</td>
+                                  <td>Client Code is not the owner of account  </td>
+                                  </tr>
+                            </table>
+                    </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'
+                  application/xml:
+                      schema:
+                        $ref: '#/components/schemas/GetLoyaltyAccountsV35Rs'
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+security:
+  - bearerAuth: []

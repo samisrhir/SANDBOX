@@ -1,0 +1,104 @@
+openapi: "3.0.3"
+info:
+  title: Payment Instrument API documentation
+  description: <p>Payment Instrument and Cardholder operation management include APIs for Payment Instrument maintenance , Payment instrument operations and Status operation.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+ #checkCustomFieldValue  
+  /checkCustomFieldValue/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                           This web service is used to check the existance of custom field value for specific entity, when the entity is card, token value can be provided instead of card number. PowerCARD is in fact a tokenization system that accepts as entry token value and proceeds by the reverse process of redeeming a token for its associated PAN value.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/checkCustomFieldValue.png" />
+            summary: This web service is used to check the existance of custom field value for specific entity ...
+            tags:
+              - Check Custom Field Value
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/CheckCustomFieldValueV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                        <td>21401</td>
+                                        <td>Invalid Entity Code</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21402</td>
+                                        <td>Invalid Card Number/Token Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21403</td>
+                                        <td>Invalid Client code</td>
+                                      </tr>
+                                       <tr>
+                                        <td>21406</td>
+                                        <td>Invalid Corporate Id</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21404</td>
+                                        <td>Invalid Shadow account number</td>
+                                      </tr>
+                                      <tr>
+                                        <td>21405</td>
+                                        <td>Invalid Field Name (refers to the scenario where a valid Field Name is referenced but for the wrong entity (f.i. a valid Card Custom Fields but the Entity Code passed is “CL – Client”))</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/CheckCustomFieldValueV35Rs'
+                  application/xml:
+                          schema:
+                              $ref: '#/components/schemas/CheckCustomFieldValueV35Rs'   
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      CheckCustomFieldValueV35Rq:
+                     $ref: 'request.yaml#/CheckCustomFieldValueV35Rq'
+      CheckCustomFieldValueV35Rs:
+                     $ref: 'response.yaml#/CheckCustomFieldValueV35Rs'         
+security:
+  - bearerAuth: []

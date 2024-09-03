@@ -1,0 +1,189 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  /UpdateCustomerDemog/V2:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerDemog/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                    <p>PowerCARD offers a selection of web services with regards to customer detail maintenance, the update customer demographic data web service is one of those web services that can be used by both agents and customers in order to change the customer information’s.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/UpdateCustomerDemog.png" />
+      summary: Update customer demographic data.
+      tags:
+        - Update Customer Demog.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDemogV35Rq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerDemogV35Rq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>19301</td>
+                                <td>Invalid Bank Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19302</td>
+                                <td>Invalid Client Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19303</td>
+                                <td>Invalid Branch Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19304</td>
+                                <td>Invalid Family Status</td>
+                              </tr>	
+                              <tr> 
+                                <td>19306</td>
+                                <td>Invalid Gender Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19310</td>
+                                <td>Invalid Birth Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19311</td>
+                                <td>Invalid Birth Country Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19312</td>
+                                <td>Invalid Birth City Code</td>
+                              </tr>
+                              <tr> 
+                                <td>19313</td>
+                                <td>Invalid VIP Level</td>
+                              </tr>	
+                              <tr> 
+                                <td>19314</td>
+                                <td>Invalid Nationality Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19315</td>
+                                <td>Invalid Language Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19316</td>
+                                <td>Invalid Title Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19322</td>
+                                <td>Invalid Owner Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19323</td>
+                                <td>Invalid Socio-professional Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19324</td>
+                                <td>Invalid Activity Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19325</td>
+                                <td>Invalid Customer Segment</td>
+                              </tr>	
+                              <tr> 
+                                <td>19329</td>
+                                <td>Invalid Lodging Mode</td>
+                              </tr>	
+                              <tr> 
+                                <td>19330</td>
+                                <td>Invalid Channel Number</td>
+                              </tr>	
+                              <tr> 
+                                <td>19331</td>
+                                <td>Invalid Phone Type 1</td>
+                              </tr>
+                              <tr> 
+                                <td>19333</td>
+                                <td>Invalid Phone Type 2</td>
+                              </tr>	
+                              <tr> 
+                                <td>19335</td>
+                                <td>Invalid Phone Type 3</td>
+                              </tr>	
+                              <tr> 
+                                <td>19337</td>
+                                <td>Invalid Phone Type 4</td>
+                              </tr>	
+                              <tr> 
+                                <td>19342</td>
+                                <td>Invalid Document Code</td>
+                              </tr>	
+                              <tr> 
+                                <td>19344</td>
+                                <td>Invalid Document Issue Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19345</td>
+                                <td>Invalid Document Expiry Date</td>
+                              </tr>	
+                              <tr> 
+                                <td>19349</td>
+                                <td>Invalid Client Custom Field name</td>
+                              </tr>
+                              <tr> 
+                                <td>19305</td>
+                                <td>Invalid Client Demog</td>
+                              </tr>
+                              <tr> 
+                                <td>19350</td>
+                                <td>Invalid Number Of Dependents</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCustomerDemogV35Rs'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerDemogV35Rs'                                         
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      UpdateCustomerDemogV35Rq:
+            $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+            $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'    
+security:
+  - bearerAuth: []

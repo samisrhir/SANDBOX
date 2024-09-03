@@ -1,0 +1,17 @@
+package com.hps.sandbox.service.mappers;
+
+import com.hps.sandbox.entity.ProductRelease;
+import com.hps.sandbox.service.dtos.ProductReleaseDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+
+@Mapper(componentModel = "spring")
+public interface ProductReleaseMapper {
+
+    ProductRelease  toEntity (ProductReleaseDTO productReleaseDto);
+    ProductReleaseDTO toModel(ProductRelease productRelease);
+    @Mapping(target = "productReleaseId", ignore = true)
+    void updateProductRelease(ProductReleaseDTO productReleaseDto, @MappingTarget ProductRelease productRelease);
+
+}

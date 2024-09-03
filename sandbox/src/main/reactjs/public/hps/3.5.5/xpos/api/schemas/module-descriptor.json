@@ -1,0 +1,123 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"XPOS",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Allocate Device",
+          "file": "AllocateDeviceV2.yaml",
+          "subApiList": [
+            {
+              "file": "AllocateDeviceV2.yaml",
+              "name": "Allocate Device V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Device",
+          "file": "CreateDeviceV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateDeviceV2.yaml",
+              "name": "Create Device V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Terminal",
+          "file": "CreateTerminalV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateTerminalV2.yaml",
+              "name": "Create Terminal V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Device",
+          "file": "GetDeviceV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetDeviceV2.yaml",
+              "name": "Get Device V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Replace Device",
+          "file": "ReplaceDeviceV2.yaml",
+          "subApiList": [
+            {
+              "file": "ReplaceDeviceV2.yaml",
+              "name": "Replace Device V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Return Device",
+          "file": "ReturnDeviceV2.yaml",
+          "subApiList": [
+            {
+              "file": "ReturnDeviceV2.yaml",
+              "name": "Return Device V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Terminal",
+          "file": "SearchTerminalV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchTerminalV2.yaml",
+              "name": "Search Terminal V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

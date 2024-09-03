@@ -1,0 +1,121 @@
+openapi: "3.0.3"
+info:
+  title: Financial account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account, Account transactions and Statements list.</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- GetStatementHistory
+  /GetStatementHistory/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                             A client or agent may use this web service to retrieve account information for a statement period or multiple statement periods. They may optionally provide a date range to limit the number of Account Statement aggregates that are returned in the response. Note that the statement is based on the normal cutoff cycles and the date range must return statements that ended during the specified range. 
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/GetStatementHistory.png" />
+            summary: Retrieve account information for a statement period or multiple statement periods...
+            tags:
+              - Get Statement History
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetStatementHistoryV35Rq'
+            responses:  
+              200:
+                description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>02801</td>
+                                  <td>Invalid range date</td>
+                                </tr>
+                                <tr> 
+                                  <td>02802</td>
+                                  <td>Invalid credit card number </td>
+                                </tr>
+                                <tr> 
+                                  <td>02803</td>
+                                  <td>Invalid Currency Code</td>
+                                </tr>
+                                <tr> 
+                                  <td>02804</td>
+                                  <td>Invalid Account Status</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02805</td>
+                                  <td>Invalid Transaction Code</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02806</td>
+                                  <td>Invalid Account Id</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02807</td>
+                                  <td>Shaddow Account Error</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02808</td>
+                                  <td>Invalid Account Number</td>
+                                </tr>
+                                <tr> 
+                                  <td>02809</td>
+                                  <td>Card Expired</td>
+                                </tr>	
+                                <tr> 
+                                  <td>02810</td>
+                                  <td>Cr Profile Error</td>
+                                </tr>									
+                           </table>
+                  </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/GetStatementHistoryV35Rs'          
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+security:
+  - bearerAuth: []

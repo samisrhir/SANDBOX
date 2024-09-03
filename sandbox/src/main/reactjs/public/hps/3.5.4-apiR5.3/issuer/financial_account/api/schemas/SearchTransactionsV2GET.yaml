@@ -1,0 +1,208 @@
+openapi: "3.0.3"
+info:
+  title: Financial account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account, Account transactions and Statements list.</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- Transactions API  
+  /Transactions/V2:
+    get:
+      description:  <h3>API Overview</h3>
+                    <p>This web services is used to search for transactions of an existing customer in the system. </p>                   
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/SearchTransactions.png" />
+      summary: This web services is used to search for transactions of an existing customer in the system.
+      tags:
+        - Search Transactions
+      parameters:
+              - in: query
+                name: clientCode 
+                schema:
+                  type: string
+                example: "0374257926"
+                description: The clientCode value.
+              - in: query
+                name: aliasPAN 
+                schema:
+                  type: string
+                example: "4250120155138733"
+                description: The aliasPAN value.
+              - in: query
+                name: corporateId 
+                schema:
+                  type: string
+                description: The corporateId value.
+                example: ""
+              - in: query
+                name: network 
+                schema:
+                  type: string
+                description: The network value.
+                example: ""
+              - in: query
+                name: territoriality 
+                schema:
+                  type: string
+                description: The territoriality value.
+                example: ""
+              - in: query
+                name: acquirerCountry 
+                schema:
+                  type: string
+                description: The acquirerCountry value.
+                example: ""
+              - in: query
+                name: trnType 
+                schema:
+                  type: string
+                description: The trnType value.
+                example: ""
+              - in: query
+                name: startDt  
+                schema:
+                  type: string
+                description: The startDt value.
+                example: "2018-01-01T00:00:00"
+              - in: query
+                name: endDt 
+                schema:
+                  type: string
+                description: The endDt value.
+                example: "2019-12-31T00:00:00"
+              - in: query
+                name: pageSize 
+                schema:
+                  type: string
+                description: The pageSize value.
+                example: "10"
+              - in: query
+                name: pageIndex 
+                schema:
+                  type: string
+                description: The pageIndex value.
+                example: "1"
+              - in: query
+                name: requestUID 
+                schema:
+                  type: string
+                required: true
+                example: "6948DF80-14BD-4E04-8842-7668D9C001F5"
+                description: Request Identifier. It is sent by the calling system as a universally unique identifier for the message. Used to match response with request messages.
+              - in: query
+                name: requestDate 
+                schema:
+                  type: string
+                required: true
+                example: "2018-12-15T00:00:00"
+                description: Date when the request was submitted.
+              - in: query
+                name: userID 
+                schema:
+                  type: string
+                description: Represents the user Id who made the request.
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>02701</td>
+                                <td>Invalid Card Number</td>
+                              </tr>
+                              <tr> 
+                                <td>02702</td>
+                                <td>Invalid Range Date </td>
+                              </tr>
+                              <tr> 
+                                <td>02703</td>
+                                <td>Invalid Amount Criteria</td>
+                              </tr>
+                              <tr> 
+                                <td>02704</td>
+                                <td>Invalid Transaction Type</td>
+                              </tr>	
+                              <tr> 
+                                <td>02705</td>
+                                <td>Invalid Network Code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02706</td>
+                                <td>Invalid Acquirer country code</td>
+                              </tr>		
+                              <tr> 
+                                <td>02707</td>
+                                <td>Invalid card product</td>
+                              </tr>
+                              <tr> 
+                                <td>02708</td>
+                                <td>Label Translation Error</td>
+                              </tr>
+                              <tr> 
+                                <td>02709</td>
+                                <td>Internal error - error translating the transaction type to processing code</td>
+                              </tr>
+                              <tr> 
+                                <td>02710</td>
+                                <td>Internal error - error translating the processing code to transaction type</td>
+                              </tr>
+                              <tr> 
+                                <td>02711</td>
+                                <td>Invalid client code</td>
+                              </tr>
+                              <tr> 
+                                <td>02712</td>
+                                <td>Card number and Client Code are missing in the request</td>
+                              </tr>
+                              <tr> 
+                                <td>02713</td>
+                                <td>Invalid Territoriality</td>
+                              </tr>
+                              <tr> 
+                                <td>02714</td>
+                                <td>Invalid Corporate Id</td>
+                              </tr>								
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchTransactionsV35Rs'
+            application/xml:
+                    schema:
+                      $ref: '#/components/schemas/SearchTransactionsV35Rs'     
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+security:
+  - bearerAuth: []

@@ -1,0 +1,465 @@
+<style>
+    body{
+        font-size: 1em;
+        line-height: 1.714;
+        font-weight: normal;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    }
+    .static-page-title{
+        font-size: 17pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        margin-top: 26px;
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        margin-bottom: 28px;
+        left: 15px;
+    }
+    .static-page-p{
+        font-size: 12pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+        margin-bottom: 30px;
+        left: 17px;
+    }
+    .static-page-li{
+        font-size: 11pt;
+        line-height: 1.5;
+        color: black;
+        text-align: left;
+        font-weight: 400;
+    }
+    .static-page-b{
+        color: darkred;
+    }
+    .static-page-h5{
+        font-size: 12pt;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        /* margin-top: 26px; */
+        font-weight: 600;
+        text-align: left;
+        position: relative;
+        /* margin-bottom: 28px; */
+        left: 15px;
+        bottom: 13px;
+    }
+    .static-page-div{
+        position: relative;
+        bottom: 20px;
+    }
+    .p-position{
+        position: relative;
+        bottom: 18px;
+    }
+    table{
+        display: table;
+        box-sizing: border-box;
+        text-indent: initial;
+        border-color: #4e5d69;
+        border: 1px solid;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    thead{
+        background: #F3F6F9;
+    }
+    td,th{
+        border: 1px solid;
+        border-collapse: collapse;
+        padding: 4px;
+        text-align: center;
+        color: #00041e;
+        font-family: "Open Sans", sans-serif;
+        font-size: 10pt;
+        line-height: 24px;
+    }
+    .table-position{
+        position: relative;
+        bottom: 28px;
+    }
+    .container{
+        width: 98%;
+    }
+    .p-bg{
+        position: relative;
+        bottom: 29px;
+        background: #B3D4FF;
+        font-size: 11pt;
+        font-weight: 300;
+        padding: 5px;
+    }
+    .p-usage{
+        position: relative;
+        bottom: 40px;
+    }
+    .static-page-code{
+        background: #323F4B;
+        margin: 5px;
+        border-radius: 5px;
+        color: rgb(162, 252, 162);
+        height: 15px;
+        text-align: left;
+        padding: 23px;
+        position: relative;
+        bottom: 21px;
+    }
+    .dependency{
+        position: relative;
+        bottom: 93px;
+        width: 100%;
+    }
+    .h-usage{
+        margin: 0;
+        padding: 0;
+        bottom: 34px;
+    }
+</style>
+<div class="container">
+<h2 class="static-page-title">End-to-end encryption and digital signature</h2>
+<h5 class="static-page-h5">Data encryption/signature</h5>
+<div class="static-page-div">
+<p class="static-page-p">
+    The PowerCARD payload message submitted by application client in the APIs contain sensitive information that must be encrypted and signed using JWE (JSON Web Encryption) and JWS (JSON Web Signature). A compact serialization scheme is followed for both JWE and JWS with Base64URL-encoded elements separated by a ".".
+</p>
+<p class="static-page-p">
+    JWE represents encrypted content using JSON data structures and base64url encoding. The representation consists of four parts: the JWE Header, the JWE Encrypted Key, the JWE Ciphertext, and the JWE Integrity Value.
+</p>
+<h4 class="static-page-h5">JWE compact serialization</h4>
+    <P class="static-page-p p-position">
+        The JWE token is built with 5 components, each separated by a period (.): <b>JWE header, JWE Encrypted Key, JWE initialization vector, JWE Ciphertext and JWE Authentication Tag </b>:
+    </P>
+    <table class="table-position">
+        <thead>
+        <th>JWE Header</th>
+        <th>JWE Encrypted Key</th>
+        <th>JWE Initialization Vector
+        </th>
+        <th>JWE Ciphertext
+        </th>
+        <th>JWE Authentication Tag
+        </th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>(Base64URL)</td>
+            <td>(Base64URL)
+            </td>
+            <td class="static-page-b">(Base64URL)</td>
+            <td>(Base64URL)</td>
+            <td>(Base64URL)</td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 class="static-page-h5">JWE Header</h4>
+    <p class="static-page-p p-position">The header is the first element of the JWE produced under compact serialization. The JWE header contains the following information for encryption/decryption:</p>
+    <table class="table-position">
+        <thead style="background: #0B1E5F;">
+        <th style="color: white">Parameter</th>
+        <th style="color: white">Occurrence</th>
+        <th style="color: white">Description
+        </th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>alg</td>
+            <td>Required
+            </td>
+            <td>
+               <p style="text-align: left">Description of the algorithm used to encrypt the randomly generated symmetric Content Encryption Key (CEK).Format: Value is <b>RSA-OAEP-256.</b></p>
+            </td>
+        </tr>
+        <tr>
+            <td>kid</td>
+            <td>Required</td>
+            <td style="text-align: left">(Required) Key identifier that identifies the key used to encrypt the CEK, which is the Issuer’s API key.Format: String; <b>max length 64 characters.</b></td>
+        </tr>
+        <tr>
+            <td>typ</td>
+            <td>Required</td>
+            <td style="text-align: left">Media type of the JWE. Javascript Object Signing and Encryption (JOSE) indicates that JWE is using JWE Compact Serialization scheme. Format: Value is <b>JOSE</b></td>
+        </tr>
+        <tr>
+            <td>enc</td>
+            <td>Required</td>
+            <td style="text-align: left">Type of encryption used by the CEK to encrypt sensitive payload elements.Format: Value is <b>A256GCM</b></td>
+        </tr>
+        <tr>
+            <td>iat</td>
+            <td>Required</td>
+            <td style="text-align: left">	Time when JWE was issued. Expressed in UNIX epoch time (seconds since 1 January, 1970) and issued at timestamp in UTC when the transaction was created and signed. Format: <b>yyyy-MM-ddTHH:mm:ss.SSSZ.</b></td>
+        </tr>
+        <tr>
+            <td>exp</td>
+            <td>Optional</td>
+            <td style="text-align: left">Expiration time of the payload. This field is optional and should be evaluated in conjunction with the ttl default defined with use case. exp can be used to reduce the default ONLY. If exp represents a time greater than iat + ttl then iat + ttl will be used.Format: <b>yyyy-MM-ddTHH:mm:ss.SSSZ</b>.</td>
+        </tr>
+        <tr>
+            <td>iss</td>
+            <td>Conditional</td>
+            <td style="text-align: left">Message originator client ID, which is the vClientID of the issuer. The message originator is the issuer.Format: String; alphanumeric; <b>max length 64 characters</b></td>
+        </tr>
+        <tr>
+            <td>aud</td>
+            <td>Conditional</td>
+            <td style="text-align: left">List of desired recipients. The value should be a comma-separated array of client IDs. Up to 10 client IDs are allowed for each request.Format: String; alphanumeric; <b>max length 256 characters</b>.</td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <h4 class="static-page-h5">JWE encrypted key</h4>
+        <p class="static-page-p p-position">To understand JWE Encrypted Key section of the JWE, we first need to understand how a JSON payload gets encrypted. The enc element of the header defines the content encryption algorithm and it should be a symmetric Authenticated Encryption with Associated Data (AEAD) algorithm. The alg element of the header defines the encryption algorithm to encrypt the Content Encryption Key (CEK) that is encrypted with the receiver's public encryption key, by using the RSA-OAEP-256 algorithm.</p>
+        <h4 class="static-page-h5">JWE initialization vector</h4>
+        <p class="static-page-p p-position">The Initialization Vector is a randomly generated initialization vector (also known as salt) of 96 bits length.</p>
+        <h4 class="static-page-h5">JWE ciphertext</h4>
+        <p class="static-page-p p-position">The JWE ciphertext is computed by encrypting the plaintext JSON payload using the Content Encryption Key (CEK), by using the A256GCM encryption scheme specified in the enc header field.</p>
+        <h4 class="static-page-h5">JWE authentication tag</h4>
+        <p class="static-page-p p-position">An HMAC (hash-based message authentication code) encryption of 128 bits is generated from the plaintext authentication tag using the A256GCM algorithm (A256GCM).</p>
+        <h4 class="static-page-h5">Data encryption : JWE using RSA</h4>
+        <ul>
+            <li class="static-page-li">PowerCARD Connect’API uses the compact serialization style, wherein elements are separated by a “.”(period).
+            </li>
+            <li class="static-page-li">All fields are Base64URL-encoded.
+            </li>
+            <li class="static-page-li">Connect’API uses the hybrid encryption scheme. In this method, an RSA 2048 key is used to encrypt a random symmetric key. The random symmetric key is then used to encrypt the text.
+            </li>
+            <li class="static-page-li">Use the RSA-OAEP-256 algorithm, encrypting the random symmetric key.
+            </li>
+            <li class="static-page-li">Use the A256GCM algorithm for the encryption of text with an Initialization Vector (IV). Size of IV should be 96 bits.
+            </li>
+            <li class="static-page-li">Authentication Tag will be generated as an additional output of the A256GCM encryption. Size of this field is 128 bits.
+            </li>
+            <li class="static-page-li">JWE header is used to pass AAD (Additional Authentication Data) for the A256GCM operation.
+            </li>
+            <li class="static-page-li">
+            All string-to-byte and byte-to-string conversions are done with UTF-8 charset.
+            </li>
+        </ul>
+        <h4 class="static-page-h5">Steps for encryption</h4>
+        <p class="static-page-p p-position">Apply JWE on plaintext data and encrypt data by following these steps:</p>
+         <ul style="    position: relative;
+    bottom: 34px;">
+             <li class="static-page-li">Get the RSA 2048 public key.</li>
+             <li class="static-page-li">Generate a Random Symmetric Key (RSK) of 256 bits length.
+             </li>
+             <li class="static-page-li">Encrypt the RSK that is using the RSA 2048 key, by using the algorithm specified in alg (RSA-OAEP-256).
+             </li>
+             <li class="static-page-li">Generate a random IV of 96 bits length and perform Base64URL encoding to produce E-IV.
+             </li>
+             <li class="static-page-li">Encrypt plaintext data, by using the RSK, Payload-IV, and the algorithm A256GCM specified in the enc header field to form the ciphertext and the payload tag data.
+             </li>
+             <li class="static-page-li">Base64URL-encode the encrypted bytes to produce E-Ciphertext.
+             </li>
+             <li class="static-page-li">Base64URL-encode the Tag data to produce E-TAG.
+             </li>
+             <li class="static-page-li">Base64URL-encode the RSK to produce E-Encrypted Key.
+             </li>
+             <li class="static-page-li">Base64URL-encode the entire JWE header JSON containing the encryption parameters used in clear text as shown below, to produce the JWE.
+             </li>
+         </ul>
+        <h4 class="static-page-h5">Signing process (JWS)</h4>
+        <p class="static-page-p p-position">The general approach for generating a JWS payload that signs a JWE payload is as follows:
+        </p>
+        <ul style="    position: relative;
+    bottom: 34px;">
+            <li class="static-page-li">Connect’API uses the compact serialization style, wherein elements are separated by a period (“.”).
+            </li>
+            <li class="static-page-li">All fields are Base64URL-encoded.
+            </li>
+            <li class="static-page-li">Use RSA-OAEP-256 algorithm (PS256 in terms of JWS algorithm notation) for signature.
+            </li>
+        </ul>
+        <p class="static-page-p p-position">All string-to-byte and byte-to-string</p>
+        <h4 class="static-page-h5">JWS composition</h4>
+        <p class="static-page-p p-position">The JWE token is built with 3 components, each separated by a period (.): JWS header, JWS Payload, JWE Signature:
+        </p>
+        <table class="table-position">
+            <thead >
+            <th >JWS Header
+            </th>
+            <th >JWS Payload</th>
+            <th >JWS Signature
+            </th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>(Base64URL)</td>
+                <td>(Base64URL)
+                </td>
+                <td>
+                    (Base64URL)
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h4 class="static-page-h5">JWS Header</h4>
+        <p class="static-page-p p-position">The JWS header contains the following information for encryption/decryption:
+        </p>
+        <table class="table-position">
+            <thead style="background: #0B1E5F;">
+            <th style="color: white">Parameter</th>
+            <th style="color: white">Occurrence</th>
+            <th style="color: white">Description
+            </th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>alg</td>
+                <td>Required
+                </td>
+                <td>
+                    <p style="text-align: left">Description of the algorithm used to encrypt the randomly generated symmetric Content Encryption Key (CEK).Format: Value is <b>RSA-OAEP-256.</b></p>
+                </td>
+            </tr>
+            <tr>
+                <td>kid</td>
+                <td>Required</td>
+                <td style="text-align: left">(Required) Key identifier that identifies the key used to encrypt the CEK, which is the Issuer’s API key.Format: String; <b>max length 64 characters.</b></td>
+            </tr>
+            <tr>
+                <td>typ</td>
+                <td>Required</td>
+                <td style="text-align: left">Media type of the JWE. Javascript Object Signing and Encryption (JOSE) indicates that JWE is using JWE Compact Serialization scheme. Format: Value is <b>JOSE</b></td>
+            </tr>
+            <tr>
+                <td>cty</td>
+                <td>Optional</td>
+                <td style="text-align: left">The content type of the JWS payload..Format: Value is <b>JWE</b></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4 class="static-page-h5">JWS signature</h4>
+        <p class="static-page-p p-position">The JWS signature is generated to protect the integrity of both the JWS header and JWS payload.</p>
+        <h4 class="static-page-h5">Creating a signature</h4>
+        <p class="static-page-p p-position">To create a signature by applying JWS on JWE:</p>
+        <ul style="    position: relative;
+       bottom: 34px;">
+            <li class="static-page-li">Get the RSA 2048 private key.
+            </li>
+            <li class="static-page-li">Sign the JWE (JWS payload) that is using the RSA 2048 private key by using the algorithm specified in the alg header field (PS256).</li>
+            <li class="static-page-li">JWS Signing Input: ASCII (Base64URL (UTF8 (JWS Header)) || ‘.’ || Base64URL (JWS Payload))
+            </li>
+            <li class="static-page-li">Package the header by using alg,kid,cty and typ params.
+            </li>
+            <li class="static-page-li">Base64URL-encode the JWS signature to produce an E-Signature.
+            </li>
+            <li class="static-page-li">Base64URL-encode the JWE to produce E-JWS payload.
+            </li>
+            <li class="static-page-li">Base64URL-encode the entire JWS header JSON containing the encryption parameters.
+            </li>
+            <li class="static-page-li">Concatenate the above elements to produce the JWS
+            </li>
+        </ul>
+        <h4 class="static-page-h5">Signature validation/Data decryption</h4>
+        <p class="static-page-p p-position">Sensitive payload message submitted by PowerCARD clients through the APIs are encrypted and signed using JWE and JWS.
+        </p>
+        <h4 class="static-page-h5">Signature validation</h4>
+        <p class="static-page-p p-position">To validate a -Signature:
+        </p>
+        <ol style="    position: relative;
+       bottom: 34px;">
+            <li class="static-page-li">Get the RSA 2048 public Key.
+            </li>
+            <li class="static-page-li">Decode the E-Header field.
+            </li>
+            <li class="static-page-li">Get the kid and the alg elements to use for signature validation.
+            </li>
+            <li class="static-page-li">Decode the E-Signature field to get the JWS signature.
+            </li>
+            <li class="static-page-li">Decode the E-JWS payload to get the JWS payload.
+            </li>
+            <li class="static-page-li">Validate the JWS signature against the JWS payload by using the RSA 2048 public key with the encryption algorithm, as specified in alg element (PS256).
+            </li>
+        </ol>
+        <h4 class="static-page-h5">Data decryption</h4>
+        <p class="static-page-p p-position">To decrypt encrypted data:
+        </p>
+        <ol style="    position: relative;
+       bottom: 34px;">
+            <li class="static-page-li">Get the RSA 2048 private key.
+            </li>
+            <li class="static-page-li">Decode the Base64URL E-Header field.
+            </li>
+            <li class="static-page-li">Get the kid and the algorithms to use for decryption.
+            </li>
+            <li class="static-page-li">Decode the Base64URL E-Key field to get the encrypted E-key (Random Symmetric Key).
+            </li>
+            <li class="static-page-li">Decrypt the JWE Encrypted Key field by using the RSA 2048 private key with the encryption algorithm, as specified in the alg element (RSA-OAEP-256).
+            </li>
+            <li class="static-page-li">Get the RSK in clear.
+            </li>
+            <li class="static-page-li">Decode the Base64URL E-IV for use in ciphertext decryption.
+            </li>
+            <li class="static-page-li">Decode the Base64URL E-Authentication Tag for use in ciphertext decryption.
+            </li>
+            <li class="static-page-li">Decode the Base64URL ciphertext field.
+            </li>
+            <li class="static-page-li">Decrypt the ciphertext, by using RSK and IV and authentication tag and encryption algorithm, as specified in the enc header field (A256GCM).
+            </li>
+
+        </ol>
+        <!--
+        <h4 class="static-page-h5">SDK-Security</h4>
+        <p class="static-page-p p-position">Library for ConnectAPI compliant payload encryption/decryption.
+        </p>
+        <h6 class="static-page-h5">Compatibility</h6>
+        <ul style="    position: relative;
+       bottom: 34px;">
+            <li class="static-page-li">Java 8+</li>
+            <li class="static-page-li">nimbus-jose-jwt:9.8.1</li>
+        </ul>
+        <p  class="static-page-p p-position p-bg">This SDK use the library nimbus-jose-jwt as an implementation for the <b>JWE/JWS</b> Standard</p>
+        <h6 class="static-page-h5">References</h6>
+        <ul style="    position: relative;
+       bottom: 34px;">
+            <li class="static-page-li"><a href="https://datatracker.ietf.org/doc/html/rfc7516" target="_blank">JSON Web Encryption (JWE)</a></li>
+        </ul>
+        <h6 class="static-page-h5 h-usage">Usage</h6>
+        <p class="static-page-p p-usage">Adding the Library to Your Project
+        </p>
+        <img class="dependency" src="./img/dependency.jpg">
+        <h6 class="static-page-h5 h-usage">Selecting a JSON Engine</h6>
+        <p class="static-page-p p-usage">This library requires one of the following dependencies to be added to your classpath: </p>
+        <ul style="    position: relative;
+       bottom: 55px;">
+            <li class="static-page-li"><a href="https://search.maven.org/artifact/com.fasterxml.jackson.core/jackson-databind"  target="_blank">Jackson 2.4.5+</a> </li>
+            <li class="static-page-li"><a href="https://search.maven.org/artifact/com.google.code.gson/gson"  target="_blank">Google Gson 2.3.1+</a></li>
+            <li class="static-page-li"><a href="https://search.maven.org/artifact/net.minidev/json-smart"  target="_blank">Json-smart 2.1.1+</a></li>
+            <li class="static-page-li"><a href="https://search.maven.org/artifact/org.codehaus.jettison/jettison"  target="_blank">Jettison 1.0+</a></li>
+            <li class="static-page-li"><a href="https://search.maven.org/artifact/org.json/json"  target="_blank">Org JSON 20070829+</a></li>
+        </ul>
+        <p class="static-page-p p-usage">You can either let the library choose for you, or force the one to be used by calling <b>withJsonEngine</b> on the <b>JsonParser</b> class. Example:</p>
+        <img class="dependency" src="./img/config.jpg">
+        <h6 class="static-page-h5 h-usage">Loading the Encryption,signature Keystores
+        </h6>
+        <p class="static-page-p p-usage">A <b>EncryptionConfig</b> object can be created from a keystore jks file  :
+        </p>
+        <p class="static-page-p p-usage" style="bottom: 68px">for example the config for a keystore.jks in the classPath (resource folder ) will be like  : </p>
+        <img class="dependency" src="./img/config2.jpg">
+        <h6 class="static-page-h5 h-usage" style="bottom: 60px">Performing Payload Encryption and Decryption using JWE
+        </h6>
+        <p class="static-page-p p-usage" style="bottom: 68px">To perform encryption create in instance of the object <b>PwcJweUtils</b> with the encryption config
+        </p>
+        <img class="dependency" src="./img/config3.jpg">
+        <h6 class="static-page-h5 h-usage" style="bottom: 60px">Performing Payload Signature using JWS
+        </h6>
+        <p class="static-page-p p-usage" style="bottom: 68px">
+            To perform signature create in instance of the object <b>PwcJwsUtils</b> with the encryption config :
+        </p>
+        <img class="dependency" src="./img/config4.jpg">
+        <h6 class="static-page-h5 h-usage" style="bottom: 60px">Performing Field level encryption and decryption
+        </h6>
+        <p class="static-page-p p-usage" style="bottom: 68px">To perform field level encryption ,decryption an additional configuration object is needed : <b>FieldLevelEncryptionConfig</b> , it takes two arguments :  a List of the sensitive fields to be encrypted or decrypted and the encryption configuration instance</p>
+        <img class="dependency" src="./img/config5.jpg">
+                -->
+    </div>
+ </div>
+
+</div>

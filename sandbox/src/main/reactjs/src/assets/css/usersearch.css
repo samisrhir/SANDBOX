@@ -1,0 +1,49 @@
+.dark .pagen{
+    background-color:rgba(9, 37, 42, 0.699) ;
+    font-size: 12px;
+    padding: 10px;
+    font-family: f1;
+    color: white;
+}
+.dark .carr{
+    background-color:rgba(10, 49, 56, 0.699) ;
+}
+
+.pagen{
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+    padding: 10px;
+    font-family: f1;
+}
+
+
+.select{
+    display: flex;
+    justify-content: end;
+    width: 98%;
+    margin: 0px;
+    padding: 2px;
+    justify-content: space-between;
+align-items: center;}
+
+.dark .datepicker{
+    background-color:rgba(119, 210, 226, 0.164) ;
+    border: 1px solid rgba(255, 255, 255, 0.549);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+
+.usernotenable{
+    background-color: rgba(255, 0, 0, 0.256);
+}
+.dark .usernotenable{
+    background-color: rgba(255, 0, 0, 0.268);
+}
+
+.tableuser{
+    margin-right: auto;
+    margin-left: auto;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+}

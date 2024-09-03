@@ -1,0 +1,215 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Contract",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Get Product List",
+          "file": "GetProductList.yaml",
+          "subApiList": [
+            {
+              "file": "GetProductList.yaml",
+              "name": "Get Product List V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Product Details ",
+          "file": "GetProductDetails V3.yaml",
+          "subApiList": [
+            {
+              "file": "GetProductDetails V3.yaml",
+              "name": "Get Product Details V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+
+        {
+          "name":"Create Merchant Acceptance Contract ",
+          "file": "CreateMerchantAcceptanceContractV3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantAcceptanceContractV3.yaml",
+              "name": "Create Merchant Acceptance Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Create Merchant Equipment Contract ",
+          "file": "CreateMerchantEquipmentContractV3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantEquipmentContractV3.yaml",
+              "name": "Create Merchant Equipment Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Merchant Services Contract ",
+          "file": "CreateMerchantServicesContractv3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantServicesContractv3.yaml",
+              "name": "Create Merchant Services Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Validate Merchant Contract ",
+          "file": "validateMerchantContractV3.yaml",
+          "subApiList": [
+            {
+              "file": "validateMerchantContractV3.yaml",
+              "name": "Validate Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Merchant Contract Details",
+          "file": "GetMerchantContractDetails.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantContractDetails.yaml",
+              "name": "Get Merchant Contract Details V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Activate Merchant Contract ",
+          "file": "ActivateMerchantContract.yaml",
+          "subApiList": [
+            {
+              "file": "ActivateMerchantContract.yaml",
+              "name": "Activate Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Deactivate Merchant Contract",
+          "file": "DeactivateMerchantContract.yaml",
+          "subApiList": [
+            {
+              "file": "DeactivateMerchantContract.yaml",
+              "name": "Deactivate Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Suspend Merchant Contract",
+          "file": "SuspendMerchantContract.yaml",
+          "subApiList": [
+            {
+              "file": "SuspendMerchantContract.yaml",
+              "name": "Suspend Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Unsuspend Merchant Contract",
+          "file": "UnsuspendMerchantContract.yaml",
+          "subApiList": [
+            {
+              "file": "UnsuspendMerchantContract.yaml",
+              "name": "Unsuspend Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Close Merchant Contract",
+          "file": "CloseMerchantContract.yaml",
+          "subApiList": [
+            {
+              "file": "CloseMerchantContract.yaml",
+              "name": "Close Merchant Contract V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Charging Conditions",
+          "file": "AddChargingConditions.yaml",
+          "subApiList": [
+            {
+              "file": "AddChargingConditions.yaml",
+              "name": "Add Charging Conditions V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Contract Services",
+          "file": "AddMerchantContractServices.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantContractServices.yaml",
+              "name": "Add Merchant Contract Services V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Charging Conditions",
+          "file": "UpdateChargingConditionsV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateChargingConditionsV3.yaml",
+              "name": "Update Charging Conditions V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+
+
+
+      ]}]
+}

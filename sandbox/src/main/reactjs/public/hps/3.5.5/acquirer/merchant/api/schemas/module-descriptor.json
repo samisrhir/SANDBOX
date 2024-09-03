@@ -1,0 +1,364 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Acquirer",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Get Parameter List",
+          "file": "GetParameterListV2.yaml",
+          "subApiList": [
+            {
+              "name":"Get Parameter List V2",
+              "file": "GetParameterListV2.yaml",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Merchant ",
+          "file": "CreateMerchantV3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateMerchantV3.yaml",
+              "name": "Create Merchant V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Check Merchant Exist",
+          "file": "CheckMerchantExistV3.yaml",
+          "subApiList": [
+            {
+              "file": "CheckMerchantExistV3.yaml",
+              "name": "Check Merchant Exist V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Get Merchant Details",
+          "file": "GetMerchantDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetMerchantDetailsV3.yaml",
+              "name": "Get Merchant Details",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Address",
+          "file": "AddMerchantAddressV3.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantAddressV3.yaml",
+              "name": "Add Merchant Address V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Add Merchant Activity",
+          "file": "AddMerchantActivityV3.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantActivityV3.yaml",
+              "name": "Add Merchant Activity V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+
+        {
+          "name":"Add Merchant Bank Account",
+          "file": "AddMerchantBankAccountV3.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantBankAccountV3.yaml",
+              "name": "Add Merchant Bank AccountV3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Add Merchant Site",
+          "file": "AddMerchantSiteV3.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantSiteV3.yaml",
+              "name": "Add Merchant Site V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Add Merchant Contact",
+          "file": "AddMerchantContactV3.yaml",
+          "subApiList": [
+            {
+              "file": "AddMerchantContactV3.yaml",
+              "name": "Add Merchant Contact V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Update Merchant Status",
+          "file": "UpdateMerchantStatus.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantStatus.yaml",
+              "name": "Update Merchant Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Description",
+          "file": "UpdateMerchantDescriptionV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantDescriptionV3.yaml",
+              "name": "Update Merchant Description V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant AddressDetails",
+          "file": "UpdateMerchantAddressDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantAddressDetailsV3.yaml",
+              "name": "Update Merchant AddressDetails V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Update Merchant Activity",
+          "file": "UpdateMerchantActivityV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantActivityV3.yaml",
+              "name": "Update Merchant Activity V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Bank Account ",
+          "file": "UpdateMerchantBankAccountV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantBankAccountV3.yaml",
+              "name": "Update Merchant Bank Account V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Site",
+          "file": "UpdateMerchantSiteV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantSiteV3.yaml",
+              "name": "Update MerchantSite V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Contact Details",
+          "file": "UpdateMerchantContactDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantContactDetailsV3.yaml",
+              "name": "Update Merchant Contact DetailsV3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+
+        {
+          "name":"Delete Merchant Contact",
+          "file": "DeleteMerchantContactV3.yaml",
+          "subApiList": [
+            {
+              "file": "DeleteMerchantContactV3.yaml",
+              "name": "Delete Merchant Contact V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Activity Status",
+          "file": "UpdateMerchantActivityStatus.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantActivityStatus.yaml",
+              "name": "Update Merchant Activity Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+
+        {
+          "name":"Update Merchant Account Status",
+          "file": "UpdateMerchantAccountStatusV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantAccountStatusV3.yaml",
+              "name": "Update Merchant Account Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Merchant Site Status",
+          "file": "UpdateMerchantSiteStatusV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateMerchantSiteStatusV3.yaml",
+              "name": "Update Merchant Site Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Validate Merchant ",
+          "file": "ValidateMerchantV3.yaml",
+          "subApiList": [
+            {
+              "file": "ValidateMerchantV3.yaml",
+              "name": "Validate Merchant V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Acceptor Point ",
+          "file": "CreateAcceptorPointV3.yaml",
+          "subApiList": [
+            {
+              "file": "CreateAcceptorPointV3.yaml",
+              "name": "Create Acceptor Point V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Acceptor Point Details",
+          "file": "GetAcceptorPointDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetAcceptorPointDetailsV3.yaml",
+              "name": "Get Acceptor Point Details ",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update AcceptorPoint Details",
+          "file": "UpdateAcceptorPointDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAcceptorPointDetailsV3.yaml",
+              "name": "Update Acceptor Point Details V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Acceptor Point Status",
+          "file": "UpdateAcceptorPointStatusV3.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAcceptorPointStatusV3.yaml",
+              "name": "Update Acceptor Point Status V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Chain Hierarchy",
+          "file": "GetChainHierarchyV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetChainHierarchyV3.yaml",
+              "name": "Get Chain Hierarchy V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1472 @@
+openapi: "3.0.3"
+info:
+  title: Payment Tokenization API documentation
+  description: <p>Tokenization allows users to store card information in ecommerce solutions and mobile wallets to allow the card to be recharged without exposing the original card information.Tokenization drives innovation. It’s the standard for the card transactions around the world, and PowerCARD Connect’ API system can adapt to sudden changes from emerging technology.</p>         
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+
+ # ------- TokenAuthentication API  
+
+  /TokenAuthentication:
+    post:
+      description:  <h3>API Overview</h3>
+                    <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/TokenAuthentication?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>                    <p>PowerCard Connect'API uses JWT authentication for securing the exposed REST APIs, the user will be able to consume API TokenAuthentification only if it has a valid Token.</p>
+                    <p>The Connect’API authenticates all requests using the token available in the request itself, If such an authentication fails, Connect’API simply sends an HTTP code 401 (Unauthorized).</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/tokenAuthentication.png" />
+      summary: Token Authentication service using user credentials. 
+      tags:
+        - User Token Authentication.
+      requestBody:
+        description: 	Token Authentication service using user credentials.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/TokenAuthentication'      
+      responses:
+        200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>00000</td>
+                                <td>Success</td>
+                              </tr>	
+                              <tr> 
+                                <td>00001</td>
+                                <td>System Error</td>
+                              </tr>	
+                              <tr> 
+                                <td>00002</td>
+                                <td>Invalid RqUID</td>
+                              </tr>	
+                              <tr> 
+                                <td>00003</td>
+                                <td>Authentication failed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00004</td>
+                                <td>Unknown product</td>
+                              </tr>	
+                              <tr> 
+                                <td>00005</td>
+                                <td>Unknown language</td>
+                              </tr>	
+                              <tr> 
+                                <td>00006</td>
+                                <td>Invalid customer information</td>
+                              </tr>
+                              <tr> 
+                                <td>00007</td>
+                                <td>Invalid pagination step</td>
+                              </tr>	
+                              <tr> 
+                                <td>00008</td>
+                                <td>Access to the bank id data is denied</td>
+                              </tr>	
+                              <tr> 
+                                <td>00010</td>
+                                <td>Invalid Provider Data</td>
+                              </tr>	
+                              <tr> 
+                                <td>00011</td>
+                                <td>Invalid message</td>
+                              </tr>	
+                              <tr> 
+                                <td>00012</td>
+                                <td>User is blocked</td>
+                              </tr>	
+                              <tr> 
+                                <td>00013</td>
+                                <td>Account is deactivated</td>
+                              </tr>	
+                              <tr> 
+                                <td>00014</td>
+                                <td>Operation already performed</td>
+                              </tr>	
+                              <tr> 
+                                <td>00020</td>
+                                <td>Password Expired</td>
+                              </tr>	
+                              <tr> 
+                                <td>00030</td>
+                                <td>Waiting for validation</td>
+                              </tr>	
+                              <tr> 
+                                <td>00040</td>
+                                <td>Error when retrieving interface information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00041</td>
+                                <td>Error when retrieving card information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00042</td>
+                                <td>Error when retrieving token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00043</td>
+                                <td>Error while generating the token</td>
+                              </tr>	
+                              <tr> 
+                                <td>00044</td>
+                                <td>Error while inserting token information</td>
+                              </tr>	
+                              <tr> 
+                                <td>00099</td>
+                                <td>Invalid range date</td>
+                              </tr>	
+                              <tr> 
+                                <td>99999</td>
+                                <td>Database exception error</td>
+                              </tr>									
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenAuthenticationResponse'
+            application/xml:
+                      schema:
+                          $ref: '#/components/schemas/TokenAuthenticationResponse'                   
+  #getCardNumberFromToken  
+  /GetCardNumberFromToken/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            When used in credit, debit or prepaid card transactions, tokens, sometimes referred to as surrogate value are created to replace the card number. A token, rather than the actual credit/debit card number, would be used to complete the purchases a customer is making with its card. In this context, this web service is mainly used to retrieve the clear card number when providing a token value. PowerCARD is in fact a tokenization system that accepts as entry a token value and proceeds by the reverse process of redeeming a token for its associated PAN value.
+                          </p>
+                          <p>
+                             Users are also required to pass the card expiry date in the list of input data to process the de-tokenization process and return back the clear card number.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/getCardNumberFromToken.png" />
+            summary: This web service is mainly used to retrieve the clear card number when providing a token value
+            tags:
+              - Get Card Number From Token.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GetCardNumberFromTokenV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/GetCardNumberFromTokenV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr>
+                                         <td>17901</td>
+                                         <td>No card number found for this request, please send a valid Token value</td>
+                                      </tr>
+                                      <tr>
+                                         <td>17902</td>
+                                         <td>Invalid expiry date</td>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/GetCardNumberFromTokenV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/GetCardNumberFromTokenV35Rs'    
+  #MDES - Request Activation Methods  
+  /requestActivationMethods/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Request Activation Methods 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'    
+  #MDES - Authorize Service
+  /authorizeService/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Authorize Service 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  #MDES - Deliver Activation Code
+  /deliverActivationCode/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Deliver Activation Code 
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  #MDES - Validate Activation Code
+  /validateActivationCode/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Validate Activation Code
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  #MDES - Notify Service Activated
+  /notifyServiceActivated/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Notify Service Activated
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  #MDES - Notify Token Updated
+  /notifyTokenUpdated/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Notify Token Updated
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'    
+  #MDES - Get Account Information
+  /getAccountInformation/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - MDES - Get Account Information
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  #VTS - CheckEligibility (Inbound)
+  /checkEligibility/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - CheckEligibility (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - GetCardholderVerificationMethods (Inbound) 
+  /getCardholderVerificationMethods/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - GetCardholderVerificationMethods (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'
+  # VTS - SendPasscode (Inbound)
+  /SendPasscode/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - SendPasscode (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - TokenInquiry (Outbound)
+  /TokenInquiry/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - TokenInquiry (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - TokenInquiryByPAN (Outbound)
+  /TokenInquiryByPAN/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - TokenInquiryByPAN (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - PANLifecycle (Outbound)
+  /PANLifecycle/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - PANLifecycle (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - TokenLifecycle (Outbound)
+  /TokenLifecycle/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - TokenLifecycle (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - UpdateCardMetadata (Outbound)
+  /UpdateCardMetadata/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - UpdateCardMetadata (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - ApproveProvisioningStandInNotification (Inbound)
+  /ApproveProvisioningStandInNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - ApproveProvisioningStandInNotification (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'   
+  # VTS - TokenNotification (Outbound)
+  /TokenNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - TokenNotification (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs' 
+  # VTS - CardMetadataUpdateNotification (Inbound)
+  /CardMetadataUpdateNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - CardMetadataUpdateNotification (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs' 
+  # VTS - ReviewProfiles (Retrieve Network Hub Push Provisioning) (Outbound)
+  /ReviewProfiles/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - ReviewProfiles (Retrieve Network Hub Push Provisioning) (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs' 
+  # VTS - DeviceTokenBindingRequest (Inbound)
+  /DeviceTokenBindingRequest/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - DeviceTokenBindingRequest (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs' 
+  # VTS - PushCardEnrollmentToWallet  (Outbound)
+  /PushCardEnrollmentToWallet/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - PushCardEnrollmentToWallet  (Outbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'  
+  # VTS - PushProvisionningStatusNotification  (Inbound)
+  /PushProvisionningStatusNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - PushProvisionningStatusNotification  (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'  
+  # VTS - PANUpdateNotification  (Inbound)
+  /PANUpdateNotification/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                            This web service is not available at the moment in the sandbox 
+                          </p>
+                        <h3>Functional Description</h3>
+                       This web service is not available at the moment in the sandbox 
+            summary: This web service is not available at the moment in the sandbox . 
+            tags:
+              - VTS - PANUpdateNotification  (Inbound)
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/demoV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/demoV35Rs'
+                  application/xml:
+                      schema:
+                          $ref: '#/components/schemas/demoV35Rs'                                                                              
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # ---- Import GetCardDetailsV35 request and response definition  
+      GetCardDetailsV35Rq:
+            $ref: 'request.yaml#/GetCardDetailsV35Rq'
+      GetCardDetailsV35Rs:
+             $ref: 'response.yaml#/GetCardDetailsV35Rs'
+
+    # ---- Import ActivateContactLessV35 request and response definition   
+      ActivateContactLessV35Rq:
+             $ref: 'request.yaml#/ActivateContactLessV35Rq' 
+      ActivateContactLessV35Rs:
+             $ref: 'response.yaml#/ActivateContactLessV35Rs'
+
+    # ---- Import ChangeCardProductV35 request and response definition   
+      ChangeCardProductV35Rq:
+             $ref: 'request.yaml#/ChangeCardProductV35Rq' 
+      ChangeCardProductV35Rs:
+             $ref: 'response.yaml#/ChangeCardProductV35Rs'
+
+    # ---- Import ChangePinV35 request and response definition
+      ChangePinV35Rq:
+           $ref: 'request.yaml#/ChangePinV35Rq'
+      ChangePinV35Rs:
+           $ref: 'response.yaml#/ChangePinV35Rs'
+
+    # ---- Import CreateAccountTransactionV35 request and response definition
+      CreateAccountTransactionV35Rq:
+           $ref: 'request.yaml#/CreateAccountTransactionV35Rq'
+      CreateAccountTransactionV35Rs:
+           $ref: 'response.yaml#/CreateAccountTransactionV35Rs'
+
+    # --- Import GetAccountBalanceV35 request and response definition
+      GetAccountBalanceV35Rq:
+           $ref: 'request.yaml#/GetAccountBalanceV35Rq'
+      GetAccountBalanceV35Rs:
+            $ref: 'response.yaml#/GetAccountBalanceV35Rs'
+
+    # --- Import RequestPinV35 request and response definition
+      RequestPinV35Rq:
+            $ref: 'request.yaml#/RequestPinV35Rq'
+      RequestPinV35Rs:
+            $ref: 'response.yaml#/RequestPinV35Rs' 
+
+    # --- Import SetCustomerDetailV35 request and response definition
+      SetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/SetCustomerDetailV35Rq'
+      SetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/SetCustomerDetailV35Rs'    
+
+    # --- Import GetCustomerDetailV35 request and response definition
+      GetCustomerDetailV35Rq:
+            $ref: 'request.yaml#/GetCustomerDetailV35Rq'
+      GetCustomerDetailV35Rs:
+            $ref: 'response.yaml#/GetCustomerDetailV35Rs' 
+      
+    # --- Import GetLoyaltyAccountsV35 request and response definition
+      GetLoyaltyAccountsV35Rq:
+            $ref: 'request.yaml#/GetLoyaltyAccountsV35Rq'
+      GetLoyaltyAccountsV35Rs:
+            $ref: 'response.yaml#/GetLoyaltyAccountsV35Rs'
+
+    # --- Import UpdateAddressV35 request and response definition
+      UpdateAddressV35Rq:
+           $ref: 'request.yaml#/UpdateAddressV35Rq'
+      UpdateAddressV35Rs:
+           $ref: 'response.yaml#/UpdateAddressV35Rs'  
+
+    # --- Import UpdateBankAccount request and response definition 
+      UpdateBankAccountV35Rq:
+          $ref: 'request.yaml#/UpdateBankAccountV35Rq'
+      UpdateBankAccountV35Rs:
+          $ref: 'response.yaml#/UpdateBankAccountV35Rs'
+  
+    # --- Import UpdateCardLimitsV35 request and response definition
+      UpdateCardLimitsV35Rq:
+          $ref: 'request.yaml#/UpdateCardLimitsV35Rq'
+      UpdateCardLimitsV35Rs:
+          $ref: 'response.yaml#/UpdateCardLimitsV35Rs'
+    
+    # --- Import CreateCreditCardV35 request and response definition
+      CreateCreditCardV35Rq:
+          $ref: 'request.yaml#/CreateCreditCardV35Rq'
+      CreateCreditCardV35Rs:
+           $ref: 'response.yaml#/CreateCreditCardV35Rs'  
+
+    # --- Import GetCardCVC2V35 request and response definition
+      GetCardCVC2V35Rq:
+            $ref: 'request.yaml#/GetCardCVC2V35Rq'
+      GetCardCVC2V35Rs:
+            $ref: 'response.yaml#/GetCardCVC2V35Rs'
+
+    # --- Import GetCardDomainV35 request and response definition 
+      GetCardDomainV35Rq:
+            $ref: 'request.yaml#/GetCardDomainV35Rq'
+      GetCardDomainV35Rs:
+            $ref: 'response.yaml#/GetCardDomainV35Rs'
+
+    # --- Import GetCardLimitsV35 request and response definition
+      GetCardLimitsV35Rq:
+             $ref: 'request.yaml#/GetCardLimitsV35Rq'
+      GetCardLimitsV35Rs:
+             $ref: 'response.yaml#/GetCardLimitsV35Rs'
+
+    # --- Import GetEventNotificationV35Rq request and response definition
+      GetEventNotificationV35Rq:
+              $ref: 'request.yaml#/GetEventNotificationV35Rq'
+      GetEventNotificationV35Rs:
+              $ref: 'response.yaml#/GetEventNotificationV35Rs'
+
+    # --- Import GetLoyaltyAccTrxsV35Rq request and response definition
+      GetLoyaltyAccTrxsV35Rq:
+             $ref: 'request.yaml#/GetLoyaltyAccTrxsV35Rq'
+      GetLoyaltyAccTrxsV35Rs:
+             $ref: 'response.yaml#/GetLoyaltyAccTrxsV35Rs'
+    
+    # --- Import RenewCardV35Rq request and response definition
+      RenewCardV35Rq:
+              $ref: 'request.yaml#/RenewCardV35Rq'
+      RenewCardV35Rs:
+              $ref: 'response.yaml#/RenewCardV35Rs' 
+
+    # --- Import ReplaceCardV35 request and reponse definition
+      ReplaceCardV35Rq:
+              $ref: 'request.yaml#/ReplaceCardV35Rq'
+      ReplaceCardV35Rs:
+              $ref: 'response.yaml#/ReplaceCardV35Rs'
+
+    # --- Import UpdateCardStatusV35 request and response definition
+      UpdateCardStatusV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusV35Rq'
+      UpdateCardStatusV35Rs:
+               $ref: 'response.yaml#/UpdateCardStatusV35Rs'
+
+    # --- Import UpdateCardStatusReasonV35 request and response definition
+      UpdateCardStatusReasonV35Rq:
+               $ref: 'request.yaml#/UpdateCardStatusReasonV35Rq'
+      UpdateCardStatusReasonV35Rs:
+                $ref: 'response.yaml#/UpdateCardStatusReasonV35Rs'  
+
+    # --- Import UpdateCustomerNameV35 request and response definition
+      UpdateCustomerNameV35Rq:
+                 $ref: 'request.yaml#/UpdateCustomerNameV35Rq'
+      UpdateCustomerNameV35Rs:
+                 $ref: 'response.yaml#/UpdateCustomerNameV35Rs'  
+
+   # --- Import UpdateCustomerEmailV35 request and response
+      UpdateCustomerEmailV35Rq:
+                $ref: 'request.yaml#/UpdateCustomerEmailV35Rq' 
+      UpdateCustomerEmailV35Rs:
+                $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'
+
+   # --- Import UpdateCustomerPhoneNumberV35 request and response
+      UpdateCustomerPhoneNumberV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerPhoneNumberV35Rq'
+      UpdateCustomerPhoneNumberV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerPhoneNumberV35Rs'
+    
+   # --- Import TransferAccountToAccountV35 request and response
+      TransferAccountToAccountV35Rq:
+                      $ref: 'request.yaml#/TransferAccountToAccountV35Rq'
+      TransferAccountToAccountV35Rs:
+                      $ref: 'response.yaml#/TransferAccountToAccountV35Rs'
+
+   # --- Import GetParameterListV35 request and response
+      GetParameterListV35Rq:
+                      $ref: 'request.yaml#/GetParameterListV35Rq'
+      GetParameterListV35Rs:
+                       $ref: 'response.yaml#/GetParameterListV35Rs'   
+
+    # --- Import SearchAuthorizationV35 request and response
+      SearchAuthorizationV35Rq: 
+                       $ref: 'request.yaml#/SearchAuthorizationV35Rq'
+      SearchAuthorizationV35Rs:
+                       $ref: 'response.yaml#/SearchAuthorizationV35Rs'
+
+    # --- Import UpdateCollaboratorSubscriptionStatusV35 request and response
+      UpdateCollaboratorSubscriptionStatusV35Rq:
+                       $ref: 'request.yaml#/UpdateCollaboratorSubscriptionStatusV35Rq'
+      UpdateCollaboratorSubscriptionStatusV35Rs:
+                       $ref: 'response.yaml#/UpdateCollaboratorSubscriptionStatusV35Rs'
+
+    # --- Import CreateDebitCardV35 request and response
+      CreateDebitCardV35Rq:
+                     $ref: 'request.yaml#/CreateDebitCardV35Rq'
+      CreateDebitCardV35Rs:
+                     $ref: 'response.yaml#/CreateDebitCardV35Rs'
+   
+    # --- Import CreateLoyaltyAccountV35 request and response
+      CreateLoyaltyAccountV35Rq:
+                  $ref: 'request.yaml#/CreateLoyaltyAccountV35Rq'
+      CreateLoyaltyAccountV35Rs:
+                  $ref: 'response.yaml#/CreateLoyaltyAccountV35Rs'
+
+    # --- Import GetCollaboratorInitiatedSubscriptionV35 request and response
+      GetCollaboratorInitiatedSubscriptionV35Rq:
+                  $ref: 'request.yaml#/GetCollaboratorInitiatedSubscriptionV35Rq'
+      GetCollaboratorInitiatedSubscriptionV35Rs:
+                  $ref: 'response.yaml#/GetCollaboratorInitiatedSubscriptionV35Rs'          
+
+    # --- Import GetStatementHistoryV35 request and response
+      GetStatementHistoryV35Rq:
+                  $ref: 'request.yaml#/GetStatementHistoryV35Rq'
+      GetStatementHistoryV35Rs:
+                  $ref: 'response.yaml#/GetStatementHistoryV35Rs'
+
+    # --- Import GetStockCardsOverviewV35 request and response
+      GetStockCardsOverviewV35Rq:
+                  $ref: 'request.yaml#/GetStockCardsOverviewV35Rq'
+      GetStockCardsOverviewV35Rs:
+                  $ref: 'response.yaml#/GetStockCardsOverviewV35Rs'
+
+    # --- Import LostStolenDeclarationV35 request and response
+      LostStolenDeclarationV35Rq:
+                   $ref: 'request.yaml#/LostStolenDeclarationV35Rq' 
+      LostStolenDeclarationV35Rs:
+                   $ref: 'response.yaml#/LostStolenDeclarationV35Rs' 
+
+    # --- Import OrderStockCardsV35 request and response
+      OrderStockCardsV35Rq:
+                   $ref: 'request.yaml#/OrderStockCardsV35Rq'
+      OrderStockCardsV35Rs:
+                   $ref: 'response.yaml#/OrderStockCardsV35Rs' 
+
+    # --- Import SearchTransactionsV35 request and response
+      SearchTransactionsV35Rq:
+                   $ref: 'request.yaml#/SearchTransactionsV35Rq'
+      SearchTransactionsV35Rs:
+                   $ref: 'response.yaml#/SearchTransactionsV35Rs'
+
+    # --- Import SetCardDetailsV35 request and response.
+      SetCardDetailsV35Rq:
+                   $ref: 'request.yaml#/SetCardDetailsV35Rq'   
+      SetCardDetailsV35Rs:
+                  $ref: 'response.yaml#/SetCardDetailsV35Rs' 
+
+    # --- Import FeeInQuiryV35 request and response.
+      FeeInQuiryV35Rq:
+                   $ref: 'request.yaml#/FeeInQuiryV35Rq'   
+      FeeInQuiryV35Rs:
+                   $ref: 'response.yaml#/FeeInQuiryV35Rs'
+
+    # --- Import SearchCardV35 request and response.
+      SearchCardV35Rq:
+               $ref: 'request.yaml#/SearchCardV35Rq'
+      SearchCardV35Rs:
+               $ref: 'response.yaml#/SearchCardV35Rs'
+
+    # --- Import UpdateCustomerDemogV35 request and response     
+      UpdateCustomerDemogV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerDemogV35Rq'
+      UpdateCustomerDemogV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerDemogV35Rs'
+
+    # --- Import UpdateLoyaltyAccStatusV35 request and response
+      UpdateLoyaltyAccStatusV35Rq:
+               $ref: 'request.yaml#/UpdateLoyaltyAccStatusV35Rq' 
+      UpdateLoyaltyAccStatusV35Rs:
+                $ref: 'response.yaml#/UpdateLoyaltyAccStatusV35Rs' 
+
+    # --- Import SetCardDomainV35Rq request and response
+      SetCardDomainV35Rq:
+               $ref: 'request.yaml#/SetCardDomainV35Rq'
+      SetCardDomainV35Rs:
+               $ref: 'response.yaml#/SetCardDomainV35Rs'
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs' 
+    # --- Import UpdateCustomerCategoryV35 request and response
+      UpdateCustomerCategoryV35Rq:
+               $ref: 'request.yaml#/UpdateCustomerCategoryV35Rq'
+      UpdateCustomerCategoryV35Rs:
+               $ref: 'response.yaml#/UpdateCustomerCategoryV35Rs'                             
+    # --- Import GetCardNumberFromTokenV35Rq request and response
+      GetCardNumberFromTokenV35Rq:
+               $ref: 'request.yaml#/GetCardNumberFromTokenV35Rq'
+      GetCardNumberFromTokenV35Rs:
+               $ref: 'response.yaml#/GetCardNumberFromTokenV35Rs'          
+security:
+  - bearerAuth: []  

@@ -1,0 +1,141 @@
+openapi: "3.0.3"
+info:
+  title: Financial account API documentation
+  description: <div><p>Financial account operation management include features for :Financial account, Account transactions and Statements list.</p>
+  version: PowerCARD-Issuer V3.5
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  #UpdateBankAccountStatus     
+  /UpdateBankAccountStatus/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <p>
+                          The aim of this web service is to update the status of an existing bank account, this web service can be invoked by customers and agents. The change will take place immediately in the system and all the next communication with that account will take the new status.
+                          </p>
+                        <h3>Functional Description</h3>
+                        <img  src="./docs/UpdateBankAccountStatus.png" />
+            summary: Update the status of an existing bank account.
+              - Update Bank Account Status
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountStatus35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateBankAccountStatus35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                      <tr>
+                                        <th>Error code</th>
+                                        <th>Error Description</th>
+                                      </tr>
+                                      <tr> 
+                                        <td>19501</td>
+                                        <td>Invalid Account Type </td>
+                                      </tr>
+                                       <tr> 
+                                        <td>19502</td>
+                                        <td>Invalid Bank Code</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19504</td>
+                                        <td>Both AccountNumber and IBAN are missing</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19505</td>
+                                        <td>Invalid Account Number</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19506</td>
+                                        <td>Invalid IBAN</td>
+                                      </tr>
+                                      <tr> 
+                                        <td>19507</td>
+                                        <td>Invalid Swift Code</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19508</td>
+                                        <td>Invalid Account Status</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19509</td>
+                                        <td>Invalid Status Reason Code</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19510</td>
+                                        <td>Invalid Transition Requested </td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19511</td>
+                                        <td>Invalid Account Sequence</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19512</td>
+                                        <td>
+                                        Invalid Bank Code Free Text
+                                        </td>
+                                        <tr> 
+                                        <td>19513</td>
+                                        <td>Invalid Branch Code Free Text</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19514</td>
+                                        <td>Invalid Account Currency</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19515</td>
+                                        <td>IBAN not fefined for this account</td>
+                                      </tr>  
+                                      <tr> 
+                                        <td>19516</td>
+                                        <td>An error occurred while updating the Bank Account status</td>
+                                      </tr>                                           
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateAccountBalance35Rs' 
+                  application/xml:
+                          schema:
+                            $ref: '#/components/schemas/UpdateAccountBalance35Rs'       
+ # Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import UpdateBankAccountStatus35Rq request and response
+      UpdateBankAccountStatus35Rq:
+               $ref: 'request.yaml#/UpdateBankAccountStatus35Rq' 
+      UpdateAccountBalance35Rs:
+               $ref: 'response.yaml#/UpdateAccountBalance35Rs'  
+security:
+  - bearerAuth: []

@@ -1,0 +1,90 @@
+openapi: "3.0.3"
+info:
+  title: Customer API documentation
+  description: <p>PowerCARD Connect’API offers through APIs specific functions that group in a functional logic, all features relating to Client operations management.</p>
+  version: PowerCARD-Issuer 3.5.4-apiR5.3
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # --- UpdateCustomerEmail
+  /UpdateCustomerEmail/V2:
+        post:
+            description:
+                        <h3>API Overview</h3>
+                          <a target="_blank" rel="noopener noreferrer" href="https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/jaxws/UpdateCustomerEmail/V2?wsdl"><img  src="./docs/soap_logo.jpg" /><u>SOAP WSDL</u></a>
+                          <p>
+                             The aim of this web service is to set or update the customer email address part of the principal address. The email address supplied by the agent of the customer himself must be a valid address. It must include both the alias (the part before the '@' sign) and the domain portion (i.e. @yahoo.com, or @verizon.com, or @gmail.com...). <br>
+                             The request could be rejected if the provided email address fails to comply with what was explained before.
+                          </p>
+                        <h3>Functional Description</h3>
+                         <img  src="./docs/UpdateCustomerEmail.png" />
+            summary: Update the customer email address part of the principal address.
+            tags:
+              - Update Customer Email.
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+                application/xml:
+                  schema:
+                    $ref: '#/components/schemas/UpdateCustomerEmailV35Rq'
+            responses:  
+              200:
+                description:
+                        <div>
+                                Successful
+                                <p>Business Error Codes &#58;</p>
+                                <table>
+                                    <tr>
+                                      <th>Error code</th>
+                                      <th>Error Description</th>
+                                    </tr>
+                                    <tr> 
+                                      <td>02501</td>
+                                      <td>Invalid Customer Id</td>
+                                    </tr>	
+                                    <tr> 
+                                      <td>02502</td>
+                                      <td>Invalid Email Address</td>
+                                    </tr>								
+                                </table>
+                        </div> 
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'
+                  application/xml:
+                    schema:
+                      $ref: '#/components/schemas/UpdateCustomerEmailV35Rs'                                                              
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      UpdateCustomerEmailV35Rq:
+            $ref: 'request.yaml#/UpdateCustomerEmailV35Rq'
+      UpdateCustomerEmailV35Rs:
+            $ref: 'response.yaml#/UpdateCustomerEmailV35Rs'    
+security:
+  - bearerAuth: []

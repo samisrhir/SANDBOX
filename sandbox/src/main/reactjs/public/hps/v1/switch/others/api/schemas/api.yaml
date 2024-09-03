@@ -1,0 +1,147 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Switch API documentation
+  description: PowerCARD-Switch offers 100% availability with active/ active architecture, it is also able to process thousands of transactions per second. A performance expected in the mission-critical world of electronic payment transaction processing.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: http://196.12.238.134:12080/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- verifyPin
+  /verifyPin/v1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The verify PIN web service is used to verify if the Personal Identification Number (PIN) introduced is valid or not. Users must transmit different details in the request that are used internally by PowerCARD to communicate with the HSM to validate the PIN captured by the customer. Depending on the validation processes, the response message that will be returned will either contain a Yes or No. Yes to specify that the PIN captured is valid, and No in the opposite case.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/verifyPin.png" />
+                  
+      summary: The verify PIN web service is used to verify if the Personal Identification Number (PIN) introduced is valid or not.
+      tags:
+        - Verify Pin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPinRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/VerifyPinRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                              <tr>
+                                <th>Error code</th>
+                                <th>Error Description</th>
+                              </tr>
+                              <tr> 
+                                <td>18001</td>
+                                <td>Invalid Card number</td>
+                              </tr>	
+                              <tr> 
+                                <td>18002</td>
+                                <td>Invalid PIN Block</td>
+                              </tr>	
+                              <tr> 
+                                <td>18003</td>
+                                <td>Invalid Pin method</td>
+                              </tr>	
+                              <tr> 
+                                <td>18004</td>
+                                <td>Card do not belong to any range in the system</td>
+                              </tr>	
+                              <tr> 
+                                <td>18005</td>
+                                <td>Error while getting PVK Keys</td>
+                              </tr>	
+                              <tr> 
+                                <td>18006</td>
+                                <td>Error while Verifying Visa PIN</td>
+                              </tr>	
+                              <tr> 
+                                <td>18007</td>
+                                <td>Error while Verifying IBM PIN</td>
+                              </tr>										
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'
+         401:
+          description: 401 Unauthorized - The PowerCard User passed in the token is invalid. Client should refresh the token and then try again.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'
+         404:
+          description: 404 Not Found - PowerCARD Resource not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'
+         415:
+          description: 415 Unsupported Media Type - Returned when the the format you requested is not supported for the PowerCARD Resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'  
+         500:
+          description: 500 Internal Server Error - Servers are not working as expected. The request is probably valid but needs to be requested again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'
+         504:
+          description: A service required to fulfill the request was not available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPinRs'                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+      # ---- Import TokenAuthentication request and response definition            
+      TokenAuthentication:
+            $ref: 'request.yaml#/TokenAuthentication'
+      TokenAuthenticationResponse:
+            $ref: 'response.yaml#/TokenAuthenticationResponse'
+
+    # --- Import VerifyPin request and response
+      VerifyPinRq:
+               $ref: 'request.yaml#/VerifyPinRq'
+      VerifyPinRs:
+               $ref: 'response.yaml#/VerifyPinRs'
+
+    # --- Import DemoV35 request and response
+      demoV35Rq:
+               $ref: 'request.yaml#/DemoV35Rq'
+      demoV35Rs:
+               $ref: 'response.yaml#/DemoV35Rs'             
+         
+security:
+  - bearerAuth: []

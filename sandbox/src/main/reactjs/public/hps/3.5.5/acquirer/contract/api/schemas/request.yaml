@@ -1,0 +1,1072 @@
+# ---- TokenAuthentication definition
+TokenAuthentication:
+  type: object
+  properties:
+    providerLogin:
+      type: string
+      example: 'firstUser'
+    providerPassword:
+      type: string
+      example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+    userLanguage:
+      type: string
+      example: 'en_US'
+    requestInfo:
+      type: object
+      $ref: 'aggregate.yaml#/RequestInfo'
+
+
+
+GetMerchantDeatailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+
+CreateMerchantRq:
+  required:
+    - requestInfo
+    - merchantInfoBasic
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    disableAutomaticValidation:
+      type: string
+      example: 'N'
+      description: <p>Specify if we want to only init merchant creation without auto validation (if applied)
+        Possible values :<b> (Y,N)
+        If not indicated ,default value will be 'N'
+        </p>
+    merchantInfoBasic:
+      $ref: aggregate.yaml#/CreateMerchantMerchantInfoBasic
+    merchantAddressList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/AddMerchantAddressAddress
+    merchantActivityList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/AddMerchantActivityMerchantActivity
+    merchantAccountList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/AddMerchantBankAccountMerchantAccount
+    merchantSiteList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/AddMerchantSiteMerchantSite
+    merchantContactList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/CreateMerchantMerchantContact
+
+
+
+
+CheckMerchantExistRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+AddMerchantAdressRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - address
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    address:
+      $ref: aggregate.yaml#/AddMerchantAddressAddress
+
+
+AddMerchantBankAccountRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantAccount
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantAccount:
+      $ref: aggregate.yaml#/AddMerchantBankAccountMerchantAccount
+
+
+
+AddMerchantContactRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantContact
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantContact:
+      $ref: aggregate.yaml#/AddMerchantContactMerchantContact
+
+
+
+UpdateMerchantDescriptionRq:
+  required:
+    - requestInfo
+    - merchantInfoBasic
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantInfoBasic:
+      $ref: aggregate.yaml#/UpdateMerchantDescriptionMerchantInfoBasic
+
+
+
+DeleteMerchantContactRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/DeleteMerchantContactMerchantIdInfo
+
+
+
+AddMerchantSiteRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantSite
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantSite:
+      $ref: aggregate.yaml#/AddMerchantSiteMerchantSite
+
+
+
+UpdateMerchantContactDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantContact
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantContact:
+      $ref: aggregate.yaml#/UpdateMerchantContactDetailsMerchantContact
+
+
+UpdateMerchantSiteRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantSite
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantSite:
+      $ref: aggregate.yaml#/UpdateMerchantSiteMerchantSite
+
+
+
+UpdateMerchantAddressDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - address
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    address:
+      $ref: aggregate.yaml#/UpdateMerchantAddressDetailsAddress
+
+
+
+
+
+AddMerchantActivityRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - merchantActivity
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantActivity:
+      $ref: aggregate.yaml#/AddMerchantActivityMerchantActivity
+
+
+
+
+GetProductListRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    productType:
+      type: string
+      example: 'A'
+      description: <p>This is the product type. Possible
+        values are:<b>
+        A:<b> Acceptance,
+        E:<b> Equipment,
+        M:<b> Management/Service.
+        </p>
+
+
+
+UpdateMerchantStatustRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - statusCode
+    - statusReasonCode
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    statusCode:
+      type: string
+      example: 'C'
+      description: <p>The merchant status, this field is used to indicate the status of the merchant.
+        Possible values are:<b>
+        N:<b> Normal
+        M:<b> Monitored
+        S:<b> Suspended
+        C:<b> Closed
+        </p>
+    statusReasonCode:
+      type: string
+      example: 'ES'
+      description: <p>The reason used to change the status of the merchant. Status reason code as defined in PowerCARD STATUS_REASON_LIST table.</p>
+    statusRangeDate:
+      $ref: aggregate.yaml#/UpdateMerchantStatusStatusRangeDate
+
+
+
+
+
+UpdateMerchantActivityRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantActivity:
+      $ref: aggregate.yaml#/updatemerchantactivityMerchantActivity
+
+
+
+
+GetProductDetailsRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - productCode
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    productCode:
+      type: string
+      example: 'D00001A002'
+      description: <p>Should contain the Product code.
+        This value must be present in PRODUCT table.
+        </p>
+    viewAllMode:
+      type: string
+      example: 'N'
+      description: <p>indicates if view all mode is enabled to get all product details even those not editable
+        Possible values:<b> Y/N
+        default value is 'N'
+        </p>
+
+
+
+
+
+CreateAcceptorPointRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/CreatacceptorpointMerchantIdInfoMerchantIdInfo
+    merchantAcceptorPoint:
+      $ref: aggregate.yaml#/creatacceptorpointMerchantAcceptorPoint
+
+
+
+
+
+
+ValidateMercchantRq:
+  required:
+    - requestInfo
+    - merchantIdInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+
+
+
+
+
+UpdateMerchantBankAccountRq:
+  required:
+    - requestInfo
+  type: object
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfo
+    merchantAccount:
+      $ref: aggregate.yaml#/UpdatemerchantBankaccountMerchantAccount
+
+
+
+
+CreateMerchantAcceptanceContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElement
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfoo
+    contractElement:
+      $ref: aggregate.yaml#/ContractElement
+
+
+
+
+
+ValidateMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementId
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfooo
+    contractElementId:
+      type: string
+      description: <p>Contract internal identification number. Required field.</p>
+      example: '001300011'
+
+
+
+
+CreateMerchantEquipmentContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElement
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/MerchantIdInfoooo
+    contractElement:
+      $ref: aggregate.yaml#/ContractElementt
+
+
+
+
+CreateMerchantServicesContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElement
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/CreateMerchantServicesContractMerchantIdInfo
+    contractElement:
+      $ref: aggregate.yaml#/CContractElement
+
+
+
+
+ActivateMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementID
+    - activateAcceptorPoints
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/ActivateMerchantContractMerchantIdInfo
+    contractElementID:
+      type: string
+      description: <p>Internal Identification of the merchant contract element ID.</p>
+      example: '0000022453'
+    statusRangeDate:
+      $ref: aggregate.yaml#/ActivateMerchantContractValidityRangeDate
+    activateAcceptorPoints:
+      type: string
+      description: <p>Indicates if activation should be applied on acceptor points
+        linked to contract. Y/N.</p>
+      example: 'N'
+
+
+
+
+
+DeactivateMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementID
+    - statusReasonCode
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/DeactivateMerchantContracttMerchantIdInfo
+    contractElementID:
+      type: string
+      description: <p>Internal Identification of the merchant contract element ID.</p>
+      example: '0000022585'
+    statusReasonCode:
+      type: string
+      description: <p>The reason used to change the status. Defined in PowerCARD STATUS_REASON_LIST
+        table.</p>
+      example: 'MC'
+    statusRangeDate:
+      $ref: aggregate.yaml#/ValidityRangeDate
+
+
+
+SuspendMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementID
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/SuspendMerchantContractMerchantIdInfo
+    contractElementID:
+      type: string
+      description: <p>Internal Identification of the merchant contract element ID.</p>
+      example: '0000022585'
+    statusReasonCode:
+      type: string
+      description: <p>The reason used to change the status. Defined in PowerCARD STATUS_REASON_LIST
+        table.</p>
+      example: 'MC'
+    statusRangeDate:
+      $ref: aggregate.yaml#/SuspendMerchantContractValidityRangeDate
+
+
+UnsuspendMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementID
+    - activateAcceptorPoints
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/UnsuspendMerchantContractMerchantIdInfo
+    contractElementID:
+      type: string
+      description: <p>Internal Identification of the merchant contract element ID.</p>
+      example: '0000022585'
+    statusRangeDate:
+      $ref: aggregate.yaml#/UnsuspendMerchantContractValidityRangeDate
+    activateAcceptorPoints:
+      type: string
+      description: '<p>Indicates if activation should be applied on acceptor points
+        linked to contract. Possible values: Y/N.</p>'
+      example: 'Y'
+
+
+
+
+
+
+CloseMerchantContractRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementID
+    - statusReasonCode
+    - effectiveDate
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/CloseMerchantContractMerchantIdInfo
+    contractElementID:
+      type: string
+      description: <p>Internal Identification of the merchant contract element ID.</p>
+      example: '0000022478'
+    statusReasonCode:
+      type: string
+      description: <p>The reason used to change the status. Defined in PowerCARD STATUS_REASON_LIST
+        table.</p>
+      example: 'MC'
+    effectiveDate:
+      type: string
+      format: date
+      description: <p>Effective date for close.</p>
+      example: '2023-12-08'
+
+
+
+
+AddChargingConditionsRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementId
+    - serviceId
+    - serviceProductContextCode
+    - billableElementID
+    - chargingCondition
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/AddChargingConditionsMerchantIdInfo
+    contractElementId:
+      type: string
+      description: <p>Internal identification of the merchant contract.</p>
+      example: '0000022940'
+    serviceId:
+      type: string
+      description: <p>Unique index of service.</p>
+      example: '000001'
+    serviceProductContextCode:
+      type: string
+      description: <p>Product Context Code of service.</p>
+      example: '000001A0100174'
+    billableElementID:
+      type: string
+      description: <p>Unique value attributed to billable element id.</p>
+      example: '0002'
+    chargingCondition:
+      $ref: aggregate.yaml#/AddChargingConditionsChargingCondition
+
+
+
+
+
+GetMerchantContractDetailsRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementId
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/GetMerchantContractDetailsMerchantIdInfo
+    contractElementId:
+      type: string
+      description: <p>Contract internal identification number.</p>
+      example: '0000022743'
+
+
+
+AddMerchantContractServicesRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/AddMerchantContractServicesMerchantIdInfo
+    serviceList:
+      type: array
+      items:
+        $ref: aggregate.yaml#/AddMerchantContractServicesAcqProductService
+      example:
+        - uniqueIndex: '2'
+          parentContextCode: GA0000060001
+          productContextCode: GA0000060001
+          contextExternalCode: CHRGBK_RETRV
+          contextInternalCode: '200015'
+          contextCode: GRP_CHRGBK_RETRV
+          label: Chargebacks and Retrievals
+          checked: Y
+          mandatory: N
+          serviceCharacteristicList:
+            - uniqueIndex: '1'
+              productContextCode: GA0000060002
+              parentContextCode: GA0000060001
+              contextCode: DESCRIPTION
+              labelGroup: Chargebacks and Retrievals
+              label: Description
+              typePopup: modifInputPopup
+              valueMode: V
+              description: Description
+              checked: N
+              value: Chargebacks and retrievals
+              mandatory: Y
+              updateable: Y
+              derogatory: N
+              multipleChoice: N
+              regulationType: N
+              specialCondition: Y
+              generalCondition: N
+              visible: Y
+          billableElementList:
+            - uniqueIndex: '1'
+              parentContextCode: GA0000060001
+              productContextCode: GA0000060003
+              contextExternalCode: CHRGBK_RETRV_ACTIVATION
+              contextInternalCode: '0003'
+              contextCode: EF_SERVICE_ACTIVATION
+              payableEvent: Activation Of Service
+              chargingConditionList:
+                - uniqueIndex: '1'
+                  parentContextCode: GA0000060003
+                  productContextCode: GA0000060004
+                  contextExternalCode: A001_CHGBK_SERVICE_ACTIVATION
+                  contextInternalCode: '0000000004'
+                  contextCode: TM_UNIQ_PERCP
+                  label: Billing One Time - A001_CHGBK_SERVICE_ACTIVATION
+                  checked: Y
+                  chargingRuleList:
+                    - uniqueIndex: '1'
+                      parentContextCode: GA0000060004
+                      productContextCode: GA0000060005
+                      contextCode: TD_NAME
+                      contextGrouping: '0'
+                      labelGroup: Default
+                      label: Default
+                      attributList:
+                        - uniqueIndex: '1'
+                          productContextCode: GA0000060005
+                          parentContextCode: GA0000060004
+                          contextCode: TD_NAME
+                          labelGroup: Default
+                          label: Default
+                          typePopup: modifInputPopup
+                          valueMode: V
+                          checked: N
+                          value: Default
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '2'
+                          productContextCode: GA0000060006
+                          parentContextCode: GA0000060004
+                          contextCode: TD_FIX_AMOUNT
+                          labelGroup: Default
+                          label: Fixed Amount
+                          typePopup: modifInputPopup
+                          valueMode: N
+                          checked: N
+                          value: '10'
+                          valueMin: '0'
+                          valueMax: '10'
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '3'
+                          productContextCode: GA0000060007
+                          parentContextCode: GA0000060004
+                          contextCode: TD_CURRENCY
+                          labelGroup: Default
+                          label: Currency
+                          typePopup: modifComboPopup
+                          valueMode: R
+                          checked: N
+                          valueList:
+                            - code: '978'
+                              label: EUR
+                              defaultSelected: Y
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+            - uniqueIndex: '2'
+              parentContextCode: GA0000060001
+              productContextCode: GA0000060011
+              contextExternalCode: CHRGBK_RETRV_ACTIVE
+              contextInternalCode: '0004'
+              contextCode: EF_SERVICE_ACTIVE
+              payableEvent: Service Activated
+              chargingConditionList:
+                - uniqueIndex: '2'
+                  parentContextCode: GA0000060011
+                  productContextCode: GA0000060012
+                  contextExternalCode: A001_CHGBK_SERVICE_ACTIVE
+                  contextInternalCode: '0000000005'
+                  contextCode: TM_FIX_PER
+                  label: Fixed amount charged by period - A001_CHGBK_SERVICE_ACTIVE
+                  checked: Y
+                  chargingRuleList:
+                    - uniqueIndex: '1'
+                      parentContextCode: GA0000060012
+                      productContextCode: GA0000060013
+                      contextCode: TD_NAME
+                      contextGrouping: '0'
+                      labelGroup: Default
+                      label: Default
+                      attributList:
+                        - uniqueIndex: '1'
+                          productContextCode: GA0000060013
+                          parentContextCode: GA0000060012
+                          contextCode: TD_NAME
+                          labelGroup: Default
+                          label: Default
+                          typePopup: modifInputPopup
+                          valueMode: V
+                          checked: N
+                          value: Default
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '2'
+                          productContextCode: GA0000060014
+                          parentContextCode: GA0000060012
+                          contextCode: TD_FIX_AMOUNT
+                          labelGroup: Default
+                          label: Fixed Amount
+                          typePopup: modifInputPopup
+                          valueMode: N
+                          checked: Y
+                          value: '8'
+                          valueMin: '0'
+                          valueMax: '10'
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '3'
+                          productContextCode: GA0000060015
+                          parentContextCode: GA0000060012
+                          contextCode: TD_CURRENCY
+                          labelGroup: Default
+                          label: Currency
+                          typePopup: modifComboPopup
+                          valueMode: R
+                          checked: N
+                          valueList:
+                            - code: '978'
+                              label: EUR
+                              defaultSelected: Y
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+            - uniqueIndex: '3'
+              parentContextCode: GA0000060001
+              productContextCode: GA0000060019
+              contextExternalCode: EF_CHGBACK
+              contextInternalCode: '0016'
+              contextCode: EF_CHGBACK
+              payableEvent: Chargeback
+              chargingConditionList:
+                - uniqueIndex: '3'
+                  parentContextCode: GA0000060019
+                  productContextCode: GA0000060020
+                  contextExternalCode: A001_FEE_CHRGBK_REC
+                  contextInternalCode: '0000000001'
+                  contextCode: TM_LIN_UNIT_WO_C
+                  label: Linear Billing Without Criteria - A001_FEE_CHRGBK_REC
+                  checked: Y
+                  chargingRuleList:
+                    - uniqueIndex: '1'
+                      parentContextCode: GA0000060020
+                      productContextCode: GA0000060021
+                      contextCode: TD_NAME
+                      contextGrouping: '0'
+                      labelGroup: Default
+                      label: Default
+                      attributList:
+                        - uniqueIndex: '1'
+                          productContextCode: GA0000060021
+                          parentContextCode: GA0000060020
+                          contextCode: TD_NAME
+                          labelGroup: Default
+                          label: Default
+                          typePopup: modifInputPopup
+                          valueMode: V
+                          checked: N
+                          value: Default
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '2'
+                          productContextCode: GA0000060022
+                          parentContextCode: GA0000060020
+                          contextCode: TD_FIX_AMOUNT
+                          labelGroup: Default
+                          label: Fixed Amount
+                          typePopup: modifInputPopup
+                          valueMode: N
+                          checked: N
+                          value: '10'
+                          valueMin: '0'
+                          valueMax: '10'
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '3'
+                          productContextCode: GA0000060023
+                          parentContextCode: GA0000060020
+                          contextCode: TD_CURRENCY
+                          labelGroup: Default
+                          label: Currency
+                          typePopup: modifComboPopup
+                          valueMode: R
+                          checked: N
+                          valueList:
+                            - code: '978'
+                              label: EUR
+                              defaultSelected: Y
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+            - uniqueIndex: '4'
+              parentContextCode: GA0000060001
+              productContextCode: GA0000060029
+              contextExternalCode: EF_RETRIEVAL_REQ
+              contextInternalCode: '0020'
+              contextCode: EF_RETRIEVAL_REQ
+              payableEvent: Retrieval request received
+              chargingConditionList:
+                - uniqueIndex: '4'
+                  parentContextCode: GA0000060029
+                  productContextCode: GA0000060030
+                  contextExternalCode: A001_FEE_RET_REC
+                  contextInternalCode: '0000000001'
+                  contextCode: TM_LIN_UNIT_WO_C
+                  label: Linear Billing Without Criteria - A001_FEE_RET_REC
+                  checked: Y
+                  chargingRuleList:
+                    - uniqueIndex: '1'
+                      parentContextCode: GA0000060030
+                      productContextCode: GA0000060031
+                      contextCode: TD_NAME
+                      contextGrouping: '0'
+                      labelGroup: Default
+                      label: Default
+                      attributList:
+                        - uniqueIndex: '1'
+                          productContextCode: GA0000060031
+                          parentContextCode: GA0000060030
+                          contextCode: TD_NAME
+                          labelGroup: Default
+                          label: Default
+                          typePopup: modifInputPopup
+                          valueMode: V
+                          checked: N
+                          value: Default
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '2'
+                          productContextCode: GA0000060032
+                          parentContextCode: GA0000060030
+                          contextCode: TD_FIX_AMOUNT
+                          labelGroup: Default
+                          label: Fixed Amount
+                          typePopup: modifInputPopup
+                          valueMode: N
+                          checked: N
+                          value: '10'
+                          valueMin: '0'
+                          valueMax: '10'
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+                        - uniqueIndex: '3'
+                          productContextCode: GA0000060033
+                          parentContextCode: GA0000060030
+                          contextCode: TD_CURRENCY
+                          labelGroup: Default
+                          label: Currency
+                          typePopup: modifComboPopup
+                          valueMode: R
+                          checked: N
+                          valueList:
+                            - code: '978'
+                              label: EUR
+                              defaultSelected: Y
+                          mandatory: Y
+                          updateable: Y
+                          derogatory: N
+                          multipleChoice: N
+                          regulationType: N
+                          specialCondition: Y
+                          generalCondition: N
+                          visible: Y
+
+
+
+
+UpdateChargingConditionsRq:
+  type: object
+  required:
+    - requestInfo
+    - merchantIdInfo
+    - contractElementId
+    - serviceId
+    - serviceProductContextCode
+    - billableElementID
+  properties:
+    requestInfo:
+      $ref: aggregate.yaml#/RequestInfo
+    merchantIdInfo:
+      $ref: aggregate.yaml#/UpdateChargingConditionsRqMerchantIdInfo
+    contractElementId:
+      type: string
+      description: <p>Internal identification of the merchant contract.</p>
+      example: '0000023075'
+    serviceId:
+      type: string
+      description: <p>Unique index of service.</p>
+      example: '000001'
+    serviceProductContextCode:
+      type: string
+      description: <p>Product Context Code of service.</p>
+      example: 'GA0000010001'
+    billableElementID:
+      type: string
+      description: <p>Unique value attributed to billable element id.</p>
+      example: '0013'
+    chargingRuleData:
+      $ref: aggregate.yaml#/ChargingRuleData

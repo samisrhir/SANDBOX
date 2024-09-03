@@ -1,0 +1,311 @@
+{
+  "modules":[
+    {
+      "moduleName":"Api basics",
+      "expanded": false,
+      "apis":[
+        {
+          "name":"Authentication",
+          "file": "tokenAuthentication.yaml",
+          "subApiList": [
+            {
+              "file": "tokenAuthentication.yaml",
+              "name": "Authentication",
+              "HttpVerb": "POST"
+            }]
+        },
+        {
+          "name":"Sorting and Pagination",
+          "file": "paging.html",
+          "staticContent": true
+        },
+        {
+          "name":"Headers",
+          "file": "headers.html",
+          "staticContent": true
+        },
+        {
+          "name":"Errors",
+          "file": "error.html",
+          "staticContent": true
+        },
+        {
+          "name":"Versioning",
+          "file": "versioning.html",
+          "staticContent": true
+        }
+      ]
+    },
+    {
+      "moduleName":"Financial-account",
+      "expanded": true,
+      "apis":[
+        {
+          "name":"Create Account Transaction",
+          "file": "CreateAccountTransactionV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateAccountTransactionV2.yaml",
+              "name": "Create Account Transaction V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Account Balance",
+          "file": "GetAccountBalanceV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "GetAccountBalanceV2GET.yaml",
+              "name": "Get Account Balance V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "GetAccountBalanceV2POST.yaml",
+              "name": "Get Account Balance V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Get Financial Account Details",
+          "file": "GetFinancialAccountDetailsV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetFinancialAccountDetailsV3.yaml",
+              "name": "Get Financial Account Details V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Bank Account",
+          "file": "UpdateBankAccountV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateBankAccountV2PATCH.yaml",
+              "name": "Update Bank Account V2",
+              "HttpVerb": "PATCH"
+            },
+            {
+              "file": "UpdateBankAccountV2POST.yaml",
+              "name": "Update Bank Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Transfer Account To Account",
+          "file": "TransferAccountToAccountV2.yaml",
+          "subApiList": [
+            {
+              "file": "TransferAccountToAccountV2.yaml",
+              "name": "Transfer Account To Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Create Account Transaction",
+          "file": "CreateAccountTransactionV2.yaml",
+          "subApiList": [
+            {
+              "file": "CreateAccountTransactionV2.yaml",
+              "name": "Create Account Transaction V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },        {
+          "name":"Get Statement History",
+          "file": "GetStatementHistoryV3.yaml",
+          "subApiList": [
+            {
+              "file": "GetStatementHistoryV2.yaml",
+              "name": "Get Statement History V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "GetStatementHistoryV3.yaml",
+              "name": "Get Statement History V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Transactions",
+          "file": "SearchTransactionsV2POST.yaml",
+          "subApiList": [
+            {
+              "file": "SearchTransactionsV2GET.yaml",
+              "name": "Search Transactions V2",
+              "HttpVerb": "GET"
+            },
+            {
+              "file": "SearchTransactionsV2POST.yaml",
+              "name": "Search Transactions V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },        {
+          "name":"Check Custom Field Value",
+          "file": "CheckCustomFieldValueV2.yaml",
+          "subApiList": [
+            {
+              "file": "CheckCustomFieldValueV2.yaml",
+              "name": "Check Custom Field Value V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Search Financial Account",
+          "file": "SearchFinancialAccountV3.yaml",
+          "subApiList": [
+            {
+              "file": "SearchFinancialAccountV2.yaml",
+              "name": "Search Financial Account V2",
+              "HttpVerb": "POST"
+            },
+            {
+              "file": "SearchFinancialAccountV3.yaml",
+              "name": "Search Financial Account V3",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Change Account Credit Limit",
+          "file": "ChangeAccountCreditLimitV2.yaml",
+          "subApiList": [
+            {
+              "file": "ChangeAccountCreditLimitV2.yaml",
+              "name": "Change Account Credit Limit V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Acc Statement Code",
+          "file": "UpdateAccStatementCodeV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAccStatementCodeV2.yaml",
+              "name": "Update Account Statement Code V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Change Account billing Cycle",
+          "file": "ChangeAccountbillingCycleV2.yaml",
+          "subApiList": [
+            {
+              "file": "ChangeAccountbillingCycleV2.yaml",
+              "name": "Change Account billing Cycle V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name":"Update Account Balance",
+          "file": "UpdateAccountBalanceV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateAccountBalanceV2.yaml",
+              "name": "Update Account Balance V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Update Bank Account Status",
+          "file": "UpdateBankAccountStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateBankAccountStatusV2.yaml",
+              "name": "Update Bank Account Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Set Direct Debit Account",
+          "file": "SetDirectDebitAccountV2.yaml",
+          "subApiList": [
+            {
+              "file": "SetDirectDebitAccountV2.yaml",
+              "name": "Set Direct Debit Account V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Search Object Memo",
+          "file": "SearchObjectMemoV2.yaml",
+          "subApiList": [
+            {
+              "file": "SearchObjectMemoV2.yaml",
+              "name": "Search Object Memo V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Update Interest Rate Index",
+          "file": "UpdateInterestRateIndexV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateInterestRateIndexV2.yaml",
+              "name": "Update Interest Rate Index V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Set Interest Rate Index",
+          "file": "SetInterestRateIndexV2.yaml",
+          "subApiList": [
+            {
+              "file": "SetInterestRateIndexV2.yaml",
+              "name": "Set Interest Rate Index V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Update Financial Acc Status",
+          "file": "UpdateFinancialAccountStatusV2.yaml",
+          "subApiList": [
+            {
+              "file": "UpdateFinancialAccountStatusV2.yaml",
+              "name": "Update Financial Account Status V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Add Object Memo",
+          "file": "AddObjectMemoV2.yaml",
+          "subApiList": [
+            {
+              "file": "AddObjectMemoV2.yaml",
+              "name": "Add Object Memo V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        },
+        {
+          "name": "Get Account Intrest Details",
+          "file": "GetAccountIntrestV2.yaml",
+          "subApiList": [
+            {
+              "file": "GetAccountIntrestV2.yaml",
+              "name": "Get Account Intrest V2",
+              "HttpVerb": "POST"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

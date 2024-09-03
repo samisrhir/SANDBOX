@@ -1,0 +1,1514 @@
+      # ---- TokenAuthentication definition            
+      TokenAuthentication:
+          type: object
+          properties: 
+            providerLogin: 
+                type: string
+                example: 'firstUser'
+            providerPassword: 
+                type: string
+                example: '$2a$10$AnRf8HJwhDOgvM/7PqXkNOnbyebzUPJFiFvN8wLDoLkKaYAK0dS1e'
+            userLanguage:
+                type: string
+                example: 'en_US'
+            requestInfo:
+                        type: object
+                        $ref: 'aggregate.yaml#/RequestInfo'   
+      #DemoV35Rq:
+      DemoV35Rq: 
+            type: object
+            properties: 
+                 requestInfo:
+                            type: object
+                            $ref: 'aggregate.yaml#/RequestInfo'
+ 
+      #GetMerchantContractDetailRq:
+      GetMerchantContractDetailRq: 
+            type: object
+            properties: 
+                ContractId:
+                        type: string
+                        description:
+                            <p>
+                                 Contract element's internal identification number
+                            </p> 
+            required: [ContractId]                 
+      # ---------------------------- V1 ---------------------------
+      #AddMerchantActivityRq:
+      AddMerchantActivityRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                         
+                merchantActivity:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantActivity'
+                operationType:
+                   type: string
+                   description: <p>The operation type, possible values are 
+                                    <b>ADD</b>  used to add a new merchant activity.
+                                 </p>
+      #AddMerchantAddressRq:
+      AddMerchantAddressRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                           
+                postAddr:
+                    type: object
+                    $ref: 'aggregate.yaml#/PostAddr'
+                operationType:
+                   type: string
+                   description: <p>The operation type, possible values are 
+                                    <b>ADD</b>  used to add a new merchant address.
+                                 </p>            
+      #AddMerchantBankAccountRq:
+      AddMerchantBankAccountRq: 
+            type: object
+            properties:   
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                           
+                bankAcctRec:
+                    type: object
+                    $ref: 'aggregate.yaml#/BankAcctRec'
+                operationType:
+                   type: string
+                   description: <p>The operation type, possible values are 
+                                    <b>ADD</b>  used to add a new bank account.
+                                 </p>     
+      #AddMerchantContactDetailsRq:
+      AddMerchantContactDetailsRq: 
+            type: object
+            properties:   
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                          
+                merchantRepresentative:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantRepresentative'
+                operationType:
+                   type: string
+                   description: <p>The operation type, possible values are 
+                                    <b>ADD</b>  used to add a new bank account.
+                                 </p>
+
+      #AddMerchantSiteRq:
+      AddMerchantSiteRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                merchantSite:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantSite'
+                operationType:
+                   type: string
+                   description: <p>The operation type, possible values are 
+                                    <b>ADD</b>  used to add a new bank account.
+                                 </p>    
+
+      #CloseCaseRq:
+      CloseCaseRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                             
+                caseReference:
+                   type: string
+                   example: 12
+                   description: <p>
+                                    Refer to the reference of the case subject to closing.
+                                    The value transmitted in this field should be already present in <b>CASE_TABLE</b>
+                                 </p>    
+      #CloseEventRq:
+      CloseEventRq: 
+            type: object
+            properties:   
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                          
+                eventReference:
+                   type: string
+                   example: 10
+                   description: <p>
+                                     Should contain the reference of the event subject to cancellation.
+                                     The value of this field must be present in <b>EVENT_TABLE</b> table
+                                 </p>    
+
+      #CreateAcceptorPointRq:
+      CreateAcceptorPointRq: 
+            type: object
+            properties:
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                             
+                merAcceptorPoint:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantAcceptorPoint'
+                contractBasicInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/ContractBasicInformation'
+                operationType:
+                   type: string
+                   description: 
+                        <p>
+                            The operation type, possible values are <br>
+                            <b>ADD</b> For adding a new merchant acceptor point. <br>
+                            <b>UPD</b> For updating an existing merchant acceptor point.
+                        </p>   
+
+      #CreateBasicMerchantRq:
+      CreateBasicMerchantRq: 
+            type: object
+            properties:   
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                       
+                merchantBasicInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantBasicInfo'
+                operationType:
+                   type: string
+                   description: 
+                        <p>
+                            Operation type, possible values are
+                            <b>ADD</b> For adding a new merchant info.
+                        </p> 
+
+      #CreateCaseRq:
+      CreateCaseRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                          
+                CaseData:
+                    type: object
+                    $ref: 'aggregate.yaml#/Case'
+
+      #CreateClaimRq:
+      CreateClaimRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                          
+                claim:
+                    type: object
+                    $ref: 'aggregate.yaml#/Claim'
+
+      #DeleteMerchantContactRq:
+      DeleteMerchantContactRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                           
+                representativeId:
+                    type: string
+                    description: <p>Should contain the identifier of the contact to be deleted</p>                      
+
+      #DeleteMerchantOwnerRq:
+      DeleteMerchantOwnerRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                            
+                representativeId:
+                    type: string
+                    description: <p>Should contain the identifier of the contact to be deleted</p> 
+
+      #GetChainHierarchyRq:
+      GetChainHierarchyRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'              
+
+      #GetLastInfoClaimsRq:
+      GetLastInfoClaimsRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                            
+                startDate:
+                   type: string
+                   description: <p></p>
+
+
+      #GetMerchantDetailRq:
+      GetMerchantDetailRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  a0c806d1-fc8c-446f-ad4f-9775356a2e05
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'
+            required: [rqUID,addUsrIdentif]
+
+      #GetOutletDetailsRq:
+      GetOutletDetailsRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'   
+
+      #GetProductRq:
+      GetProductRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                productCode :
+                    type: string
+                    description: <p>This is the product PowerCARD internal identifier. It is used to link the contract elements to products from which they are derived.</p>
+                productExternalCode :
+                    type: string
+                    description: <p>This is the product PowerCARD external (distributor) identifier. It is used to find a product in the database in case PowerCARD is interfacing with a third-party system that identifies the product with that Id.</p>   
+                productType :
+                    type: string
+                    description: 
+                         <p>
+                            This is the product type. Possible values are <br>
+                            <b>A</b> Acceptance <br>
+                            <b>E</b> Equipment <br>
+                            <b>M</b> Management/Service.
+                         </p> 
+                productName :
+                    type: string
+                    description: <p>This is the product name. It is entered during the technical product definition and inherited at different customization levels. It may be modified during the product customization.</p>                                                              
+
+      #GetRemittanceRq:
+      GetRemittanceRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                linkupCode:
+                   type: string
+                   description: <p>A linkup code is an identification used to group transactions within a remittance or a batch. For instance PowerCARD may allocate a different linkup code to each remittance type ( Pos, Manal, ATM, E Commerce…)</p>
+                batchNumber:
+                   type: string
+                   description: <p>A batch is a collection of transactions, usually a single day’s worth.
+                        Batches can be set at the terminal level as manual or automatic to send at a certain time during the day.
+                        This number can be used to group transactions.
+                        </p> 
+                remittanceSequence:
+                   type: string
+                   description: <p>Refers to the remittance Identification number as stored internally in PowerCARD.</p>                                                
+      #SearchMerchantTransactionRq:
+      SearchMerchantTransactionRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                                                                           
+                rangeDate:
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt' 
+                AmountFrom:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt' 
+                AmountTo:
+                    type: object
+                    $ref: 'aggregate.yaml#/CurAmt'   
+                TrnType:
+                   type: string
+                   description:
+                      <p>
+                           This field refers to the grouping criteria of transactions codes that should be returned. If empty, any transaction can be returned.
+                            Note that PowerCARD transactions can be grouped in different categories for reporting purpose.
+                            This code must be previously defined in the PowerCARD <b>TRANSACTIONS_DEFINITION</b> table under the general parameter section.
+                            Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                      </p> 
+                OrgId:
+                   type: string
+                   description:
+                      <p>
+                        Refers to the corporate identification.
+                        Valid values must be populated from the PowerCARD <b>CORPORATE</b> table under the cardholder section
+                        Valid values must be retrieved  from PowerCARD using the Web Service getReferentialList
+                      </p>  
+                TerminalId:
+                   type: string
+                   description:
+                      <p>
+                         The POS terminal identification criteria
+                      </p> 
+                Network:
+                   type: string
+                   description:
+                      <p>
+                        The network field allows you to specify the network where transactions are made.
+                        It is to mention that this code should be previously defined in the <b>NETWORK</b> table under the general parameter section. To populate the valid values from PowerCARD, the requester must use the Web Service getReferentialList
+                      </p>
+                Territoriality:
+                   type: string
+                   enum: [ONS,NAT,INT]
+                   description : 
+                      <p>
+                           Valid values <br>  
+                            <b>ONS</b> -  On-us, refers to the criteria of transactions that are conducted in a context where the acquirer is also the issuer. <br>
+                            <b>NAT</b> - National, apply only to transactions made in the same country as the issuer country. <br>
+                            <b>INT</b> - International, apply only to transactions that took place outside the cardholder country. <br>
+                      </p>  
+                AcquirerCountry:
+                   type: string
+                   description :   
+                      <p>
+                            Refers to the ISO code of the country where the transaction took place. <br>
+                            It is 3 alphanumeric characters that must be previously retrieved using  getCountriesReferentialList. <br>
+                            The country code is a numerical code identifying nations over the globe. This code should be present in the PowerCARD <b>COUNTRY</b> table under the general parameter section 
+                      </p>                      
+                
+      #SearchClaimsRq:
+      SearchClaimsRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                rangeDate:
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt' 
+                claimId :
+                    type: string
+                    description: <p>If known, the user might specify here the internal Identification number of the claim being requested</p>
+
+      #SearchRemittancesRq:
+      SearchRemittancesRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                rangeDate:
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt'
+
+      #updateAcceptorPointStatusRq:
+      updateAcceptorPointStatusRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                acceptorPointId:
+                   type: string
+                   description: <p>Merchant Acceptor Point internal identification number</p>
+                contractElementId:
+                   type: string
+                   description:
+                        <p>
+                            The merchant contract identifier.
+                            This is field is generated automatically by PowerCARD and used to identify uniquely a merchant contract element in the system.
+                        </p>  
+                activationFlag:
+                   type: string
+                   description:
+                       <p>
+                         It indicates whether the acceptor point is to be activated or not. Possible values are <br>
+                         <b>Y</b> Activated <br>
+                         <b>N</b> Not activated.
+                       </p>
+                statusCode:
+                   type: string
+                   description: 
+                        <p>
+                            Refers to the status of the acceptor point. Possible values are <br>
+                            <b>N</b> Normal <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Closed <br>
+                        </p>  
+                statusReasonCode:
+                   type: string
+                   description: 
+                          <p>
+                                 The reason used to change the status of the acceptor point.
+                                 Status reason code as defined in PowerCARD <b>STATUS_REASON_LIST</b> table. Valid values can be retrieved using the Web Service getReferentialList
+                         </p>
+                statusStartDate:
+                   type: string
+                   description: <p>This field indicate the date from when the status will be effective</p>
+                statusEndDate:
+                   type: string
+                   description: <p>This field indicate the date till when the status will be effective.</p>                                                                                                                                                                
+
+      #updateMerchantAccountStatusRq:
+      updateMerchantAccountStatusRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                accountNumber:
+                   type: string
+                   description: <p>It refers to the bank account number.</p>
+                statusCode:
+                   type: string
+                   description: 
+                        <p>
+                            Account status possible values are <br>
+                            <b>N</b> Normal,<br>
+                            <b>C</b> Cancelled,
+                        </p>                   
+
+      #updateMerchantActivityRq:
+      updateMerchantActivityRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                merchantActivity:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantActivity'                                       
+                    
+      #updateMerchantActivityStatusRq:
+      updateMerchantActivityStatusRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                activityId:
+                   type: string
+                   description: 
+                        <p>
+                            The activity identifier.
+                            This is an internal code generated by PowerCARD, it is used to identify uniquely the merchant activity.
+                        </p>   
+                statusCode:
+                   type: string
+                   description: 
+                        <p>
+                            The activity status, this field is used to indicate the status of the activity. 
+                            Possible values are <br>
+                            <b>N</b> Normal   <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Closed <br>
+                        </p>  
+                statusReasonCode:
+                   type: string
+                   description: 
+                        <p>
+                            The reason used to change the status of the activity.
+                            Status reason code as defined in PowerCARD <b>STATUS_REASON_LIST</b> table. Valid values can be retrieved using the Web Service getReferentialList
+                        </p>  
+                statusStartDate:
+                   type: string
+                   description: 
+                        <p>
+                            This field indicate the date from when the status will be effective.
+                        </p> 
+                statusEndDate:
+                   type: string
+                   description: 
+                        <p>
+                           This field indicate the date till when the status will be effective.
+                        </p>                                               
+
+      #UpdateMerchantAddressDetailsRq:
+      UpdateMerchantAddressDetailsRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                phoneNumList:
+                    type: array
+                    items:
+                        type: object
+                        $ref: 'aggregate.yaml#/PhoneNum'
+                postAddrList:
+                    type: array
+                    items:
+                        type: object
+                        $ref: 'aggregate.yaml#/PostAddr'                                                
+                sendingMode:
+                   type: string
+                   description: 
+                       <p>
+                         The defined values are <br>
+                            <b>M</b> Mail <br>
+                            <b>F</b> Fax  <br>
+                            <b>E</b> Email <br>
+                       </p>   
+                webUrl:
+                   type: string
+                   description: 
+                       <p>
+                          The merchant web site
+                       </p> 
+                email:
+                   type: string
+                   description: 
+                       <p>
+                         The merchant email
+                       </p>
+                addressIndicator:
+                   type: string
+                   description: 
+                       <p>
+                        Used to indicate whether the address being sent is a principal or a secondary address. Possible values are as follow <br>
+                        <b>P</b> Principal address, each entity must have only one Principal address  <br>
+                        <b>S</b> Secondary address. It is to mention that there is no limitation as to the number of secondary addresses that an entity (Customer, cardholder, merchant, chain…) could have in the system <br>
+                       </p>   
+
+      #UpdateMerchantAddressStatusRq:
+      UpdateMerchantAddressStatusRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                addressId:
+                   type: string
+                   description: 
+                       <p>
+                           Internal Identification of the addresses as generated by PowerCARD.
+                       </p>
+                addressListId:
+                   type: string
+                   description: 
+                       <p>
+                       Address list ID automatically generated by the system at the address creation
+                       </p> 
+                statusCode:
+                   type: string
+                   description: 
+                       <p>
+                            Status code of the address
+                            Possible values are <br>
+                            <b>N</b> Normal <br>
+                            <b>C</b> Cancelled
+                       </p>  
+                validityRangeDate:
+                    type: object
+                    $ref: 'aggregate.yaml#/SelRangeDt'                                                                                              
+                        
+      #UpdateMerchantBankAccountRq:
+      UpdateMerchantBankAccountRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                bankAcctRec:
+                    type: object
+                    $ref: 'aggregate.yaml#/BankAcctRec'                      
+                entityCode:
+                   type: string
+                   description: 
+                       <p>
+                             Account type. This field must contain one of the following values, either the account will be linked to an internal merchant account or to an internal chain account <br>
+                            <b>MT</b> Merchant Account <br>
+                            <b>CT</b> Chain Account
+                       </p> 
+                accountType:
+                   type: string
+                   description: 
+                       <p>
+                            Account type
+                            Refers to the type of the account.
+                            Possible values can be downloaded from the PowerCARD <b>ACCOUNT_TYPE_LIST</b> table under the general parameter section using the Web Service getReferentialList
+                       </p>  
+                privateData1:
+                   type: string
+                   description: 
+                       <p>
+                          Private data reserved for future usage.
+                       </p>                                                                        
+
+      #UpdateMerchantContactDetailsRq:
+      UpdateMerchantContactDetailsRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                phoneNumList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/PhoneNum'                      
+                merchantRepresentative:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantRepresentative'
+
+      #UpdateMerchantContractRq:
+      UpdateMerchantContractRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                productCode:
+                    type: string
+                    description: <p></p>                 
+                characteristicList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ProductContext'
+                serviceOptionList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ProductContext'                       
+                chargingConditionList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/ChargingCondition'
+                settlementConditionList:
+                    type: array
+                    items:
+                       type: object
+                       $ref: 'aggregate.yaml#/SettlementCondition'
+
+      #UpdateMerchantContractStatusRq:
+      UpdateMerchantContractStatusRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                contractElementId:
+                    type: string
+                    description:
+                        <p>
+                            The merchant contract identifier.
+                            This is field is generated automatically by PowerCARD and used to identify uniquely a merchant contract element in the system.
+                        </p> 
+                contractActivationIndicator:
+                    type: string
+                    description:
+                       <p>
+                            It indicates whether the contract is activated or not. Possible values are <br>
+                            <b>Y</b> Activated <br>
+                            <b>N</b> Not activated.  <br>
+                       </p>  
+                statusCode:
+                    type: string
+                    description:
+                        <p>
+                            Refers to the status of the contract. Possible values are <br>
+                            values are <br>
+                            <b>N</b> Normal <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Cancelled
+                        </p>
+                statusReasonCode:
+                    type: string
+                    description: 
+                        <p>
+                          The reason used to change the status of the merchant contract.
+                            Status reason code as defined in PowerCARD <b>'STATUS_REASON_LIST'</b> table. Valid values can be retrieved using the Web Service getReferentialList
+                        </p>  
+                statusStartDate:
+                    type: string
+                    description: <p>This field indicate the date from when the status will be effective.</p> 
+                statusEndDate:
+                    type: string
+                    description: <p>This field indicate the date till when the status will be effective</p>                                                                                                             
+
+      #UpdateMerchantDescriptionRq:
+      UpdateMerchantDescriptionRq: 
+            type: object
+            properties: 
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'                
+                merchantCommonInfo:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantCommonInfo'
+
+      #UpdateMerchantSiteRq:
+      UpdateMerchantSiteRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                merchantSite:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantSite' 
+
+      #UpdateMerchantStatusRq:
+      UpdateMerchantStatusRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'               
+                statusCode:
+                    type: string
+                    description: 
+                        <p> 
+                             The merchant status, this field is used to indicate the status of the merchant. 
+                            Possible values are <br>
+                            <b>N</b> Normal  <br>
+                            <b>M</b> Monitored  <br>
+                            <b>S</b> Suspended <br>
+                            <b>C</b> Closed  <br>
+                        </p>   
+                statusReasonCode:
+                    type: string
+                    description: 
+                        <p> 
+                            The reason used to change the status of the merchant.
+                            Status reason code as defined in PowerCARD <b>STATUS_REASON_LIST</b> table. Valid values can be retrieved using the Web Service getReferentialList
+                        </p>
+                statusStartDate:
+                    type: string
+                    description: 
+                        <p> 
+                            This field indicate the date from when the status will be effective.
+                        </p>
+                statusEndDate:
+                    type: string
+                    description: 
+                        <p> 
+                           This field indicate the date till when the status will be effective.
+                        </p> 
+
+      #ValidateMerchantRq:
+      ValidateMerchantRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'                                                              
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'   
+
+      #getCaseRq:
+      getCaseRq: 
+            type: object
+            properties:  
+                rqUID:
+                    type: string
+                    description:
+                            <p>
+                                    Request Identifier. Sent by a client as a universally unique identifier for the message.
+                                    The generation mask should be the following
+                                    <b>XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX</b>
+                                    Used to match response with request messages.
+                            </p>
+                    example:  12345678-abdcABCD-09876543-abcdefgh
+                addUsrIdentif:
+                    type: object
+                    $ref: 'aggregate.yaml#/AddUsrIdentif'
+                customerInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/CustInfo'
+                merchantInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/MerchantInfo'
+                agentInformation:
+                    type: object
+                    $ref: 'aggregate.yaml#/AgentInfo'
+                CaseReference:
+                    type: string
+                    description:
+                       <p>
+                        Should contain the reference of the case.
+                        This value must be present in <b>CASE_TABLE</b> table.
+                       </p>
+                
+
+
+                                                                                                       

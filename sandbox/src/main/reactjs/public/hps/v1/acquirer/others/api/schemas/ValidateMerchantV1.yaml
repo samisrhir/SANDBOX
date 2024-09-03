@@ -1,0 +1,87 @@
+openapi: "3.0.3"
+info:
+  title: PowerCARD-Acquirer API documentation
+  description: This reference lists the new, enhanced, and removed features, resolved and known issues, documentation notes, and documentation updates in this release 4.2 of Connect’API.
+  version: PowerCARD 3.2-apiR4.2
+servers:
+  - url: https://sandbox.connectapi.hps-worldwide.com/PowerCardConnectApi/rest
+    description: Development server
+paths:
+  # ------- validateMerchant
+  /ValidateMerchant/V1:
+    post:
+      description:  <h3>API Overview</h3>
+                    <p>The validate merchant API provides functionality to validate a merchant application record created during a merchant enrollment process. The API is responsible of moving the merchant details from the application tables to the final merchant database. Any missing or wrong information provided during the initial process may case a rejection of the application. Users are then required to modify the wrong data and submit for a further validation.</p>
+                    <h3>Functional Description</h3>
+                    <img  src="./docs/validateMerchant.png" />
+                  
+      summary: The validate merchant API provides functionality to validate a merchant application...
+      tags:
+        - Validate Merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantRq'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ValidateMerchantRq'
+      responses:  
+         200:
+          description:
+                  <div>
+                          Successful
+                          <p>Business Error Codes &#58;</p>
+                           <table>
+                                <tr>
+                                  <th>Error code</th>
+                                  <th>Error Description</th>
+                                </tr>
+                                <tr> 
+                                  <td>09101</td>
+                                  <td>Invalid merchant number</td>
+                                </tr>
+                                <tr> 
+                                  <td>09102</td>
+                                  <td>Invalid bank code</td>
+                                </tr>						
+                           </table>
+                  </div> 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateMerchantRs'                                                                                           
+# Components definition
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 
+          <div>
+               <h5>Api key authorization</h5>
+               <p>JWT authorization header using Bearer scheme. Example &#8282; "Authorization &#8282; Bearer {token}"</p>
+               <table>
+                  <tr>
+                      <td>Name &#8282;</td>
+                      <td>Authorization</td>
+                  </tr>
+                   <tr>
+                      <td>In &#8282;</td>
+                      <td>Header</td>
+                  </tr>
+                </table>
+          </div>      
+  schemas:
+    # --- Import ValidateMerchant request and response 
+      ValidateMerchantRq:
+               $ref: 'request.yaml#/ValidateMerchantRq'  
+      ValidateMerchantRs:
+               $ref: 'response.yaml#/ValidateMerchantRs'                                                                                          
+security:
+  - bearerAuth: []
+
+
+
